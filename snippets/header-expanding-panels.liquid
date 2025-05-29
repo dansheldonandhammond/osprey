@@ -1,0 +1,198 @@
+<!-- Hamburger Button (mobile/tablet only) -->
+<button id="menu-toggle" class="menu-toggle" aria-label="Open menu">
+  <span class="svg-wrapper">{{ 'icon-hamburger.svg' | inline_asset_content }}</span>
+</button>
+
+<!-- Drawer Menu -->
+<div class="menu-drawer">
+  <button id="menu-close" class="menu-close" aria-label="Close menu">
+    <span class="svg-wrapper">{{ 'icon-close.svg' | inline_asset_content }}</span>
+  </button>
+  <ul class="menu-list" role="list">
+    {%- for link in section.settings.menu.links -%}
+      <li>
+        {%- if link.links != blank -%}
+          <header-menu>
+            <details id="Details-HeaderMenu-{{ forloop.index }}" class="mega-menu">
+              <summary
+                id="HeaderMenu-{{ link.handle }}"
+                class="header__menu-item list-menu__item link focus-inset"
+              >
+                <span
+                  {%- if link.child_active %}
+                    class="header__active-menu-item"
+                  {% endif %}
+                >
+                  {{- link.title | escape -}}
+                </span>
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </summary>
+              <div
+                id="MegaMenu-Content-{{ forloop.index }}"
+                class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
+                tabindex="-1"
+              >
+                <ul
+                  class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
+                  role="list"
+                >
+                  {%- for childlink in link.links -%}
+                    <li>
+                      <a
+                        id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
+                        href="{{ childlink.url }}"
+                        class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}"
+                        {% if childlink.current %}
+                          aria-current="page"
+                        {% endif %}
+                      >
+                        {{ childlink.title | escape }}
+                      </a>
+                      {%- if childlink.links != blank -%}
+                        <ul class="list-unstyled" role="list">
+                          {%- for grandchildlink in childlink.links -%}
+                            <li>
+                              <a
+                                id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                href="{{ grandchildlink.url }}"
+                                class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
+                                {% if grandchildlink.current %}
+                                  aria-current="page"
+                                {% endif %}
+                              >
+                                {{ grandchildlink.title | escape }}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </details>
+          </header-menu>
+        {%- else -%}
+          <a
+            id="HeaderMenu-{{ link.handle }}"
+            href="{{ link.url }}"
+            class="header__menu-item list-menu__item link link--text focus-inset"
+            {% if link.current %}
+              aria-current="page"
+            {% endif %}
+          >
+            <span
+              {%- if link.current %}
+                class="header__active-menu-item"
+              {% endif %}
+            >
+              {{- link.title | escape -}}
+            </span>
+          </a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+<div id="menu-backdrop" class="menu-backdrop"></div>
+
+<style>
+  .menu-toggle {
+    display: block;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1101;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .menu-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 90vw;
+    height: 100vh;
+    background: #fff;
+    box-shadow: 2px 0 16px #cccccc;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1102;
+    overflow-y: auto;
+    padding: 2rem 1rem 1rem 1rem;
+  }
+  .menu-drawer.open {
+    transform: translateX(0);
+  }
+  .menu-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #888888;
+    z-index: 1100;
+  }
+  .menu-backdrop.open {
+    display: block;
+  }
+  .menu-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  @media (min-width: 990px) {
+    .menu-toggle,
+    .menu-drawer,
+    .menu-backdrop {
+      display: none !important;
+    }
+  }
+  .menu-list,
+  .menu-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .menu-link {
+    display: block;
+    padding: 0.75rem 0;
+    color: #222;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .menu-link:hover {
+    color: #0073e6;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var drawer = document.getElementById('menu-drawer');
+    var backdrop = document.getElementById('menu-backdrop');
+    var openBtn = document.getElementById('menu-toggle');
+    var closeBtn = document.getElementById('menu-close');
+
+    function openMenu() {
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    backdrop.addEventListener('click', closeMenu);
+
+    // Optional: close on ESC key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+  });
+</script>

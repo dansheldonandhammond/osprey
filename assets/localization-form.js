@@ -38,18 +38,18 @@ if (!customElements.get('localization-form')) {
         this.querySelectorAll('a').forEach((item) => item.addEventListener('click', this.onItemClick.bind(this)));
       }
 
-      hidePanel() {
-        this.elements.button.setAttribute('aria-expanded', 'false');
-        this.elements.panel.setAttribute('hidden', true);
-        if (this.elements.search) {
-          this.elements.search.value = '';
-          this.filterCountries();
-          this.elements.search.setAttribute('aria-activedescendant', '');
-        }
-        document.body.classList.remove('overflow-hidden-mobile');
-        document.querySelector('.menu-drawer').classList.remove('country-selector-open');
-        this.header.preventHide = false;
-      }
+      // hidePanel() {
+      //   this.elements.button.setAttribute('aria-expanded', 'false');
+      //   this.elements.panel.setAttribute('hidden', true);
+      //   if (this.elements.search) {
+      //     this.elements.search.value = '';
+      //     this.filterCountries();
+      //     this.elements.search.setAttribute('aria-activedescendant', '');
+      //   }
+      //   document.body.classList.remove('overflow-hidden-mobile');
+      //   document.querySelector('.menu-drawer').classList.remove('country-selector-open');
+      //   this.header.preventHide = false;
+      // }
 
       onContainerKeyDown(event) {
         const focusableItems = Array.from(this.querySelectorAll('a')).filter(

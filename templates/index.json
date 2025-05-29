@@ -1,210 +1,189 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Image banner",
-            "heading_size": "h0"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text",
-        "button"
-      ],
+    "header_override_Vj6ezh": {
+      "type": "header-override",
+      "name": "Header Override",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "override_enabled": true,
+        "header_position": "absolute",
+        "header_background": "black-transparent",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "transparent"
       }
     },
-    "rich_text": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text"
-      ],
+    "main_banner_TLYdfh": {
+      "type": "main-banner",
+      "name": "t:sections.image-banner.presets.name",
       "settings": {
-        "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 40,
+        "video_url": "",
+        "mobile_image_horizontal_axis": 50,
+        "mobile_image_vertical_axis": 50,
+        "desktop": "shopify://shop_images/osprey-banner-1.jpg",
+        "desktop_image_horizontal_axis": 50,
+        "desktop_image_vertical_axis": 100,
+        "hero_banner_height_mobile_tablet": 650,
+        "hero_banner_height_laptop": 650,
+        "hero_banner_height_large_laptop": 650,
+        "hero_banner_height_desktop": 650,
+        "image_behavior": "none"
+      }
+    },
+    "info_logos_section_6rDDhq": {
+      "type": "info-logos-section",
+      "name": "Info Logos Section",
+      "settings": {}
+    },
+    "custom_liquid_nVzNfQ": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "</script>",
+        "color_scheme": "",
+        "padding_top": 0,
         "padding_bottom": 0
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "show_view_all": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "columns_mobile": "2",
-        "padding_top": 28,
-        "padding_bottom": 36
-      }
-    },
-    "collage": {
-      "type": "collage",
+    "discover_new_arrivals_pfAhW7": {
+      "type": "slider",
       "blocks": {
-        "collection-0": {
-          "type": "collection",
+        "new_arrival_slide_UGCeGH": {
+          "type": "new_arrival_slide",
           "settings": {
-            "collection": ""
+            "image": "shopify://shop_images/00314pvc.png",
+            "title": "New | Colours",
+            "link": "",
+            "button_text": "Discover Now"
           }
         },
-        "product": {
-          "type": "product",
+        "new_arrival_slide_WgVbKV": {
+          "type": "new_arrival_slide",
           "settings": {
-            "product": "",
-            "second_image": false
+            "image": "shopify://shop_images/qfvvj85n.png",
+            "title": "Talon | Tempest",
+            "link": "/",
+            "button_text": "Discover Now"
           }
         },
-        "collection-1": {
-          "type": "collection",
+        "new_arrival_slide_Eg88ki": {
+          "type": "new_arrival_slide",
           "settings": {
-            "collection": ""
+            "image": "shopify://shop_images/4nfy4s17.png",
+            "title": "Transporter",
+            "link": "",
+            "button_text": "Discover Now"
+          }
+        },
+        "new_arrival_slide_yQjQrT": {
+          "type": "new_arrival_slide",
+          "settings": {
+            "image": "shopify://shop_images/kyn4fyhk.png",
+            "title": "Poco Soft Carrier",
+            "link": "",
+            "button_text": "Discover Now"
+          }
+        },
+        "new_arrival_slide_7qpeQr": {
+          "type": "new_arrival_slide",
+          "settings": {
+            "image": "shopify://shop_images/rexid06v.png",
+            "title": "Raptor | Raven",
+            "link": "",
+            "button_text": "Discover Now"
+          }
+        },
+        "new_arrival_slide_VUExeU": {
+          "type": "new_arrival_slide",
+          "settings": {
+            "image": "shopify://shop_images/ljsugkqf.png",
+            "title": "Escapist | Velocity",
+            "link": "",
+            "button_text": "Discover Now"
           }
         }
       },
       "block_order": [
-        "collection-0",
-        "product",
-        "collection-1"
+        "new_arrival_slide_UGCeGH",
+        "new_arrival_slide_WgVbKV",
+        "new_arrival_slide_Eg88ki",
+        "new_arrival_slide_yQjQrT",
+        "new_arrival_slide_7qpeQr",
+        "new_arrival_slide_VUExeU"
       ],
+      "name": "Discover New Arrivals",
       "settings": {
-        "heading": "Multimedia collage",
-        "heading_size": "h2",
-        "desktop_layout": "left",
-        "mobile_layout": "collage",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "new_arrivals_title": "Discover New Arrivals"
       }
     },
-    "video": {
-      "type": "video",
+    "shop_by_category_89cP4X": {
+      "type": "shop-by-category",
+      "name": "Shop by Category",
+      "settings": {}
+    },
+    "home_video_section_kw9iLe": {
+      "type": "home-video-section",
+      "name": "Home Video Section",
       "settings": {
-        "heading": "",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "heading_size": "h1",
-        "description": "",
-        "full_width": false,
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "vimeo_video_id": "1059835402",
+        "video_title": "S25 Homepage Launch Video"
       }
     },
-    "multicolumn": {
-      "type": "multicolumn",
-      "blocks": {
-        "column1": {
-          "type": "column",
-          "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column2": {
-          "type": "column",
-          "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column3": {
-          "type": "column",
-          "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "column1",
-        "column2",
-        "column3"
-      ],
+    "almighty_guarantee_section_dHi3Pm": {
+      "type": "almighty-guarantee-section",
+      "name": "Almighty Guarantee Section",
       "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "none",
-        "button_label": "",
-        "button_link": "",
-        "swipe_on_mobile": false,
-        "color_scheme": "scheme-1",
-        "columns_mobile": "1",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "background_image": "shopify://shop_images/HOOSE-1368-d-amg-banner_1.webp",
+        "icon_image": "shopify://shop_images/HOOSE-1368-d-amg-icon.webp",
+        "headline": "We only create high-quality products and back them with our All Mighty Guarantee™",
+        "button_text": "Find out More",
+        "button_link": "/",
+        "text_block_top_default_margin": 10,
+        "text_block_bottom_default_margin": 10,
+        "text_block_top_large_margin": 0,
+        "text_block_bottom_large_margin": 0
+      }
+    },
+    "osprey_ambassadors_rnPPVQ": {
+      "type": "osprey-ambassadors",
+      "name": "Osprey Ambassadors",
+      "settings": {}
+    },
+    "osprey_blog_6JJyc4": {
+      "type": "osprey-blog",
+      "name": "Osprey Blog Slider",
+      "settings": {
+        "heading": "Osprey Blog",
+        "view_all_link": ""
+      }
+    },
+    "social_proof_88bEgG": {
+      "type": "social-proof",
+      "name": "Social Proof Section",
+      "settings": {
+        "social_proof_title": "#ospreypacks",
+        "social_proof_subtitle": "Share your adventures with @ospreyAustralia"
       }
     }
   },
   "order": [
-    "image_banner",
-    "rich_text",
-    "featured_collection",
-    "collage",
-    "video",
-    "multicolumn"
+    "header_override_Vj6ezh",
+    "main_banner_TLYdfh",
+    "info_logos_section_6rDDhq",
+    "custom_liquid_nVzNfQ",
+    "discover_new_arrivals_pfAhW7",
+    "shop_by_category_89cP4X",
+    "home_video_section_kw9iLe",
+    "almighty_guarantee_section_dHi3Pm",
+    "osprey_ambassadors_rnPPVQ",
+    "osprey_blog_6JJyc4",
+    "social_proof_88bEgG"
   ]
 }

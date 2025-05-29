@@ -1,0 +1,166 @@
+{% schema %}
+{
+  "name": "New Arrivals Showcase",
+  "settings": [
+    {
+      "type": "text",
+      "id": "new_arrivals_title",
+      "label": "New Arrivals Title",
+      "default": "Discover New Arrivals"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "new_arrival_slide",
+      "name": "New Arrival Slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Slide Image" },
+        { "type": "text", "id": "title", "label": "Slide Title" },
+        { "type": "url", "id": "link", "label": "Slide Link" },
+        { "type": "text", "id": "button_text", "label": "Button Label", "default": "Discover Now" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "New Arrivals Carousel",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="t-flex  t-flex-row t-gap-[20px] t-justify-center t-items-center">
+  <h2 class="t-text-center t-font-bold t-text-header-2 t-mt-[80px] t-mb-[35px] t-leading-[1]">
+    {{ section.settings.new_arrivals_title }}
+  </h2>
+
+  <div class="t-relative t-h-[full]">
+    <div class="t-absolute t-top-[5px] t-right-[-240px] t-z-[1] t-flex t-gap-2 t-p-4 t-w-[100px] t-justify-center t-items-center">
+      <div
+        class="swiper-button-prev t-w-[40px] t-h-[40px] t-text-black t-flex t-items-center t-justify-center transition"
+      ></div>
+      <div
+        class="swiper-button-next t-w-[40px] t-h-[40px] t-text-black t-flex t-items-center t-justify-center transition"
+      ></div>
+    </div>
+  </div>
+</div>
+
+<!-- Tablet & Mobile Grid Layout -->
+<div class="t-grid t-grid-cols-2 md:t-grid-cols-3 t-gap-[16px] md:t-gap-[25px] t-px-[24px] lg:t-hidden">
+  {% for block in section.blocks %}
+    {% if block.type == 'new_arrival_slide' %}
+      <div class="t-relative t-rounded t-shadow-sm t-overflow-hidden">
+        <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="t-w-full t-h-auto">
+        <div class="t-absolute t-bottom-0 t-left-0 t-p-[20px] t-text-white t-bg-gradient-to-t t-from-black/70 t-to-transparent">
+          <h3 class="t-text-header-4 t-font-bold t-mb-2 ">{{ block.settings.title }}</h3>
+          <a
+            href="{{ block.settings.link }}"
+            class="t-inline-block t-bg-white t-text-black t-text-sm t-uppercase t-font-medium t-px-[25px] t-py-[12px] hover:t-bg-gray-900 hover:t-text-white t-transition"
+          >
+            {{ block.settings.button_text }}
+          </a>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<!-- Desktop Swiper Carousel -->
+<div class="new-arrivals-swiper t-max-w-[1308px] t-overflow-hidden t-mx-auto t-my-10 t-mb-[80px] t-pb-[23px] ">
+  <!-- Arrows -->
+
+  <div class="swiper-wrapper t-h-[456px] t-mx-auto">
+    {% for block in section.blocks %}
+      {% if block.type == 'new_arrival_slide' %}
+        <div class="swiper-slide t-relative t-text-white">
+          <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="t-w-full">
+          <div class="t-absolute t-bottom-0 t-p-[20px]">
+            <h3 class="t-text-header-4 t-font-bold t-text-white">{{ block.settings.title }}</h3>
+            <a
+              href="{{ block.settings.link }}"
+              class="t-text-[1.3rem] t-font-[400] t-no-underline t-uppercase t-inline-block t-text-black t-bg-white hover:t-bg-grey t-py-[18px] t-px-[35px] t-transition t-duration-300 hover:t-text-white t-tracking-[2px]"
+            >
+              {{ block.settings.button_text }}
+            </a>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- Swiper Pagination Bar -->
+  <div
+    class="swiper-pagination t-w-full t-max-w-full t-h-[8px] t-rounded-full t-bg-gray-200 t-relative t-overflow-hidden t-mx-auto t-z-[1]"
+  ></div>
+
+  <style>
+    .swiper-horizontal > .swiper-pagination-progressbar,
+    .swiper-pagination-progressbar.swiper-pagination-horizontal {
+      bottom: 0;
+      top: unset;
+    }
+
+    .swiper-pagination.swiper-pagination-horizontal {
+      margin: 0 auto;
+    }
+    /* Position arrows top right */
+    .new-arrivals-swiper {
+      position: relative;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      top: 0 !important;
+      bottom: auto !important;
+      transform: none !important;
+      margin-top: 0 !important;
+    }
+    .swiper-button-prev {
+      right: 130px;
+      left: auto !important;
+    }
+    .swiper-button-next {
+      right: 10px;
+      left: auto !important;
+    }
+    @media (max-width: 1023px) {
+      .swiper-button-prev,
+      .swiper-button-next {
+        display: none !important;
+      }
+      .swiper-pagination {
+        margin-top: 16px;
+      }
+    }
+    .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+      background: #d9d9d9;
+      border-radius: 100px;
+    }
+
+    .swiper-wrapper {
+      padding-bottom: 24px;
+    }
+
+    .swiper-pagination-track {
+      position: relative;
+      background-color: #fff;
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-pagination-indicator {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background-color: #d9d9d9;
+      border-radius: 9999px;
+      transition: left 1s cubic-bezier(0.16, 1, 0.3, 1), width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      font-size: 40px;
+    }
+  </style>
+</div>

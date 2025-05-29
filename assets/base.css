@@ -86,9 +86,9 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   max-width: 100%;
 }
 
-.page-width.drawer-menu {
+/* .page-width.drawer-menu {
   max-width: 100%;
-}
+} */
 
 .page-width-desktop {
   padding: 0;
@@ -2314,14 +2314,10 @@ input[type='checkbox'] {
   z-index: 3;
 }
 
-.shopify-section-header-sticky {
-  position: sticky;
-  top: 0;
-}
 
-.shopify-section-header-hidden {
-  top: calc(-1 * var(--header-height));
-}
+/* .shopify-section-header-hidden {
+  top: 0;
+} */
 
 .shopify-section-header-hidden.menu-open {
   top: 0;
@@ -2340,11 +2336,10 @@ input[type='checkbox'] {
 }
 
 /* Main Header Layout */
-.header-wrapper {
+/* .header-wrapper {
   display: block;
-  position: relative;
   background-color: rgb(var(--color-background));
-}
+} */
 
 .header-wrapper--border-bottom {
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
@@ -2450,7 +2445,7 @@ input[type='checkbox'] {
   color: rgba(var(--color-foreground), 0.75);
 }
 
-.header__heading-logo {
+/* .header__heading-logo {
   height: auto;
   max-width: 100%;
 }
@@ -2459,7 +2454,7 @@ input[type='checkbox'] {
   width: 100%;
   display: inline-block;
   transition: width 0.3s cubic-bezier(0.52, 0, 0.61, 0.99);
-}
+} */
 
 @media screen and (max-width: 989px) {
   .header__heading,
@@ -2532,7 +2527,7 @@ input[type='checkbox'] {
 }
 
 .header__icon .svg-wrapper {
-  width: 44px;
+  width: 22px;
   height: 44px;
 }
 
@@ -2555,7 +2550,7 @@ input[type='checkbox'] {
 .header__icon,
 .header__icon--cart .icon {
   height: 4.4rem;
-  width: 4.4rem;
+  width: auto;
   padding: 0;
 }
 
@@ -2931,11 +2926,11 @@ details-disclosure > details {
   word-break: break-word;
 }
 
-.gradient {
+/* .gradient {
   background: rgb(var(--color-background));
   background: var(--gradient-background);
   background-attachment: fixed;
-}
+} */
 
 @media screen and (forced-colors: active) {
   .icon {

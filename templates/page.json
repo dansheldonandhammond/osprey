@@ -1,14 +1,74 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-page",
+      "settings": {}
+    },
+    "header_override_wBUJXg": {
+      "type": "header-override",
+      "name": "Header Override",
       "settings": {
-        "padding_top": 28,
-        "padding_bottom": 28
+        "override_enabled": true,
+        "header_position": "absolute",
+        "header_background": "black-transparent",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "black"
+      }
+    },
+    "collection_banner_c8Nrpz": {
+      "type": "collection-banner",
+      "blocks": {
+        "heading_7Wm7M4": {
+          "type": "heading",
+          "settings": {
+            "heading_block_heading_text": "Lorem Ipsum Dolor Sit Amet",
+            "heading_block_text_color": "white",
+            "heading_block_heading_tag": "h2",
+            "heading_block_heading_size_default": "1.9rem",
+            "heading_block_heading_size_large": "3.2rem",
+            "heading_block_heading_size_extra_large": "3.2rem",
+            "heading_block_font_weight": "t-font-semibold",
+            "heading_block_heading_case": "t-uppercase",
+            "heading_block_heading_font": "font-secondary",
+            "heading_block_top_default_padding": 10,
+            "heading_block_bottom_default_padding": 10,
+            "heading_block_top_large_padding": 15,
+            "heading_block_bottom_large_padding": 15,
+            "heading_block_max_width": 1920
+          }
+        }
+      },
+      "block_order": [
+        "heading_7Wm7M4"
+      ],
+      "name": "Collection Hero Banner",
+      "settings": {
+        "video_url": "",
+        "mobile_image_horizontal_axis": 50,
+        "mobile_image_vertical_axis": 50,
+        "desktop": "{{ page.metafields.custom.featured_banner_image.value }}",
+        "desktop_image_horizontal_axis": 50,
+        "desktop_image_vertical_axis": 50,
+        "hero_banner_height_mobile_tablet": 500,
+        "hero_banner_height_laptop": 500,
+        "hero_banner_height_large_laptop": 725,
+        "hero_banner_height_desktop": 725,
+        "image_behavior": "none"
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "header_override_wBUJXg",
+    "collection_banner_c8Nrpz"
   ]
 }

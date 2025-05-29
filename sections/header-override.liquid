@@ -1,0 +1,152 @@
+{% if section.settings.override_enabled %}
+  <style>
+      {% comment %} Header Color {% endcomment %}
+      .header {
+      {% if section.settings.header_background == 'black-transparent' %}
+        background-color: rgba(0, 0, 0, 0.5) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter:
+        blur(12px) !important;
+      {% elsif section.settings.header_background == 'white' %}
+        background: #fff;
+      {% elsif section.settings.header_background == 'black' %}
+        background: #000;
+      {% else %}
+        background: transparent;
+      {% endif %}
+    }
+  </style>
+
+  {% comment %} Header Position {% endcomment %}
+  {% if section.settings.header_position == 'absolute' %}
+    <style>
+      .header-wrapper {
+        position: absolute;
+      }
+    </style>
+  {% elsif section.settings.header_position == 'relative' %}
+    <style>
+      .header-wrapper {
+        position: relative;
+      }
+    </style>
+  {% endif %}
+
+  {% comment %} Header Text Colour  {% endcomment %}
+
+  {% if section.settings.navigation_text_colour == 'white' %}
+    <style>
+      .parent-menu-item,
+      .parent-menu-item {
+        color: #fff !important;
+      }
+
+      .main-navigation ul li::after,
+      .main-navigation .header__icon::after {
+        background-color: white;
+      }
+
+      img.c-header__logo.parent-menu-item {
+        filter: invert(1);
+      }
+    </style>
+  {% elsif section.settings.navigation_text_colour == 'black' %}
+    <style>
+      .parent-menu-item,
+      .main-navigation svg {
+        color: #000 !important;
+      }
+
+      .main-navigation ul li::after,
+      .main-navigation .header__icon::after {
+        background-color: black;
+      }
+    </style>
+  {% endif %}
+
+  {% comment %} Header Sticky {% endcomment %}
+  {% if section.settings.header_position == 'absolute' %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const header = document.querySelector('.header-wrapper');
+        if (typeof StickyHeader !== 'undefined' && header) {
+          const stickyHeader = new StickyHeader(header);
+          stickyHeader.init();
+        }
+      });
+    </script>
+  {% endif %}
+
+  {% if section.settings.bottom_border_colour == 'transparent' %}
+    <style>
+      .header {
+        border-bottom: 1px solid transparent !important;
+      }
+    </style>
+  {% elsif section.settings.bottom_border_colour == 'black' %}
+    <style>
+      .header {
+        border-bottom: 1px solid black !important;
+      }
+    </style>
+  {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Header Overrides",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "override_enabled",
+      "label": "Enable Header Override",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "header_position",
+      "label": "Header Position",
+      "options": [
+        { "value": "relative", "label": "relative" },
+        { "value": "absolute", "label": "absolute" }
+      ],
+      "default": "relative"
+    },
+    {
+      "type": "select",
+      "id": "header_background",
+      "label": "Header Background",
+      "options": [
+        { "value": "transparent", "label": "Transparent" },
+        { "value": "black-transparent", "label": "Black with Transparency" },
+        { "value": "white", "label": "White" },
+        { "value": "black", "label": "Black" }
+      ],
+      "default": "black"
+    },
+    {
+      "type": "select",
+      "id": "navigation_text_colour",
+      "label": "Navigation Text Color",
+      "options": [
+        { "value": "white", "label": "white" },
+        { "value": "black", "label": "Black" }
+      ],
+      "default": "black"
+    },
+    {
+      "type": "select",
+      "id": "bottom_border_colour",
+      "label": "Border Bottom Colour",
+      "options": [
+        { "value": "transparent", "label": "transparent" },
+        { "value": "black", "label": "Black" }
+      ],
+      "default": "transparent"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header Override"
+    }
+  ]
+}
+{% endschema %}

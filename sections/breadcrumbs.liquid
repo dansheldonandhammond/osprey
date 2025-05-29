@@ -1,0 +1,44 @@
+<div class="  t-w-full t-mx-auto t-flex t-items-center t-justify-center">
+  <nav
+    class="t-text-[#000] t-my-[12px] t-max-w-[1340px] t-px-[20px] t-text-[12px] breadcrumbs font-primary t-font-light t-w-full"
+    aria-label="Breadcrumb"
+  >
+    <a class="t-text-[#000] t-text-[12px] t-font-normal" href="{{ routes.root_url }}">Home</a>
+
+    {% if template.name == 'collection' %}
+      / <span class="t-text-[#000] t-text-[12px] t-font-normal">{{ collection.title }}</span>
+
+    {% elsif template.name == 'product' %}
+      /
+      <a class="t-text-[#000] t-text-[12px] t-font-normal" href="{{ product.collections.first.url }}">
+        {{- product.collections.first.title -}}
+      </a>
+      /
+      <span class="t-text-[#000] t-text-[12px] t-font-normal">{{ product.title }}</span>
+
+    {% elsif template.name == 'page' %}
+      / <span class="t-text-[#000] t-text-[12px] t-font-normal">{{ page.title }}</span>
+
+    {% elsif template.name == 'blog' %}
+      / <a class="t-text-[#000] t-text-[12px] t-font-normal" href="{{ blog.url }}">{{ blog.title }}</a>
+
+    {% elsif template.name == 'article' %}
+      /
+      <a class="t-text-[#000] t-text-[12px] t-font-normal" href="{{ article.blog.url }}">{{ article.blog.title }}</a> /
+      <span class="t-text-[#000] t-text-[12px] t-font-normal">{{ article.title }}</span>
+    {% endif %}
+  </nav>
+</div>
+
+{% schema %}
+{
+  "name": "Breadcrumbs",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Breadcrumbs",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

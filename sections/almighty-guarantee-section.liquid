@@ -1,0 +1,124 @@
+<style>
+  .section-margin {
+    max-width: var(--text_block_max-width) !important;
+    margin-top: var(--text_block_top-margin-default) !important;
+    margin-bottom: var(--text_block_bottom-margin-default) !important;
+  }
+
+  @media (min-width: 1024px) {
+    .section-margin {
+      margin-top: var(--text_block_top-margin-lg) !important;
+      margin-bottom: var(--text_block_bottom-margin-lg) !important;
+    }
+  }
+</style>
+<div
+  class="section-margin t-gap-[20px] t-flex t-flex-col t-justify-center t-items-center t-h-[630px] t-w-full"
+
+  style="
+    background-image: url('{{ section.settings.background_image | img_url: 'master' }}'); background-repeat: no-repeat; background-size: cover; background-position: center;
+    --text_block_top-margin-default: {{ section.settings.text_block_top_default_margin }}px;
+    --text_block_bottom-margin-default: {{ section.settings.text_block_bottom_default_margin }}px;
+    --text_block_top-margin-lg: {{ section.settings.text_block_top_large_margin }}px;
+    --text_block_bottom-margin-lg: {{ section.settings.text_block_bottom_large_margin }}px;
+    --text_block_max-width: {{ section.settings.text_block_max_width }}px;
+  "
+>
+  <img
+    {% comment %} src="{{ section.settings.icon_image | img_url }}" {% endcomment %}
+    src="{{ section.settings.icon_image | img_url: 'master' }}"
+    alt=""
+    class="t-w-[275px]"
+  >
+  <p class="t-text-[2.9rem] t-text-white">
+    {{ section.settings.headline }}
+  </p>
+  <a
+    href="{{ section.settings.button_link }}"
+    class="t-font-[700] t-text-body-6 t-no-underline t-uppercase t-inline-block t-text-black t-bg-white hover:t-bg-grey t-py-[18px] t-px-[35px] t-transition t-duration-300 hover:t-text-white"
+  >
+    {{- section.settings.button_text -}}
+  </a>
+</div>
+{% schema %}
+{
+  "name": "A Guarantee",
+
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image",
+      "label": "Icon Image"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "We only create high-quality products and back them with our All Mighty Guarantee™"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Find out More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/"
+    },
+    {
+      "type": "range",
+      "id": "text_block_top_default_margin",
+      "label": "MOBILE/TABLET: Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "text_block_bottom_default_margin",
+      "label": "MOBILE/TABLET: Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "text_block_top_large_margin",
+      "label": "DESKTOP: Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "text_block_bottom_large_margin",
+      "label": "DESKTOP: Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Almighty Guarantee Section"
+    }
+  ]
+}
+{% endschema %}

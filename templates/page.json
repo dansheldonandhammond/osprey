@@ -15,7 +15,6 @@
     },
     "header_override_wBUJXg": {
       "type": "header-override",
-      "name": "Header Override",
       "settings": {
         "override_enabled": true,
         "header_position": "absolute",
@@ -30,12 +29,12 @@
         "heading_7Wm7M4": {
           "type": "heading",
           "settings": {
-            "heading_block_heading_text": "Lorem Ipsum Dolor Sit Amet",
+            "heading_block_heading_text": "New arrivals",
             "heading_block_text_color": "white",
             "heading_block_heading_tag": "h2",
             "heading_block_heading_size_default": "1.9rem",
             "heading_block_heading_size_large": "3.2rem",
-            "heading_block_heading_size_extra_large": "3.2rem",
+            "heading_block_heading_size_extra_large": "4.8rem",
             "heading_block_font_weight": "t-font-semibold",
             "heading_block_heading_case": "t-uppercase",
             "heading_block_heading_font": "font-secondary",
@@ -45,13 +44,25 @@
             "heading_block_bottom_large_padding": 15,
             "heading_block_max_width": 1920
           }
+        },
+        "buttons_8RJWqJ": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Button",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "text_block_hover_colour": "grey",
+            "button_block_hover_colour": "white",
+            "button_block_text_colour": "white"
+          }
         }
       },
       "block_order": [
-        "heading_7Wm7M4"
+        "heading_7Wm7M4",
+        "buttons_8RJWqJ"
       ],
-      "name": "Collection Hero Banner",
       "settings": {
+        "content_alignment": "center",
         "video_url": "",
         "mobile_image_horizontal_axis": 50,
         "mobile_image_vertical_axis": 50,

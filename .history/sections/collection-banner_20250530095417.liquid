@@ -1,0 +1,1217 @@
+<div class="t-mt-[50px] 1xl:t-mt-[0px] hero-banner  t-mx-auto lg:t-flex-row t-relative">
+  <style>
+    .hero-banner {
+      height: {{ section.settings.hero_banner_height_mobile_tablet | default: 667 }}px;
+    }
+
+    /* >= 1024px (lg) */
+    @media (min-width: 1024px) {
+      .hero-banner {
+        height: {{ section.settings.hero_banner_height_laptop | default: 800 }}px;
+      }
+    }
+
+    /* >= 1280px (xl) */
+    @media (min-width: 1280px) {
+      .hero-banner {
+        height: {{ section.settings.hero_banner_height_large_laptop | default: 780 }}px;
+      }
+    }
+
+    /* >= 1920px (2xl) */
+    @media (min-width: 1920px) {
+      .hero-banner {
+        height: {{ section.settings.hero_banner_height_desktop | default: 800 }}px;
+      }
+    }
+  </style>
+
+  <div
+    class="
+      t-flex t-justify-center t-items-center t-absolute t-z-[10] lg:t-z-[1] t-top-0 t-bottom-0 t-right-0 t-left-0 t-px-[2rem]
+      {% case section.settings.content_alignment %}
+        {% when 'start' %}
+          t-justify-start t-text-left
+        {% when 'center' %}
+          t-justify-center t-text-center
+        {% when 'end' %}
+          t-justify-end t-text-right
+        {% else %}
+          t-justify-center t-text-center
+      {% endcase %}
+    "
+  >
+    <div class="t-relative t-flex t-flex-col t-mx-auto t-p-[30px] t-w-full page-width">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'heading' -%}
+            <{{ block.settings.heading_block_heading_tag }}
+              class="
+                                                                                                                                                                                t-flex t-text-white t-text-center lg:t-text-start md:t-px-0 heading_block_heading heading_block_text lg:t-leading-[1] {{ block.settings.heading_block_font_weight }} {{ block.settings.heading_block_heading_case }}
+              "
+              style="
+                  --heading_block_font-size-default: {{ block.settings.heading_block_heading_size_default }};
+                  --heading_block_font-size-lg: {{ block.settings.heading_block_heading_size_large }};
+                  --heading_block_font-size-xl: {{ block.settings.heading_block_heading_size_extra_large }};
+                  --heading_block_top-padding-default: {{ block.settings.heading_block_top_default_padding }}px;
+                  --heading_block_bottom-padding-default: {{ block.settings.heading_block_bottom_default_padding }}px;
+                  --heading_block_top-padding-lg: {{ block.settings.heading_block_top_large_padding }}px;
+                  --heading_block_bottom-padding-lg: {{ block.settings.heading_block_bottom_large_padding }}px;
+                  --heading_block_max-width: {{ block.settings.heading_block_max_width }}px;
+                  --heading_block_text_color: {% case block.settings.heading_block_text_color %}
+                  {% when 'primary' %}var(--primary-colour)
+                  {% when 'secondary' %}var(--secondary-colour)
+                  {% when 'white' %}white
+                  {% when 'black' %}black
+                  {% else %}var(--primary-colour)
+                {% endcase %};
+              "
+            >
+              {{ block.settings.heading_block_heading_text }}
+            </{{ block.settings.heading_block_heading_tag }}>
+            <style>
+              .heading_block_heading {
+                max-width: var(--heading_block_max-width) !important;
+                padding-top: var(--heading_block_top-padding-default) !important;
+                padding-bottom: var(--heading_block_bottom-padding-default) !important;
+                font-size: var(--heading_block_font-size-default) !important;
+              }
+
+              @media (min-width: 1024px) {
+                .heading_block_heading {
+                  color: var(--heading_block_text_color) !important;
+                }
+              }
+
+              @media (min-width: 1024px) {
+                .heading_block_heading {
+                  padding-top: var(--heading_block_top-padding-lg) !important;
+                  padding-bottom: var(--heading_block_bottom-padding-lg) !important;
+                  font-size: var(--heading_block_font-size-lg) !important;
+                }
+              }
+
+              @media (min-width: 1440px) {
+                .heading_block_heading {
+                  font-size: var(--heading_block_font-size-xl) !important;
+                }
+              }
+            </style>
+          {%- when 'text' -%}
+            <p
+              class="t-flex t-text-white lg:t-text-black t-text-center lg:t-text-start text_block_text lg:t-leading-[1.5] {{ block.settings.text_block_font_weight }} {{ block.settings.text_block_text_case }}"
+              style="
+                --text_block_font-size-default: {{ block.settings.text_block_text_size_default }};
+                --text_block_font-size-lg: {{ block.settings.text_block_text_size_large }};
+                --text_block_font-size-xl: {{ block.settings.text_block_text_size_extra_large }};
+                --text_block_top-padding-default: {{ block.settings.text_block_top_default_padding }}px;
+                --text_block_bottom-padding-default: {{ block.settings.text_block_bottom_default_padding }}px;
+                --text_block_top-padding-lg: {{ block.settings.text_block_top_large_padding }}px;
+                --text_block_bottom-padding-lg: {{ block.settings.text_block_bottom_large_padding }}px;
+                --text_block_max-width: {{ block.settings.text_block_max_width }}px;
+              "
+            >
+              {{ block.settings.text_block_text }}
+            </p>
+            <style>
+              .text_block_text {
+                max-width: var(--text_block_max-width) !important;
+                padding-top: var(--text_block_top-padding-default) !important;
+                padding-bottom: var(--text_block_bottom-padding-default) !important;
+                font-size: var(--text_block_font-size-default) !important;
+              }
+
+              @media (min-width: 1024px) {
+                .text_block_text {
+                  padding-top: var(--text_block_top-padding-lg) !important;
+                  padding-bottom: var(--text_block_bottom-padding-lg) !important;
+                  font-size: var(--text_block_font-size-lg) !important;
+                }
+              }
+
+              @media (min-width: 1440px) {
+                .text_block_text {
+                  font-size: var(--text_block_font-size-xl) !important;
+                }
+              }
+            </style>
+          {%- when 'custom_liquid' -%}
+            <div class=" t-text-white lg:t-text-black t-text-center lg:t-text-start text_block_text lg:t-leading-[1.5] t-font-normal font-secondary t-normalcase">
+              {{ block.settings.custom_liquid_code }}
+            </div>
+          {%- when 'image' -%}
+            <div class="t-py-[10px] t-max-w-[300px] t-w-full">
+              <img
+                src="{{ block.settings.image_url }}"
+                alt="{{ block.settings.image_alt_text }}"
+                class="t-w-full t-h-auto"
+              >
+            </div>
+          {%- when 'buttons' -%}
+            <div class="t-flex t-mx-auto lg:t-ml-0 t-text-center lg-t-text-start ">
+              {%- if block.settings.button_label_1 != blank -%}
+                <a
+                  href="{{ block.settings.button_link_1 }}"
+                  class="
+                        t-mx-auto t-w-fit t-px-[28px] t-pt-[18px] t-pb-[17px] font-secondary t-font-bold lg:t-text-body-ms button md:t-bottom-0{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}
+                    {% case block.settings.text_block_hover_colour %}
+                      {% when 'black' %}hover:t-bg-black
+                      {% when 'white' %}hover:t-bg-white
+                      {% when 'grey' %}hover:t-bg-grey
+                      {% else %}
+                    {% endcase %};
+                    {% case block.settings.button_block_hover_colour %}
+                      {% when 'black' %}hover:t-bg-black
+                      {% when 'white' %}hover:t-bg-white
+                      {% when 'grey' %}hover:t-bg-grey
+                      {% else %}
+                    {% endcase %};
+                  "
+                >
+                  {{- block.settings.button_label_1 | escape -}}
+                </a>
+              {%- endif -%}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="t-h-full t-flex-col t-items-center t-relative">
+    <!-- Video Block -->
+
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'image_picker' -%}
+          {% if block.settings.image_url %}
+            <img
+              alt="{{ block.settings.heading }}"
+              src="{{ block.settings.image_url | image_url }}"
+              class="t-hidden lg:t-flex t-absolute t-top-[20px] t-right-[20px] t-ms-[30px] t-w-[100px] lg:t-w-[200px] "
+            >
+          {% endif %}
+      {%- endcase -%}
+    {%- endfor -%}
+
+    {% if section.settings.video_url != blank %}
+      <div class="t-w-full t-h-full t-block">
+        <video
+          id="dynamic_video"
+          class="t-h-full t-w-full t-object-cover t-object-center"
+          preload="auto"
+          loop
+          muted
+          playsinline
+          autoplay
+          src="{{ section.settings.video_url }}"
+        ></video>
+      </div>
+    {% else %}
+      {%- if section.settings.mobile != blank
+        and section.settings.laptop != blank
+        and section.settings.desktop != blank
+      -%}
+        <!-- All three images are provided -->
+        <div class="t-w-full t-h-full t-block md:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{
+            section.settings.mobile
+            | image_url: width: 3840
+            | image_tag:
+              width: section.settings.mobile.width,
+              class: 't-w-full t-h-full t-object-cover t-h-full t-object-center'
+          }}
+        </div>
+        <div class="t-w-full t-h-full t-hidden md:t-block lg:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{
+            section.settings.laptop
+            | image_url: width: 3840
+            | image_tag:
+              width: section.settings.laptop.width,
+              class: 't-w-full t-h-full t-object-cover t-h-full t-object-center'
+          }}
+        </div>
+        <div class="t-w-full t-h-full t-hidden lg:t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{
+            section.settings.desktop
+            | image_url: width: 3840
+            | image_tag:
+              width: section.settings.desktop.width,
+              class: 't-w-full t-h-full t-object-cover t-h-full t-object-center '
+          }}
+        </div>
+      {%- elsif section.settings.laptop != blank and section.settings.desktop != blank -%}
+        <!-- Only desktop and laptop images are provided -->
+        <div class="t-w-full t-h-full t-block lg:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{
+            section.settings.laptop
+            | image_url: width: 3840
+            | image_tag:
+              width: section.settings.laptop.width,
+              class: 't-w-full t-h-full t-object-cover t-h-full t-object-center'
+          }}
+        </div>
+        <div class="t-w-full t-h-full t-hidden lg:t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{
+            section.settings.desktop
+            | image_url: width: 3840
+            | image_tag:
+              width: section.settings.desktop.width,
+              class: 't-w-full t-h-full t-object-cover t-h-full t-object-center '
+          }}
+        </div>
+      {%- elsif section.settings.mobile != blank and section.settings.desktop != blank -%}
+        <!-- Only desktop and mobile images are provided -->
+        <div class="t-w-full t-h-full t-block lg:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{
+            section.settings.mobile
+            | image_url: width: 3840
+            | image_tag:
+              width: section.settings.mobile.width,
+              class: 't-w-full t-h-full t-object-cover t-h-full t-object-center'
+          }}
+        </div>
+        <div class="t-w-full t-h-full t-hidden lg:t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{
+            section.settings.desktop
+            | image_url: width: 3840
+            | image_tag:
+              width: section.settings.desktop.width,
+              class: 't-w-full t-h-full t-object-cover t-h-full t-object-center'
+          }}
+        </div>
+      {%- elsif section.settings.mobile != blank and section.settings.laptop != blank -%}
+        <!-- Only laptop and mobile images are provided -->
+        <div class="t-w-full t-h-full t-block md:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{
+            section.settings.mobile
+            | image_url: width: 3840
+            | image_tag:
+              width: section.settings.mobile.width,
+              class: 't-w-full t-h-full t-object-cover t-h-full t-object-center'
+          }}
+        </div>
+        <div class="t-w-full t-h-full t-hidden md:t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{
+            section.settings.laptop
+            | image_url: width: 3840
+            | image_tag:
+              width: section.settings.laptop.width,
+              class: 't-w-full t-h-full t-object-cover t-h-full t-object-center'
+          }}
+        </div>
+      {%- elsif section.settings.mobile != blank -%}
+        <!-- Only mobile image is provided -->
+        <div class="t-w-full t-h-full t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{
+            section.settings.mobile
+            | image_url: width: 3840
+            | image_tag:
+              width: section.settings.mobile.width,
+              class: 't-w-full t-h-full t-object-cover t-h-full t-object-center'
+          }}
+        </div>
+      {%- elsif section.settings.laptop != blank -%}
+        <!-- Only laptop image is provided -->
+        <div class="t-w-full t-h-full t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{
+            section.settings.laptop
+            | image_url: width: 3840
+            | image_tag:
+              width: section.settings.laptop.width,
+              class: 't-w-full t-h-full t-object-cover t-h-full t-object-center'
+          }}
+        </div>
+      {%- elsif section.settings.desktop != blank -%}
+        <!-- Only desktop image is provided -->
+        {% assign image_style = 'object-position: '
+          | append: section.settings.desktop_image_horizontal_axis
+          | append: '% '
+          | append: section.settings.desktop_image_vertical_axis
+          | append: '%; scale: '
+          | append: section.settings.image_scale
+          | append: '%;'
+        %}
+
+        <div class="t-w-full t-h-full t-block t-overflow-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+          {{
+            section.settings.desktop
+            | image_url: width: 3840
+            | image_tag:
+              width: section.settings.desktop.width,
+              class: 't-w-full lg:t-h-full t-object-cover t-h-full',
+              style: image_style
+          }}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Banner 2 Column",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content Alignment",
+      "options": [
+        {
+          "value": "start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Banner Image"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile",
+      "label": "Mobile"
+    },
+    {
+      "type": "number",
+      "id": "mobile_image_horizontal_axis",
+      "label": "Mobile Image Horizontal Axis",
+      "default": 50
+    },
+    {
+      "type": "number",
+      "id": "mobile_image_vertical_axis",
+      "label": "Mobile Image Horizontal Axis",
+      "default": 50
+    },
+    {
+      "type": "image_picker",
+      "id": "laptop",
+      "label": "Laptop"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop",
+      "label": "Desktop or all breakpoints"
+    },
+    {
+      "type": "number",
+      "id": "desktop_image_horizontal_axis",
+      "label": "Desktop Image Horizontal Axis",
+      "default": 50
+    },
+    {
+      "type": "number",
+      "id": "desktop_image_vertical_axis",
+      "label": "Desktop Image Vertical Axis",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Banner Height"
+    },
+    {
+      "type": "number",
+      "id": "hero_banner_height_mobile_tablet",
+      "label": "Hero Banner Height (Mobile/Tablet)",
+      "default": 667
+    },
+    {
+      "type": "number",
+      "id": "hero_banner_height_laptop",
+      "label": "Hero Banner Height (≥ 1024px - Laptop)",
+      "default": 800
+    },
+    {
+      "type": "number",
+      "id": "hero_banner_height_large_laptop",
+      "label": "Hero Banner Height (≥ 1280px - Large Laptop)",
+      "default": 780
+    },
+    {
+      "type": "number",
+      "id": "hero_banner_height_desktop",
+      "label": "Hero Banner Height (≥ 1920px - Desktop)",
+      "default": 800
+    },
+    {
+      "type": "select",
+      "id": "image_behavior",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.all.animation.image_behavior.options__1.label"
+        },
+        {
+          "value": "ambient",
+          "label": "t:sections.all.animation.image_behavior.options__2.label"
+        },
+        {
+          "value": "fixed",
+          "label": "t:sections.all.animation.image_behavior.options__3.label"
+        },
+        {
+          "value": "zoom-in",
+          "label": "t:sections.all.animation.image_behavior.options__4.label"
+        }
+      ],
+      "default": "none",
+      "label": "t:sections.all.animation.image_behavior.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.image-banner.settings.mobile.content"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.image-banner.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading_block_heading_text",
+          "label": "Heading Text",
+          "default": "Lorem Ipsum Dolor Sit Amet"
+        },
+
+        {
+          "type": "radio",
+          "id": "heading_block_text_color",
+          "label": "Heading Text Color",
+          "default": "primary",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary Color"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary Color"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            },
+            {
+              "value": "black",
+              "label": "Black"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "heading_block_heading_tag",
+          "label": "Heading Tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H5"
+            }
+          ],
+          "default": "h2"
+        },
+        {
+          "type": "select",
+          "id": "heading_block_heading_size_default",
+          "label": "MOBILE/TABLET Font Size",
+          "options": [
+            {
+              "value": "11.5rem",
+              "label": "header-0 (11.5rem)"
+            },
+            {
+              "value": "5.5rem",
+              "label": "header-1 (5.5rem)"
+            },
+            {
+              "value": "4.8rem",
+              "label": "header-2 (4.8rem)"
+            },
+            {
+              "value": "3.2rem",
+              "label": "header-3 (3.2rem)"
+            },
+            {
+              "value": "2.3rem",
+              "label": "header-4 (2.3rem)"
+            },
+            {
+              "value": "2.6rem",
+              "label": "header-5 (2.6rem)"
+            },
+            {
+              "value": "1.9rem",
+              "label": "header-6 (1.9rem)"
+            },
+            {
+              "value": "1.44rem",
+              "label": "header-7 (1.44rem)"
+            },
+            {
+              "value": "2rem",
+              "label": "header-8 (2rem)"
+            },
+            {
+              "value": "1.6rem",
+              "label": "header-9 (1.6rem)"
+            }
+          ],
+          "default": "1.9rem"
+        },
+        {
+          "type": "select",
+          "id": "heading_block_heading_size_large",
+          "label": "DESKTOP Font Size",
+          "options": [
+            {
+              "value": "11.5rem",
+              "label": "header-0 (11.5rem)"
+            },
+            {
+              "value": "5.5rem",
+              "label": "header-1 (5.5rem)"
+            },
+            {
+              "value": "4.8rem",
+              "label": "header-2 (4.8rem)"
+            },
+            {
+              "value": "3.2rem",
+              "label": "header-3 (3.2rem)"
+            },
+            {
+              "value": "2.3rem",
+              "label": "header-4 (2.3rem)"
+            },
+            {
+              "value": "2.6rem",
+              "label": "header-5 (2.6rem)"
+            },
+            {
+              "value": "1.9rem",
+              "label": "header-6 (1.9rem)"
+            },
+            {
+              "value": "1.44rem",
+              "label": "header-7 (1.44rem)"
+            },
+            {
+              "value": "2rem",
+              "label": "header-8 (2rem)"
+            },
+            {
+              "value": "1.6rem",
+              "label": "header-9 (1.6rem)"
+            }
+          ],
+          "default": "3.2rem"
+        },
+        {
+          "type": "select",
+          "id": "heading_block_heading_size_extra_large",
+          "label": "LARGE DESKTOP Font Size",
+          "options": [
+            {
+              "value": "11.5rem",
+              "label": "header-0 (11.5rem)"
+            },
+            {
+              "value": "5.5rem",
+              "label": "header-1 (5.5rem)"
+            },
+            {
+              "value": "4.8rem",
+              "label": "header-2 (4.8rem)"
+            },
+            {
+              "value": "3.2rem",
+              "label": "header-3 (3.2rem)"
+            },
+            {
+              "value": "2.3rem",
+              "label": "header-4 (2.3rem)"
+            },
+            {
+              "value": "2.6rem",
+              "label": "header-5 (2.6rem)"
+            },
+            {
+              "value": "1.9rem",
+              "label": "header-6 (1.9rem)"
+            },
+            {
+              "value": "1.44rem",
+              "label": "header-7 (1.44rem)"
+            },
+            {
+              "value": "2rem",
+              "label": "header-8 (2rem)"
+            },
+            {
+              "value": "1.6rem",
+              "label": "header-9 (1.6rem)"
+            }
+          ],
+          "default": "3.2rem"
+        },
+        {
+          "type": "select",
+          "id": "heading_block_font_weight",
+          "label": "Font Weight",
+          "options": [
+            {
+              "value": "t-font-thin",
+              "label": "Thin"
+            },
+            {
+              "value": "t-font-light",
+              "label": "Light"
+            },
+            {
+              "value": "t-font-normal",
+              "label": "Normal"
+            },
+            {
+              "value": "t-font-medium",
+              "label": "Medium"
+            },
+            {
+              "value": "t-font-semibold",
+              "label": "Semi-bold"
+            },
+            {
+              "value": "t-font-bold",
+              "label": "Bold"
+            },
+            {
+              "value": "t-font-extrabold",
+              "label": "Extra-bold"
+            },
+            {
+              "value": "t-font-black",
+              "label": "Black"
+            }
+          ],
+          "default": "t-font-semibold"
+        },
+        {
+          "type": "select",
+          "id": "heading_block_heading_case",
+          "label": "Case",
+          "options": [
+            {
+              "value": "t-uppercase",
+              "label": "Uppercase"
+            },
+            {
+              "value": "t-normalcase",
+              "label": "Normalcase"
+            }
+          ],
+          "default": "t-uppercase"
+        },
+        {
+          "type": "select",
+          "id": "heading_block_heading_font",
+          "label": "Font Family",
+          "options": [
+            {
+              "value": "font-primary",
+              "label": "Primary Font"
+            },
+            {
+              "value": "font-secondary",
+              "label": "Secondary Font"
+            }
+          ],
+          "default": "font-secondary"
+        },
+        {
+          "type": "range",
+          "id": "heading_block_top_default_padding",
+          "label": "MOBILE/TABLET: Top Padding",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "heading_block_bottom_default_padding",
+          "label": "MOBILE/TABLET: Bottom Padding",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "heading_block_top_large_padding",
+          "label": "DESKTOP: Top Padding",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "heading_block_bottom_large_padding",
+          "label": "DESKTOP: Bottom Padding",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "heading_block_max_width",
+          "label": "Max Width",
+          "min": 0,
+          "max": 1920,
+          "step": 20,
+          "unit": "px",
+          "default": 1920
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom Liquid Block",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid_code",
+          "label": "Custom Liquid Code",
+          "default": "{% if collection.description != blank %}{{ collection.description }}{% endif %}"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "name": "Collection Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_url",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt_text",
+          "label": "Alt Text",
+          "default": "Logo Image"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.image-banner.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text_block_text",
+          "label": "Text",
+          "default": "Lorem Ipsum Dolor Sit Amet"
+        },
+        {
+          "type": "radio",
+          "id": "text_block_text_color",
+          "label": "Text Color",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary Color"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary Color"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            },
+            {
+              "value": "black",
+              "label": "Black"
+            }
+          ],
+          "default": "white"
+        },
+        {
+          "type": "select",
+          "id": "text_block_text_size_default",
+          "label": "MOBILE/TABLET Font Size",
+          "options": [
+            {
+              "value": "5.5rem",
+              "label": "body-0 (5.5rem)"
+            },
+            {
+              "value": "3.4rem",
+              "label": "body-1 (3.4rem)"
+            },
+            {
+              "value": "3.8rem",
+              "label": "body-2 (3.8rem)"
+            },
+            {
+              "value": "2.9rem",
+              "label": "body-3 (2.9rem)"
+            },
+            {
+              "value": "2.4rem",
+              "label": "body-4 (2.4rem)"
+            },
+            {
+              "value": "1.9rem",
+              "label": "body-5 (1.9rem)"
+            },
+            {
+              "value": "1.6rem",
+              "label": "body-6 (1.6rem)"
+            },
+            {
+              "value": "1rem",
+              "label": "body-7 (1rem)"
+            },
+            {
+              "value": "0.875rem",
+              "label": "body-8 (0.875rem)"
+            },
+            {
+              "value": "0.8125rem",
+              "label": "body-9 (0.8125rem)"
+            }
+          ],
+          "default": "1.9rem"
+        },
+        {
+          "type": "select",
+          "id": "text_block_text_size_large",
+          "label": "DESKTOP Font Size",
+          "options": [
+            {
+              "value": "5.5rem",
+              "label": "body-0 (5.5rem)"
+            },
+            {
+              "value": "3.4rem",
+              "label": "body-1 (3.4rem)"
+            },
+            {
+              "value": "3.8rem",
+              "label": "body-2 (3.8rem)"
+            },
+            {
+              "value": "2.9rem",
+              "label": "body-3 (2.9rem)"
+            },
+            {
+              "value": "2.4rem",
+              "label": "body-4 (2.4rem)"
+            },
+            {
+              "value": "1.9rem",
+              "label": "body-5 (1.9rem)"
+            },
+            {
+              "value": "1.6rem",
+              "label": "body-6 (1.6rem)"
+            },
+            {
+              "value": "1rem",
+              "label": "body-7 (1rem)"
+            },
+            {
+              "value": "0.875rem",
+              "label": "body-8 (0.875rem)"
+            },
+            {
+              "value": "0.8125rem",
+              "label": "body-9 (0.8125rem)"
+            }
+          ],
+          "default": "3.4rem"
+        },
+        {
+          "type": "select",
+          "id": "text_block_text_size_extra_large",
+          "label": "LARGE DESKTOP Font Size",
+          "options": [
+            {
+              "value": "5.5rem",
+              "label": "body-0 (5.5rem)"
+            },
+            {
+              "value": "3.4rem",
+              "label": "body-1 (3.4rem)"
+            },
+            {
+              "value": "3.8rem",
+              "label": "body-2 (3.8rem)"
+            },
+            {
+              "value": "2.9rem",
+              "label": "body-3 (2.9rem)"
+            },
+            {
+              "value": "2.4rem",
+              "label": "body-4 (2.4rem)"
+            },
+            {
+              "value": "1.9rem",
+              "label": "body-5 (1.9rem)"
+            },
+            {
+              "value": "1.6rem",
+              "label": "body-6 (1.6rem)"
+            },
+            {
+              "value": "1rem",
+              "label": "body-7 (1rem)"
+            },
+            {
+              "value": "0.875rem",
+              "label": "body-8 (0.875rem)"
+            },
+            {
+              "value": "0.8125rem",
+              "label": "body-9 (0.8125rem)"
+            }
+          ],
+          "default": "3.4rem"
+        },
+        {
+          "type": "select",
+          "id": "text_block_font_weight",
+          "label": "Font Weight",
+          "options": [
+            {
+              "value": "t-font-thin",
+              "label": "Thin"
+            },
+            {
+              "value": "t-font-light",
+              "label": "Light"
+            },
+            {
+              "value": "t-font-normal",
+              "label": "Normal"
+            },
+            {
+              "value": "t-font-medium",
+              "label": "Medium"
+            },
+            {
+              "value": "t-font-semibold",
+              "label": "Semi-bold"
+            },
+            {
+              "value": "t-font-bold",
+              "label": "Bold"
+            },
+            {
+              "value": "t-font-extrabold",
+              "label": "Extra-bold"
+            },
+            {
+              "value": "t-font-black",
+              "label": "Black"
+            }
+          ],
+          "default": "t-font-black"
+        },
+        {
+          "type": "select",
+          "id": "text_block_text_case",
+          "label": "Case",
+          "options": [
+            {
+              "value": "t-uppercase",
+              "label": "Uppercase"
+            },
+            {
+              "value": "t-normalcase",
+              "label": "Normalcase"
+            }
+          ],
+          "default": "t-normalcase"
+        },
+
+        {
+          "type": "range",
+          "id": "text_block_top_default_padding",
+          "label": "MOBILE/TABLET: Top Padding",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "text_block_bottom_default_padding",
+          "label": "MOBILE/TABLET: Bottom Padding",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "text_block_top_large_padding",
+          "label": "DESKTOP: Top Padding",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "text_block_bottom_large_padding",
+          "label": "DESKTOP: Bottom Padding",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "text_block_max_width",
+          "label": "Max Width",
+          "min": 0,
+          "max": 1920,
+          "step": 20,
+          "unit": "px",
+          "default": 1920
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "t:sections.image-banner.blocks.buttons.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label_1",
+          "default": "Button",
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_label_1.label",
+          "info": "t:sections.image-banner.blocks.buttons.settings.button_label_1.info"
+        },
+        {
+          "type": "url",
+          "id": "button_link_1",
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_link_1.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_secondary_1",
+          "default": false,
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_1.label"
+        },
+        {
+          "type": "radio",
+          "id": "text_block_hover_colour",
+          "label": "Text Color",
+          "options": [
+            {
+              "value": "black",
+              "label": "black hover"
+            },
+            {
+              "value": "grey",
+              "label": "grey hover"
+            },
+            {
+              "value": "white",
+              "label": "white hover"
+            }
+          ],
+          "default": "white"
+        },
+        {
+          "type": "radio",
+          "id": "button_block_hover_colour",
+          "label": "Button Hover Color",
+          "options": [
+            {
+              "value": "black",
+              "label": "black hover"
+            },
+            {
+              "value": "grey",
+              "label": "grey hover"
+            },
+            {
+              "value": "white",
+              "label": "white hover"
+            }
+          ],
+          "default": "white"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Hero Banner",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "buttons"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

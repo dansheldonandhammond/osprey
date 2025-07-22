@@ -1,0 +1,105 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_6C99AT": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<style>\nsticky-header {\ndisplay:none; \n}\n\n.utility-bar {\ndisplay:none;\n}\n\nsection#shopify-section-sections--17120494157891__osprey_footer_WDfxJT {\ndisplay:none;\n}\n\n\n</style>",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "collection_banner_tTEaV9": {
+      "type": "collection-banner",
+      "blocks": {
+        "heading_Gtd9Rh": {
+          "type": "heading",
+          "settings": {
+            "heading_block_heading_text": "Almighty Guarantee",
+            "heading_block_text_color": "white",
+            "heading_block_heading_tag": "h2",
+            "heading_block_heading_size_default": "1.9rem",
+            "heading_block_heading_size_large": "3.2rem",
+            "heading_block_heading_size_extra_large": "5.5rem",
+            "heading_block_font_weight": "t-font-semibold",
+            "heading_block_heading_case": "t-uppercase",
+            "heading_block_heading_font": "font-secondary",
+            "heading_block_top_default_padding": 10,
+            "heading_block_bottom_default_padding": 10,
+            "heading_block_top_large_padding": 15,
+            "heading_block_bottom_large_padding": 15,
+            "heading_block_max_width": 1920
+          }
+        },
+        "text_JHH9aG": {
+          "type": "text",
+          "settings": {
+            "text_block_text": "",
+            "text_block_text_color": "white",
+            "text_block_text_size_default": "1.9rem",
+            "text_block_text_size_large": "3.4rem",
+            "text_block_text_size_extra_large": "3.4rem",
+            "text_block_font_weight": "t-font-black",
+            "text_block_text_case": "t-normalcase",
+            "text_block_top_default_padding": 10,
+            "text_block_bottom_default_padding": 10,
+            "text_block_top_large_padding": 15,
+            "text_block_bottom_large_padding": 15,
+            "text_block_max_width": 1920
+          }
+        }
+      },
+      "block_order": [
+        "heading_Gtd9Rh",
+        "text_JHH9aG"
+      ],
+      "name": "Collection Hero Banner",
+      "settings": {
+        "content_alignment": "center",
+        "overlay_opacity": 0.3,
+        "video_url": "",
+        "mobile": "shopify://shop_images/4nfy4s17.png",
+        "mobile_image_horizontal_axis": 50,
+        "mobile_image_vertical_axis": 50,
+        "desktop_image_horizontal_axis": 54,
+        "desktop_image_vertical_axis": 65,
+        "hero_banner_height_mobile_tablet": 667,
+        "hero_banner_height_laptop": 800,
+        "hero_banner_height_large_laptop": 780,
+        "hero_banner_height_desktop": 400,
+        "image_behavior": "none"
+      }
+    },
+    "custom_liquid_QXgJJi": {
+      "type": "custom-liquid",
+      "custom_css": [],
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<iframe\n      id=\"JotFormIFrame-251878220525862\"\n      title=\"Osprey Warranty Form\"\n      onload=\"window.parent.scrollTo(0,0)\"\n      allowtransparency=\"true\"\n      allow=\"geolocation; microphone; camera; fullscreen; payment\"\n      src=\"https://form.jotform.com/251878220525862\"\n      frameborder=\"0\"\n      style=\"min-width:100%;max-width:100%;height:539px;border:none;\"\n      scrolling=\"no\"\n    >\n    </iframe>\n    <script src='https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js'></script>\n    <script>window.jotformEmbedHandler(\"iframe[id='JotFormIFrame-251878220525862']\", \"https://form.jotform.com/\")</script>",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_6C99AT",
+    "main",
+    "collection_banner_tTEaV9",
+    "custom_liquid_QXgJJi"
+  ]
+}

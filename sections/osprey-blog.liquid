@@ -1,141 +1,72 @@
-<div id="" class="t-relative t-p-5 lg:t-py-[4.5rem] lg:t-px-[4rem] t-overflow-hidden t-mb-[100px]">
-  <img
-    class="t-w-full t-h-[1315px] t-absolute t-z-[-1] t-left-0 t-top-0 t-min-w-[100%] t-min-h-[100%] t-object-cover"
-    src="https://www.osprey.com/gb/static/version1745995906/frontend/MagebitHoT/osprey/en_GB/images/HOOSEE-981-tree-texture.svg"
-    alt=""
-  >
+<div class="t-relative t-p-5 lg:t-py-[4.5rem] lg:t-px-[4rem] t-overflow-hidden t-mb-[100px]">
+  {% if section.settings.background_image %}
+    <img
+      class="t-w-full t-h-[1315px] t-absolute t-z-[-1] t-left-0 t-top-0 t-min-w-[100%] t-min-h-[100%] t-object-cover"
+      src="{{ section.settings.background_image | image_url }}"
+      alt="Background image"
+    >
+  {% endif %}
+
   <div class="t-flex t-justify-start t-items-center t-text-black">
-    <h2 class="t-text-body-2 t-font-bold t-p-0 t-m-0">Osprey Blog</h2>
-    <a
-      href="https://www.osprey.com/eu/blog"
-      title="View all"
-      class="t-px-[32px] t-py-[16px] md:t-ml-[120px] t-font-[600] t-text-body-6 t-no-underline t-uppercase t-inline-block t-text-white t-bg-black hover:t-bg-grey t-transition t-duration-300 hover:t-text-white"
-      >View All</a
-    >
+    {% if section.settings.heading %}
+      <h2 class="t-text-body-2 t-font-bold t-p-0 t-m-0">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% if section.settings.cta_text and section.settings.view_all_link %}
+      <a
+        href="{{ section.settings.view_all_link }}"
+        title="View all"
+        class="t-px-[32px] t-py-[16px] md:t-ml-[120px] t-font-[600] t-text-body-6 t-no-underline t-uppercase t-inline-block t-text-white t-bg-black hover:t-bg-grey t-transition t-duration-300 hover:t-text-white"
+      >
+        {{ section.settings.cta_text }}
+      </a>
+    {% endif %}
   </div>
-  <div
-    id="blog-slider"
-    class="t-mx-auto"
-  >
-    <ul
-      class="
-        carousel
-        t-h-full  t-gap-[20px] t-ps-0 t-mt-[3.125rem] blog-slider-items t-flex t-flex-row t-no-scrollbar t-mt-0 md:t-scroll-p-5
-        t-ml-10 md:t-ml-0 t-mb-8 lg:t-mt-12.5 lg:t--mx-2.5 t-scrollbar-none
-      "
-    >
-      <li
-        class="t-h-full t-w-full md:t-w-1/2 lg:t-w-1/3 t-flex-grow-0 t-flex-shrink-0 md:t-px-2.5 t-snap-start"
-        style="height:fit-content"
-      >
-        <div class="t-relative t-bg-white t-overflow-hidden">
-          <a href="https://www.osprey.com/eu/osprey-50" title="Our Story">
-            <div class="t-relative t-aspect-[1/1.68] lg:t-aspect-[3/4]">
-              <img
-                class="t-w-full t-object-cover t-h-full t-aspect-[1/1.68] lg:t-aspect-[3/4]"
-                src="https://www.osprey.com/gb/media/magefan_blog/HildurHeaderImage.jpg"
-                alt="Our Story"
-              >
-              <div class="t-text-white t-absolute t-top-8 t-left-6 t-font-bold t-z-10">FEATURED STORY</div>
-              <div class="t-group t-absolute t-inset-0 t-bg-black t-bg-opacity-35 t-flex t-items-end">
-                <div class="t-grid t-text-white t-py-6 t-px-6 md:t-pt-4 md:t-pb-7 md:t-px-5 t-w-full">
-                  <h3 class="t-font-bold t-text-md lg:t-text-lg t-mb-5 t-text-body-4 t-text-white">Our Story</h3>
-                  <div
-                    id="#scroll-up-text"
-                    class="t-transition-max-h t-duration-500 t-max-h-0 group-hover:t-max-h-[75px] md:group-hover:t-max-h-[55px] t-line-clamp-3 t-overflow-hidden"
+
+  <div id="blog-slider" class="t-mx-auto">
+    <ul class="carousel t-h-full t-gap-[20px] t-ps-0 t-mt-[3.125rem] blog-slider-items t-flex t-flex-row t-no-scrollbar t-mt-0 md:t-scroll-p-5  md:t-ml-0 t-mb-8 lg:t-mt-12.5 lg:t--mx-2.5 t-scrollbar-none">
+      {% for blog in blogs['osprey-blog'].articles limit: 6 %}
+        <li
+          class="t-h-full t-w-full md:t-w-1/2 lg:t-w-1/3 t-flex-grow-0 t-flex-shrink-0 md:t-px-2.5 t-snap-start"
+          style="height:fit-content"
+        >
+          <div class="t-relative t-bg-white t-overflow-hidden">
+            <a href="{{ blog.url }}" title="{{ blog.title }}">
+              <div class="t-relative t-aspect-[1/1.68] lg:t-aspect-[3/4]">
+                {% if blog.image %}
+                  <img
+                    class="t-w-full t-object-cover t-h-full t-aspect-[1/1.68] lg:t-aspect-[3/4]"
+                    src="{{ blog.image | image_url }}"
+                    alt="{{ blog.title | escape }}"
                   >
-                    Explore where we came from, how we got here, and everyone who has been a part of our journey.
+                {% endif %}
+
+                {% if blogs.tags contains 'Featured' %}
+                  <div class="t-text-white t-absolute t-top-8 t-left-6 t-font-bold t-z-10">Featured</div>
+                {% endif %}
+
+                <div class="t-group t-absolute t-inset-0 t-bg-black t-bg-opacity-35 t-flex t-items-end t-aspect-[1/1.68] lg:t-aspect-[3/4]">
+                  <div class="t-grid t-text-white t-py-6 t-px-6 md:t-pt-4 md:t-pb-7 md:t-px-5  t-m-[20px] ">
+                    {% if blog.title %}
+                      <h3 class="t-font-bold t-text-md lg:t-text-lg t-mb-5 t-text-body-4 t-text-white t-max-w-[320px]">
+                        {{ blog.title }}
+                      </h3>
+                    {% endif %}
+
+                    {% if blog.excerpt %}
+                      <div
+                        class="t-transition-max-h t-duration-500 t-max-h-0 group-hover:t-max-h-[75px] md:group-hover:t-max-h-[87px] t-line-clamp-3 t-overflow-hidden"
+                      >
+                        {{ blog.excerpt }}
+                      </div>
+                    {% endif %}
                   </div>
                 </div>
               </div>
-            </div>
-          </a>
-        </div>
-      </li>
-      <li
-        class="t-h-full t-w-full md:t-w-1/2 lg:t-w-1/3 t-flex-grow-0 t-flex-shrink-0 md:t-px-2.5 t-snap-start"
-        style="height:fit-content"
-      >
-        <div class="t-relative t-bg-white t-overflow-hidden">
-          <a href="https://www.osprey.com/eu/osprey-50" title="Our Story">
-            <div class="t-relative t-aspect-[1/1.68] lg:t-aspect-[3/4]">
-              <img
-                class="t-w-full t-object-cover t-h-full t-aspect-[1/1.68] lg:t-aspect-[3/4]"
-                src="https://www.osprey.com/gb/media/magefan_blog/HOOSE-981_first_slide-20250318-083558.jpg"
-                alt="Our Story"
-              >
-              <div class="t-text-white t-absolute t-top-8 t-left-6 t-font-bold t-z-10">FEATURED STORY</div>
-              <div class="t-group t-absolute t-inset-0 t-bg-black t-bg-opacity-35 t-flex t-items-end">
-                <div class="t-grid t-text-white t-py-6 t-px-6 md:t-pt-4 md:t-pb-7 md:t-px-5 t-w-full">
-                  <h3 class="t-font-bold t-text-md lg:t-text-lg t-mb-5 t-text-body-4 t-text-white">Our Story</h3>
-                  <div
-                    id="#scroll-up-text"
-                    class="t-transition-max-h t-duration-500 t-max-h-0 group-hover:t-max-h-[75px] md:group-hover:t-max-h-[55px] t-line-clamp-3 t-overflow-hidden"
-                  >
-                    Explore where we came from, how we got here, and everyone who has been a part of our journey.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      </li>
-      <li
-        class="t-h-full t-w-full md:t-w-1/2 lg:t-w-1/3 t-flex-grow-0 t-flex-shrink-0 md:t-px-2.5 t-snap-start"
-        style="height:fit-content"
-      >
-        <div class="t-relative t-bg-white t-overflow-hidden">
-          <a href="https://www.osprey.com/eu/osprey-50" title="Our Story">
-            <div class="t-relative t-aspect-[1/1.68] lg:t-aspect-[3/4]">
-              <img
-                class="t-w-full t-object-cover t-h-full t-aspect-[1/1.68] lg:t-aspect-[3/4]"
-                src="https://www.osprey.com/gb/media/magefan_blog/HOOSE-981_first_slide-20250318-083558.jpg"
-                alt="Our Story"
-              >
-              <div class="t-text-white t-absolute t-top-8 t-left-6 t-font-bold t-z-10">FEATURED STORY</div>
-              <div class="t-group t-absolute t-inset-0 t-bg-black t-bg-opacity-35 t-flex t-items-end">
-                <div class="t-grid t-text-white t-py-6 t-px-6 md:t-pt-4 md:t-pb-7 md:t-px-5 t-w-full">
-                  <h3 class="t-font-bold t-text-md lg:t-text-lg t-mb-5 t-text-body-4 t-text-white">Our Story</h3>
-                  <div
-                    id="#scroll-up-text"
-                    class="t-transition-max-h t-duration-500 t-max-h-0 group-hover:t-max-h-[75px] md:group-hover:t-max-h-[55px] t-line-clamp-3 t-overflow-hidden"
-                  >
-                    Explore where we came from, how we got here, and everyone who has been a part of our journey.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      </li>
-      <li
-        class="t-h-full t-w-full md:t-w-1/2 lg:t-w-1/3 t-flex-grow-0 t-flex-shrink-0 md:t-px-2.5 t-snap-start"
-        style="height:fit-content"
-      >
-        <div class="t-relative t-bg-white t-overflow-hidden">
-          <a href="https://www.osprey.com/eu/osprey-50" title="Our Story">
-            <div class="t-relative t-aspect-[1/1.68] lg:t-aspect-[3/4]">
-              <img
-                class="t-w-full t-object-cover t-h-full t-aspect-[1/1.68] lg:t-aspect-[3/4]"
-                src="https://www.osprey.com/gb/media/magefan_blog/HOOSE-981_first_slide-20250318-083558.jpg"
-                alt="Our Story"
-              >
-              <div class="t-text-white t-absolute t-top-8 t-left-6 t-font-bold t-z-10">FEATURED STORY</div>
-              <div class="t-group t-absolute t-inset-0 t-bg-black t-bg-opacity-35 t-flex t-items-end">
-                <div class="t-grid t-text-white t-py-6 t-px-6 md:t-pt-4 md:t-pb-7 md:t-px-5 t-w-full">
-                  <h3 class="t-font-bold t-text-md lg:t-text-lg t-mb-5 t-text-body-4 t-text-white">Our Story</h3>
-                  <div
-                    id="#scroll-up-text"
-                    class="t-transition-max-h t-duration-500 t-max-h-0 group-hover:t-max-h-[75px] md:group-hover:t-max-h-[55px] t-line-clamp-3 t-overflow-hidden"
-                  >
-                    Explore where we came from, how we got here, and everyone who has been a part of our journey.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      </li>
+            </a>
+          </div>
+        </li>
+      {% endfor %}
     </ul>
     <!-- Swiper Pagination Bar -->
     <div
@@ -158,6 +89,17 @@
       "type": "url",
       "id": "view_all_link",
       "label": "View All Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "View All"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
     }
   ],
   "presets": [

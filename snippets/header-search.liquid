@@ -38,7 +38,7 @@
       </span>
     </summary>
     <div
-      class="search-modal modal__content gradient t-top-[77px] t-text-black t-fill-black t-stroke-black t-bg-white "
+      class="t-h-[70vh] t-top-0 search-modal modal__content gradient  t-text-black t-fill-black t-stroke-black t-bg-white t-border-b t-border-gray-400"
       role="dialog"
       placeholder="I am searching for..."
       aria-modal="true"
@@ -46,7 +46,7 @@
     >
       {% comment %} <div class="modal-overlay"></div> {% endcomment %}
       <div
-        class="search-modal__content{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} search-modal__content-top{% else %} search-modal__content-bottom t-h-[100vh]{% endif %}"
+        class="search-modal__content{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} search-modal__content-top{% else %} search-modal__content-bottom {% endif %}"
         tabindex="-1"
       >
         {%- if settings.predictive_search_enabled -%}

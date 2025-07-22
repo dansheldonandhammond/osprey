@@ -13,7 +13,7 @@
       >
     {%- endif -%}
     {%- if first_column_results_size > 0 -%}
-      <div class="predictive-search__result-group" style="height: 956px">
+      <div class="predictive-search__result-group" style="max-width:500px">
     {%- endif -%}
     {%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
       <div>
@@ -34,7 +34,7 @@
             class="predictive-search__results-list list-unstyled t-max-h-[calc(100vh - 245px)]"
             role="group"
             aria-labelledby="predictive-search-queries"
-            style="height: 548px; column-width: 300px; column-gap: 24px; overflow-y: auto;"
+            style="height: auto; column-width: 300px; column-gap: 24px; overflow-y: auto;"
           >
             {%- for query in predictive_search.resources.queries -%}
               <li
@@ -47,7 +47,7 @@
                 <a href="{{ query.url }}" class="predictive-search__item link link--text" tabindex="-1">
                   <div class="predictive-search__item-content predictive-search__item-content--centered">
                     <p
-                      class="predictive-search__item-heading predictive-search__item-query-result h5"
+                      class="predictive-search__item-heading predictive-search__item-query-result h5 t-text-black"
                       aria-label="{{ query.text }}"
                     >
                       {{ query.styled_text }}
@@ -126,7 +126,7 @@
       or predictive_search.resources.articles.size > 0
       or predictive_search.resources.pages.size > 0
     -%}
-      <div class="predictive-search__result-group" style="height: 956px">
+      <div class="predictive-search__result-group" style="">
         {%- if predictive_search.resources.products.size > 0 -%}
           <div>
             <h2
@@ -140,11 +140,11 @@
               class="predictive-search__results-list list-unstyled w-full"
               role="group"
               aria-labelledby="predictive-search-products"
-              style="display: grid; grid-template-columns: 1fr; gap: 24px; max-height: calc(100vh - 245px); overflow-y: auto; max-width: fit-content;"
+              style="display: grid; grid-template-columns: 1fr; gap: 24px; max-height: calc(100vh - 245px); overflow-y: auto;"
             >
               {%- for product in predictive_search.resources.products -%}
                 <li
-                  class="t-aa-Item t-w-[630px]"
+                  class=""
                   id="autocomplete-0-item-{{ forloop.index }}"
                   role="option"
                   aria-selected="false"
@@ -249,16 +249,28 @@
 
     <div id="predictive-search-option-search-keywords" class="predictive-search__search-for-button">
       <button
-        class="predictive-search__item predictive-search__item--term link link--text h5 animate-arrow t-text-black"
+        class="predictive-search__item predictive-search__item--term link t-no-underline link--text h5 animate-arrow t-text-black t-flex t-justify-end"
         tabindex="-1"
         role="option"
         aria-selected="false"
       >
-        <span data-predictive-search-search-for-text>
-          {{- 'templates.search.search_for' | t: terms: predictive_search.terms -}}
-        </span>
-        <span class="svg-wrapper">
-          {{- 'icon-arrow.svg' | inline_asset_content -}}
+        {% assign total_results = predictive_search.resources.products.size
+          | plus: predictive_search.resources.collections.size
+          | plus: predictive_search.resources.pages.size
+          | plus: predictive_search.resources.articles.size
+          | plus: predictive_search.resources.queries.size
+        %}
+
+        <span class="t-no-underline" data-predictive-search-search-for-text>
+          See
+          <a
+            class="t-underline t-text-[#9e3223] t-font-[800]"
+            href="/search?q={{ predictive_search.terms | url_escape }}"
+            >All Results</a
+          >
+          (
+          {{- total_results -}}
+          )
         </span>
       </button>
     </div>

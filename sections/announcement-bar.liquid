@@ -57,9 +57,9 @@
         aria-roledescription="{{ 'sections.announcements.carousel' | t }}"
         aria-label="{{ 'sections.announcements.announcement_bar' | t }}"
       >
-        <div class="page-width announcement-bar-slider slider-buttons t-text-[1.6rem] t-mx-auto t-h-[44px] t-flex t-items-center t-justify-between t-px-[0px] t-text-white t-mx-auto">
+        <div class="page-width lg:t-justify-between t-justify-center t-text-center announcement-bar-slider slider-buttons t-text-[1.6rem]  t-h-[44px] t-flex t-items-center t-px-[0px] t-text-white t-mx-auto">
           <div
-            class="grid grid--1-col slider slider--everywhere"
+            class="grid grid--1-col slider slider--everywhere "
             id="Slider-{{ section.id }}"
             aria-live="polite"
             aria-atomic="true"
@@ -68,7 +68,7 @@
           >
             {%- for block in section.blocks -%}
               <div
-                class="slideshow__slide {% if forloop.first %}active{% endif %} slider__slide grid__item grid--1-col"
+                class="slideshow__slide {% if forloop.first %}active{% endif %} slider__slide grid__item grid--1-col t-flex t-justify-center"
                 id="Slide-{{ section.id }}-{{ forloop.index }}"
                 {{ block.shopify_attributes }}
                 role="group"
@@ -77,7 +77,7 @@
                 tabindex="-1"
               >
                 <div
-                  class="announcement-bar__announcement"
+                  class="announcement-bar__announcement t-flex t-justify-center t-items-center t-text-center"
                   role="region"
                   aria-label="{{ 'sections.header.announcement' | t }}"
                 >
@@ -88,8 +88,8 @@
                         class="announcement-bar__link link link--text focus-inset animate-arrow t-text-[1.6rem] "
                       >
                     {%- endif -%}
-                    <p class="announcement-bar__message ">
-                      <span>{{ block.settings.richtext }}</span>
+                    <p class="announcement-bar__message t-text-center t-flex t-justify-center t-items-center">
+                      <span class="t-text-center">{{ block.settings.richtext }}</span>
                       {%- if block.settings.link != blank -%}
                         {{- 'icon-arrow.svg' | inline_asset_content -}}
                       {%- endif -%}
@@ -106,7 +106,7 @@
               </div>
             {%- endfor -%}
           </div>
-          <span class="t-flex t-items-center t-gap-[20px] t-text-[1.4rem] t-text-white ">
+          <span class="t-hidden lg:t-flex t-items-center t-gap-[20px] t-text-[1.4rem] t-text-white ">
             {% comment %} block for customer sercive center {% endcomment %}
             <div class="t-flex t-items-center t-row t-w-max t-gap-[10px]">
               <svg
@@ -178,11 +178,26 @@
   </div>
 </div>
 
+<style>
+  .announcement-bar-slider .slider__slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  @media (min-width: 1024px) {
+    .announcement-bar-slider .slider__slide {
+      align-items: start;
+    }
+  }
+</style>
+
 {% schema %}
 {
   "name": "t:sections.announcement-bar.name",
   "max_blocks": 12,
-  "class": "announcement-bar-section",
+  "class": "announcement-bar-section t-flex t-justify-center lg:t-justify-start lg:t-block t-bg-black t-text-center",
   "enabled_on": {
     "groups": ["header"]
   },

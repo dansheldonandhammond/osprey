@@ -7,6 +7,12 @@
       "id": "new_arrivals_title",
       "label": "New Arrivals Title",
       "default": "Discover New Arrivals"
+    },
+    {
+      "type": "text",
+      "id": "new_arrivals_title_mobile",
+      "label": "New Arrivals Title",
+      "default": "Discover New Arrivals"
     }
   ],
   "blocks": [
@@ -31,8 +37,12 @@
 {% endschema %}
 
 <div class="t-flex  t-flex-row t-gap-[20px] t-justify-center t-items-center">
-  <h2 class="t-text-center t-font-bold t-text-header-2 t-mt-[80px] t-mb-[35px] t-leading-[1]">
+  <h2 class="t-hidden lg:t-block t-text-center t-font-bold t-text-header-2 t-mt-[80px] t-mb-[35px] t-leading-[1]">
     {{ section.settings.new_arrivals_title }}
+  </h2>
+
+  <h2 class="lg:t-hidden t-block t-text-[32px] t-text-center t-font-bold t-mt-[80px] t-mb-[35px] t-leading-[1]">
+    {{ section.settings.new_arrivals_title_mobile }}
   </h2>
 
   <div class="t-relative t-h-[full]">
@@ -53,11 +63,11 @@
     {% if block.type == 'new_arrival_slide' %}
       <div class="t-relative t-rounded t-shadow-sm t-overflow-hidden">
         <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="t-w-full t-h-auto">
-        <div class="t-absolute t-bottom-0 t-left-0 t-p-[20px] t-text-white t-bg-gradient-to-t t-from-black/70 t-to-transparent">
-          <h3 class="t-text-header-4 t-font-bold t-mb-2 ">{{ block.settings.title }}</h3>
+        <div class="t-absolute t-bottom-[7px] t-left-0 t-p-[10px] lg:t-p-[20px] t-text-white t-bg-gradient-to-t t-from-black/70 t-to-transparent t-w-full">
+          <h3 class="lg:t-text-header-4 t-text-[19px] t-font-bold t-mb-2 t-text-white">{{ block.settings.title }}</h3>
           <a
             href="{{ block.settings.link }}"
-            class="t-inline-block t-bg-white t-text-black t-text-sm t-uppercase t-font-medium t-px-[25px] t-py-[12px] hover:t-bg-gray-900 hover:t-text-white t-transition"
+            class=" t-tracking-[2px] t-text-[11px] lg:t-text-[15px] t-no-underline t-inline-block t-bg-white t-text-black t-text-sm t-uppercase t-font-medium t-px-[15px] t-py-[12px] hover:t-bg-gray-900 hover:t-text-white t-transition"
           >
             {{ block.settings.button_text }}
           </a>
@@ -68,10 +78,10 @@
 </div>
 
 <!-- Desktop Swiper Carousel -->
-<div class="new-arrivals-swiper t-max-w-[1308px] t-overflow-hidden t-mx-auto t-my-10 t-mb-[80px] t-pb-[23px] ">
+<div class="lg:t-block t-hidden new-arrivals-swiper t-max-w-[1308px] t-overflow-hidden t-mx-auto t-my-10 t-mb-[80px] t-px-[40px] lg:t-px-0">
   <!-- Arrows -->
 
-  <div class="swiper-wrapper t-h-[456px] t-mx-auto">
+  <div class=" swiper-wrapper t-mx-auto">
     {% for block in section.blocks %}
       {% if block.type == 'new_arrival_slide' %}
         <div class="swiper-slide t-relative t-text-white">
@@ -80,7 +90,7 @@
             <h3 class="t-text-header-4 t-font-bold t-text-white">{{ block.settings.title }}</h3>
             <a
               href="{{ block.settings.link }}"
-              class="t-text-[1.3rem] t-font-[400] t-no-underline t-uppercase t-inline-block t-text-black t-bg-white hover:t-bg-grey t-py-[18px] t-px-[35px] t-transition t-duration-300 hover:t-text-white t-tracking-[2px]"
+              class="t-text-[1.3rem] t-font-[400] t-no-underline t-uppercase t-inline-block t-text-black t-bg-white hover:t-bg-grey t-px-[18px] t-py-[14px] t-transition t-duration-300 hover:t-text-white t-tracking-[2px]"
             >
               {{ block.settings.button_text }}
             </a>
@@ -92,7 +102,7 @@
 
   <!-- Swiper Pagination Bar -->
   <div
-    class="swiper-pagination t-w-full t-max-w-full t-h-[8px] t-rounded-full t-bg-gray-200 t-relative t-overflow-hidden t-mx-auto t-z-[1]"
+    class="swiper-pagination t-w-full t-max-w-full t-h-[8px] t-rounded-full t-bg-gray-200 t-relative t-overflow-hidden t-mx-auto t-z-[1] t-mt-[20px]"
   ></div>
 
   <style>
@@ -138,9 +148,9 @@
       border-radius: 100px;
     }
 
-    .swiper-wrapper {
+    {% comment %} .swiper-wrapper {
       padding-bottom: 24px;
-    }
+    } {% endcomment %}
 
     .swiper-pagination-track {
       position: relative;

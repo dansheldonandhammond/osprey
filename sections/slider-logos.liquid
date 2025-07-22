@@ -1,0 +1,88 @@
+{% schema %}
+{
+  "name": "New Arrivals Showcase",
+  "blocks": [
+    {
+      "type": "custom_content_block",
+      "name": "Custom Content",
+      "settings": [
+        { "type": "text", "id": "custom_title", "label": "Custom Title" },
+        { "type": "liquid", "id": "custom_liquid", "label": "Custom Liquid Content" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logos Carousel",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<!-- Swiper active all breakpoints; scrollbar only shows <lg -->
+<div class="t-bg-green">
+  <div class="logos-swiper t-h-[116px] t-max-w-[1308px] t-mx-auto t-scrollbar-mobile-only">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        {% if block.type == 'custom_content_block' %}
+          <div class="swiper-slide t-flex t-justify-center t-items-center t-min-w-[250px] t-h-[116px]">
+            <div class="t-text-[1.4rem] t-flex t-justify-center t-items-center t-font-[600] t-gap-x-[15px] t-uppercase t-text-white t-bg-green t-h-full t-w-full">
+              {{ block.settings.custom_liquid }}
+              {{ block.settings.custom_title }}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('.logos-swiper', {
+      loop: false,
+      slidesPerView: 1,
+      spaceBetween: 20,
+      breakpoints: {
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 0,
+        },
+      },
+    });
+  });
+</script>
+
+<style>
+  .t-scrollbar-mobile-only {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  @media (min-width: 1024px) {
+    .t-scrollbar-mobile-only {
+      overflow-x: hidden !important;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .t-scrollbar-mobile-only {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.15);
+    }
+
+    .t-scrollbar-mobile-only::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .t-scrollbar-mobile-only::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .t-scrollbar-mobile-only::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 4px;
+    }
+  }
+</style>

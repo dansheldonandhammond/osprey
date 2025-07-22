@@ -2,10 +2,10 @@
 <div class="t-relative t-aspect-video">
   <iframe
     id="vimeo-player-s25"
-    src="https://player.vimeo.com/video/1059835402?autoplay=1&muted=1&autopause=0&controls=0&dnt=1&loop=1&app_id=122963"
+    src="{{section.settings.video_link}}"
     frameborder="0"
     allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-    title="S25 Homepage Launch Video"
+    title="{{ section.settings.video_title }}"
     class="t-absolute t-top-0 t-left-0 t-w-full t-h-full"
   ></iframe>
   <button
@@ -111,6 +111,12 @@
       "id": "video_title",
       "label": "Video Title",
       "default": "S25 Homepage Launch Video"
+    },
+    {
+      "type": "text",
+      "id": "video_link",
+      "label": "Video Link",
+      "default": "https://player.vimeo.com/video/1059835402?autoplay=1&muted=1&autopause=0&controls=0&dnt=1&loop=1&app_id=122963"
     }
   ],
   "presets": [

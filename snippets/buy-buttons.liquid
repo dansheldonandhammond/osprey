@@ -118,6 +118,7 @@
     class="t-md:items-center  t-cursor-pointer t-items-center t-flex t-flex-col t-w-full t-flex-col"
   >
     <div class="t-product-icon-grid__icon t-flex t-justify-start t-items-center t-md:block t-w-full t-min-h-12.5 t-md:w-unset t-md:min-h-unset">
+  
       <img
         src="https://www.osprey.com/gb/static/version1747292182/frontend/MagebitHoT/osprey/en_GB/images/product_icons/all-mighty-guarantee.svg"
         alt="All Mighty Guarantee International"
@@ -128,8 +129,11 @@
       <p class="t-ps-[10px] t-product-icon-grid__icon-title t-text-xs t-font-bold t-uppercase t-leading-[1.25] t-md:pl-2 t-m-0">
         All Mighty Guarantee
       </p>
-    
+      {% if metafield.custom.bluesign %}
+        {{ metafield.custom.blue_sign | asset_url }}
+      {% endif %}
   </div>
+
   {%- if show_pickup_availability -%}
     {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
 

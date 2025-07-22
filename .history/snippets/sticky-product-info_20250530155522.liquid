@@ -1,0 +1,201 @@
+<div>
+  <div id="makeStickyProductInfo" class="sticky-on-scroll  t-mx-auto t-w-full  ">
+    <div class="t-max-w-[300px] t-flex t-items-center t-mb-0">
+      <h1 class="sticky-on-scroll t-px-0 t-w-full font-secondary t-font-bold banner__heading inline-richtext  t-tracking-[-0.1rem] t-text-header-4 md:t-text-header-3  xl:t-text-header-2 t-mt-0 t-pt-0">
+        {{ product.title | escape }}
+        {%- assign current_variant = product.selected_or_first_available_variant -%}
+        {% comment %}
+          {%- unless current_variant.option1 == 'Default Title' -%}
+            <span
+              id=""
+              class="sticky-on-scroll variant-size t-text-[var(--primary-colour)] font-secondary t-font-[700]  md:t-text-header-3  xl:t-text-header-2"
+            >
+              {{ product.selected_or_first_available_variant.option1 }}
+            </span>
+          {%- endunless -%}
+        {% endcomment %}
+      </h1>
+      <div class="t-flex t-justify-start t-flex-end xl:t-hidden" id="price-{{ section.id }}" role="status">
+        {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: 'price--large' -%}
+      </div>
+      {%- assign current_variant_Primary = product.selected_or_first_available_variant -%}
+      <product-form
+        id="sticky-add-to-cart"
+        class="product-form"
+        data-hide-errors="{{ gift_card_recipient_feature_active }}"
+        data-section-id="{{ section.id }}"
+      >
+        <div class="product-form__error-message-wrapper" role="alert" hidden>
+          <span class="svg-wrapper">
+            {{- 'icon-error.svg' | inline_asset_content -}}
+          </span>
+          <span class="product-form__error-message"></span>
+        </div>
+        {%- form 'product',
+          product,
+          id: product_form_id,
+          class: 'form',
+          novalidate: 'novalidate',
+          data-type: 'add-to-cart-form'
+        -%}
+          <input
+            type="hidden"
+            name="id"
+            value="{{ product.selected_or_first_available_variant.id }}"
+            {% if product.selected_or_first_available_variant.available == false
+              or quantity_rule_soldout
+              or product.selected_or_first_available_variant == null
+            %}
+              disabled
+            {% endif %}
+            class="product-variant-id"
+          >
+          {%- if gift_card_recipient_feature_active -%}
+            {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+          {%- endif -%}
+          <div class="product-form__buttons">
+            {%- liquid
+              assign check_against_inventory = true
+              if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
+                assign check_against_inventory = false
+              endif
+              if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+                assign quantity_rule_soldout = true
+              endif
+            -%}
+            <button
+              id="ProductSubmitButton-{{ section_id }}"
+              type="submit"
+              name="add"
+              class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
+              {% if product.selected_or_first_available_variant.available == false
+                or quantity_rule_soldout
+                or product.selected_or_first_available_variant == null
+              %}
+                disabled
+              {% endif %}
+            >
+              <span>
+                {%- if product.selected_or_first_available_variant == null -%}
+                  {{ 'products.product.unavailable' | t }}
+                {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+                  {{ 'products.product.sold_out' | t }}
+                {%- else -%}
+                  {{ 'products.product.add_to_cart' | t }}
+                {%- endif -%}
+              </span>
+              {%- render 'loading-spinner' -%}
+            </button>
+            {%- if show_dynamic_checkout -%}
+              {{ form | payment_button }}
+            {%- endif -%}
+          </div>
+        {%- endform -%}
+      </product-form>
+      <span
+        id="variant-sku"
+        class="xl:t-hidden t-flex t-text-body-sm lg:t-text-body-ml font-secondary t-font-[700] t-pt-[5px] sticky-on-scroll"
+      >
+        SKU: <span id="sku-text-secondary">{{ current_variant_Primary.sku }}</span>
+      </span>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // SKU update
+      const skuSecondary = document.getElementById('sku-text-secondary');
+      const variantInputs = document.querySelectorAll('.variant-data');
+      const colorSwatches = document.querySelectorAll('.swatch-input__input');
+
+      function updateSKU(selectedColor) {
+        variantInputs.forEach((variant) => {
+          if (variant.getAttribute('data-option') === selectedColor) {
+            const newSKU = variant.getAttribute('data-sku') || 'N/A';
+            if (skuSecondary) skuSecondary.textContent = newSKU;
+          }
+        });
+      }
+
+      colorSwatches.forEach((swatch) => {
+        swatch.addEventListener('change', function () {
+          updateSKU(this.value);
+        });
+      });
+
+      // Sticky logic for all screen sizes with scroll direction
+      const stickyElement = document.getElementById('makeStickyProductInfo');
+      const stickyAddToCart = document.getElementById('sticky-add-to-cart');
+      const originalOffset = stickyElement.offsetTop + 300;
+      let lastScrollY = window.scrollY;
+
+      // Hide sticky add to cart initially
+      if (stickyAddToCart) {
+        stickyAddToCart.style.display = 'none';
+      }
+
+      function handleScroll() {
+        if (window.scrollY > originalOffset) {
+          stickyElement.classList.add('is-sticky', 'show-sticky', 'small-font');
+          if (window.scrollY < lastScrollY) {
+            // Scrolling up - hide sticky
+            stickyElement.classList.remove('show-sticky');
+          } else {
+            // Scrolling down - show sticky
+            stickyElement.classList.add('show-sticky');
+          }
+          // Show sticky add to cart
+          if (stickyAddToCart) {
+            stickyAddToCart.style.display = '';
+          }
+        } else {
+          stickyElement.classList.remove('is-sticky', 'show-sticky', 'small-font');
+          // Hide sticky add to cart
+          if (stickyAddToCart) {
+            stickyAddToCart.style.display = 'none';
+          }
+        }
+        lastScrollY = window.scrollY;
+      }
+
+      window.addEventListener('scroll', handleScroll);
+    });
+  </script>
+
+  <style>
+    .sticky-on-scroll {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+      will-change: transform;
+      display: flex;
+    }
+    .sticky-on-scroll.is-sticky {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      transform: translateY(-100%);
+      pointer-events: none;
+      opacity: 0;
+    }
+    .sticky-on-scroll.is-sticky.show-sticky {
+      transform: translateY(0);
+      pointer-events: auto;
+      opacity: 1;
+    }
+    .sticky-on-scroll.small-font h1 {
+      font-size: 2.8rem !important;
+      transition: font-size 0.3s ease;
+    }
+    @media (max-width: 768px) {
+      .sticky-on-scroll.is-sticky {
+        top: 0;
+      }
+      body {
+        padding-top: 60px;
+      }
+    }
+  </style>
+</div>

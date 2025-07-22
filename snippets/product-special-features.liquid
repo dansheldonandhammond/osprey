@@ -1,0 +1,118 @@
+<!-- WebRotate 360 Viewer Script -->
+<script src="{{ 'wr360embed.js' | asset_url }}" defer></script>
+
+<script>
+  function webRotateComponent() {
+    return {
+      api: null,
+      hotspots: [],
+      activeHotspotIndex: 0,
+
+      init() {
+        // Nothing to do until WebRotate is ready
+      },
+
+      apiInitialized({ webRotatorApi, dynamicHotspots }) {
+        this.api = webRotatorApi;
+        const configPath = 'https://cdn.shopify.com/s/files/1/0636/7789/0627/files/spots/';
+
+        this.hotspots = dynamicHotspots.map((hotspot) => ({
+          id: hotspot.hotspotConfig.id,
+          title: hotspot.hotspotConfig.title || hotspot.hotspotConfig.id.replace(/_/g, ' '),
+          description: hotspot.hotspotConfig.hotspotInfo?.cdata || hotspot.hotspotConfig.hotspotInfo?.txt || '',
+          imageSrc: configPath + (hotspot.hotspotConfig.hotspotInfo?.src || ''),
+        }));
+
+        this.activeHotspotIndex = 0;
+        this.focusHotspot(0);
+      },
+
+      focusHotspot(index) {
+        this.activeHotspotIndex = index;
+        if (this.api && this.hotspots[index]) {
+          this.api.hotspots.focusHotspot(this.hotspots[index].id);
+        }
+      },
+
+      handleClick(index) {
+        this.focusHotspot(index);
+      },
+    };
+  }
+</script>
+
+<script>
+  function rotatorCallback(api) {
+    const dynamicHotspots = api.hotspots.getDynamicHotspots();
+    if (!dynamicHotspots.length) return;
+
+    window.dispatchEvent(
+      new CustomEvent('web-rotate-initialize', {
+        detail: {
+          webRotatorApi: api,
+          dynamicHotspots,
+        },
+      })
+    );
+  }
+
+  const viewerSettings = {
+    configFileURL: 'https://cdn.shopify.com/s/files/1/0636/7789/0627/files/ATMOS65.xml',
+    rootPath: 'https://cdn.shopify.com/s/files/1/0636/7789/0627/files/',
+    holderId: 'webrotate',
+    graphicsPath: '/graphics/',
+    width: 545,
+    height: 545,
+    onViewerReady: rotatorCallback,
+  };
+
+  createWR360Player(viewerSettings);
+</script>
+
+<div
+  x-data="webRotateComponent()"
+  x-init="init()"
+  @web-rotate-initialize.window="apiInitialized($event.detail)"
+  class="t-px-4 t-py-10"
+>
+  <h2 class="t-text-3xl t-font-semibold t-uppercase t-mb-4">Special Features</h2>
+
+  <div class="t-flex t-flex-col md:t-flex-row md:t-h-[600px]">
+    <div class="md:t-w-1/2 t-mb-6 md:t-mb-0 t-flex t-justify-center">
+      <div id="webrotate" x-ref="webrotate" class="t-w-full t-max-w-[545px]"></div>
+      <div class="t-flex t-items-center t-justify-center t-gap-2 t-uppercase t-text-secondary t-text-xs t-font-bold t-mt-2">
+        <svg class="t-w-4 t-h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1026.8645">
+          <path d="..."/>
+        </svg>
+        <span>Drag to Rotate</span>
+      </div>
+    </div>
+
+    <div class="md:t-w-1/2 t-space-y-5" x-ref="list">
+      <template x-for="(hotspot, index) in hotspots" :key="hotspot.id">
+        <div class="t-flex t-items-start" :data-hotspot-index="index">
+          <div
+            class="t-flex t-items-center t-justify-center t-text-xs t-rounded-full t-border t-border-black t-h-6 t-w-6"
+            :class="{ 't-bg-black t-text-white': activeHotspotIndex === index, 't-bg-white t-text-black': activeHotspotIndex !== index }"
+          >
+            <span x-text="index + 1"></span>
+          </div>
+          <div class="t-ml-3">
+            <h4 class="t-text-sm t-font-semibold" x-text="hotspot.title"></h4>
+            <p class="t-text-xs" x-text="hotspot.description"></p>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="t-flex t-justify-center t-gap-2 t-mt-4">
+    <template x-for="(hotspot, index) in hotspots" :key="index">
+      <button
+        class="t-h-4 t-w-4 t-rounded-full t-border t-border-black t-transition-all hover:t-scale-110"
+        :class="{ 't-bg-black': activeHotspotIndex === index, 't-bg-white': activeHotspotIndex !== index }"
+        @click="handleClick(index)"
+      ></button>
+    </template>
+  </div>
+</div>

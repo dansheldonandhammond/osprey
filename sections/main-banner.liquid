@@ -28,10 +28,10 @@
   <div class="t-relative t-h-full t-flex t-flex-col t-items-center ">
     <!-- Video Block -->
     {% if section.settings.video_url != blank %}
-      <div class="t-w-full t-h-full t-block">
+      <div class="t-w-full t-block">
         <video
           id="dynamic_video"
-          class="t-w-full t-h-full t-w-full t-object-cover t-object-center t-h-full"
+          class="t-w-full  t-object-cover t-object-center "
           preload="auto"
           loop
           muted
@@ -165,48 +165,67 @@
   </div>
 
   <div class="t-inset-0 t-absolute">
-    <a
-      href="#bottom"
-      class="t-hidden lg:t-flex t-group t-left-1/2 t-absolute t-bottom-10 t-group t-flex t-justify-center t-items-center t-rounded-full t-text-[var(--primary-text-hover-colour)] t-bg-[var(--primary-bg-colour)] hover:t-bg-[var(--secondary-bg-colour)] t-ease-in-out t-duration-500 t-transition t-w-[5rem] t-h-[5rem] "
-      onclick="event.preventDefault(); document.querySelector('#bottom').scrollIntoView({ behavior: 'smooth' });"
-    >
-      <span
-        class="inline-block align-text-bottom object-contain icon-size-x-small"
-        style="--icon-color: var(--color-white); --icon-hover-color: var(--color-black);"
+    {% comment %}
+      <a
+        href="#bottom"
+        class="t-hidden lg:t-flex t-group t-left-1/2 t-absolute t-bottom-10 t-group t-flex t-justify-center t-items-center t-rounded-full t-text-[var(--primary-text-hover-colour)] t-bg-[var(--primary-bg-colour)] hover:t-bg-[var(--secondary-bg-colour)] t-ease-in-out t-duration-500 t-transition t-w-[5rem] t-h-[5rem] "
+        onclick="event.preventDefault(); document.querySelector('#bottom').scrollIntoView({ behavior: 'smooth' });"
       >
-        <svg
-          class="t-transition t-stroke "
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          width="15"
-          height="15"
+        <span
+          class="inline-block align-text-bottom object-contain icon-size-x-small"
+          style="--icon-color: var(--color-white); --icon-hover-color: var(--color-black);"
         >
-          <g>
-            <polyline class="group-hover:t-stroke-white t-ease-in-out t-duration-500" fill="none" stroke="currentColor" stroke-linecap="square" stroke-width="1" points="3.5,14.5 12,23 20.5,14.5"></polyline>
-            <line class="group-hover:t-stroke-white  t-ease-in-out t-duration-500" fill="none" stroke="currentColor" stroke-linecap="square" stroke-width="1" x1="12" y1="22.4" x2="12" y2="1"></line>
-          </g>
-        </svg>
-      </span>
-    </a>
-    <div class="t-top-[195px] t-w-full t-relative t-max-w-[1308px] t-right-[-15px] t-mx-auto t-text-left t-text-white t-flex t-justify-center t-items-start t-flex-col">
-      <div class="t-h-full t-absolute t-bottom-0   t-w-full">
-        <div>
-          <span class="t-text-lg t-font-medium t-mb-4 t-text-header-8 t-tracking-[7px] ">AETHER / ARIEL FAMILY</span>
-          <h2 class="t-text-white t-text-[clamp(0.75rem, 0.2717rem + 2.0408vw, 1.25rem)] md:t-text-4xl t-font-bold t-text-header-1 t-max-w-[400px] t-mt-[9px] t-mb-[35px] t-leading-[1] t-tracking-[0px]">
-            Built For Heavy Loads
-          </h2>
-          <p class="t-text-[1.6rem] t-text-base t-mb-[20px] t-max-w-[469px] t-leading-[1.5] t-tracking-[0.1px]">
-            Whether you’re carrying heavy loads just a few miles from the trailhead or 8,000 metres above sea level, the
-            Aether/ Ariel Family will help you move mountains.
-          </p>
-          <a
-            href="#"
-            class="t-font-[600] t-text-body-6 t-no-underline t-uppercase t-inline-block t-text-black t-bg-white hover:t-bg-grey t-py-[12px] t-px-[35px] t-transition t-duration-300 hover:t-text-white t-tracking-[1px]"
-            >Learn More</a
+          <svg
+            class="t-transition t-stroke "
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="15"
+            height="15"
           >
+            <g>
+              <polyline class="group-hover:t-stroke-white t-ease-in-out t-duration-500" fill="none" stroke="currentColor" stroke-linecap="square" stroke-width="1" points="3.5,14.5 12,23 20.5,14.5"></polyline>
+              <line class="group-hover:t-stroke-white  t-ease-in-out t-duration-500" fill="none" stroke="currentColor" stroke-linecap="square" stroke-width="1" x1="12" y1="22.4" x2="12" y2="1"></line>
+            </g>
+          </svg>
+        </span>
+      </a>
+    {% endcomment %}
+    {% if section.blocks != empty %}
+      <div class="t-top-[195px] t-w-full t-relative t-max-w-[1308px] t-right-[-15px] t-mx-auto t-text-left t-text-white t-flex t-justify-center t-items-start t-flex-col">
+        <div class="t-h-full t-absolute t-bottom-0 t-w-full">
+          {%- for block in section.blocks -%}
+            <div>
+              {% if block.settings.subheading_text %}
+                <p class="t-text-lg t-font-medium t-mb-4 t-text-header-8 t-tracking-[7px] ">
+                  {{- block.settings.subheading_text -}}
+                </p>
+              {% endif %}
+
+              {% if block.settings.heading_block_heading_text %}
+                <h2 class="t-text-white t-text-[clamp(0.75rem, 0.2717rem + 2.0408vw, 1.25rem)] md:t-text-4xl t-font-bold t-text-header-1 t-max-w-[400px] t-mt-[9px] t-mb-[35px] t-leading-[1] t-tracking-[0px]">
+                  {{ block.settings.heading_block_heading_text }}
+                </h2>
+              {% endif %}
+              {% if block.settings.text_block_text %}
+                <p class="t-text-[1.6rem] t-text-base t-mb-[20px] t-max-w-[469px] t-leading-[1.5] t-tracking-[0.1px]">
+                  {{ block.settings.text_block_text }}
+                </p>
+              {% endif %}
+
+              {% if block.settings.button_label_1 %}
+                <a
+                  href="{{ block.settings.button_link_1 }}"
+                  class="t-font-[600] t-text-body-6 t-no-underline t-uppercase t-inline-block t-text-black t-bg-white hover:t-bg-grey t-py-[12px] t-px-[35px] t-transition t-duration-300 hover:t-text-white t-tracking-[1px]"
+                >
+                  {{- block.settings.button_label_1 }}
+                </a>
+              {% endif %}
+            </div>
+          {%- endfor -%}
         </div>
       </div>
-    </div>
+      </div>
+    {% endif %}
   </div>
 </div>
 
@@ -322,6 +341,19 @@
   ],
   "blocks": [
     {
+      "type": "subheading",
+      "name": "subheading",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading_text",
+          "label": "Heading Text",
+          "default": "subheading"
+        }
+      ]
+    },
+    {
       "type": "heading",
       "name": "t:sections.image-banner.blocks.heading.name",
       "limit": 1,
@@ -330,7 +362,7 @@
           "type": "text",
           "id": "heading_block_heading_text",
           "label": "Heading Text",
-          "default": "Lorem Ipsum Dolor Sit Amet"
+          "default": "Subheading"
         },
         {
           "type": "radio",
@@ -688,6 +720,7 @@
         }
       ]
     },
+
     {
       "type": "text",
       "name": "t:sections.image-banner.blocks.text.name",
@@ -1030,7 +1063,7 @@
     {
       "type": "buttons",
       "name": "t:sections.image-banner.blocks.buttons.name",
-      "limit": 1,
+      "limit": 3,
       "settings": [
         {
           "type": "text",

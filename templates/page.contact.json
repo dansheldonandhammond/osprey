@@ -13,19 +13,20 @@
       "type": "main-page",
       "settings": {}
     },
-    "form": {
+    "contact_form_jHjn9D": {
       "type": "contact-form",
+      "name": "t:sections.contact-form.presets.name",
       "settings": {
-        "heading": "",
+        "heading": "Contact form",
         "heading_size": "h1",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "color_scheme": "",
+        "padding_top": 60,
+        "padding_bottom": 64
       }
     }
   },
   "order": [
     "main",
-    "form"
+    "contact_form_jHjn9D"
   ]
 }

@@ -73,7 +73,7 @@ predictive-search[loading] .predictive-search {
   display: none;
 }
 
-@media screen and (min-width: 750px) {
+/* @media screen and (min-width: 750px) {
   .predictive-search__results-groups-wrapper--no-products .predictive-search__result-group:nth-child(2),
   .predictive-search__result-group:last-child .predictive-search__pages-wrapper {
     display: none;
@@ -88,7 +88,7 @@ predictive-search[loading] .predictive-search {
   .predictive-search__result-group:only-child {
     flex-grow: 1;
   }
-}
+} */
 
 .predictive-search__heading {
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);

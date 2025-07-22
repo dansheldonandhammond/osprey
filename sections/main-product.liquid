@@ -105,20 +105,37 @@
                     </h2>
                   </a>
                 </div>
-                <div class="product-type mt-4 md:mt-0">Men's Hiking | Multi-sport</div>
+                <div class="product-type mt-4 md:mt-0">
+                  {% if product.metafields.custom.activity %}
+                    {{ product.metafields.custom.activity | metafield_tag }}
+                  {% endif %}
+                  {% if product.metafields.custom.osprey_usage %}
+                    |
+                    {{ product.metafields.custom.osprey_usage | metafield_tag }}
+                  {% endif %}
+                </div>
                 <div class="series-product-link text-primary flex gap-2">
-                  <a
-                    class="text-m block link my-4.25 [&amp;:not(:first-child)]:pl-2 [&amp;:not(:first-child)]:border-l [&amp;:not(:first-child)]:border-black link link-secondary"
-                    title="View The Series"
-                    href="https://www.osprey.com/eu/featured/shop-by-collections/talon-tempest"
-                    >View The Series</a
-                  >
-                  <a
-                    class="text-m block link my-4.25 [&amp;:not(:first-child)]:pl-2 [&amp;:not(:first-child)]:border-l [&amp;:not(:first-child)]:border-black link link-secondary"
-                    title="View Women's Version"
-                    href="https://www.osprey.com/eu/osprey-tempest-22-extended-fit-s25"
-                    >View Women's Version</a
-                  >
+                  {% if product.metafields.custom.series %}
+                    <a
+                      class="t-text-[#9e3223] t-text-[16px] text-m block link my-4.25 [&amp;:not(:first-child)]:pl-2 [&amp;:not(:first-child)]:border-l [&amp;:not(:first-child)]:border-black link link-secondary"
+                      title="View The Series"
+                      href="/collections/{{ product.metafields.custom.series }}"
+                    >
+                      View The Series
+                    </a>
+                  {% endif %}
+
+                  {% assign mens_product = product.metafields.custom.view_men_version %}
+
+                  {% if mens_product %}
+                    | <a href="{{ mens_product.url }}">View men's version</a>
+                  {% endif %}
+
+                  {% assign womans_product = product.metafields.custom.view_woman_version %}
+
+                  {% if womans_product %}
+                    | <a href="{{ womans_product.url }}">View Women's Version</a>
+                  {% endif %}
                 </div>
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
@@ -693,6 +710,8 @@
 
       {% render 'product-tabs' %}
 
+      {% comment %} {% render 'product-special-features' %} {% endcomment %}
+
       {% comment %}
         <div id="reviews" class="tab-panel t-hidden">
           {% render 'product-reviews' %}
@@ -753,6 +772,8 @@
     </script>
   </div>
 </product-info>
+
+<div data-live-region class="visually-hidden" aria-live="polite" role="status"></div>
 
 {% schema %}
 {

@@ -77,7 +77,14 @@
       {% endcase %}
     </span>
     {%- render 'loading-spinner' -%}
-    <div class="product__media media media--transparent">
+    {%- assign filename = media.preview_image.src | split: '/' | last -%}
+    {%- assign number_part = filename | split: '_' | first -%}
+    {%- assign media_sku = number_part | replace: '[^0-9a-zA-Z\-]', '' -%}
+
+    <div
+      class="product__media media media--transparent"
+      data-variant-sku="{{ media.preview_image.src | split: '/' | last | split: '_' | first | remove: '.jpg' }}"
+    >
       {{
         media.preview_image
         | image_url: width: 1946

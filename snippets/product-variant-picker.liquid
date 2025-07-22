@@ -87,8 +87,14 @@
       {%- endif -%}
     {%- endfor -%}
 
+    <div data-live-region class="visually-hidden" aria-live="polite" role="status"></div>
+
     <script type="application/json" data-selected-variant>
       {{ product.selected_or_first_available_variant | json }}
+    </script>
+
+    <script id="variant-data" type="application/json">
+      {{ product.variants | json }}
     </script>
   </variant-selects>
 {%- endunless -%}

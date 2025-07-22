@@ -17,10 +17,10 @@
 
   style="
     background-image: url('{{ section.settings.background_image | img_url: 'master' }}'); background-repeat: no-repeat; background-size: cover; background-position: center;
-    --text_block_top-margin-default: {{ section.settings.text_block_top_default_margin }}px;
+    {% comment %} --text_block_top-margin-default: {{ section.settings.text_block_top_default_margin }}px; {% endcomment %}
     --text_block_bottom-margin-default: {{ section.settings.text_block_bottom_default_margin }}px;
     --text_block_top-margin-lg: {{ section.settings.text_block_top_large_margin }}px;
-    --text_block_bottom-margin-lg: {{ section.settings.text_block_bottom_large_margin }}px;
+    {% comment %} --text_block_bottom-margin-lg: {{ section.settings.text_block_bottom_large_margin }}px; {% endcomment %}
     --text_block_max-width: {{ section.settings.text_block_max_width }}px;
   "
 >
@@ -28,9 +28,9 @@
     {% comment %} src="{{ section.settings.icon_image | img_url }}" {% endcomment %}
     src="{{ section.settings.icon_image | img_url: 'master' }}"
     alt=""
-    class="t-w-[275px]"
+    class="lg:t-w-[275px] t-w-[150px]"
   >
-  <p class="t-text-[2.9rem] t-text-white">
+  <p class="lg:t-text-[2.9rem] t-text-white t-max-w-[325px] lg:t-max-w-[100%]">
     {{ section.settings.headline }}
   </p>
   <a

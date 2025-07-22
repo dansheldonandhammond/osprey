@@ -131,15 +131,12 @@
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
-        "settings": {
-          "color_scheme": "scheme-1"
-        }
+        "settings": {}
       },
       "main-password-footer": {
         "type": "main-password-footer",
-        "settings": {
-          "color_scheme": "scheme-1"
-        }
+        "custom_css": [],
+        "settings": {}
       }
     },
     "content_for_index": [],
@@ -168,7 +165,7 @@
       },
       "scheme-3": {
         "settings": {
-          "background": "{{ shop.brand.colors.secondary[0].foreground }}",
+          "background": "rgba(0,0,0,0)",
           "background_gradient": "",
           "text": "#ffffff",
           "button": "#ffffff",
@@ -380,15 +377,11 @@
       "sections": {
         "main-password-header": {
           "type": "main-password-header",
-          "settings": {
-            "color_scheme": "scheme-1"
-          }
+          "settings": {}
         },
         "main-password-footer": {
           "type": "main-password-footer",
-          "settings": {
-            "color_scheme": "scheme-1"
-          }
+          "settings": {}
         }
       }
     }

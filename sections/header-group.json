@@ -45,6 +45,9 @@
     },
     "header": {
       "type": "header",
+      "custom_css": [
+        "#main-menu {background: transparent;}"
+      ],
       "settings": {
         "logo_position": "middle-center",
         "mobile_logo_position": "center",

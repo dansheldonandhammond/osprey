@@ -444,11 +444,22 @@
         currentIndex = index;
       }
 
-      // Thumbnail click handlers
+      // Make thumbnails focusable for accessibility
+      thumbnails.forEach((thumb) => {
+        thumb.setAttribute('tabindex', '0');
+      });
+
+      // Thumbnail click and keyboard handlers
       thumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', function (e) {
           e.preventDefault();
           showSlide(index);
+        });
+        thumbnail.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            showSlide(index);
+          }
         });
       });
 
@@ -467,7 +478,7 @@
         });
       }
 
-      // Keyboard navigation
+      // Keyboard navigation for gallery
       gallery.addEventListener('keydown', function (e) {
         if (e.key === 'ArrowLeft') {
           const newIndex = currentIndex > 0 ? currentIndex - 1 : slides.length - 1;
@@ -484,15 +495,21 @@
         if (!variant) return;
 
         const featuredMediaId = variant.featured_media && variant.featured_media.id;
-        if (!featuredMediaId) return;
+        if (!featuredMediaId) {
+          showSlide(0);
+          return;
+        }
 
         const activeSlide = document.getElementById('Slide-{{ section.id }}-' + featuredMediaId);
         if (activeSlide) {
           const slideIndex = Array.from(slides).indexOf(activeSlide);
           if (slideIndex !== -1) {
             showSlide(slideIndex);
+            return;
           }
         }
+        // Fallback to first slide if not found
+        showSlide(0);
       });
 
       // Initialize first slide

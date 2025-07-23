@@ -558,6 +558,10 @@
   margin-top: 30px !important
 }
 
+.t-mr-4 {
+  margin-right: 1rem !important
+}
+
 .t-box-border {
   box-sizing: border-box !important
 }
@@ -714,6 +718,10 @@
   height: 100vh !important
 }
 
+.t-h-\[80px\] {
+  height: 80px !important
+}
+
 .t-max-h-0 {
   max-height: 0px !important
 }
@@ -834,6 +842,10 @@
 
 .t-w-\[433px\] {
   width: 433px !important
+}
+
+.t-w-\[80px\] {
+  width: 80px !important
 }
 
 .t-min-w-\[100\%\] {
@@ -2077,6 +2089,12 @@
   transition-duration: 150ms !important
 }
 
+.t-transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke !important;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition-duration: 150ms !important
+}
+
 .t-duration-200 {
   transition-duration: 200ms !important
 }
@@ -2101,6 +2119,11 @@
   --tw-scale-x: 1.1 !important;
   --tw-scale-y: 1.1 !important;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important
+}
+
+.hover\:t-border-gray-400:hover {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity, 1)) !important
 }
 
 .hover\:t-bg-\[var\(--secondary-bg-colour\)\]:hover {

@@ -64,7 +64,7 @@
       and section.settings.gallery_layout contains 'thumbnail'
       or section.settings.mobile_thumbnails == 'show'
     -%}
-      <div class="gallery-thumbnails t-w-[120px] t-flex-shrink-0">
+      <div class="gallery-thumbnails t-w-[100px] t-flex-shrink-0 t-mr-4">
         <slider-component id="GalleryThumbnails-{{ section.id }}">
           <button
             type="button"
@@ -105,7 +105,7 @@
               -%}
               <li
                 id="Slide-Thumbnails-{{ section.id }}-0"
-                class="t-h-[100px] t-w-[100px] thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains featured_media.src %} thumbnail-list_item--variant{% endif %}"
+                class="thumbnail-list__item slider__slide t-mb-3{% if section.settings.hide_variants and variant_images contains featured_media.src %} thumbnail-list_item--variant{% endif %}"
                 data-target="{{ section.id }}-{{ featured_media.id }}"
                 data-media-position="{{ media_index }}"
               >
@@ -113,7 +113,7 @@
                   Thumbnail-{{ section.id }}-0
                 {%- endcapture -%}
                 <button
-                  class="thumbnail global-media-settings global-media-settings--no-shadow t-w-[100px] t-h-[100px]"
+                  class="thumbnail-button t-w-[80px] t-h-[80px] t-border t-border-gray-200 t-rounded t-overflow-hidden t-block t-cursor-pointer hover:t-border-gray-400 t-transition-colors"
                   aria-label="{%- if featured_media.media_type == 'image' -%}{{ 'products.product.media.load_image' | t: index: media_index }}{%- elsif featured_media.media_type == 'model' -%}{{ 'products.product.media.load_model' | t: index: media_index }}{%- elsif featured_media.media_type == 'video' or featured_media.media_type == 'external_video' -%}{{ 'products.product.media.load_video' | t: index: media_index }}{%- endif -%}"
                   aria-current="true"
                   aria-controls="GalleryViewer-{{ section.id }}"
@@ -156,7 +156,7 @@
 
                 <li
                   id="Slide-Thumbnails-{{ section.id }}-{{ forloop.index }}"
-                  class="thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains media.src %} thumbnail-list_item--variant{% endif %}"
+                  class="thumbnail-list__item slider__slide t-mb-3{% if section.settings.hide_variants and variant_images contains media.src %} thumbnail-list_item--variant{% endif %}"
                   data-target="{{ section.id }}-{{ media.id }}"
                   data-media-position="{{ media_index }}"
                   {% if media_sku != blank %}
@@ -185,7 +185,7 @@
                   {%- endcapture -%}
 
                   <button
-                    class="thumbnail global-media-settings global-media-settings--no-shadow t-w-[100px] t-h-[100px]"
+                    class="thumbnail-button t-w-[80px] t-h-[80px] t-border t-border-gray-200 t-rounded t-overflow-hidden t-block t-cursor-pointer hover:t-border-gray-400 t-transition-colors"
                     aria-label="{%- if media.media_type == 'image' -%}{{ 'products.product.media.load_image' | t: index: media_index }}{%- elsif media.media_type == 'model' -%}{{ 'products.product.media.load_model' | t: index: media_index }}{%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}{{ 'products.product.media.load_video' | t: index: media_index }}{%- endif -%}"
                     {% if media == product.selected_or_first_available_variant.featured_media
                       or product.selected_or_first_available_variant.featured_media == null
@@ -361,54 +361,114 @@
   </div>
 
   <style>
-    @media (min-width: 1024px) {
-      #GalleryThumbnails-{{ section.id }} .thumbnail-list {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        height: 400px;
-        overflow-y: auto;
-        width: 100px;
-      }
+    .gallery-thumbnails {
+      display: flex;
+      flex-direction: column;
+    }
 
-      #GalleryThumbnails-{{ section.id }} .thumbnail-list__item {
-        width: 100px;
-        height: 100px;
-        flex-shrink: 0;
-      }
+    .thumbnail-list {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
 
-      #GalleryThumbnails-{{ section.id }} .thumbnail-list__item button.thumbnail {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
+    .thumbnail-list__item {
+      margin-bottom: 12px;
+    }
 
-      #GalleryThumbnails-{{ section.id }} .thumbnail-list__item button.thumbnail img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 4px;
-      }
+    .thumbnail-button {
+      padding: 0;
+      background: none;
+      position: relative;
+    }
 
-      #GalleryThumbnails-{{ section.id }} .slider-button--prev,
-      #GalleryThumbnails-{{ section.id }} .slider-button--next {
-        transform: rotate(90deg);
-        margin: 0.25rem auto;
-      }
+    .thumbnail-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumbnail-button[aria-current='true'] {
+      border-color: #000 !important;
+      border-width: 2px !important;
     }
 
     .product__media-item {
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      display: none;
     }
 
     .product__media-item.is-active,
     .product__media-item:first-child {
-      opacity: 1;
+      display: block;
     }
 
-    .thumbnail[aria-current="true"] {
-      border: 2px solid #000;
+    .gallery-viewer {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .product__media-list {
+      position: relative;
+    }
+
+    .slider-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .slider-button {
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .slider-button:hover {
+      background: #e8e8e8;
+    }
+
+    .slider-counter {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .thumbnail__badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .product-media-gallery-flex {
+        display: flex;
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .gallery-thumbnails {
+        display: none;
+      }
+
+      .gallery-viewer {
+        width: 100%;
+      }
     }
   </style>
 
@@ -417,7 +477,7 @@
       const gallery = document.getElementById('MediaGallery-{{ section.id }}');
       if (!gallery) return;
 
-      const thumbnails = gallery.querySelectorAll('.thumbnail');
+      const thumbnails = gallery.querySelectorAll('.thumbnail-button');
       const slides = gallery.querySelectorAll('.product__media-item');
       const prevButton = gallery.querySelector('.slider-button--prev');
       const nextButton = gallery.querySelector('.slider-button--next');

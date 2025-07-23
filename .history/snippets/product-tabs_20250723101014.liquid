@@ -1,0 +1,328 @@
+{% comment %}
+Special Features Section with 360° Product Viewer and Interactive Hotspots
+{% endcomment %}
+
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('webRotateComponent', () => ({
+    activeHotspotIndex: 0,
+    hotspots: [
+      {
+        id: 'RAINCOVER',
+        title: 'RAINCOVER',
+        description: 'Included raincover made with PFC-free DWR and bluesign®-approved materials',
+        imageSrc: 'https://www.osprey.com/gb/media/360_assets_osprey/AETHER55F20-v1/images/spots/AA_11.jpg?t=1695889011'
+      },
+      {
+        id: 'FLOATING_TOP_LID',
+        title: 'FLOATING TOP LID',
+        description: 'Floating top lid with lash points',
+        imageSrc: 'https://www.osprey.com/gb/media/360_assets_osprey/AETHER55F20-v1/images/spots/AA_31.jpg?t=1695889011'
+      },
+      {
+        id: 'FRONT_POCKET',
+        title: 'FRONT POCKET',
+        description: 'Fabric reinforced front shove-it pocket',
+        imageSrc: 'https://www.osprey.com/gb/media/360_assets_osprey/AETHER55F20-v1/images/spots/AA_41.jpg?t=1695889011'
+      },
+      {
+        id: 'SIDE_MESH_POCKETS',
+        title: 'SIDE MESH POCKETS',
+        description: 'Large dual-access stretch mesh side water bottle pockets',
+        imageSrc: 'https://www.osprey.com/gb/media/360_assets_osprey/AETHER55F20-v1/images/spots/AA_51.jpg?t=1695889011'
+      },
+      {
+        id: 'HIPBELT_POCKETS',
+        title: 'HIPBELT POCKETS',
+        description: 'Dual zippered hipbelt pockets',
+        imageSrc: 'https://www.osprey.com/gb/media/360_assets_osprey/AETHER55F20-v1/images/spots/AA_61.jpg?t=1695889011'
+      },
+      {
+        id: 'ICE_TOOL_ATTACHEMENT',
+        title: 'ICE TOOL ATTACHEMENT',
+        description: 'Dual ice axe loops with bungee tie-offs',
+        imageSrc: 'https://www.osprey.com/gb/media/360_assets_osprey/AETHER55F20-v1/images/spots/AA_7.jpg?t=1695889011'
+      },
+      {
+        id: 'SLEEPING_BAG_COMPARTMENT',
+        title: 'SLEEPING BAG COMPARTMENT',
+        description: 'Zippered sleeping bag compartment with removable divider',
+        imageSrc: 'https://www.osprey.com/gb/media/360_assets_osprey/AETHER55F20-v1/images/spots/AA_8.jpg?t=1695889011'
+      },
+      {
+        id: 'SLEEPING_PAD_STRAPS',
+        title: 'SLEEPING PAD STRAPS',
+        description: 'Removable sleeping pad straps',
+        imageSrc: 'https://www.osprey.com/gb/media/360_assets_osprey/AETHER55F20-v1/images/spots/AA_91.jpg?t=1695889011'
+      },
+      {
+        id: 'RESERVOIR_SLEEVE',
+        title: 'RESERVOIR SLEEVE',
+        description: 'Internal hydration reservoir sleeve',
+        imageSrc: 'https://www.osprey.com/gb/media/360_assets_osprey/AETHER55F20-v1/images/spots/AA_101.jpg?t=1695889011'
+      },
+      {
+        id: 'FRONT_PANEL_ACCESS',
+        title: 'FRONT PANEL ACCESS',
+        description: 'Large front panel zip access to main compartment',
+        imageSrc: 'https://www.osprey.com/gb/media/360_assets_osprey/AETHER55F20-v1/images/spots/AA_21.jpg?t=1695889011'
+      }
+    ],
+
+    init() {
+      // Initialize any setup needed
+      this.scrollToActiveItem();
+    },
+
+    handleClick(index) {
+      this.activeHotspotIndex = index;
+      this.scrollToActiveItem();
+    },
+
+    scrollToActiveItem() {
+      this.$nextTick(() => {
+        const activeItem = this.$refs.list.querySelector(`[data-hotspot-index="${this.activeHotspotIndex}"]`);
+        if (activeItem) {
+          activeItem.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'nearest',
+            inline: 'center'
+          });
+        }
+      });
+    },
+
+    apiInitialized(detail) {
+      // Handle API initialization if needed
+      console.log('WebRotate API initialized', detail);
+    }
+  }));
+});
+</script>
+
+<section class="t-py-12 t-bg-white">
+  <div class="t-container t-mx-auto t-px-4">
+    <div x-data="webRotateComponent()" 
+         @web-rotate-initialize.window="apiInitialized($event.detail)" 
+         x-intersect.once.margin.150px="$dispatch('web-rotate-adhoc-initialize')">
+      
+      <h2 class="t-text-3xl t-font-semibold t-uppercase t-mb-4 t-text-center md:t-text-left">Special Features</h2>
+      
+      <div class="t-relative t-flex t-flex-col md:t-flex-row md:t-h-160 md:after:t-bg-gradient-to-b md:after:t-from-transparent md:after:t-to-white md:after:t-absolute md:after:t-left-0 md:after:t-bottom-0 md:after:t-h-4 md:after:t-w-full md:after:t-z-10 lg:after:t-h-7.5 md:before:t-bg-gradient-to-t md:before:t-from-transparent md:before:t-to-white md:before:t-absolute md:before:t-left-0 md:before:t-top-0 md:before:t-h-4 md:before:t-w-full md:before:t-z-10 lg:before:t-h-7.5">
+        
+        <!-- 360° Product Viewer -->
+        <div class="t-pb-5 md:t-w-[42%] md:t-order-2">
+          <div class="t-m-0 t-relative t-bg-white t-rounded-lg t-overflow-hidden" id="webrotate" x-ref="webrotate">
+            <div class="t-w-full t-h-96 t-flex t-items-center t-justify-center t-relative">
+              <!-- Main Product Image -->
+              <img 
+                class="t-w-full t-h-full t-object-contain" 
+                src="https://www.osprey.com/gb/media/360_assets_osprey/AETHER55F20-v1/images/aether55s21-360_01.jpg?t=1695889011"
+                alt="Aether 55 Backpack 360° View"
+              >
+              
+              <!-- Hotspot Indicators -->
+              <div x-show="activeHotspotIndex === 0" 
+                   class="t-absolute t-w-6 t-h-6 t-bg-no-repeat t-bg-contain hotspot-indicator"
+                   style="left: 195px; top: 49px; background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiIGZpbGw9IiMzYjgyZjYiLz4KPHN2ZyB4PSI2IiB5PSI2IiB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik0xMiA2VjE4TTYgMTJIMTgiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo8L3N2Zz4K');">
+              </div>
+              
+              <div x-show="activeHotspotIndex === 2" 
+                   class="t-absolute t-w-6 t-h-6 t-bg-no-repeat t-bg-contain hotspot-indicator"
+                   style="left: 257px; top: 255px; background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiIGZpbGw9IiMzYjgyZjYiLz4KPHN2ZyB4PSI2IiB5PSI2IiB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik0xMiA2VjE4TTYgMTJIMTgiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo8L3N2Zz4K');">
+              </div>
+            </div>
+          </div>
+          
+          <!-- Drag to Rotate Instructions -->
+          <div class="t-flex t-items-center t-justify-center t-gap-x-2.5 t-uppercase t-text-gray-600 t-text-xs t-font-bold t-mt-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1026.8645" class="t-fill-current t-w-4 t-h-4" role="img">
+              <path d="M889.68 168.84C796.072 66.626 661.526 2.522 512 2.522c-282.77.002-512 229.23-512 512h96C96 284.774 282.25 98.524 512 98.524c123.02 0 233.542 53.418 309.696 138.306L672 386.522h352v-352l-134.32 134.32zM928 514.522c0 229.75-186.25 416-416 416-123.02 0-233.542-53.417-309.694-138.305L352 642.52H0v352L134.32 860.2c93.608 102.217 228.154 166.32 377.68 166.32 282.77 0 512-229.23 512-512h-96z"></path>
+            </svg>
+            <span>Drag to Rotate</span>
+          </div>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <div class="t-flex t-justify-center t-border-b t-border-solid t-border-black t-pb-4 md:t-border-b-0 t-z-10">
+          <ul class="t-flex t-gap-x-1.5 t-gap-y-2.5 t-mx-auto md:t-flex-col md:t-order-1">
+            <template x-for="(hotspot, index) in hotspots" :key="hotspot.id">
+              <li>
+                <button 
+                  class="t-flex t-items-center t-justify-center t-text-xs t-rounded-full t-border-black t-border-solid t-border t-h-4 t-w-4 md:t-h-7 md:t-w-7 md:t-text-xs hover:t-scale-110 t-transition-all"
+                  :class="{ 't-bg-black t-text-white': activeHotspotIndex === index, 't-bg-white t-text-black': activeHotspotIndex !== index }"
+                  :data-index="index"
+                  @click="handleClick(index)"
+                >
+                  <span class="t-sr-only">Go to slide</span>
+                  <span class="label" x-text="index + 1"></span>
+                </button>
+              </li>
+            </template>
+          </ul>
+        </div>
+        
+        <!-- Features List -->
+        <ul class="t-relative t-flex t-gap-x-5 t-order-3 t-overflow-y-hidden t-overflow-x-scroll t-pt-4 -t-mx-4 md:t-mx-0 md:t-pt-20 md:t-pb-45 md:t-flex-col md:t-overflow-x-hidden md:t-overflow-y-scroll" 
+            x-ref="list" 
+            id="features-list" 
+            aria-live="polite"
+            style="scrollbar-width: none; -ms-overflow-style: none;">
+          
+          <template x-for="(hotspot, index) in hotspots" :key="hotspot.id">
+            <li class="t-flex t-shrink-0 t-w-[calc(100%-40px)] first:t-ml-5 last:t-mr-5.5 md:t-items-center md:t-pl-0 md:t-px-0 md:t-ml-5 md:t-min-h-96" 
+                data-webrotate="item" 
+                :data-hotspot-index="index">
+              
+              <div class="t-w-[70%] md:t-w-[55%]">
+                <div class="t-flex t-items-center t-gap-x-2.5 t-border-b t-border-solid t-border-black t-pb-3 t-mb-3">
+                  <span class="t-flex t-shrink-0 t-items-center t-justify-center t-text-xs t-rounded-full t-border-black t-border-solid t-border t-h-7 t-w-7"
+                        :class="{ 't-bg-black t-text-white': activeHotspotIndex === index, 't-bg-white t-text-black': activeHotspotIndex !== index }">
+                    <span class="t-sr-only">Slide</span>
+                    <span x-text="index + 1"></span>
+                  </span>
+                  <h4 class="t-text-xs t-font-semibold md:t-text-base" x-text="hotspot.title"></h4>
+                </div>
+                <div class="t-text-xs t-pr-[6%] t-leading-relaxed" x-text="hotspot.description"></div>
+              </div>
+              
+              <div class="t-w-[30%] t-border t-border-solid t-border-black t-rounded-full t-overflow-hidden md:t-w-[45%]">
+                <img :src="hotspot.imageSrc" :alt="hotspot.title" class="t-w-full t-h-full t-object-cover">
+              </div>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.hotspot-indicator {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Hide scrollbar for WebKit browsers */
+#features-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom heights for responsive design */
+@media (min-width: 768px) {
+  .md\:t-h-160 {
+    height: 40rem;
+  }
+  .md\:t-pb-45 {
+    padding-bottom: 11.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:after\:t-h-7\.5::after {
+    height: 1.875rem;
+  }
+  .lg\:before\:t-h-7\.5::before {
+    height: 1.875rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Special Features",
+  "tag": "section",
+  "class": "section-special-features",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Special Features",
+      "label": "Section heading"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_product_image",
+      "label": "Main product image"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Product Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Feature description"
+        },
+        {
+          "type": "image_picker",
+          "id": "feature_image",
+          "label": "Feature detail image"
+        },
+        {
+          "type": "range",
+          "id": "hotspot_x",
+          "min": 0,
+          "max": 500,
+          "step": 1,
+          "unit": "px",
+          "label": "Hotspot X position",
+          "default": 200
+        },
+        {
+          "type": "range",
+          "id": "hotspot_y",
+          "min": 0,
+          "max": 500,
+          "step": 1,
+          "unit": "px",
+          "label": "Hotspot Y position",
+          "default": 200
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Special Features",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Raincover",
+            "description": "Included raincover made with PFC-free DWR and bluesign®-approved materials"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Front Pocket",
+            "description": "Fabric reinforced front shove-it pocket"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,383 @@
+<!-- Product Detail Section -->
+<section class="bg-white py-12">
+  <div class="container-fluid">
+    <!-- Tab Navigation -->
+    <div class="border-b border-gray-200 mb-8">
+      <nav class="flex space-x-8" aria-label="Product Information Tabs">
+        <button
+          class="tab-button active border-b-2 border-black pb-3 px-1 text-sm font-medium text-black"
+          data-tab="description"
+        >
+          Description
+        </button>
+        <button
+          class="tab-button border-b-2 border-transparent pb-3 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+          data-tab="attributes"
+        >
+          Key Attributes
+        </button>
+        <button
+          class="tab-button border-b-2 border-transparent pb-3 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+          data-tab="carry"
+        >
+          Carry Information
+        </button>
+        <button
+          class="tab-button border-b-2 border-transparent pb-3 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+          data-tab="specs"
+        >
+          Specs
+        </button>
+        <button
+          class="tab-button border-b-2 border-transparent pb-3 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+          data-tab="reviews"
+        >
+          Reviews
+        </button>
+      </nav>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+      <!-- Description Tab -->
+      <div id="description" class="tab-pane active">
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+          <!-- Left Column - Text Content -->
+          <div class="space-y-8">
+            <!-- Product Description -->
+            <div class="text-gray-700 leading-relaxed">
+              <p>
+                {{
+                  section.settings.product_description
+                  | default: 'You come to the trailhead fully prepared, you expect the same reliability and readiness from your pack—and the Aether 55 delivers. Custom Fit-on-the-Fly Shoulder Straps, Hipbelt and an adjustable torso provide a near-perfect fit while an injection-moulded backpanel offers close-to-body performance. Made with bluesign®-approved nylon and PFC-free DWR. Raincover included.'
+                }}
+              </p>
+            </div>
+
+            <!-- Features Section -->
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-6">Features</h3>
+              <ul class="space-y-3">
+                {% assign features = section.settings.features | split: '|' %}
+                {% if features.size > 0 %}
+                  {% for feature in features %}
+                    <li class="flex items-start">
+                      <span class="text-gray-400 mr-3 mt-1">+</span>
+                      <span class="text-gray-700 text-sm leading-relaxed">{{ feature | strip }}</span>
+                    </li>
+                  {% endfor %}
+                {% else %}
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed"
+                      >Included raincover made with PFC-free DWR and bluesign®-approved materials</span
+                    >
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed"
+                      >Large front panel zip access to main compartment</span
+                    >
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed">Floating top lid with lash points</span>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed">Fabric reinforced front shove-it pocket</span>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed"
+                      >Large dual-access stretch mesh side water bottle pockets</span
+                    >
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed">Dual upper/lower side compression straps</span>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed"
+                      >Dual front panel compression straps with StraightJacket compression</span
+                    >
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed">Dual zippered hipbelt pockets</span>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed">Dual ice axe loops with bungee tie-offs</span>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed"
+                      >Zippered sleeping bag compartment with removable divider</span
+                    >
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed">Removable sleeping pad strap</span>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed">Internal hydration reservoir sleeve</span>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-gray-400 mr-3 mt-1">+</span>
+                    <span class="text-gray-700 text-sm leading-relaxed"
+                      >Anchor loops for an optional Osprey Daylite® daypack for short forays</span
+                    >
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+
+            <!-- Download Button -->
+            <div class="pt-4">
+              <a
+                href="{{ section.settings.manual_link | default: '#' }}"
+                class="inline-flex items-center bg-black text-white px-6 py-3 text-sm font-medium uppercase tracking-wider hover:bg-gray-800 transition-colors"
+              >
+                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+                {{ section.settings.download_text | default: "DOWNLOAD OWNER'S MANUAL" }}
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column - Product Image -->
+          <div class="lg:pl-8">
+            <div class="aspect-square bg-gray-50 rounded-lg overflow-hidden">
+              {% if section.settings.product_image %}
+                <img
+                  src="{{ section.settings.product_image | image_url: width: 600 }}"
+                  alt="{{ section.settings.product_image.alt | default: 'Product Image' }}"
+                  class="w-full h-full object-cover"
+                >
+              {% else %}
+                <!-- Placeholder using the provided image -->
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F29bd4e93a26b4f8eadd297cf8fab937b%2F6875dbdbed294c3c8b42e318454e96fc?format=webp&width=800"
+                  alt="Osprey Backpack"
+                  class="w-full h-full object-cover"
+                >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Attributes Tab -->
+      <div id="attributes" class="tab-pane hidden">
+        <div class="max-w-4xl">
+          <h3 class="text-xl font-semibold text-gray-900 mb-6">Key Attributes</h3>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h4 class="font-medium text-gray-900 mb-3">Comfort & Fit</h4>
+              <ul class="space-y-2 text-sm text-gray-700">
+                <li>• Custom Fit-on-the-Fly Shoulder Straps</li>
+                <li>• Adjustable torso length</li>
+                <li>• Injection-moulded backpanel</li>
+                <li>• Close-to-body performance</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-900 mb-3">Materials & Sustainability</h4>
+              <ul class="space-y-2 text-sm text-gray-700">
+                <li>• bluesign®-approved nylon</li>
+                <li>• PFC-free DWR coating</li>
+                <li>• Durable construction</li>
+                <li>• Weather-resistant materials</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carry Information Tab -->
+      <div id="carry" class="tab-pane hidden">
+        <div class="max-w-4xl">
+          <h3 class="text-xl font-semibold text-gray-900 mb-6">Carry Information</h3>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h4 class="font-medium text-gray-900 mb-3">Load Management</h4>
+              <ul class="space-y-2 text-sm text-gray-700">
+                <li>• StraightJacket compression system</li>
+                <li>• Dual front panel compression straps</li>
+                <li>• Side compression straps</li>
+                <li>• Load stabilization features</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-900 mb-3">Access Points</h4>
+              <ul class="space-y-2 text-sm text-gray-700">
+                <li>• Large front panel zip access</li>
+                <li>• Top loading main compartment</li>
+                <li>• Sleeping bag compartment access</li>
+                <li>• Multiple external pockets</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Specs Tab -->
+      <div id="specs" class="tab-pane hidden">
+        <div class="max-w-4xl">
+          <h3 class="text-xl font-semibold text-gray-900 mb-6">Specifications</h3>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h4 class="font-medium text-gray-900 mb-3">Dimensions & Weight</h4>
+              <dl class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <dt class="text-gray-600">Volume:</dt>
+                  <dd class="text-gray-900">55L</dd>
+                </div>
+                <div class="flex justify-between">
+                  <dt class="text-gray-600">Weight:</dt>
+                  <dd class="text-gray-900">4.2 lbs (1.9 kg)</dd>
+                </div>
+                <div class="flex justify-between">
+                  <dt class="text-gray-600">Dimensions:</dt>
+                  <dd class="text-gray-900">30 x 14 x 12 in</dd>
+                </div>
+              </dl>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-900 mb-3">Fit Range</h4>
+              <dl class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <dt class="text-gray-600">Torso Length:</dt>
+                  <dd class="text-gray-900">16-21 in</dd>
+                </div>
+                <div class="flex justify-between">
+                  <dt class="text-gray-600">Hip Belt:</dt>
+                  <dd class="text-gray-900">30-50 in</dd>
+                </div>
+                <div class="flex justify-between">
+                  <dt class="text-gray-600">Max Load:</dt>
+                  <dd class="text-gray-900">50 lbs</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews Tab -->
+      <div id="reviews" class="tab-pane hidden">
+        <div class="max-w-4xl">
+          <h3 class="text-xl font-semibold text-gray-900 mb-6">Customer Reviews</h3>
+          <div class="space-y-6">
+            <div class="border-b border-gray-200 pb-6">
+              <div class="flex items-center mb-2">
+                <div class="flex text-yellow-400 mr-2">
+                  <span>★★★★★</span>
+                </div>
+                <span class="text-sm text-gray-600">5.0 out of 5 stars</span>
+              </div>
+              <p class="text-gray-700 mb-2"><strong>Perfect for multi-day hikes</strong></p>
+              <p class="text-sm text-gray-600">
+                This pack has been incredible for my 3-4 day backpacking trips. The fit system is amazing and it carries
+                heavy loads comfortably.
+              </p>
+            </div>
+            <div class="text-center py-8">
+              <p class="text-gray-500">More reviews coming soon...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabButtons.forEach((button) => {
+      button.addEventListener('click', function () {
+        const targetTab = this.getAttribute('data-tab');
+
+        // Remove active class from all buttons and panes
+        tabButtons.forEach((btn) => {
+          btn.classList.remove('active', 'border-black', 'text-black');
+          btn.classList.add('border-transparent', 'text-gray-500');
+        });
+
+        tabPanes.forEach((pane) => {
+          pane.classList.remove('active');
+          pane.classList.add('hidden');
+        });
+
+        // Add active class to clicked button
+        this.classList.add('active', 'border-black', 'text-black');
+        this.classList.remove('border-transparent', 'text-gray-500');
+
+        // Show target pane
+        const targetPane = document.getElementById(targetTab);
+        if (targetPane) {
+          targetPane.classList.add('active');
+          targetPane.classList.remove('hidden');
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .tab-pane {
+    display: none;
+  }
+  .tab-pane.active {
+    display: block;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Detail",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "product_description",
+      "label": "Product Description",
+      "default": "<p>You come to the trailhead fully prepared, you expect the same reliability and readiness from your pack—and the Aether 55 delivers. Custom Fit-on-the-Fly Shoulder Straps, Hipbelt and an adjustable torso provide a near-perfect fit while an injection-moulded backpanel offers close-to-body performance. Made with bluesign®-approved nylon and PFC-free DWR. Raincover included.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "features",
+      "label": "Features List (separate with |)",
+      "default": "Included raincover made with PFC-free DWR and bluesign®-approved materials|Large front panel zip access to main compartment|Floating top lid with lash points|Fabric reinforced front shove-it pocket"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product Image"
+    },
+    {
+      "type": "text",
+      "id": "download_text",
+      "label": "Download Button Text",
+      "default": "DOWNLOAD OWNER'S MANUAL"
+    },
+    {
+      "type": "url",
+      "id": "manual_link",
+      "label": "Manual Download Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Detail",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

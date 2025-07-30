@@ -1392,25 +1392,34 @@ class VariantSelects extends HTMLElement {
 		});
 	}
 
-	filterImgVariant() {
-		console.log("thumbnail test", this.currentVariant);
+filterImgVariant() {
+	console.log("thumbnail test", this.currentVariant);
 
-        if(this.currentVariant.featured_image){
-            // shows only the thumbnails for the selected color
-            document.querySelectorAll('[thumbnail-sku]').forEach(img => img.style.display = 'none')
-            const currentImgSku = this.currentVariant.sku;
-            const thumbnailSelector = `[thumbnail-sku = '${currentImgSku}']`;
-            // document.querySelectorAll('[thumbnail-sku]').forEach(img => img.style.display = 'list-item')
-            document.querySelectorAll(thumbnailSelector).forEach(img => img.style.removeProperty('display'));
+	if (this.currentVariant.featured_image) {
+		// hide all thumbnails
+		document.querySelectorAll('[thumbnail-sku]').forEach(img => img.style.display = 'none');
 
-        }
-        else{
-            // show all thumbnails
-            document.querySelectorAll(thumbnailSelector).forEach(img => img.style.removeProperty('display'));
-        }
+		// show matching thumbnails
+		const currentImgSku = this.currentVariant.sku;
+		const thumbnailSelector = `[thumbnail-sku='${currentImgSku}']`;
+		document.querySelectorAll(thumbnailSelector).forEach(img => img.style.removeProperty('display'));
+
+		// set featured image to first matching thumbnail
+		const firstThumb = document.querySelector(thumbnailSelector);
+		if (firstThumb) {
+			const featuredImage = document.getElementById('FeaturedImage');
+			if (featuredImage) {
+				featuredImage.src = firstThumb.src;
+			}
+		}
+	} else {
+		// fallback: show all thumbnails
+		document.querySelectorAll('[thumbnail-sku]').forEach(img => img.style.removeProperty('display'));
 	}
-	// END CUSTOM CODE
 }
+
+			// END CUSTOM CODE
+	}
 
 customElements.define("variant-selects", VariantSelects);
 

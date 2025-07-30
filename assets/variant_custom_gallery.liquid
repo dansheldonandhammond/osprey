@@ -1,0 +1,226 @@
+<div class="t-relative t-h-[360px] t-w-[100px]">
+  <div class="scroll-btn hidden lg:flex lg:justify-around lg:absolute lg:-top-13 lg:w-full">
+    <button
+      type="button"
+      @click="scrollThumbsUp"
+      :class="{'hidden': !showScrollUp, 'block': showScrollUp}"
+      class="lg:left-auto lg:right-auto lg:h-13 hover:text-green-42 w-full block"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        class="w-10 h-10 mx-auto rotate-180"
+        role="img"
+      >
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.29289 10.2929C8.68342 9.90237 9.31658 9.90237 9.70711 10.2929L12 12.5858L14.2929 10.2929C14.6834 9.90237 15.3166 9.90237 15.7071 10.2929C16.0976 10.6834 16.0976 11.3166 15.7071 11.7071L12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L8.29289 11.7071C7.90237 11.3166 7.90237 10.6834 8.29289 10.2929Z" fill="currentColor"></path>
+        <title>chevron-down</title>
+      </svg>
+    </button>
+  </div>
+
+  <div
+    id="GalleryThumbnails"
+    class="t-flex t-flex-col t-gap-2 t-overflow-y-scroll t-h-[400px] "
+    style="-ms-overflow-style: none; scrollbar-width: none;"
+    onscroll="this.style.scrollbarWidth='none'"
+  >
+    <style>
+      #GalleryThumbnails::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+
+    {% if product.variants.size == 1 %}
+      {% assign images = product.media %}
+      {% for image in images %}
+        <img
+          src="{{ image | image_url }}"
+          alt="{{ image.alt | escape }}"
+          thumbnail-sku="{{ product.variants.first.sku }}"
+          data-index="{{ forloop.index0 }}"
+          class="variant-thumbnail t-w-[106px] t-h-[80px] t-object-cover t-cursor-pointer t-border-[4px] t-border-black t-rounded"
+          style="display: block;"
+        >
+      {% endfor %}
+    {% endif %}
+
+    <script type="application/json" id="variant-gallery-data">
+      {
+        {% for variant in product.variants %}
+          "{{ variant.id }}": {
+            "sku": "{{ variant.sku }}",
+            "gallery": [
+              {% assign gallery = variant.metafields.prod_variant.image_gallery.value %}
+              {% if gallery %}
+                {% for image in gallery %}
+                  "{{ image | image_url }}"{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              {% else %}
+                {% for image in product.media %}
+                  "{{ image | image_url }}"{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              {% endif %}
+            ]
+          }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      }
+    </script>
+
+    {% for variant in product.variants %}
+      {% assign gallery = variant.metafields.prod_variant.image_gallery.value %}
+      {% if gallery %}
+        {% for image in gallery %}
+          <img
+            src="{{ image | image_url }}"
+            alt="{{ image.alt | escape }}"
+            thumbnail-sku="{{ variant.sku }}"
+            data-index="{{ forloop.index0 }}"
+            class="variant-thumbnail t-w-[106px] t-h-[80px] t-object-cover t-cursor-pointer t-border-[4px] t-border-black t-rounded"
+            style="display: none;"
+          >
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="scroll-btn hidden lg:flex lg:justify-around lg:absolute lg:-bottom-13 lg:w-full">
+    <button
+      type="button"
+      @click="scrollThumbsDown"
+      :class="{'hidden': !showScrollDown, 'block': showScrollDown}"
+      class="lg:left-auto lg:right-auto lg:h-13 -top-13 hover:text-green-42 w-full block"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        class="w-10 h-10 mx-auto"
+        role="img"
+      >
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.29289 10.2929C8.68342 9.90237 9.31658 9.90237 9.70711 10.2929L12 12.5858L14.2929 10.2929C14.6834 9.90237 15.3166 9.90237 15.7071 10.2929C16.0976 10.6834 16.0976 11.3166 15.7071 11.7071L12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L8.29289 11.7071C7.90237 11.3166 7.90237 10.6834 8.29289 10.2929Z" fill="currentColor"></path>
+        <title>chevron-down</title>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div class="variant-gallery t-mb-4 t-flex t-flex-row-reverse  t-w-[612px] t-h-[612px]">
+  <img
+    id="FeaturedImage"
+    src="{{ product.selected_or_first_available_variant.featured_image | image_url: width: 600, height: 600 }}"
+    alt="Featured variant image"
+    class="t-object-contain t-rounded t-border t-h-[612px] t-w-[612px] t-relative"
+  >
+</div>
+
+<!-- Fallback variant IDs for JS (used if no variant= in URL) -->
+<script>
+  window.productVariants = [
+    {% for variant in product.variants %}
+      { id: {{ variant.id }}, sku: "{{ variant.sku }}" }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+</script>
+
+<script>
+  function updateGallery(variantId) {
+    console.log(🔄 updateGallery called with variantId: ${variantId});
+
+    const data = JSON.parse(document.getElementById('variant-gallery-data').textContent);
+    const variant = data[variantId];
+    const featuredImage = document.getElementById('FeaturedImage');
+    const allThumbs = document.querySelectorAll('.variant-thumbnail');
+
+    const totalVariants = window.productVariants.length;
+
+    if (totalVariants > 1) {
+      console.log(👀 Hiding ${allThumbs.length} thumbnails (multiple variants)...);
+      allThumbs.forEach((img) => {
+        img.style.display = 'none';
+        img.classList.remove('t-ring-2', 't-ring-primary');
+      });
+    }
+
+    if (!variant || !variant.gallery || variant.gallery.length === 0) {
+      console.warn(⚠️ No gallery found for variant ID: ${variantId});
+
+      const fallbackVariant = window.productVariants.find((v) => v.id == variantId);
+      const fallbackImageEl = document.querySelector([thumbnail-sku="${fallbackVariant?.sku}"]);
+      const fallbackImage = fallbackImageEl?.src;
+
+      if (fallbackImage) {
+        console.log(🛟 Using fallback image: ${fallbackImage});
+
+        const mediaGallery = document.querySelector('media-gallery');
+        const featuredImage = document.getElementById('FeaturedImage');
+
+        if (mediaGallery && typeof mediaGallery.setActiveMedia === 'function') {
+          console.log(🖼️ media-gallery fallback not wired - skipping.);
+        } else if (featuredImage) {
+          featuredImage.src = fallbackImage;
+          featuredImage.style.display = 'block';
+        } else {
+          console.warn('❌ No media-gallery or #FeaturedImage found to update.');
+        }
+      } else {
+        console.warn(🕳️ No fallback image found either.);
+      }
+
+      return;
+    }
+
+    // Set featured image
+    console.log(🖼️ Setting featured image to: ${variant.gallery[0]});
+    featuredImage.src = variant.gallery[0];
+    featuredImage.style.display = 'block';
+
+    const selector = [thumbnail-sku="${variant.sku}"];
+    const matchingThumbs = document.querySelectorAll(selector);
+    console.log(🔍 Looking for thumbnails with selector ${selector});
+    console.log(🧲 Found ${matchingThumbs.length} matching thumbnails);
+
+    matchingThumbs.forEach((thumb, i) => {
+      thumb.style.display = 'block';
+      thumb.onclick = null;
+      thumb.onclick = () => {
+        console.log(🖱️ Thumbnail clicked, setting featured to ${thumb.src});
+        featuredImage.src = thumb.src;
+        matchingThumbs.forEach((t) => t.classList.remove('t-ring-2', 't-ring-primary'));
+        thumb.classList.add('t-ring-2', 't-ring-primary');
+      };
+
+      if (i === 0) {
+        thumb.classList.add('t-ring-2', 't-ring-primary');
+      }
+    });
+  }
+
+  function getVariantFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('variant');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const variantFromUrl = getVariantFromUrl();
+    console.log('🔍 variantFromUrl:', variantFromUrl);
+
+    const fallbackVariants = window.productVariants || [];
+    const fallbackVariantId = fallbackVariants[0]?.id;
+
+    const initialVariantId = variantFromUrl || fallbackVariantId;
+    console.log('🚀 Initial variant ID:', initialVariantId);
+
+    if (initialVariantId) updateGallery(initialVariantId.toString());
+
+    document.addEventListener('variant:change', (event) => {
+      const newId = event.detail?.variant?.id;
+      console.log('🔄 variant:change event fired with ID:', newId);
+      if (newId) updateGallery(newId.toString());
+    });
+  });
+</script>

@@ -28,10 +28,10 @@
         endif
       -%}
       {%- if picker_type == 'swatch' -%}
-        <fieldset class="js product-form__input product-form__input--swatch">
-          <legend class="form__label">
-            {{ option.name }}:
-            <span data-selected-value>
+        <fieldset class="js product-form__input product-form__input--swatch t-text-black">
+          <legend class="form__label  t-text-[16px]">
+            Colour:
+            <span class="t-font-[800]" data-selected-value>
               {{- option.selected_value -}}
             </span>
           </legend>
@@ -43,8 +43,14 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+        <fieldset class="js product-form__input product-form__input--pill t-rounded-none t-mt-[20px] t-gap-[5px]">
+          <legend class="form__label t-rounded-none t-text-[16px] t-text-black">
+            {{ option.name }}:
+            <span class="t-font-[800]" data-selected-value>
+              {{- option.selected_value -}}
+            </span>
+          </legend>
+
           {% render 'product-variant-options',
             product: product,
             option: option,
@@ -54,7 +60,7 @@
         </fieldset>
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">
-          <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+          <label class="form__label t-rounded-none" for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
           </label>
           <div class="select">
@@ -68,7 +74,7 @@
             {%- endif -%}
             <select
               id="Option-{{ section.id }}-{{ forloop.index0 }}"
-              class="select__select"
+              class="select__select t-rounded-none"
               name="options[{{ option.name | escape }}]"
               form="{{ product_form_id }}"
             >

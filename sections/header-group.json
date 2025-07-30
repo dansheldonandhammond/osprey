@@ -64,10 +64,22 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "header_override_6ez3fM": {
+      "type": "header-override",
+      "name": "Header Override",
+      "settings": {
+        "override_enabled": true,
+        "header_position": "relative",
+        "header_background": "black",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "transparent"
+      }
     }
   },
   "order": [
     "announcement-bar",
-    "header"
+    "header",
+    "header_override_6ez3fM"
   ]
 }

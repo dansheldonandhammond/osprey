@@ -62,7 +62,7 @@
 
     {%- if picker_type == 'swatch' -%}
       {%- capture help_text -%}
-      <span class="visually-hidden">{{ value | escape }}</span>
+      <span class="visually-hidden  ">{{ value | escape }}</span>
       {{ label_unavailable }}
     {%- endcapture -%}
       {%
@@ -93,10 +93,49 @@
         {% endif %}
         {{ input_dataset }}
       >
-      <label for="{{ input_id }}">
-        {{ value -}}
-        {{ label_unavailable }}
-      </label>
+      {% if option.name == 'Colour' or option.name == 'Color' %}
+        {% assign color_option_index = null %}
+        {%- for option in product.options_with_values -%}
+          {% if option.name == 'Colour' or option.name == 'Color' %}
+            {% assign color_option_index = forloop.index0 %}
+          {% endif %}
+        {%- endfor -%}
+
+        {% if color_option_index != null %}
+          {% assign matched_variant = null %}
+          {% for variant in product.variants %}
+            {% if variant.options[color_option_index] == value %}
+              {% assign matched_variant = variant %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          {% if matched_variant and matched_variant.featured_image %}
+            <label
+              class="t-mt-[10px] t-font-[100] t-aspect-square t-border-none t-p-0 t-m-0 t-w-[36px] t-h-[36px]  t-ms-[4px]"
+              for="{{ input_id }}"
+            >
+              <img
+                src="{{ matched_variant.featured_image | image_url: width: 60, height: 60, crop: 'center' }}"
+                alt="{{ value }}"
+                width="34"
+                height="34"
+                style="width: 34px; height: auto;"
+                loading="lazy"
+              >
+            </label>
+          {% else %}
+            <label class="t-font-[100]" for="{{ input_id }}">
+              {{ value }}
+            </label>
+          {% endif %}
+        {% endif %}
+      {% else %}
+        <label class="t-font-[100]" for="{{ input_id }}">
+          {{ value -}}
+          {{ label_unavailable }}
+        </label>
+      {% endif %}
     {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
       <option
         id="{{ input_id }}"

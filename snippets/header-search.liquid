@@ -1,9 +1,7 @@
 {% comment %}
   Renders a header search modal. Should be used with 'header.liquid'
-
   Accepts:
   - input_id: {String} Id for the search input element (required)
-
   Usage:
   {% render 'header-search', input_id: 'My-Id'%}
 {% endcomment %}
@@ -15,61 +13,53 @@
       aria-haspopup="dialog"
       aria-label="{{ 'general.search.search' | t }}"
     >
-      <span>
-        <a class="t-text-white t-leading-0 t-cursor-pointer t-h-full flex items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 819 823"
-            fill="none"
-            class="t-h-full"
-            role="img"
-          >
-            <path d="M316.6 0.25C491.4 0.25 633.2 142 633.2 316.84C633.2 391.08 607.6 459.35 564.8 513.34L818.4 765.17L760.9 823L506.4 570.23C453.5 609.92 387.8 633.43 316.6 633.43C141.7 633.43 0 491.69 0 316.84C0 142 141.7 0.26001 316.6 0.26001V0.25ZM316.6 81.76C186.8 81.76 81.5 187.01 81.5 316.84C81.5 446.67 186.8 551.92 316.6 551.92C446.4 551.92 551.7 446.67 551.7 316.84C551.7 187.01 446.4 81.76 316.6 81.76Z" fill="currentColor"></path>
-            <title>search</title>
-          </svg>
-        </a>
-        {% comment %}
-          <span class="svg-wrapper header__icon-close">
-            {{- 'icon-close.svg' | inline_asset_content -}}
-          </span>
-        {% endcomment %}
+      <span class="t-h-full flex items-center cursor-pointer t-text-white">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 819 823"
+          fill="none"
+          class="t-h-full"
+          role="img"
+        >
+          <path d="M316.6 0.25C491.4 0.25 633.2 142 633.2 316.84C633.2 391.08 607.6 459.35 564.8 513.34L818.4 765.17L760.9 823L506.4 570.23C453.5 609.92 387.8 633.43 316.6 633.43C141.7 633.43 0 491.69 0 316.84C0 142 141.7 0.26 316.6 0.26V0.25ZM316.6 81.76C186.8 81.76 81.5 187.01 81.5 316.84C81.5 446.67 186.8 551.92 316.6 551.92C446.4 551.92 551.7 446.67 551.7 316.84C551.7 187.01 446.4 81.76 316.6 81.76Z" fill="currentColor" />
+          <title>Search</title>
+        </svg>
       </span>
     </summary>
+
     <div
-      class="t-h-[70vh] t-top-0 search-modal modal__content gradient  t-text-black t-fill-black t-stroke-black t-bg-white t-border-b t-border-gray-400"
+      class="search-modal modal__content t-bg-white t-text-black t-fill-black t-stroke-black t-border-b t-border-gray-400 t-h-[70vh]"
       role="dialog"
-      placeholder="I am searching for..."
       aria-modal="true"
       aria-label="{{ 'general.search.search' | t }}"
     >
-      {% comment %} <div class="modal-overlay"></div> {% endcomment %}
       <div
-        class="search-modal__content{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} search-modal__content-top{% else %} search-modal__content-bottom {% endif %}"
+        class="search-modal__content{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} search-modal__content-top{% else %} search-modal__content-bottom{% endif %}"
         tabindex="-1"
       >
-        {%- if settings.predictive_search_enabled -%}
+        {% if settings.predictive_search_enabled %}
           <predictive-search
             class="search-modal__form t-absolute t-top-[126px]"
             data-loading-text="{{ 'accessibility.loading' | t }}"
           >
-        {%- else -%}
+        {% else %}
           <search-form class="search-modal__form">
-        {%- endif -%}
-        <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form t-flex">
-          <div class="field">
+        {% endif %}
+
+        <form action="{{ routes.search_url }}" method="get" role="search" class="search t-flex t-w-full">
+          <div class="field t-flex-grow t-relative">
             <input
-              class="search__input field__input t-text-black t-text-[2.4rem] t-font-[700] t-pb-[30px]"
-              placeholder="I am searching for..."
-              style="border-bottom: 1px solid #000;"
               id="{{ input_id }}"
-              type="search"
               name="q"
+              type="search"
+              class="search__input field__input t-text-black t-text-[2.4rem] t-font-[700] t-pb-[30px] t-w-full"
+              style="border-bottom: 1px solid #000;"
+              placeholder="I am searching for..."
               value="{{ search.terms | escape }}"
-              {%- if settings.predictive_search_enabled -%}
+              {% if settings.predictive_search_enabled %}
                 role="combobox"
-                placeholder="I am searching for..."
                 aria-expanded="false"
                 aria-owns="predictive-search-results"
                 aria-controls="predictive-search-results"
@@ -79,51 +69,61 @@
                 autocomplete="off"
                 autocapitalize="off"
                 spellcheck="false"
-              {%- endif -%}
+              {% endif %}
             >
-            <input type="hidden" name="options[prefix]" value="last" placeholder="I am searching for...">
+            <input type="hidden" name="options[prefix]" value="last">
+
+            <!-- Reset Button -->
             <button
               type="reset"
-              class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"
+              class="reset__button field__button{% if search.terms == blank %} hidden{% endif %} t-absolute t-top-0 t-right-10"
               aria-label="{{ 'general.search.reset' | t }}"
             >
               <span class="svg-wrapper">
-                {{- 'icon-reset.svg' | inline_asset_content -}}
+                {{ 'icon-reset.svg' | inline_asset_content }}
               </span>
             </button>
-            <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="search__button field__button t-absolute t-top-0 t-right-0"
+              aria-label="{{ 'general.search.search' | t }}"
+            >
               <span class="svg-wrapper">
-                {{- 'icon-search.svg' | inline_asset_content -}}
+                {{ 'icon-search.svg' | inline_asset_content }}
               </span>
             </button>
           </div>
 
-          {%- if settings.predictive_search_enabled -%}
+          {% if settings.predictive_search_enabled %}
             <div
-              class="predictive-search predictive-search--header t-max-h-[calc(100vh - 245px)]"
+              class="predictive-search predictive-search--header t-max-h-[calc(100vh-245px)]"
               tabindex="-1"
               data-predictive-search
             >
-              {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+              {% render 'loading-spinner', class: 'predictive-search__loading-state' %}
             </div>
-
             <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
-          {%- endif -%}
+          {% endif %}
+
+          <!-- Close Button -->
           <button
             type="button"
             class="search-modal__close-button modal__close-button link link--text focus-inset"
             aria-label="{{ 'accessibility.close' | t }}"
           >
             <span class="svg-wrapper">
-              {{- 'icon-close.svg' | inline_asset_content -}}
+              {{ 'icon-close.svg' | inline_asset_content }}
             </span>
           </button>
         </form>
-        {%- if settings.predictive_search_enabled -%}
+
+        {% if settings.predictive_search_enabled %}
           </predictive-search>
-        {%- else -%}
+        {% else %}
           </search-form>
-        {%- endif -%}
+        {% endif %}
       </div>
     </div>
   </details>

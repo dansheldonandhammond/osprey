@@ -1,4 +1,4 @@
-if (!customElements.get('media-gallery')) {
+? if (!customElements.get('media-gallery')) {
   customElements.define(
     'media-gallery',
     class MediaGallery extends HTMLElement {
@@ -23,14 +23,14 @@ if (!customElements.get('media-gallery')) {
 
       onSlideChanged(event) {
         const thumbnail = this.elements.thumbnails.querySelector(
-          `[data-target="${event.detail.currentElement.dataset.mediaId}"]`
+          [data-target="${event.detail.currentElement.dataset.mediaId}"]
         );
         this.setActiveThumbnail(thumbnail);
       }
 
       setActiveMedia(mediaId, prepend) {
         const activeMedia =
-          this.elements.viewer.querySelector(`[data-media-id="${mediaId}"]`) ||
+          this.elements.viewer.querySelector([data-media-id="${mediaId}"]) ||
           this.elements.viewer.querySelector('[data-media-id]');
         if (!activeMedia) {
           return;
@@ -44,8 +44,11 @@ if (!customElements.get('media-gallery')) {
           activeMedia.parentElement.firstChild !== activeMedia && activeMedia.parentElement.prepend(activeMedia);
 
           if (this.elements.thumbnails) {
-            const activeThumbnail = this.elements.thumbnails.querySelector(`[data-target="${mediaId}"]`);
-            activeThumbnail.parentElement.firstChild !== activeThumbnail && activeThumbnail.parentElement.prepend(activeThumbnail);
+            const activeThumbnail = this.elements.thumbnails.querySelector([data-target="${mediaId}"]);
+            // Add null check here
+            if (activeThumbnail && activeThumbnail.parentElement) {
+              activeThumbnail.parentElement.firstChild !== activeThumbnail && activeThumbnail.parentElement.prepend(activeThumbnail);
+            }
           }
 
           if (this.elements.viewer.slider) this.elements.viewer.resetPages();
@@ -65,9 +68,12 @@ if (!customElements.get('media-gallery')) {
         this.playActiveMedia(activeMedia);
 
         if (!this.elements.thumbnails) return;
-        const activeThumbnail = this.elements.thumbnails.querySelector(`[data-target="${mediaId}"]`);
+        const activeThumbnail = this.elements.thumbnails.querySelector([data-target="${mediaId}"]);
         this.setActiveThumbnail(activeThumbnail);
-        this.announceLiveRegion(activeMedia, activeThumbnail.dataset.mediaPosition);
+        // Add null check here
+        if (activeThumbnail && activeThumbnail.dataset) {
+          this.announceLiveRegion(activeMedia, activeThumbnail.dataset.mediaPosition);
+        }
       }
 
       setActiveThumbnail(thumbnail) {
@@ -84,7 +90,7 @@ if (!customElements.get('media-gallery')) {
 
       announceLiveRegion(activeItem, position) {
         const image = activeItem.querySelector('.product__modal-opener--image img');
-        if (!image) return;
+        if (!image || !this.elements.liveRegion) return;
         image.onload = () => {
           this.elements.liveRegion.setAttribute('aria-hidden', false);
           this.elements.liveRegion.innerHTML = window.accessibilityStrings.imageAvailable.replace('[index]', position);
@@ -114,4 +120,4 @@ if (!customElements.get('media-gallery')) {
       }
     }
   );
-}
+}  

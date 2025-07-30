@@ -1,0 +1,64 @@
+{% assign section_image = section.settings.section_image %}
+{% assign text_heading = section.settings.text_heading %}
+{% assign paragraph = section.settings.paragraph %}
+{% assign button = section.settings.button %}
+
+<section class="t-h-[660px] lg:t-flex">
+  <div class="t-w-1/2 t-flex t-flex-col t-justify-center t-items-center">
+    <div class="t-w-[300px] t-mx-auto t-text-center t-text-start">
+      <h2>{{ text_heading }}</h2>
+      <p>{{ paragraph }}</p>
+      <a
+        href="{{ button_url }}"
+        class="t-font-[600] t-h-[fit-content] t-no-underline t-uppercase t-inline-block t-text-white t-bg-black hover:t-bg-grey t-py-[18px] t-px-[35px] t-transition t-duration-300 hover:t-text-white t-text-[1.6rem]"
+      >
+        {{- button_text -}}
+      </a>
+    </div>
+  </div>
+  <div
+    class="t-w-1/2 t-block"
+    style="background-image: url('{{ section_image | image_url }}'); background-repeat: no-repeat; background-size: cover; background-position: center;"
+  ></div>
+</section>
+
+{% schema %}
+{
+  "name": "collection header section",
+
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "section_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "text_heading",
+      "label": "Text Heading"
+    },
+    {
+      "type": "text",
+      "id": "paragraph",
+      "label": "Paragraph Text"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Collection Header Section",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

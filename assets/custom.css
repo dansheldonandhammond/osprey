@@ -107,10 +107,10 @@ html {
      position: relative;
      transition: transform 0.3s ease;
    }
-   .header {
+   /* .header {
      background-color: rgba(0, 0, 0, 0.5) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter:
      blur(12px) !important;
-   }
+   } */
 
    .parent-menu-item,
    .parent-menu-item {
@@ -262,4 +262,57 @@ a {
 }
 .predictive-search__heading {
   color: black;
+}
+
+.t-rounded.t-ring-2 {
+  border: solid 2px black !important;
+}
+
+.product-form__buttons button {
+  background-color: #9E3223;
+  height: 60px;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); /* ease-in-out */
+  transition-duration: 300ms;
+}
+.product-form__buttons button:hover {
+  background-color: #5F1B15;
+}
+
+.product__info-container label {
+  border-radius: 0 !important;
+  padding: 5px !important
+}
+
+ .product-form__input label {
+  aspect-ratio: 1 / 1 !important;
+  max-width:90px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.js.product-form__input.product-form__input--pill.t-rounded-none {
+  display: flex !important;
+}
+
+.product-form__buttons span {
+  text-transform: uppercase !important;
+}
+
+.product__info-container .product-form, .product__info-container .product__description, .product__info-container .icon-with-text {
+  margin: 0px !important;
+}
+
+.product-form__input {
+  max-width: 0px !important;
+}
+
+.swatch {
+  border: none !important;
+  width: 100px !important;
+}
+
+.product__info-container .price-item{
+  font-size: 28px;
 }

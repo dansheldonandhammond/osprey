@@ -49,7 +49,7 @@
       {%- if compare_at_price > price and product.quantity_price_breaks_configured? != true %} price--on-sale{% endif -%}
       {%- if compare_at_price > price and product.quantity_price_breaks_configured? %} volume-pricing--sale-badge{% endif -%}
       {%- if product.price_varies == false and product.compare_at_price_varies %} price--no-compare{% endif -%}
-      {%- if show_badges %} price--show-badge{% endif -%}
+      {%- if show_badges %} t-mt-[50px]  price--show-badge{% endif -%}
     "
   >
     <div class="price__container">
@@ -76,7 +76,10 @@
               </span>
             {%- endunless -%}
           {%- endif -%}
-          <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
+
+          <span class="visually-hidden visually-hidden--inline ">
+            {{- 'products.product.price.regular_price' | t -}}
+          </span>
           <span class="price-item price-item--regular t-text-black">
             {{-
               'products.product.volume_pricing.price_range'

@@ -15,6 +15,7 @@
         Description
       </a>
     </li>
+
     <li>
       <a
         href="#attributes"
@@ -24,6 +25,7 @@
         Key Attributes
       </a>
     </li>
+
     <li>
       <a
         href="#carry"
@@ -33,6 +35,7 @@
         Carry Information
       </a>
     </li>
+
     <li>
       <a
         href="#specs"
@@ -42,6 +45,7 @@
         Specs
       </a>
     </li>
+
     <li>
       <a
         href="#reviews"
@@ -56,14 +60,28 @@
   <!-- Tab Panels -->
   <div class="tab-content t-mt-4">
     <!-- Description Tab -->
-    <div id="description" class="tab-panel">
-      {{ product.description }}
-    </div>
+    {% if product.description != blank %}
+      <div id="description" class="tab-panel">
+        {{ product.description }}
+      </div>
+    {% endif %}
 
     <!-- Key Attributes Tab -->
-    {% if product.metafields.custom.key_attributes %}
+    {% if product.metafields.custom.osprey_key_attribute_title_1
+      or product.metafields.custom.osprey_key_attribute_title_2
+      or product.metafields.custom.osprey_key_attribute_title_3
+      or product.metafields.custom.osprey_key_attribute_title_4
+      or product.metafields.custom.osprey_key_attribute_title_5
+      or product.metafields.custom.osprey_key_attribute_title_6
+      or product.metafields.custom.osprey_key_attribute_content_1
+      or product.metafields.custom.osprey_key_attribute_content_2
+      or product.metafields.custom.osprey_key_attribute_content_3
+      or product.metafields.custom.osprey_key_attribute_content_4
+      or product.metafields.custom.osprey_key_attribute_content_5
+      or product.metafields.custom.osprey_key_attribute_content_6
+    %}
       <div id="attributes" class="tab-panel t-hidden">
-        <section class="t-grow t-w-full t-py-5 md:t-py-14 t-block">
+        <section class="t-grow t-w-full  t-block">
           <div class="t-grid t-gap-y-8 t-gap-x-20 md:t-grid-cols-2">
             {% for i in (1..6) %}
               {% assign title_field = 'osprey_key_attribute_title_' | append: i %}
@@ -73,7 +91,7 @@
 
               {% if title and content %}
                 <div>
-                  <h2 class="t-text-[20px] t-font-bold t-mb-2.5 md:t-text-[28px]">
+                  <h2 class="t-text-[20px] t-font-bold t-mb-2.5 t-mt-0 md:t-text-[28px]">
                     {{ title | metafield_tag }}
                   </h2>
                   <div class="t-product-tab-content">
@@ -88,7 +106,19 @@
     {% endif %}
 
     <!-- Carry Information Tab -->
-    {% if product.metafields.custom.carry_information %}
+    {% if product.metafields.custom.osprey_carry_attribute_content_1
+      or product.metafields.custom.osprey_carry_attribute_content_2
+      or product.metafields.custom.osprey_carry_attribute_content_3
+      or product.metafields.custom.osprey_carry_attribute_content_4
+      or product.metafields.custom.osprey_carry_attribute_content_5
+      or product.metafields.custom.osprey_carry_attribute_content_6
+      or product.metafields.custom.osprey_carry_attribute_title_1
+      or product.metafields.custom.osprey_carry_attribute_title_2
+      or product.metafields.custom.osprey_carry_attribute_title_3
+      or product.metafields.custom.osprey_carry_attribute_title_4
+      or product.metafields.custom.osprey_carry_attribute_title_5
+      or product.metafields.custom.osprey_carry_attribute_title_6
+    %}
       <div id="carry" class="tab-panel t-hidden">
         <div class="t-grid t-gap-y-8 t-gap-x-20 md:t-grid-cols-2">
           {% for i in (1..6) %}
@@ -99,7 +129,7 @@
 
             {% if title and content %}
               <div>
-                <h2 class="t-text-[20px] t-font-bold t-mb-2.5 md:t-text-[28px]">
+                <h2 class="t-text-[20px] t-font-bold t-mb-2.5  t-mt-0 md:t-text-[28px]">
                   {{ title | metafield_tag }}
                 </h2>
                 <div class="t-product-tab-content">
@@ -113,8 +143,8 @@
     {% endif %}
 
     <!-- Specs Tab -->
-    <div id="specs" class="tab-panel t-hidden">
-      {% if product.metafields.custom.specs %}
+    {% if product.metafields.custom.size_1 or product.metafields.custom.size_2 %}
+      <div id="specs" class="tab-panel t-hidden">
         <div class="t-flex t-gap-[20px] t-flex-col lg:t-flex-row t-pt-[20px]">
           <!-- Specifications Table -->
           <div class="spec-block t-w-full lg:t-w-[433px]">
@@ -184,7 +214,7 @@
           </div>
 
           <!-- Fabric Information -->
-          <div class="lg:t-px-[70px] t-w-full lg:t-w-[318px]">
+          <div class="lg:t-px-[70px] t-w-full lg:t-w-[438px] ">
             <div class="fabric-section t-mt-[20px] lg:t-mt-0">
               <h3 class="t-text-[28px] t-font-[700] t-pt-0 t-mt-0">FABRIC</h3>
 
@@ -211,8 +241,8 @@
             </div>
           </div>
         </div>
-      {% endif %}
-    </div>
+      </div>
+    {% endif %}
 
     <!-- Reviews Tab -->
     <div id="reviews" class="tab-panel t-hidden">
@@ -222,7 +252,7 @@
 
   <!-- Owner's Manual Download -->
   {% if product.metafields.custom.owners_manual %}
-    <div class="t-mt-[30px] t-border-t t-border-solid t-pt-[45px]">
+    <div class="t-mt-[30px] t-pt-[45px]">
       <a
         class="t-text-white t-bg-black t-px-[20px] t-py-[15px] t-no-underline t-uppercase t-flex t-justify-center t-items-center t-gap-2 t-w-fit"
         href="{{ product.metafields.custom.owners_manual | file_url }}"
@@ -253,9 +283,16 @@
     const tabLinks = document.querySelectorAll('.tab-btn');
     const tabPanels = document.querySelectorAll('.tab-panel');
 
-    // Initialize first tab as active
-    if (tabPanels.length > 0) {
-      tabPanels[0].classList.remove('t-hidden');
+    // Initialize first visible tab as active
+    if (tabLinks.length > 0 && tabPanels.length > 0) {
+      // Get the first tab's target
+      const firstTabTarget = tabLinks[0].getAttribute('data-tab');
+      const firstPanel = document.getElementById(firstTabTarget);
+
+      if (firstPanel) {
+        firstPanel.classList.remove('t-hidden');
+        tabLinks[0].style.borderBottom = '3px solid black';
+      }
     }
 
     tabLinks.forEach((link) => {

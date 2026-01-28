@@ -16,7 +16,10 @@
     "breadcrumbs_tUWc7P": {
       "type": "breadcrumbs",
       "name": "Breadcrumbs",
-      "settings": {}
+      "settings": {
+        "bg_color": "#ffffff",
+        "text_color": "#000000"
+      }
     },
     "header_override_wBUJXg": {
       "type": "header-override",
@@ -33,6 +36,7 @@
       "blocks": {
         "hero_header_XLNrf4": {
           "type": "hero_header",
+          "disabled": true,
           "settings": {
             "hero_background_image": "shopify://shop_images/who_are_we_desktop.webp",
             "hero_title": "Who Are We",
@@ -42,25 +46,14 @@
         "our_roots_BdEp7w": {
           "type": "our_roots",
           "settings": {
-            "section_title": "OUR ROOTS",
+            "section_title": "COMMITTED TO SUSTAINABILITY",
             "portrait_image": "shopify://shop_images/19_EB_About_Us_Collage_Brick_Portrait_640x900_83c84d34-277e-4d82-9754-a76c370ece07.jpg",
             "portrait_alt_text": "Osprey original",
-            "landscape_image": "shopify://shop_images/19_EB_About_Us_Collage_Brick_Landscape_960x540_75c3bcc9-a220-4341-8904-98aa8c01ec6c.webp",
+            "landscape_image": "shopify://shop_images/HOOSE-1315-sustain-grid-2.jpg",
             "landscape_alt_text": "Osprey Landscape",
-            "content_paragraph_1": "<p>Since Osprey was founded in 1974, every single product design has passed through the hands of owner and founder Mike Pfotenhauer, who created his first backpack at age 16.</p>",
-            "content_paragraph_2": "<p>In Santa Cruz, California, the young entrepreneur opened a retail shop in the front of his rental house where backpackers and travelers came for custom-fit, made-to-order packs constructed over several days by Mike himself. As the demand for the great-fitting packs increased, Osprey found itself relocating to its current home in Southwest Colorado.</p>",
-            "content_paragraph_3": "<p>Today, Osprey is a melting pot of diverse personalities, backgrounds and abilities. All share the common belief that adventure is open to everyone and found anywhere.</p>"
-          }
-        },
-        "video_section_xJtMCH": {
-          "type": "video_section",
-          "settings": {
-            "video_url": "876062396",
-            "video_thumbnail": "shopify://shop_images/1-f33727e6.jpg",
-            "video_alt_text": "Play video",
-            "video_title": "Osprey",
-            "section_padding_top": 40,
-            "section_padding_bottom": 40
+            "content_paragraph_1": "<p>We truly cherish our planet and the opportunities it provides us—striving to be not only innovators of high-quality products, but responsible citizens who aim to tread lightly as we cherish the world we live, work and play in. Since becoming a bluesign® SYSTEM PARTNER, eliminating PFAS-based DWR in 100% of our textile products and increasing our investment in recycled fabrics, we continue to reduce environmental impacts and produce more sustainably designed products.</p>",
+            "content_paragraph_2": "",
+            "content_paragraph_3": ""
           }
         },
         "two_column_content_6zNhD8": {
@@ -119,7 +112,6 @@
       "block_order": [
         "hero_header_XLNrf4",
         "our_roots_BdEp7w",
-        "video_section_xJtMCH",
         "two_column_content_6zNhD8",
         "video_section_dJ4RcX",
         "two_column_content_3ALTaE",

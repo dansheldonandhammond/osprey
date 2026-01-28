@@ -22,10 +22,66 @@
         "navigation_text_colour": "white",
         "bottom_border_colour": "black"
       }
+    },
+    "collection_banner_c8Nrpz": {
+      "type": "collection-banner",
+      "blocks": {
+        "heading_7Wm7M4": {
+          "type": "heading",
+          "settings": {
+            "heading_block_heading_text": "New arrivals",
+            "heading_block_text_color": "white",
+            "heading_block_heading_tag": "h2",
+            "heading_block_heading_size_default": "1.9rem",
+            "heading_block_heading_size_large": "3.2rem",
+            "heading_block_heading_size_extra_large": "4.8rem",
+            "heading_block_font_weight": "t-font-semibold",
+            "heading_block_heading_case": "t-uppercase",
+            "heading_block_heading_font": "font-secondary",
+            "heading_block_top_default_padding": 10,
+            "heading_block_bottom_default_padding": 10,
+            "heading_block_top_large_padding": 15,
+            "heading_block_bottom_large_padding": 15,
+            "heading_block_max_width": 1920
+          }
+        },
+        "buttons_8RJWqJ": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Button",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "text_block_hover_colour": "grey",
+            "button_block_hover_colour": "white",
+            "button_block_text_colour": "white",
+            "button_border": "transparent"
+          }
+        }
+      },
+      "block_order": [
+        "heading_7Wm7M4",
+        "buttons_8RJWqJ"
+      ],
+      "settings": {
+        "content_alignment": "center",
+        "overlay_opacity": 0,
+        "video_url": "",
+        "mobile_image_horizontal_axis": 50,
+        "mobile_image_vertical_axis": 50,
+        "desktop": "{{ page.metafields.custom.featured_banner_image.value }}",
+        "desktop_image_horizontal_axis": 50,
+        "desktop_image_vertical_axis": 50,
+        "hero_banner_height_mobile_tablet": 500,
+        "hero_banner_height_laptop": 500,
+        "hero_banner_height_large_laptop": 725,
+        "hero_banner_height_desktop": 725,
+        "image_behavior": "none"
+      }
     }
   },
   "order": [
     "main",
-    "header_override_wBUJXg"
+    "header_override_wBUJXg",
+    "collection_banner_c8Nrpz"
   ]
 }

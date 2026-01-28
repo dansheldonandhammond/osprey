@@ -1,0 +1,111 @@
+{% schema %}
+{
+  "name": "ALLT-SWEDISH Three Blocks",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Design"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Innovative and timeless design for everyday use.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALLT-SWEDISH Three Blocks",
+      "category": "Custom",
+      "blocks": [{ "type": "block" }, { "type": "block" }, { "type": "block" }]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="allt-swedish-section">
+  <div class="section-header">
+    <p>
+      IN CONSIDERING DESIGN, MATERIALS, MULTIFUNCTIONAL PERFORMANCE, REPAIRABILITY AND END-OF-LIFE IMPACT, WE ARRIVED AT
+      THE NAME ALLT-SWEDISH FOR "EVERYTHING"
+    </p>
+  </div>
+  <div class="blocks-container">
+    {%- for block in section.blocks -%}
+      <div class="block">
+        <div class="block__image">
+          {{
+            block.settings.image
+            | image_url: width: 500
+            | image_tag: loading: 'lazy', widths: '300, 500, 700, 900, 1200', width: 500, height: 500, crop: 'center'
+          }}
+        </div>
+        <div class="block__content">
+          <h3>{{ block.settings.heading }}</h3>
+          <div class="rte">{{ block.settings.content }}</div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  .allt-swedish-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .section-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+  }
+
+  .blocks-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+  }
+
+  .block {
+    flex: 1 1 calc(33.333% - 20px);
+    min-width: 250px;
+    box-sizing: border-box;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .block__image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .block__content {
+    padding: 15px 0;
+  }
+
+  @media (max-width: 768px) {
+    .block {
+      flex: 1 1 100%;
+    }
+  }
+</style>

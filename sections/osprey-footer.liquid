@@ -1,98 +1,437 @@
-<footer class="t-pb-[30vw] t-bg-[F4F3F1] t-relative t-text-black t-pt-[3.5rem] t-px-5 t-overflow-hidden t-bg-[#F4F3F1] t-z-[1]">
+<footer class="t-pb-[30vw] t-bg-[F4F3F1] t-relative t-text-black lg:t-pt-[10.5rem] t-px-5 t-overflow-hidden t-bg-[#F4F3F1] t-z-[1] t-pt-[40px]">
   <!-- Place the image absolutely at the bottom, above the footer background -->
   <img
-    class="t-absolute t-bottom-0 t-left-0 t-w-full t-z-1"
-    src="https://www.osprey.com/media/footer/osprey/osprey-footer.svg"
+    class="t-absolute t-bottom-0 t-left-0 lg:t-w-full t-w-[1200px] t-z-1 t-object-cover lg:t-object-contain"
+    src="{{ section.settings.footer_graphic | image_url }}"
     alt="Osprey Footer Graphic"
     style="z-index: -1;"
   >
 
-  <div class="t-mx-auto t-max-w-[1300px] t-grid t-grid-cols-2 lg:t-grid-cols-4 xl:t-grid-cols-5 t-gap-[30px] t-text-[1.6rem] t-z-[10]">
+  <div class="t-mx-auto t-max-w-[1300px] t-grid t-grid-cols-1 md:t-grid-cols-2 lg:t-grid-cols-4 xl:t-grid-cols-5 t-gap-[30px] lg:t-gap-0 t-text-[1.6rem] t-z-[10]">
     <!-- Left Column: Customer Service Image -->
     <div class="t-max-w-[358px] xl:t-col-span-1">
       <img
         class="t-w-[173px]"
-        src="https://www.osprey.com/gb/static/version1745995906/frontend/MagebitHoT/osprey/en_GB/images/product_icons/all-mighty-guarantee.svg"
-        alt="All Mighty Guarantee"
+        src="{{ section.settings.guarantee_icon | image_url }}"
+        alt="{{ section.settings.guarantee_icon.alt | default: 'All Mighty Guarantee' }}"
       >
     </div>
-    <!-- Customer Service -->
-    <div class="t-max-w-[358px] t-col-span-1">
-      <h3 class="t-text-lg t-font-bold t-mb-4 t-mt-0 t-mb-1 t-uppercase">Customer Service</h3>
-      <ul class="t-space-y-3 t-text-sm t-text-black t-list-none t-p-0">
-        <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Help & Support</a></li>
-        <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Contact Us</a></li>
-        <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Student & Grad Beans</a></li>
-        <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Osprey Gift Cards</a></li>
-        <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Tracking & Returns</a></li>
-      </ul>
-    </div>
-    <!-- Help Centre & Guarantee (stacked) -->
-    <div class="t-col-span-1 t-flex t-flex-col t-gap-8 t-max-w-[358px]">
-      <div>
-        <h3 class="t-text-lg t-font-bold t-mt-0 t-mb-1 t-text-black t-uppercase">Help Centre</h3>
-        <ul class="t-space-y-3 t-text-sm t-text-black t-list-none t-p-0">
-          <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Osprey Blog</a></li>
-          <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Osprey Technologies</a></li>
-          <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Owner’s Manuals</a></li>
-          <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">PackFinder™</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="t-text-lg t-font-bold t-mt-0 t-mb-1 t-text-black t-uppercase">Guarantee</h3>
-        <ul class="t-space-y-3 t-text-sm t-text-black t-list-none t-p-0">
-          <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Product Registration</a></li>
-          <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">All Mighty Guarantee</a></li>
-          <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Guarantee FAQs</a></li>
-          <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Repairs & Spare Parts</a></li>
-        </ul>
-      </div>
-    </div>
-    <!-- Company -->
-    <div class="t-max-w-[358px] t-col-span-1 ">
-      <h3 class="t-text-lg t-font-bold t-mt-0 t-mb-1 t-text-black t-uppercase">Company</h3>
-      <ul class="t-space-y-3 t-text-sm t-text-black t-list-none t-p-0">
-        <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">About</a></li>
-        <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Athletes</a></li>
-        <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Osprey Pro</a></li>
-        <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Careers</a></li>
-        <li><a href="#" class="t-text-black t-no-underline hover:t-underline ">Privacy Policy</a></li>
-      </ul>
-    </div>
-    <!-- Stay in Touch -->
-    <div class="t-max-w-[358px] t-col-span-1">
-      <h3 class="t-text-lg t-font-bold t-mb-4 t-mt-0 t-mb-1 t-uppercase">Stay in Touch</h3>
-      <form class="t-flex t-border t-border-black t-py-1 t-mb-4">
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'menu_column' %}
+          <!-- Menu Column -->
+          <div class="t-max-w-[358px] t-col-span-1" {{ block.shopify_attributes }}>
+            {% if block.settings.menu_title != blank %}
+              <h3 class="t-text-lg t-font-bold t-mb-4 t-mt-0 t-mb-1 t-uppercase">{{ block.settings.menu_title }}</h3>
+            {% endif %}
+            {% if block.settings.menu != blank %}
+              <ul class="t-space-y-3 t-text-sm t-text-black t-list-none t-p-0">
+                {% for link in linklists[block.settings.menu].links %}
+                  <li>
+                    <a href="{{ link.url }}" class="t-text-black t-no-underline hover:t-underline">{{ link.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+        {% when 'stacked_menu_column' %}
+          <!-- Help Centre & Guarantee (stacked) -->
+          <div class="t-col-span-1 t-flex t-flex-col t-gap-8 t-max-w-[358px]" {{ block.shopify_attributes }}>
+            {% if block.settings.first_menu != blank or block.settings.first_menu_title != blank %}
+              <div>
+                {% if block.settings.first_menu_title != blank %}
+                  <h3 class="t-text-lg t-font-bold t-mt-0 t-mb-1 t-text-black t-uppercase">
+                    {{ block.settings.first_menu_title }}
+                  </h3>
+                {% endif %}
+                {% if block.settings.first_menu != blank %}
+                  <ul class="t-space-y-3 t-text-sm t-text-black t-list-none t-p-0">
+                    {% for link in linklists[block.settings.first_menu].links %}
+                      <li>
+                        <a href="{{ link.url }}" class="t-text-black t-no-underline hover:t-underline">
+                          {{- link.title -}}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if block.settings.second_menu != blank or block.settings.second_menu_title != blank %}
+              <div>
+                {% if block.settings.second_menu_title != blank %}
+                  <h3 class="t-text-lg t-font-bold t-mt-0 t-mb-1 t-text-black t-uppercase">
+                    {{ block.settings.second_menu_title }}
+                  </h3>
+                {% endif %}
+                {% if block.settings.second_menu != blank %}
+                  <ul class="t-space-y-3 t-text-sm t-text-black t-list-none t-p-0">
+                    {% for link in linklists[block.settings.second_menu].links %}
+                      <li>
+                        <a href="{{ link.url }}" class="t-text-black t-no-underline hover:t-underline">
+                          {{- link.title -}}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+
+        {% when 'newsletter_signup' %}
+          <!-- Stay in Touch -->
+          <div class="t-max-w-[358px] t-col-span-1" {{ block.shopify_attributes }}>
+            {% if block.settings.newsletter_title != blank %}
+              <h3 class="t-text-lg t-font-bold t-mb-4 t-mt-0 t-mb-1 t-uppercase">
+                {{ block.settings.newsletter_title }}
+              </h3>
+            {% endif %}
+
+            <div class="t-bg-[#f4f3f1] t-mx-auto">
+              <div class="t-mt-8 t-lg:mt-0 t-max-w-[400px] t-mx-auto t-px-[5px] lg:t-px-[0px]">
+       <form
+  action="{{block.settings.mailchimp_action_url}}"
+  method="post"
+  id="mc-embedded-subscribe-form-footer"
+  name="mc-embedded-subscribe-form-footer"
+  class="mc-form-footer t-flex t-flex-row t-items-stretch t-box-border t-w-full t-overflow-visible t-max-w-[450px] t-mx-auto t-rounded-none t-bg-transparent"
+  novalidate
+>
+  <div class="t-w-full t-m-0 t-p-0 t-min-h-[54px] t-justify-center">
+    <div class="mc-field-group t-items-stretch t-relative">
+      <div class="t-flex t-flex-grow t-justify-end">
         <input
           type="email"
-          placeholder="Enter your email"
-          class="t-flex-grow t-bg-transparent t-outline-none t-text-sm"
+          name="EMAIL"
+          id="mce-EMAIL-footer"
+          class="mce-email-footer required email t-border-black t-border-solid placeholder:t-text-black placeholder:t-font-[400] t-text-black t-bg-transparent active:t-border-[3px] active:t-rounded focus:t-border-[3px] focus:t-rounded t-px-[16px] t-h-[54px] t-w-full t-text-[16px] t-font-[400] t-outline-none focus:t-ring-0 focus:t-outline-none"
+          placeholder="{{ block.settings.email_placeholder | default: 'Enter Email Address' }}"
+          tabindex="0"
+          aria-label="{{ block.settings.email_placeholder | default: 'Enter Email Address' }}"
+          aria-required="true"
+          aria-invalid="false"
+          required
+          autocomplete="email"
         >
-        <button type="submit" class="t-text-black t-font-bold">&rarr;</button>
-      </form>
-      <p class="t-text-xs t-mb-4 ">I consent to receiving marketing emails and understand I can opt out at any time.</p>
-      <div class="t-flex t-gap-4 ">
-        <a href="#" class="t-text-black t-hover:underline">FB</a>
-        <a href="#" class="t-text-black t-hover:underline">IG</a>
-        <a href="#" class="t-text-black t-hover:underline">YT</a>
-        <a href="#" class="t-text-black t-hover:underline">TT</a>
+        <div class="t-flex t-items-end t-ps-[10px] t-pe-[0px]">
+          <input
+            type="submit"
+            name="subscribe"
+            id="mc-embedded-subscribe-footer"
+            class="mc-submit-footer t-text-white t-my-0 t-font-[600] t-text-[16px] t-px-[10px] t-h-[54px] t-cursor-pointer t-border-none hover:t-bg-[#333] t-bg-black"
+            value="{{ block.settings.submit_text | default: 'Sign Up' }}"
+          >
+        </div>
+      </div>
+      <!-- Hidden fields -->
+      {% if block.settings.mailchimp_tags != blank %}
+        <div hidden><input type="hidden" name="tags" value="{{ block.settings.mailchimp_tags }}"></div>
+      {% endif %}
+      <div style="position: absolute; left: -5000px;" aria-hidden="true">
+        <input type="text" name="b_edc6e57443056e21d04674ef0_2b1a9a4869" tabindex="-1" value="">
+      </div>
+      <!-- Response messages -->
+      <div id="mce-responses-footer" class="mce-responses-footer clear t-mt-2">
+        <div
+          class="response mce_inline_error"
+          id="mce-error-response-footer"
+          style="display:none; color: red; font-size: 14px; padding: 8px 0;"
+        ></div>
+        <div
+          class="response mce_inline_success"
+          id="mce-success-response-footer"
+          style="display:none; color: green; font-size: 14px; padding: 8px 0;"
+        ></div>
       </div>
     </div>
   </div>
+</form>
 
-  <div class="t-justify-between t-w-full t-max-w-[1308px] t-absolute t-bottom-[30px] t-pt-8 t-text-white t-flex t-flex-col md:t-flex-row md:t-justify-between t-items-center t-left-1/2 t-transform t--translate-x-1/2 t-z-30">
-    <div class="t-flex t-flex-wrap t-gap-x-1 t-gap-y-1 t-items-center t-justify-center ">
-      <span class="t-text-[1.4rem]">&copy; 2025 Osprey.</span>
-      <a href="#" class="t-underline t-text-white t-text-[1.6rem]">Terms & Privacy</a>
-      <span>&</span>
-      <a href="#" class="t-underline t-text-white t-text-[1.6rem]">UK Modern Slavery Act Statement</a>|
-      <a href="#" class="t-underline t-text-white t-text-[1.6rem]">AMG Declaration</a>
+<script type="text/javascript">
+  (function() {
+    'use strict';
+    
+    // Unique namespace for footer form
+    var FooterMailchimp = {
+      initialized: false,
+      
+      init: function() {
+        if (this.initialized) return;
+        
+        var footerForm = document.getElementById('mc-embedded-subscribe-form-footer');
+        if (!footerForm) return;
+        
+        this.initialized = true;
+        this.bindFormSubmit(footerForm);
+      },
+      
+      bindFormSubmit: function(formElement) {
+        var self = this;
+        
+        formElement.addEventListener('submit', function(evt) {
+          evt.preventDefault();
+          evt.stopPropagation();
+          evt.stopImmediatePropagation();
+          
+          self.handleSubmit(formElement);
+          return false;
+        }, true);
+      },
+      
+      handleSubmit: function(formElement) {
+        var errorDiv = document.getElementById('mce-error-response-footer');
+        var successDiv = document.getElementById('mce-success-response-footer');
+        var submitBtn = document.getElementById('mc-embedded-subscribe-footer');
+        var emailInput = document.getElementById('mce-EMAIL-footer');
+        
+        // Hide previous messages
+        if (errorDiv) errorDiv.style.display = 'none';
+        if (successDiv) successDiv.style.display = 'none';
+        
+        // Store original button text
+        var originalBtnText = submitBtn ? submitBtn.value : 'Sign Up';
+        
+        // Disable button
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.value = 'Submitting...';
+        }
+        
+        // Get email
+        var emailValue = emailInput ? emailInput.value.trim() : '';
+        
+        // Validate email
+        if (!emailValue || emailValue.indexOf('@') === -1) {
+          this.showError(errorDiv, 'Please enter a valid email address.');
+          this.resetButton(submitBtn, originalBtnText);
+          return;
+        }
+        
+        // Get all form data
+        var formData = this.getFormData(formElement);
+        
+        // Submit via JSONP
+        this.submitViaJsonp(formData, formElement, errorDiv, successDiv, submitBtn, originalBtnText);
+      },
+      
+      getFormData: function(form) {
+        var data = {};
+        var inputs = form.querySelectorAll('input[name], select[name], textarea[name]');
+        
+        for (var i = 0; i < inputs.length; i++) {
+          var input = inputs[i];
+          var inputName = input.name;
+          
+          if (!inputName) continue;
+          
+          if (input.type === 'checkbox' || input.type === 'radio') {
+            if (input.checked) {
+              data[inputName] = input.value;
+            }
+          } else {
+            data[inputName] = input.value;
+          }
+        }
+        
+        return data;
+      },
+      
+      submitViaJsonp: function(formData, form, errorDiv, successDiv, button, originalBtnText) {
+        var self = this;
+        
+        // Get the action URL
+        var actionUrl = form.action;
+        
+        // DEBUG: Log the action URL
+        console.log('Footer Form Action URL:', actionUrl);
+        
+        // Check if action URL is valid
+        if (!actionUrl || actionUrl === '' || actionUrl === window.location.href) {
+          self.showError(errorDiv, 'Mailchimp URL not configured. Please check theme settings.');
+          self.resetButton(button, originalBtnText);
+          return;
+        }
+        
+        // Handle different URL formats
+        var jsonpUrl;
+        if (actionUrl.indexOf('/subscribe/post?') !== -1) {
+          jsonpUrl = actionUrl.replace('/subscribe/post?', '/subscribe/post-json?');
+        } else if (actionUrl.indexOf('/subscribe/post') !== -1) {
+          jsonpUrl = actionUrl.replace('/subscribe/post', '/subscribe/post-json');
+        } else {
+          // Fallback: just append /post-json
+          jsonpUrl = actionUrl.replace(/\/$/, '') + '/post-json';
+        }
+        
+        console.log('JSONP URL:', jsonpUrl);
+        
+        // Build query string from form data
+        var queryParams = '';
+        for (var key in formData) {
+          if (formData.hasOwnProperty(key) && formData[key]) {
+            if (queryParams.length > 0) queryParams += '&';
+            queryParams += encodeURIComponent(key) + '=' + encodeURIComponent(formData[key]);
+          }
+        }
+        
+        console.log('Query Params:', queryParams);
+        
+        var callbackId = 'footerMcCallback' + Date.now() + '_' + Math.floor(Math.random() * 999999);
+        
+        window[callbackId] = function(responseData) {
+          console.log('Mailchimp Response:', responseData);
+          
+          if (responseData.result === 'success') {
+            self.showSuccess(successDiv, 'Thank you for subscribing!');
+            form.reset();
+          } else {
+            var errMsg = 'An error occurred. Please try again.';
+            if (responseData.msg) {
+              if (responseData.msg.toLowerCase().indexOf('already subscribed') !== -1) {
+                errMsg = 'This email is already subscribed.';
+              } else {
+                errMsg = responseData.msg.replace(/<[^>]*>/g, '').replace(/\d+ - /, '');
+              }
+            }
+            self.showError(errorDiv, errMsg);
+          }
+          
+          self.resetButton(button, originalBtnText);
+          self.cleanupJsonp(callbackId, scriptTag);
+        };
+        
+        var scriptTag = document.createElement('script');
+        
+        // Determine separator
+        var separator = jsonpUrl.indexOf('?') !== -1 ? '&' : '?';
+        
+        // Build final URL
+        var finalUrl;
+        if (queryParams.length > 0) {
+          finalUrl = jsonpUrl + separator + queryParams + '&c=' + callbackId;
+        } else {
+          finalUrl = jsonpUrl + '?c=' + callbackId;
+        }
+        
+        console.log('Final Script URL:', finalUrl);
+        scriptTag.src = finalUrl;
+        
+        scriptTag.onerror = function() {
+          console.error('Script loading failed');
+          self.showError(errorDiv, 'Network error. Please check console for details.');
+          self.resetButton(button, originalBtnText);
+          self.cleanupJsonp(callbackId, scriptTag);
+        };
+        
+        // Add timeout for the request
+        var timeoutId = setTimeout(function() {
+          console.error('Request timeout');
+          self.showError(errorDiv, 'Request timeout. Please try again.');
+          self.resetButton(button, originalBtnText);
+          self.cleanupJsonp(callbackId, scriptTag);
+        }, 10000); // 10 second timeout
+        
+        // Clear timeout when callback is executed
+        var originalCallback = window[callbackId];
+        window[callbackId] = function(responseData) {
+          clearTimeout(timeoutId);
+          originalCallback(responseData);
+        };
+        
+        document.body.appendChild(scriptTag);
+      },
+      
+      showError: function(element, message) {
+        if (element) {
+          element.innerHTML = message;
+          element.style.display = 'block';
+        }
+      },
+      
+      showSuccess: function(element, message) {
+        if (element) {
+          element.innerHTML = message;
+          element.style.display = 'block';
+        }
+      },
+      
+      resetButton: function(button, originalText) {
+        if (button) {
+          button.disabled = false;
+          button.value = originalText || 'Sign Up';
+        }
+      },
+      
+      cleanupJsonp: function(callbackName, scriptElement) {
+        try {
+          delete window[callbackName];
+          if (scriptElement && scriptElement.parentNode) {
+            scriptElement.parentNode.removeChild(scriptElement);
+          }
+        } catch(err) {
+          // Silent fail
+        }
+      }
+    };
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        FooterMailchimp.init();
+      });
+    } else {
+      FooterMailchimp.init();
+    }
+  })();
+</script>
+              </div>
+            </div>
+
+            {% if block.settings.consent_text != blank %}
+              <p class="t-text-xs t-mb-4">{{ block.settings.consent_text }}</p>
+            {% endif %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+
+  {% if section.settings.custodian_text != blank %}
+    <p class="t-font-[500] t-text-[18px] t-italic page-width t-pt-[30px] lg:t-pt-[60px] t-text-center t-mb-[185px] md:t-mb-[100px] lg:t-mb-0">
+      {{ section.settings.custodian_text }}
+    </p>
+  {% endif %}
+
+  <div class="t-px-[10px] t-justify-between t-w-full t-max-w-[1308px] t-absolute t-bottom-[30px] t-pt-8 t-text-white t-flex t-flex-col md:t-flex-row md:t-justify-between t-items-center t-left-1/2 t-transform t--translate-x-1/2 t-z-30">
+    <div class="t-flex t-flex-wrap t-gap-x-1 t-gap-y-1 t-items-center t-justify-center">
+      <span class="t-text-[1.4rem]"
+        >&copy; {{ 'now' | date: '%Y' }}
+        {{ section.settings.copyright_text | default: 'Osprey' }}.</span
+      >
+      {% if section.settings.terms_privacy_url != blank %}
+        <a href="{{ section.settings.terms_privacy_url }}" class="t-underline t-text-white t-text-[1.6rem]">
+          {{- section.settings.terms_privacy_text | default: 'Terms & Privacy' -}}
+        </a>
+        <span>&</span>
+      {% endif %}
+      {% if section.settings.amg_declaration_url != blank %}
+        <a href="{{ section.settings.amg_declaration_url }}" class="t-underline t-text-white t-text-[1.6rem]">
+          {{- section.settings.amg_declaration_text | default: 'All Mighty Guarantee Policy' -}}
+        </a>
+      {% endif %}
     </div>
     <div>
-      <a href="#" class="t-underline t-text-white t-text-[1.4rem]">Cookie Preferences</a>
+      {% if section.settings.cookie_preferences_url != blank %}
+        <a href="{{ section.settings.cookie_preferences_url }}" class="t-underline t-text-white t-text-[1.4rem]">
+          {{- section.settings.cookie_preferences_text | default: 'Cookie Preferences' -}}
+        </a>
+      {% endif %}
     </div>
   </div>
 </footer>
+
 <style>
   footer {
     background-size: auto 50%; /* Adjust the height of the SVG background */
@@ -103,26 +442,196 @@
 {
   "name": "Osprey Footer",
   "tag": "section",
+  "class": "section",
+  "max_blocks": 10,
   "settings": [
-    {
-      "type": "text",
-      "id": "instagram_widget_src",
-      "label": "Instagram Widget Source"
-    },
     {
       "type": "image_picker",
       "id": "footer_graphic",
-      "label": "Footer Graphic"
+      "label": "Footer Background Graphic",
+      "info": "SVG graphic that appears at the bottom of the footer"
     },
     {
       "type": "image_picker",
       "id": "guarantee_icon",
-      "label": "Guarantee Icon"
+      "label": "Guarantee Icon",
+      "info": "Icon that appears in the left column"
+    },
+    {
+      "type": "text",
+      "id": "custodian_text",
+      "label": "Custodian Text"
+    },
+    {
+      "type": "header",
+      "content": "Footer Bottom Links"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "Osprey",
+      "info": "Company name for copyright"
+    },
+    {
+      "type": "url",
+      "id": "terms_privacy_url",
+      "label": "Terms & Privacy URL"
+    },
+    {
+      "type": "text",
+      "id": "terms_privacy_text",
+      "label": "Terms & Privacy Text",
+      "default": "Terms & Privacy"
+    },
+    {
+      "type": "url",
+      "id": "amg_declaration_url",
+      "label": "All Mighty Guarantee Policy URL"
+    },
+    {
+      "type": "text",
+      "id": "amg_declaration_text",
+      "label": "All Mighty Guarantee Policy Text",
+      "default": "All Mighty Guarantee Policy"
+    },
+    {
+      "type": "url",
+      "id": "cookie_preferences_url",
+      "label": "Cookie Preferences URL"
+    },
+    {
+      "type": "text",
+      "id": "cookie_preferences_text",
+      "label": "Cookie Preferences Text",
+      "default": "Cookie Preferences"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_column",
+      "name": "Menu Column",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_title",
+          "label": "Menu Title",
+          "info": "Title that appears above the menu"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "info": "Select a menu to display"
+        }
+      ]
+    },
+    {
+      "type": "stacked_menu_column",
+      "name": "Stacked Menu Column",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "first_menu_title",
+          "label": "First Menu Title",
+          "info": "Title for the top menu section"
+        },
+        {
+          "type": "link_list",
+          "id": "first_menu",
+          "label": "First Menu",
+          "info": "Select the first menu to display"
+        },
+        {
+          "type": "text",
+          "id": "second_menu_title",
+          "label": "Second Menu Title",
+          "info": "Title for the bottom menu section"
+        },
+        {
+          "type": "link_list",
+          "id": "second_menu",
+          "label": "Second Menu",
+          "info": "Select the second menu to display"
+        }
+      ]
+    },
+    {
+      "type": "newsletter_signup",
+      "name": "Newsletter Signup",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "newsletter_title",
+          "label": "Newsletter Title",
+          "default": "Stay in Touch"
+        },
+        {
+          "type": "text",
+          "id": "mailchimp_action_url",
+          "label": "Mailchimp Form Action URL",
+          "info": "Full Mailchimp form action URL from your embed code"
+        },
+        {
+          "type": "text",
+          "id": "mailchimp_tags",
+          "label": "Mailchimp Tags",
+          "info": "Optional tags to add to subscribers (comma separated)"
+        },
+        {
+          "type": "text",
+          "id": "email_placeholder",
+          "label": "Email Placeholder Text",
+          "default": "Enter Email Address"
+        },
+        {
+          "type": "text",
+          "id": "submit_text",
+          "label": "Submit Button Text",
+          "default": "Sign Up"
+        },
+        {
+          "type": "text",
+          "id": "consent_text",
+          "label": "Consent Text",
+          "default": "I consent to receiving marketing emails and understand I can opt out at any time."
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Osprey Footer"
+      "name": "Osprey Footer",
+      "blocks": [
+        {
+          "type": "menu_column",
+          "settings": {
+            "menu_title": "Customer Service"
+          }
+        },
+        {
+          "type": "stacked_menu_column",
+          "settings": {
+            "first_menu_title": "Help Centre",
+            "second_menu_title": "Guarantee"
+          }
+        },
+        {
+          "type": "menu_column",
+          "settings": {
+            "menu_title": "Company"
+          }
+        },
+        {
+          "type": "newsletter_signup",
+          "settings": {
+            "newsletter_title": "Stay in Touch"
+          }
+        }
+      ]
     }
   ]
 }

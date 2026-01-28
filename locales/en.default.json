@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -186,7 +195,7 @@
       "filter_and_operator_subtitle": "Match all",
       "apply": "Apply",
       "clear": "Clear",
-      "clear_all": "Remove all",
+      "clear_all": "CLEAR ALL",
       "from": "From",
       "filter_and_sort": "Filter and sort",
       "filter_by_label": "Filter:",
@@ -272,7 +281,6 @@
       "announcement": "Announcement",
       "announcement_bar": "Announcement bar"
     },
-
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",
@@ -407,8 +415,8 @@
       "first_name": "First name",
       "last_name": "Last name",
       "company": "Company",
-      "address1": "Address 1",
-      "address2": "Address 2",
+      "address1": "Address must be 32 characters or fewer to prevent processing issues.",
+      "address2": "If using a Parcel Lock number, use PL: (include number)",
       "city": "City",
       "country": "Country/region",
       "province": "Province",
@@ -524,6 +532,27 @@
       "max_characters": "{{ max_chars }} characters max",
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
+    }
+  },
+  "shopify": {
+    "checkout": {
+      "contact": {
+        "address1_label": "Street name and number. Parcel locker number. Max 32 characters.",
+        "optional_address2_label": "Apartment, suite or parcel locker street details. Max 32 characters.",
+        "first_name_label": "First Name. Max 20 characters.",
+        "phone_label": "Phone"
+      },
+      "shipping_errors": {
+        "empty_state": "Enter your shippng address to view available shipping methods. Aus Post tracking updates are sent to Australian numbers only."
+      },
+      "thank_you": {
+        "shipping_method_title": "Shipping method. Aus Post tracking updates are sent to Australian numbers only."
+      },
+      "review": {
+        "blocks": {
+          "shipping_method_title": "Shipping method. Aus Post tracking updates are sent to Australian numbers only."
+        }
+      }
     }
   }
 }

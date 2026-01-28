@@ -311,6 +311,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
     <!-- Swiper JS -->
+
+    <style>
+      :root:not(:has([data-header-override='true'])) .header-colour {
+        background: #000 !important;
+      }
+      :root:not(:has([data-header-override='true'])) .parent-menu-item,
+      :root:not(:has([data-header-override='true'])) .main-navigation svg {
+        color: #fff !important;
+      }
+      :root:not(:has([data-header-override='true'])) .main-navigation ul li::after,
+      :root:not(:has([data-header-override='true'])) .main-navigation .header__icon::after {
+        background-color: white;
+      }
+      :root:not(:has([data-header-override='true'])) img.c-header__logo.parent-menu-item {
+        filter: invert(1);
+      }
+      :root:not(:has([data-header-override='true'])) #mobile-menu-toggle {
+        color: #fff !important;
+      }
+    </style>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -392,5 +412,7 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script defer src="https://cdn.webrotate360.com/lib/wr360embed.js"></script>
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
   </body>
 </html>

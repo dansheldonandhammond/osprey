@@ -1,77 +1,90 @@
-<div class="t-relative t-p-5 lg:t-py-[4.5rem] lg:t-px-[4rem] t-overflow-hidden t-mb-[100px]">
-  {% if section.settings.background_image %}
-    <img
-      class="t-w-full t-h-[1315px] t-absolute t-z-[-1] t-left-0 t-top-0 t-min-w-[100%] t-min-h-[100%] t-object-cover"
-      src="{{ section.settings.background_image | image_url }}"
-      alt="Background image"
-    >
-  {% endif %}
-
-  <div class="t-flex t-justify-start t-items-center t-text-black">
-    {% if section.settings.heading %}
-      <h2 class="t-text-body-2 t-font-bold t-p-0 t-m-0">{{ section.settings.heading }}</h2>
-    {% endif %}
-
-    {% if section.settings.cta_text and section.settings.view_all_link %}
-      <a
-        href="{{ section.settings.view_all_link }}"
-        title="View all"
-        class="t-px-[32px] t-py-[16px] md:t-ml-[120px] t-font-[600] t-text-body-6 t-no-underline t-uppercase t-inline-block t-text-white t-bg-black hover:t-bg-grey t-transition t-duration-300 hover:t-text-white"
+<div class="t-max-w-[1835px] t-px-[20px] t-pt-[20px] t-mx-auto t-block t-w-full ">
+  <div class="t-relative t-p-5 lg:t-py-[4.5rem] lg:t-px-[4rem] page-width t-overflow-hidden t-mb-[100px] ">
+    {% if section.settings.background_image %}
+      <img
+        class="t-w-full t-h-[1315px] t-absolute t-z-[-1] t-left-0 t-top-0 t-min-w-[100%] t-min-h-[100%] t-object-cover"
+        src="{{ section.settings.background_image | image_url }}"
+        alt="Background image"
       >
-        {{ section.settings.cta_text }}
-      </a>
     {% endif %}
-  </div>
 
-  <div id="blog-slider" class="t-mx-auto">
-    <ul class="carousel t-h-full t-gap-[20px] t-ps-0 t-mt-[3.125rem] blog-slider-items t-flex t-flex-row t-no-scrollbar t-mt-0 md:t-scroll-p-5  md:t-ml-0 t-mb-8 lg:t-mt-12.5 lg:t--mx-2.5 t-scrollbar-none">
-      {% for blog in blogs['osprey-blog'].articles limit: 6 %}
-        <li
-          class="t-h-full t-w-full md:t-w-1/2 lg:t-w-1/3 t-flex-grow-0 t-flex-shrink-0 md:t-px-2.5 t-snap-start"
-          style="height:fit-content"
+    <div class="md:t-flex t-justify-between t-items-center t-uppercase t-text-[#333] t-mb-[35px] ">
+      {% if section.settings.heading %}
+        <h2 class="t-text-body-2 t-font-bold t-p-0 t-m-0 t-capitalize t-mb-[20px]">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.cta_text and section.settings.view_all_link %}
+        <a
+          href="{{ section.settings.view_all_link }}"
+          title="View all"
+          class="t-px-[32px] t-py-[16px] md:t-ml-[120px] t-font-[600] t-text-body-6 t-no-underline t-uppercase t-inline-block t-text-white t-bg-black hover:t-bg-grey t-transition t-duration-300 hover:t-text-white"
         >
-          <div class="t-relative t-bg-white t-overflow-hidden">
-            <a href="{{ blog.url }}" title="{{ blog.title }}">
-              <div class="t-relative t-aspect-[1/1.68] lg:t-aspect-[3/4]">
-                {% if blog.image %}
-                  <img
-                    class="t-w-full t-object-cover t-h-full t-aspect-[1/1.68] lg:t-aspect-[3/4]"
-                    src="{{ blog.image | image_url }}"
-                    alt="{{ blog.title | escape }}"
-                  >
-                {% endif %}
+          {{ section.settings.cta_text }}
+        </a>
+      {% endif %}
+    </div>
 
-                {% if blogs.tags contains 'Featured' %}
-                  <div class="t-text-white t-absolute t-top-8 t-left-6 t-font-bold t-z-10">Featured</div>
-                {% endif %}
+    <div id="blog-slider" class="t-relative t-overflow-hidden t-w-full">
+      <!-- Arrows - Visibility controlled by JavaScript based on slidesPerView -->
+      <div
+        class="swiper-button-prev blog-slider-prev t-text-black t-flex t-items-center t-justify-center transition t-text-[30px] t-cursor-pointer t-absolute t-left-0 t-top-1/2 t-translate-y-[-50%] t-z-10"
+        style="display: none;"
+      ></div>
+      <div
+        class="swiper-button-next blog-slider-next t-text-black t-flex t-items-center t-justify-center transition t-text-[30px] t-cursor-pointer t-absolute t-right-0 t-top-1/2 t-translate-y-[-50%] t-z-10"
+        style="display: none;"
+      ></div>
+      <ul class="carousel t-ps-0 blog-slider-items t-flex t-flex-row t-items-stretch t-no-scrollbar t-mt-0 md:t-scroll-p-5 md:t-ml-0 t-mb-8 lg:t-mt-12.5 t-scrollbar-none t-list-none t-p-0 t-w-full t-h-[500px] md:t-h-[450px] lg:t-h-[551.33px]">
+        {% for blog in blogs['osprey-blog'].articles limit: 6 %}
 
-                <div class="t-group t-absolute t-inset-0 t-bg-black t-bg-opacity-35 t-flex t-items-end t-aspect-[1/1.68] lg:t-aspect-[3/4]">
-                  <div class="t-grid t-text-white t-py-6 t-px-6 md:t-pt-4 md:t-pb-7 md:t-px-5  t-m-[20px] ">
-                    {% if blog.title %}
-                      <h3 class="t-font-bold t-text-md lg:t-text-lg t-mb-5 t-text-body-4 t-text-white t-max-w-[320px]">
-                        {{ blog.title }}
-                      </h3>
-                    {% endif %}
+          <li
+            class="t-flex-grow-0 t-flex-shrink-0 t-snap-start t-box-border t-flex t-flex-col t-h-full"
+          >
+            <div class="t-relative t-bg-white t-overflow-hidden t-flex t-flex-col t-flex-1 t-h-full">
+              <a href="{{ blog.url }}" title="{{ blog.title }}" class="t-flex t-flex-col t-flex-1 t-min-h-0 t-h-full">
+                <div class="t-relative t-w-full t-flex-1 t-min-h-0 t-h-full">
+                  {% if blog.image %}
+                    <img
+                      class="t-w-full t-h-full t-object-cover"
+                      src="{{ blog.image | image_url }}"
+                      alt="{{ blog.title | escape }}"
+                    >
+                  {% endif %}
 
-                    {% if blog.excerpt %}
-                      <div
-                        class="t-transition-max-h t-duration-500 t-max-h-0 group-hover:t-max-h-[75px] md:group-hover:t-max-h-[87px] t-line-clamp-3 t-overflow-hidden"
-                      >
-                        {{ blog.excerpt }}
-                      </div>
-                    {% endif %}
+                  {% if blogs.tags contains 'Featured' %}
+                    <div class="t-text-white t-absolute t-top-8 t-left-6 t-font-bold t-z-10">Featured</div>
+                  {% endif %}
+
+                  <div class="t-group t-absolute t-inset-0 t-bg-black t-bg-opacity-35 t-flex t-items-end t-h-full">
+                    <div class="t-grid t-text-white t-py-6 t-px-6 md:t-pt-4 md:t-pb-7 md:t-px-5">
+                      {% if blog.title %}
+                        <h3 class="t-font-bold t-text-md lg:t-text-lg t-mb-5 t-text-body-4 t-text-white t-max-w-[320px]">
+                          {{ blog.title }}
+                        </h3>
+                      {% endif %}
+
+                      {% if blog.excerpt %}
+                        <div
+                          class="t-transition-max-h t-duration-500 t-max-h-0 group-hover:t-max-h-[75px] md:group-hover:t-max-h-[87px] t-line-clamp-3 t-overflow-hidden"
+                        >
+                          {{ blog.excerpt }}
+                        </div>
+                      {% endif %}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-    <!-- Swiper Pagination Bar -->
-    <div
-      class="swiper-pagination t-w-full t-max-w-full t-h-[8px] t-rounded-full t-bg-gray-200 t-relative t-overflow-hidden t-mx-auto t-z-[1]"
-    ></div>
+              </a>
+            </div>
+          </li>
+                   
+        {% endfor %}
+      </ul>
+      <!-- Custom Pagination host (Swiper will inject the track/indicator HTML here) - Visibility controlled by JavaScript -->
+      <div
+        class="blog-slider-pagination swiper-pagination t-w-full t-max-w-full t-h-[4px] t-rounded-full t-bg-gray-200 t-relative t-overflow-hidden t-mx-auto t-z-[1] t-mt-[5rem]"
+        style="display: none;"
+      ></div>
+    </div>
   </div>
 </div>
 

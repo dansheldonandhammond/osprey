@@ -562,6 +562,7 @@ class MenuDrawer extends HTMLElement {
 	}
 
 	openMenuDrawer(summaryElement) {
+		console.log('🎯 DEBUG: openMenuDrawer called');
 		setTimeout(() => {
 			this.mainDetailsToggle.classList.add("menu-opening");
 		});
@@ -570,6 +571,10 @@ class MenuDrawer extends HTMLElement {
 		document.body.classList.add(
 			`overflow-hidden-${this.dataset.breakpoint}`
 		);
+
+		// Start monitoring scroll for positioning updates
+		console.log('🎯 DEBUG: About to start scroll positioning');
+		this.startScrollPositioning();
 	}
 
 	closeMenuDrawer(event, elementToFocus = false) {
@@ -593,8 +598,98 @@ class MenuDrawer extends HTMLElement {
 		removeTrapFocus(elementToFocus);
 		this.closeAnimation(this.mainDetailsToggle);
 
+		// Stop monitoring scroll and reset positioning
+		this.stopScrollPositioning();
+
 		if (event instanceof KeyboardEvent)
 			elementToFocus?.setAttribute("aria-expanded", false);
+	}
+
+	startScrollPositioning() {
+		console.log('🚀 DEBUG: startScrollPositioning called, window.innerWidth:', window.innerWidth);
+		
+		console.log('✅ DEBUG: Starting scroll positioning and initial position update');
+		this.updateMenuDrawerPosition();
+		this.scrollHandler = this.updateMenuDrawerPosition.bind(this);
+		window.addEventListener('scroll', this.scrollHandler);
+		window.addEventListener('resize', this.scrollHandler);
+		console.log('✅ DEBUG: Event listeners added for scroll and resize');
+	}
+
+	stopScrollPositioning() {
+		if (this.scrollHandler) {
+			window.removeEventListener('scroll', this.scrollHandler);
+			window.removeEventListener('resize', this.scrollHandler);
+			this.scrollHandler = null;
+		}
+		
+		// Reset positioning to default
+		const menuDrawer = document.getElementById('menu-drawer');
+		if (menuDrawer) {
+			menuDrawer.style.removeProperty('top');
+			menuDrawer.style.removeProperty('position');
+			menuDrawer.style.removeProperty('z-index');
+			menuDrawer.style.removeProperty('left');
+			// Clear the style attribute entirely to remove any cssText additions
+			menuDrawer.removeAttribute('style');
+		}
+		
+		// Reset CSS custom property
+		document.documentElement.style.removeProperty('--menu-drawer-top');
+	}
+
+	updateMenuDrawerPosition() {
+		console.log('🔍 DEBUG: updateMenuDrawerPosition called');
+		console.log('🔍 DEBUG: window.innerWidth:', window.innerWidth);
+		console.log('🔍 DEBUG: scrollY:', window.scrollY);
+		
+		// Find the positioned menu drawer container (outer element only)
+		// Use specific selector to target only the outer positioned container
+		const menuDrawerContainer = document.querySelector('#menu-drawer.t-flex.t-fixed');
+		console.log('🔍 DEBUG: Found positioned container:', !!menuDrawerContainer);
+		
+		if (!menuDrawerContainer) {
+			console.log('❌ DEBUG: Could not find positioned menu drawer container');
+			return;
+		}
+
+		// Find utility bar and check if it's actually visible
+		const utilityBar = document.querySelector('.utility-bar');
+		console.log('🔍 DEBUG: utilityBar found:', !!utilityBar);
+
+		let utilityBarVisible = false;
+		if (utilityBar) {
+			const rect = utilityBar.getBoundingClientRect();
+			const computedStyle = window.getComputedStyle(utilityBar);
+			
+			// Check if utility bar is actually visible in viewport
+			// It's visible if it has height, is positioned near the top of viewport, 
+			// and not hidden by CSS
+			utilityBarVisible = rect.height > 0 && 
+							  rect.top >= -5 && 
+							  rect.bottom > 0 && 
+							  computedStyle.opacity !== '0' && 
+							  computedStyle.display !== 'none' && 
+							  computedStyle.visibility !== 'hidden';
+			
+			console.log('🔍 DEBUG: utilityBar rect:', {
+				height: rect.height,
+				top: rect.top,
+				bottom: rect.bottom,
+				visible: utilityBarVisible
+			});
+		}
+
+		// Set top value based on utility bar actual visibility
+		const topValue = utilityBarVisible ? '122px' : '78px';
+		console.log('🔍 DEBUG: Setting top value to:', topValue, '(utility bar visible:', utilityBarVisible, ')');
+
+		// Apply positioning to the outer container only (don't touch left for animation)
+		menuDrawerContainer.style.position = 'fixed';
+		menuDrawerContainer.style.top = topValue;
+		menuDrawerContainer.style.zIndex = '999';
+		
+		console.log('✅ DEBUG: Applied positioning. Current top:', window.getComputedStyle(menuDrawerContainer).top);
 	}
 
 	onFocusOut() {
@@ -993,7 +1088,7 @@ class SlideshowComponent extends SliderComponent {
 
 		this.sliderFirstItemNode =
 			this.slider.querySelector(".slideshow__slide");
-		if (this.sliderItemsToShow.length > 0) this.currentPage = 1;
+		if (this.sliderItemsToShow && this.sliderItemsToShow.length > 0) this.currentPage = 1;
 
 		this.announcementBarSlider = this.querySelector(
 			".announcement-bar-slider"
@@ -1203,6 +1298,8 @@ class SlideshowComponent extends SliderComponent {
 	}
 
 	setSlideVisibility(event) {
+		if (!this.sliderItemsToShow || this.sliderItemsToShow.length === 0) return;
+		
 		this.sliderItemsToShow.forEach((item, index) => {
 			const linkElements = item.querySelectorAll("a");
 			if (index === this.currentPage - 1) {
@@ -1272,33 +1369,35 @@ class SlideshowComponent extends SliderComponent {
 }
 
 customElements.define("slideshow-component", SlideshowComponent);
-
 class VariantSelects extends HTMLElement {
-	constructor() {
-		super();
-	}
+  constructor() {
+    super();
+  }
 
-	connectedCallback() {
-		this.addEventListener("change", (event) => {
-			const target = this.getInputForEventTarget(event.target);
-			this.updateSelectionMetadata(event);
+  connectedCallback() {
+    // fire once on load so the UI is consistent on first paint
+    this.updateOptions();
+    this.updateMasterId();
+    this.emitVariantChange(); // <— NEW
 
-			//   START Custom Variant Update Code START
-			this.updateOptions();
-			this.updateMasterId();
+    this.addEventListener("change", (event) => {
+      const target = this.getInputForEventTarget(event.target);
+      this.updateSelectionMetadata(event);
 
-			this.filterImgVariant();
-			// END CUSTOM CODE
+      // your existing bits
+      this.updateOptions();
+      this.updateMasterId();
+      this.filterImgVariant();
 
-			publish(PUB_SUB_EVENTS.optionValueSelectionChange, {
-				data: {
-					event,
-					target,
-					selectedOptionValues: this.selectedOptionValues,
-				},
-			});
-		});
-	}
+      // tell the rest of the app a variant actually changed
+      this.emitVariantChange(); // <— NEW
+
+      // keep your pub/sub intact
+      publish(PUB_SUB_EVENTS.optionValueSelectionChange, {
+        data: { event, target, selectedOptionValues: this.selectedOptionValues },
+      });
+    });
+  }
 
 	updateSelectionMetadata({ target }) {
 		const { value, tagName } = target;
@@ -1383,40 +1482,93 @@ class VariantSelects extends HTMLElement {
 	}
 
 	updateMasterId() {
-		this.currentVariant = this.getVariantData().find((variant) => {
-			return !variant.options
-				.map((option, index) => {
-					return this.options[index] === option;
-				})
-				.includes(false);
-		});
+		 this.currentVariant = this.getVariantData().find((variant) => {
+      return !variant.options
+        .map((option, index) => this.options[index] === option)
+        .includes(false);
+    });
+		
+		if (!this.currentVariant) {
+      console.warn("No matching variant found for options:", this.options);
+    }
+	  this.syncFormInputs(); 
+    this.syncGrowaveContainers(); 
 	}
 
-filterImgVariant() {
-	console.log("thumbnail test", this.currentVariant);
+  isVariantOutOfStock(variant) {
+    if (!variant) return false;
+    // prefer Shopify’s boolean when available
+    let oos = !variant.available;
 
-	if (this.currentVariant.featured_image) {
-		// hide all thumbnails
-		document.querySelectorAll('[thumbnail-sku]').forEach(img => img.style.display = 'none');
+    // tighten with inventory rules if needed
+    if (variant.inventory_management === "shopify" && variant.inventory_policy !== "continue") {
+      if (typeof variant.inventory_quantity === "number" && variant.inventory_quantity <= 0) {
+        oos = true;
+      }
+    }
+    return oos;
+  }
 
-		// show matching thumbnails
-		const currentImgSku = this.currentVariant.sku;
-		const thumbnailSelector = `[thumbnail-sku='${currentImgSku}']`;
-		document.querySelectorAll(thumbnailSelector).forEach(img => img.style.removeProperty('display'));
+   emitVariantChange() {
+    const variant = this.currentVariant;
+    if (!variant) return;
 
-		// set featured image to first matching thumbnail
-		const firstThumb = document.querySelector(thumbnailSelector);
-		if (firstThumb) {
-			const featuredImage = document.getElementById('FeaturedImage');
-			if (featuredImage) {
-				featuredImage.src = firstThumb.src;
+    const isOutOfStock = this.isVariantOutOfStock(variant);
+
+    // bubble so your document-level listener catches it
+    document.dispatchEvent(
+      new CustomEvent("variant:change", {
+        bubbles: true,
+        detail: { variant, isOutOfStock },
+      })
+    );
+  }
+
+  syncFormInputs() {
+    const v = this.currentVariant;
+    if (!v) return;
+    // update ALL hidden id inputs (main + sticky forms)
+    document.querySelectorAll('input.product-variant-id[name="id"]').forEach((input) => {
+      input.value = v.id;
+      // optional: don’t disable here; your external code already handles button state
+    });
+  }
+
+ syncGrowaveContainers() {
+    const v = this.currentVariant;
+    if (!v) return;
+
+    // point every container to the new variant id
+    document.querySelectorAll(".gw-button-widget-container").forEach((c) => {
+      c.setAttribute("data-variant-id", v.id);
+    });
+  }
+
+		filterImgVariant() {
+			console.log("thumbnail test", this.currentVariant);
+
+			if (this.currentVariant && this.currentVariant.featured_image) {
+				// hide all thumbnails
+				document.querySelectorAll('[thumbnail-sku]').forEach(img => img.style.display = 'none');
+
+				// show matching thumbnails
+				const currentImgSku = this.currentVariant.sku;
+				const thumbnailSelector = `[thumbnail-sku='${currentImgSku}']`;
+				document.querySelectorAll(thumbnailSelector).forEach(img => img.style.removeProperty('display'));
+
+				// set featured image to first matching thumbnail
+				const firstThumb = document.querySelector(thumbnailSelector);
+				if (firstThumb) {
+					const featuredImage = document.getElementById('FeaturedImage');
+					if (featuredImage) {
+						featuredImage.src = firstThumb.src;
+					}
+				}
+			} else {
+				// fallback: show all thumbnails
+				document.querySelectorAll('[thumbnail-sku]').forEach(img => img.style.removeProperty('display'));
 			}
 		}
-	} else {
-		// fallback: show all thumbnails
-		document.querySelectorAll('[thumbnail-sku]').forEach(img => img.style.removeProperty('display'));
-	}
-}
 
 			// END CUSTOM CODE
 	}

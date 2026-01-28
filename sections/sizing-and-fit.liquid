@@ -1,0 +1,1829 @@
+<div class="t-w-full  ">
+  <div class="t-max-w-[1300px]  t-mx-auto t-py-[40px] t-px-[15px]">
+
+    <style>
+      .container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 20px 15px;
+      }
+
+      .heading {
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 40px;
+        letter-spacing: 1px;
+      }
+
+      .sizing-section {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-title {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+        padding: 20px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .table-container {
+        position: relative;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e0 #f1f5f9;
+      }
+
+      .table-container::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      .table-container::-webkit-scrollbar-track {
+        background: #f1f5f9;
+      }
+
+      .table-container::-webkit-scrollbar-thumb {
+        background: #cbd5e0;
+        border-radius: 4px;
+      }
+
+      .table-container::-webkit-scrollbar-thumb:hover {
+        background: #a0aec0;
+      }
+
+      .sizing-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        min-width: 1200px; /* Ensures table doesn't compress too much */
+        font-size: 14px;
+      }
+
+      .sizing-table th,
+      .sizing-table td {
+        padding: 12px 8px;
+        text-align: center;
+        vertical-align: middle;
+        border-bottom: 1px solid #e2e8f0;
+        white-space: nowrap;
+      }
+
+      /* Header row with torso measurements */
+      .torso-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-weight: 700;
+        font-size: 12px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .torso-header th:first-child {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+      }
+
+      /* Category headers */
+      .category-header {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 16px;
+        letter-spacing: 0.5px;
+      }
+
+      .category-header td {
+        padding: 16px 20px;
+      }
+
+      /* Product rows */
+      .product-row {
+        transition: background-color 0.2s ease;
+      }
+
+      .product-row:nth-child(even) {
+        background-color: #f8fafc;
+      }
+
+      .product-row:hover {
+        background-color: #e2e8f0;
+      }
+
+      /* Fixed first column */
+      .sizing-table th:first-child,
+      .sizing-table td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 5;
+        background: white;
+        border-right: 2px solid #e2e8f0;
+        font-weight: 600;
+        text-align: left;
+        padding-left: 20px;
+        min-width: 200px;
+        max-width: 200px;
+      }
+
+      .category-header td:first-child {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+      }
+
+      .torso-header th:first-child {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+      }
+
+      .product-row:nth-child(even) td:first-child {
+        background: #f8fafc;
+      }
+
+      .product-row:hover td:first-child {
+        background: #e2e8f0;
+      }
+
+      /* Size indicators */
+      .size-sm {
+        color: #059669;
+        font-weight: 600;
+      }
+      .size-ml {
+        color: #dc2626;
+        font-weight: 600;
+      }
+      .size-lxl {
+        color: #7c3aed;
+        font-weight: 600;
+      }
+      .size-os {
+        color: #ea580c;
+        font-weight: 600;
+      }
+      .size-unavailable {
+        color: #9ca3af;
+      }
+
+      /* Mobile responsive adjustments */
+      @media (max-width: 768px) {
+        .container {
+          padding: 15px 10px;
+        }
+
+        .heading {
+          font-size: 2rem;
+          margin-bottom: 30px;
+        }
+
+        .section-title {
+          font-size: 1.25rem;
+          padding: 15px;
+        }
+
+        .sizing-table {
+          min-width: 1000px;
+          font-size: 13px;
+        }
+
+        .sizing-table th,
+        .sizing-table td {
+          padding: 10px 6px;
+        }
+
+        .sizing-table th:first-child,
+        .sizing-table td:first-child {
+          min-width: 180px;
+          max-width: 180px;
+          padding-left: 15px;
+        }
+
+        .torso-header {
+          font-size: 11px;
+        }
+
+        .category-header {
+          font-size: 14px;
+        }
+
+        .category-header td {
+          padding: 12px 15px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .heading {
+          font-size: 1.75rem;
+        }
+
+        .sizing-table {
+          font-size: 12px;
+        }
+
+        .sizing-table th:first-child,
+        .sizing-table td:first-child {
+          min-width: 160px;
+          max-width: 160px;
+          padding-left: 12px;
+        }
+      }
+
+      /* Scroll hint for mobile */
+      .scroll-hint {
+        text-align: center;
+        color: #64748b;
+        font-size: 14px;
+        margin-bottom: 10px;
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .scroll-hint {
+          display: block;
+        }
+      }
+    </style>
+
+    <div
+      id="gender_sizing_content"
+      class="tabcontent bg-white w-full order-10 p-4 category-container tab-container tab-pane"
+      :class="{'hidden': active !== 'gender_sizing_content'}"
+    >
+      <h2 class="t-font-semibold t-text-[30px] uppercase">Sizing</h2>
+
+      <div class="t-flex t-flex-col t-bg-[#f2f2f2] t-rounded-lg t-p-4 t-mt-[20px] t-mb-[40px]">
+        <div class="t-flex t-items-center t-gap-3 t-text-red-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="t-w-6 t-h-6" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <circle cx="10" cy="10" r="9" fill="currentColor"/>
+        <rect x="9" y="7" width="2" height="6" rx="1" fill="white"/>
+        <rect x="9" y="5" width="2" height="2" rx="1" fill="white"/>
+          </svg>
+          <h3 class="t-text-base t-font-semibold t-text-red-600 t-my-0" >Need help finding your fit?</h3>
+        </div>
+        <div class="t-mt-2">
+          <p class="t-text-sm t-text-gray-700 t-py-0">If you are unsure of your fit, we recommend visiting an authorised dealer to be professionally fitted</p>
+            <a href="https://osprey.storelocator.net.au/" target="_blank" rel="noopener">Click here to find a store</a>
+        </div>
+      </div>
+
+      <table class="table table-responsive table-striped size-fit-gender-sizing-table t-my-[60px] t-py-[30px]">
+
+{% comment %} Sizing overview {% endcomment %}
+
+<div data-content-type="row" data-appearance="contained" data-element="main"><div class="size-overview-block" data-enable-parallax="0" data-parallax-speed="0.5" data-background-images="{}" data-background-type="image" data-video-loop="true" data-video-play-only-visible="true" data-video-lazy-load="true" data-video-fallback-src="" data-element="inner" data-pb-style="QGWQJ7L"><h2 class="size-overview-block__title" data-content-type="heading" data-appearance="default" data-element="main">SIZE &amp; FIT</h2><div class="size-overview-block__content t-mb-[20px]" data-content-type="text" data-appearance="default" data-element="main"><p>Custom-fit backpacks are Osprey's Legacy. Our expertise in designing backpacks that fit every shape, size and gender dates back to 1974, when Osprey was founded on designing custom packs for mountaineers headed to the Sierra.&nbsp;</p>
+<p>As the leader in custom-fit backpacks, our pack-fitting technique ensures a properly fitting pack that maximizes efficiency, comfort and safety both on and off the trail.&nbsp;</p></div><div class="pagebuilder-column-group" data-background-images="{}" data-content-type="column-group" data-appearance="default" data-grid-size="12" data-element="main" data-pb-style="HTMFL8W"><div class="pagebuilder-column-line" data-content-type="column-line" data-element="main" data-pb-style="G3U4K8N"><div class="pagebuilder-column" data-content-type="column" data-appearance="full-height" data-background-images="{}" data-element="main" data-pb-style="FHNOHAN"><div class="size-overview-block__video" data-content-type="video" data-appearance="default" data-element="main"><div class="pagebuilder-video-inner" data-element="inner" data-pb-style="NH4SUEO"><div class="pagebuilder-video-wrapper" data-element="wrapper"><div><div class="m-video-player__video-play-control"></div><div class="m-video-player__controls"></div><div class="pagebuilder-video-container" data-element="video"></div></div></div></div></div></div></div></div><h2 class="size-overview-block__title" data-content-type="heading" data-appearance="default" data-element="main">SIZING OVERVIEW&nbsp;</h2><div class="pagebuilder-column-group" data-background-images="{}" data-content-type="column-group" data-appearance="default" data-grid-size="12" data-element="main" data-pb-style="HDY3S03"><div class="pagebuilder-column-line" data-content-type="column-line" data-element="main" data-pb-style="MJ4YOLS"><div class="pagebuilder-column" data-content-type="column" data-appearance="full-height" data-background-images="{}" data-element="main" data-pb-style="OJACKO8"><figure class="size-overview-block__image" data-content-type="image" data-appearance="full-width" data-element="main" data-pb-style="GM23LLM"><picture><source media="(min-width: 768px)" srcset="https://www.osprey.com/media/wysiwyg/size-fit-4.png 1x"><source media="(max-width: 767px)" srcset="https://www.osprey.com/media/wysiwyg/size-fit-4.png 1x"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" loading="lazy" alt="" class="" data-pb-style="XB10OFN"></picture></figure></div><div class="pagebuilder-column" data-content-type="column" data-appearance="full-height" data-background-images="{}" data-element="main" data-pb-style="T534NBA"><figure class="size-overview-block__image" data-content-type="image" data-appearance="full-width" data-element="main" data-pb-style="F1TEI93"><picture><source media="(min-width: 768px)" srcset="https://www.osprey.com/media/wysiwyg/size-fit-5.png 1x"><source media="(max-width: 767px)" srcset="https://www.osprey.com/media/wysiwyg/size-fit-5.png 1x"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" loading="lazy" alt="" class="" data-pb-style="KUYGHGN"></picture></figure></div><div class="pagebuilder-column" data-content-type="column" data-appearance="full-height" data-background-images="{}" data-element="main" data-pb-style="XYAW0LM"><figure class="size-overview-block__image" data-content-type="image" data-appearance="full-width" data-element="main" data-pb-style="EQS3RVC"><picture><source media="(min-width: 768px)" srcset="https://www.osprey.com/media/wysiwyg/size-fit-6.png 1x"><source media="(max-width: 767px)" srcset="https://www.osprey.com/media/wysiwyg/size-fit-6.png 1x"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" loading="lazy" alt="" class="" data-pb-style="J31KDRM"></picture></figure></div></div></div><div class="size-overview-block__content" data-content-type="text" data-appearance="default" data-element="main">
+            <p>
+                Fit should not be compromised for any other considerations. Body shape and sizing varies from customer to customer. Not every customer will fit every pack. Adjustable packs allow customers to fine-tune the fit for optimal
+                carry performance.&nbsp;
+            </p>
+        </div><div class="pagebuilder-column-group" data-background-images="{}" data-content-type="column-group" data-appearance="default" data-grid-size="12" data-element="main" data-pb-style="FWD9JR1"><div class="pagebuilder-column-line" data-content-type="column-line" data-element="main" data-pb-style="RAQ4NVG"><div class="pagebuilder-column" data-content-type="column" data-appearance="full-height" data-background-images="{}" data-element="main" data-pb-style="IWVMIL9"><figure class="size-overview-block__image" data-content-type="image" data-appearance="full-width" data-element="main" data-pb-style="MGE6TE7"><picture><source media="(min-width: 768px)" srcset="https://www.osprey.com/media/wysiwyg/size-fit-1.jpg 1x"><source media="(max-width: 767px)" srcset="https://www.osprey.com/media/wysiwyg/size-fit-1.jpg 1x"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" loading="lazy" alt="" class="" data-pb-style="I2B477N"></picture></figure></div><div class="pagebuilder-column" data-content-type="column" data-appearance="full-height" data-background-images="{}" data-element="main" data-pb-style="W8HCOAT"><figure class="size-overview-block__image" data-content-type="image" data-appearance="full-width" data-element="main" data-pb-style="EBNJBIB"><picture><source media="(min-width: 768px)" srcset="https://www.osprey.com/media/wysiwyg/size-fit-2.jpg 1x"><source media="(max-width: 767px)" srcset="https://www.osprey.com/media/wysiwyg/size-fit-2.jpg 1x"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" loading="lazy" alt="" class="" data-pb-style="HTJEWL0"></picture></figure></div><div class="pagebuilder-column" data-content-type="column" data-appearance="full-height" data-background-images="{}" data-element="main" data-pb-style="GRAX1S6"><figure class="size-overview-block__image" data-content-type="image" data-appearance="full-width" data-element="main" data-pb-style="FDF7CCJ"><picture><source media="(min-width: 768px)" srcset="https://www.osprey.com/media/wysiwyg/size-fit-3.jpg 1x"><source media="(max-width: 767px)" srcset="https://www.osprey.com/media/wysiwyg/size-fit-3.jpg 1x"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" loading="lazy" alt="" class="" data-pb-style="YXI1SKC"></picture></figure></div></div></div><h2 class="size-overview-block__title" data-content-type="heading" data-appearance="default" data-element="main">TORSO LENGTH/SIZING&nbsp;</h2><div class="size-overview-block__content" data-content-type="text" data-appearance="default" data-element="main"><p>Many Osprey packs are available in multiple sizes to fit a range of torso lengths. To determine your torso measurement, please see diagram below.</p></div></div></div>
+
+
+        {% comment %} end sizing overview {% endcomment %}
+
+{% comment %} Mens sizing guide  {% endcomment %}
+ <table  class="size-fit-gender-sizing-table t-my-[60px] t-py-[30px]">
+        <tbody class="">
+<tr class="" data-row="1" data-col="1">
+<th style="display: none;" scope="col" data-row="1" data-col="1" data-content="Item Category Code" data-content-length="18">Item Category Code</th>
+<th scope="col" data-row="1" data-col="2" data-content="Item Category Name" data-content-length="18">
+<h2 style="text-align: left;" class="t-text-white t-p-[10px]">Men's sizing</h2>
+<h4 style="text-align: left;" class="t-text-white t-p-[10px]">Torso</h4>
+</th>
+<th style="display: none;" scope="col" data-row="1" data-col="3" data-content="Category" data-content-length="8">Category</th>
+<th scope="col" data-row="1" data-col="4" data-content="14&quot; (35.5cm)" data-content-length="12"><strong>14" (35.5cm)</strong></th>
+<th scope="col" data-row="1" data-col="5" data-content="15&quot; (38cm)" data-content-length="10"><strong>15" (38cm)</strong></th>
+<th scope="col" data-row="1" data-col="6" data-content="16&quot; (40.5cm)" data-content-length="12"><strong>16" (40.5cm)</strong></th>
+<th scope="col" data-row="1" data-col="7" data-content="17&quot; (43cm)" data-content-length="10"><strong>17" (43cm)</strong></th>
+<th scope="col" data-row="1" data-col="8" data-content="18&quot; (46cm)" data-content-length="10"><strong>18" (46cm)</strong></th>
+<th scope="col" data-row="1" data-col="9" data-content="19&quot; (48cm)" data-content-length="10"><strong>19" (48cm)</strong></th>
+<th scope="col" data-row="1" data-col="10" data-content="20&quot; (51cm)" data-content-length="10"><strong>20" (51cm)</strong></th>
+<th scope="col" data-row="1" data-col="11" data-content="21&quot; (53cm)" data-content-length="10"><strong>21" (53cm)</strong></th>
+<th scope="col" data-row="1" data-col="12" data-content="22&quot; (56cm)" data-content-length="10"><strong>22" (56cm)</strong></th>
+<th scope="col" data-row="1" data-col="13" data-content="23&quot; (58.5cm)" data-content-length="12"><strong>23" (58.5cm)</strong></th>
+<th scope="col" data-row="1" data-col="14" data-content="24&quot; (61cm)" data-content-length="10"><strong>24" (61cm)</strong></th>
+<th scope="col" data-row="1" data-col="15" data-content="25&quot; (63.5cm)" data-content-length="12"><strong>25" (63.5cm)</strong></th>
+</tr>
+<tr class="category">
+<td>
+<h5 class="t-text-[20px]">M Outdoor</h5>
+</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="6" data-col="1">
+<td style="display: none;" data-row="6" data-col="1" data-content="AETHER_AETHER_PLS" data-content-length="17">AETHER_AETHER_PLS</td>
+<td data-row="6" data-col="2" data-content="Aether/Aether Pls (after 2020)" data-content-length="30">Aether Plus | Aether</td>
+<td style="display: none;" data-row="6" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="6" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="6" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="6" data-col="6" data-content="S/M" data-content-length="3">-</td>
+<td data-row="6" data-col="6" data-content="S/M" data-content-length="3">S/M</td>
+<td data-row="6" data-col="7" data-content="S/M" data-content-length="3">S/M</td>
+<td data-row="6" data-col="8" data-content="S/M or L/XL" data-content-length="11">S/M or L/XL</td>
+<td data-row="6" data-col="9" data-content="S/M or L/XL" data-content-length="11">S/M or L/XL</td>
+<td data-row="6" data-col="10" data-content="S/M or L/XL" data-content-length="11">S/M or L/XL</td>
+<td data-row="6" data-col="11" data-content="L/XL" data-content-length="4">L/XL</td>
+<td data-row="6" data-col="12" data-content="L/XL" data-content-length="4">L/XL</td>
+<td data-row="6" data-col="14" data-content="" data-content-length="">&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="2" data-col="1">
+<td style="display: none;" data-row="2" data-col="1" data-content="AETHER_PRO" data-content-length="10">AETHER_PRO</td>
+<td data-row="2" data-col="2" data-content="Aether Pro" data-content-length="10">Aether Pro</td>
+<td style="display: none;" data-row="2" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="2" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="2" data-col="5" data-content="S" data-content-length="1">-</td>
+<td data-row="2" data-col="6" data-content="S" data-content-length="1">-</td>
+<td data-row="2" data-col="7" data-content="S or M" data-content-length="6">S/M</td>
+<td data-row="2" data-col="8" data-content="S or M" data-content-length="6">S/M</td>
+<td data-row="2" data-col="9" data-content="M or L" data-content-length="6">S/M or L/XL</td>
+<td data-row="2" data-col="10" data-content="M or L" data-content-length="6">S/M or L/XL</td>
+<td data-row="2" data-col="11" data-content="L" data-content-length="1">L/XL</td>
+<td data-row="2" data-col="12" data-content="L" data-content-length="1">L/XL</td>
+<td data-row="2" data-col="13" data-content="-" data-content-length="1">L/XL</td>
+<td data-row="2" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="9" data-col="1">
+<td style="display: none;" data-row="9" data-col="1" data-content="ATMOS" data-content-length="5">ATMOS</td>
+<td data-row="9" data-col="2" data-content="Atmos AG™ (2018-2021)" data-content-length="21">Atmos AG™</td>
+<td style="display: none;" data-row="9" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="9" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="9" data-col="5" data-content="S" data-content-length="1">-</td>
+<td data-row="9" data-col="6" data-content="S" data-content-length="1">-</td>
+<td data-row="9" data-col="7" data-content="S or M" data-content-length="6"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M&quot;}">S/M</span></td>
+<td data-row="9" data-col="8" data-content="S or M" data-content-length="6"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M&quot;}">S/M</span></td>
+<td data-row="9" data-col="9" data-content="M or L" data-content-length="6"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M OR L/XL&quot;}">S/M OR L/XL</span></td>
+<td data-row="9" data-col="10" data-content="M or L" data-content-length="6"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M OR L/XL&quot;}">S/M OR L/XL</span></td>
+<td data-row="9" data-col="11" data-content="L" data-content-length="1"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M OR L/XL&quot;}">S/M OR L/XL</span></td>
+<td data-row="9" data-col="12" data-content="L" data-content-length="1"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;L/XL&quot;}">L/XL</span></td>
+<td data-row="9" data-col="13" data-content="-" data-content-length="1">L/XL</td>
+<td data-row="9" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="10" data-col="1">
+<td style="display: none;" data-row="10" data-col="1" data-content="ATMOS_LT" data-content-length="8">ATMOS_LT</td>
+<td data-row="10" data-col="2" data-content="Atmos LT" data-content-length="8">Atmos AG LT</td>
+<td style="display: none;" data-row="10" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="10" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="10" data-col="5" data-content="S" data-content-length="1">-</td>
+<td data-row="10" data-col="6" data-content="S/M" data-content-length="3">-</td>
+<td data-row="10" data-col="7" data-content="S/M" data-content-length="3">S/M</td>
+<td data-row="10" data-col="8" data-content="S/M OR L/XL" data-content-length="11"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M&quot;}">S/M</span></td>
+<td data-row="10" data-col="9" data-content="S/M OR L/XL" data-content-length="11"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M&quot;}">S/M</span></td>
+<td data-row="10" data-col="10" data-content="S/M OR L/XL" data-content-length="11"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M&quot;}">S/M</span></td>
+<td data-row="10" data-col="11" data-content="L/XL" data-content-length="4">L/XL</td>
+<td data-row="10" data-col="12" data-content="L/XL" data-content-length="4">L/XL</td>
+<td data-row="10" data-col="13" data-content="-" data-content-length="1">L/XL</td>
+<td data-row="10" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td style="display: none;">&nbsp;</td>
+<td>
+<p><strong>New 2025&nbsp;</strong></p>
+<p><strong>Talon 11, 22 , 26, 33</strong></p>
+<p><strong>Extended fit 22, 33</strong></p>
+</td>
+<td style="display: none;">&nbsp;</td>
+<td><strong>-</strong></td>
+<td><strong>-</strong></td>
+<td><strong>-</strong></td>
+<td><strong>O/S</strong></td>
+<td><strong>O/S</strong></td>
+<td><strong>O/S</strong></td>
+<td><strong><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M OR L/XL&quot;}">O/S</span></strong></td>
+<td><strong>O/S</strong></td>
+<td><strong>O/S</strong></td>
+<td><strong>-</strong></td>
+<td><strong>-</strong></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td style="display: none;">&nbsp;</td>
+<td><strong>New 2025 Talon 44</strong></td>
+<td style="display: none;">&nbsp;</td>
+<td><strong>-</strong></td>
+<td><strong>-</strong></td>
+<td><strong>S/M</strong></td>
+<td data-row="26" data-col="7" data-content="S/M" data-content-length="3"><strong>S/M</strong></td>
+<td data-row="26" data-col="8" data-content="S/M or L/XL" data-content-length="11"><strong>S/M</strong></td>
+<td data-row="26" data-col="9" data-content="S/M or L/XL" data-content-length="11"><strong>S/M or L/XL</strong></td>
+<td data-row="26" data-col="10" data-content="L/XL" data-content-length="4"><strong><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M OR L/XL&quot;}">L/XL</span></strong></td>
+<td data-row="26" data-col="11" data-content="L/XL" data-content-length="4"><strong>L/XL</strong></td>
+<td data-row="26" data-col="12" data-content="-" data-content-length="1"><strong>L/XL</strong></td>
+<td><strong>L/XL</strong></td>
+<td><strong>-</strong></td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="26" data-col="1">
+<td style="display: none;" data-row="26" data-col="1" data-content="TALON" data-content-length="5">TALON</td>
+<td data-row="26" data-col="2" data-content="Talon/Pro" data-content-length="9">Talon |<br>Talon Pro |<br>Talon Velocity</td>
+<td style="display: none;" data-row="26" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="26" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="26" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="26" data-col="6" data-content="S/M" data-content-length="3">&nbsp;</td>
+<td data-row="26" data-col="7" data-content="S/M" data-content-length="3">S/M</td>
+<td data-row="26" data-col="8" data-content="S/M or L/XL" data-content-length="11">S/M</td>
+<td data-row="26" data-col="9" data-content="S/M or L/XL" data-content-length="11">S/M or L/XL</td>
+<td data-row="26" data-col="10" data-content="L/XL" data-content-length="4"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M OR L/XL&quot;}">S/M OR L/XL</span></td>
+<td data-row="26" data-col="11" data-content="L/XL" data-content-length="4">L/XL</td>
+<td data-row="26" data-col="12" data-content="-" data-content-length="1">L/XL</td>
+<td data-row="26" data-col="13" data-content="-" data-content-length="1">-</td>
+<td data-row="26" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="25" data-col="1">
+<td style="display: none;" data-row="25" data-col="1" data-content="TALON_22_EXTENDED_FIT" data-content-length="21">TALON_22_EXTENDED_FIT</td>
+<td data-row="25" data-col="2" data-content="Talon Extended Fit" data-content-length="18">Talon 6</td>
+<td style="display: none;" data-row="25" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td colspan="11" data-row="25" data-col="4" data-content="-" data-content-length="1">O/S HIPBELT FIT RANGE IS 25-50" (64-127 CM)</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="19" data-col="1">
+<td style="display: none;" data-row="19" data-col="1" data-content="ROOK" data-content-length="4">ROOK</td>
+<td data-row="19" data-col="2" data-content="Rook" data-content-length="4">Rook</td>
+<td style="display: none;" data-row="19" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="19" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="19" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="19" data-col="6" data-content="O/S" data-content-length="3">-</td>
+<td data-row="19" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="19" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="19" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="19" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="19" data-col="11" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="19" data-col="12" data-content="-" data-content-length="1">O/S</td>
+<td data-row="19" data-col="13" data-content="-" data-content-length="1">-</td>
+<td data-row="19" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="27" data-col="1">
+<td style="display: none;" data-row="27" data-col="1" data-content="VOLT" data-content-length="4">VOLT</td>
+<td data-row="27" data-col="2" data-content="Volt" data-content-length="4">Volt</td>
+<td style="display: none;" data-row="27" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="27" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="27" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="27" data-col="6" data-content="O/S" data-content-length="3">-</td>
+<td data-row="27" data-col="7" data-content="O/S" data-content-length="3">&nbsp;</td>
+<td data-row="27" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="27" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="27" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="27" data-col="11" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="27" data-col="12" data-content="-" data-content-length="1">OS</td>
+<td data-row="27" data-col="13" data-content="-" data-content-length="1">-</td>
+<td data-row="27" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="13" data-col="1">
+<td style="display: none;" data-row="13" data-col="1" data-content="EXOSS22" data-content-length="7">EXOSS22</td>
+<td data-row="13" data-col="2" data-content="Exos (2022-current)" data-content-length="19">Exos | Exos Extended Fit&nbsp;</td>
+<td style="display: none;" data-row="13" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="13" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="13" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="13" data-col="6" data-content="S/M" data-content-length="3">-</td>
+<td data-row="13" data-col="7" data-content="S/M" data-content-length="3">S/M</td>
+<td data-row="13" data-col="8" data-content="S/M or L/XL" data-content-length="11">S/M</td>
+<td data-row="13" data-col="9" data-content="S/M or L/XL" data-content-length="11"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M OR L/XL&quot;}">S/M OR L/X</span></td>
+<td data-row="13" data-col="10" data-content="L/XL" data-content-length="4"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M OR L/XL&quot;}">S/M OR L/XL</span></td>
+<td data-row="13" data-col="11" data-content="L/XL" data-content-length="4"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M OR L/XL&quot;}">L/XL</span></td>
+<td data-row="13" data-col="12" data-content="L/XL" data-content-length="4">L/XL</td>
+<td data-row="13" data-col="13" data-content="-" data-content-length="1">L/XL</td>
+<td data-row="13" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="14" data-col="1">
+<td style="display: none;" data-row="14" data-col="1" data-content="EXOS_PRO" data-content-length="8">EXOS_PRO</td>
+<td data-row="14" data-col="2" data-content="Exos Pro" data-content-length="8">Exos Pro</td>
+<td style="display: none;" data-row="14" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="14" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="14" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="14" data-col="6" data-content="S/M" data-content-length="3">-</td>
+<td data-row="14" data-col="7" data-content="S/M" data-content-length="3">S/M</td>
+<td data-row="14" data-col="8" data-content="S/M or L/XL" data-content-length="11">S/M</td>
+<td data-row="14" data-col="9" data-content="S/M or L/XL" data-content-length="11">S/M or L/XL</td>
+<td data-row="14" data-col="10" data-content="L/XL" data-content-length="4"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M OR L/XL&quot;}">S/M OR L/XL</span></td>
+<td data-row="14" data-col="11" data-content="L/XL" data-content-length="4">L/XL</td>
+<td data-row="14" data-col="12" data-content="L/XL" data-content-length="4">L/XL</td>
+<td data-row="14" data-col="13" data-content="-" data-content-length="1">L/XL</td>
+<td data-row="14" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="17" data-col="1">
+<td style="display: none;" data-row="17" data-col="1" data-content="KESTREL" data-content-length="7">KESTREL</td>
+<td data-row="17" data-col="2" data-content="Kestrel" data-content-length="7">Kestrel</td>
+<td style="display: none;" data-row="17" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="17" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="17" data-col="5" data-content="S/M" data-content-length="3">-</td>
+<td data-row="17" data-col="6" data-content="S/M" data-content-length="3">&nbsp;</td>
+<td data-row="17" data-col="7" data-content="S/M" data-content-length="3">S/M</td>
+<td data-row="17" data-col="8" data-content="S/M or M/L" data-content-length="10">S/M</td>
+<td data-row="17" data-col="9" data-content="S/M or M/L" data-content-length="10">S/M or L/XL</td>
+<td data-row="17" data-col="10" data-content="M/L" data-content-length="3">S/M or L/XL</td>
+<td data-row="17" data-col="11" data-content="M/L" data-content-length="3">S/M or L/XL</td>
+<td data-row="17" data-col="12" data-content="M/L" data-content-length="3">L/XL</td>
+<td data-row="17" data-col="13" data-content="-" data-content-length="1">L/XL</td>
+<td data-row="17" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="30" data-col="1">
+<td style="display: none;" data-row="30" data-col="1" data-content="UNLTDAGM" data-content-length="8">UNLTDAGM</td>
+<td data-row="30" data-col="2" data-content="Osprey UNLTD AntiGravity" data-content-length="24">Osprey UNLTD AG 32</td>
+<td style="display: none;" data-row="30" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="30" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="30" data-col="5" data-content="S/M" data-content-length="3">-</td>
+<td data-row="30" data-col="6" data-content="S/M" data-content-length="3">-</td>
+<td data-row="30" data-col="7" data-content="S/M" data-content-length="3">S/M</td>
+<td data-row="30" data-col="8" data-content="S/M or L/XL" data-content-length="11">S/M</td>
+<td data-row="30" data-col="9" data-content="S/M or L/XL" data-content-length="11">S/M or L/XL</td>
+<td data-row="30" data-col="10" data-content="L/XL" data-content-length="4"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M OR L/XL&quot;}">S/M OR L/XL</span></td>
+<td data-row="30" data-col="11" data-content="L/XL" data-content-length="4">L/XL</td>
+<td data-row="30" data-col="12" data-content="L/XL" data-content-length="4">L/XL</td>
+<td data-row="30" data-col="13" data-content="-" data-content-length="1"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;L/XL&quot;}">L/XL</span></td>
+<td data-row="30" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="21" data-col="1">
+<td style="display: none;" data-row="21" data-col="1" data-content="STRATOS44" data-content-length="9">STRATOS44</td>
+<td data-row="21" data-col="2" data-content="Stratos 44 (2022-current)" data-content-length="25">Stratos</td>
+<td style="display: none;" data-row="21" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="21" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="21" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="21" data-col="6" data-content="-" data-content-length="1">-</td>
+<td data-row="21" data-col="7" data-content="O/S" data-content-length="3">-&nbsp;</td>
+<td data-row="21" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="21" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="21" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="21" data-col="11" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="21" data-col="12" data-content="-" data-content-length="1">O/S</td>
+<td data-row="21" data-col="13" data-content="-" data-content-length="1">-</td>
+<td data-row="21" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="20" data-col="1">
+<td style="display: none;" data-row="20" data-col="1" data-content="SOELDEN" data-content-length="7">SOELDEN</td>
+<td data-row="20" data-col="2" data-content="Soelden/Pro" data-content-length="11">Soelden Pro | Soelden</td>
+<td style="display: none;" data-row="20" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="20" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="20" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="20" data-col="6" data-content="O/S" data-content-length="3">-</td>
+<td data-row="20" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="20" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="20" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="20" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="20" data-col="11" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="20" data-col="12" data-content="-" data-content-length="1">O/S</td>
+<td data-row="20" data-col="13" data-content="-" data-content-length="1">-</td>
+<td data-row="20" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="16" data-col="1">
+<td style="display: none;" data-row="16" data-col="1" data-content="KAMBER_16" data-content-length="9">KAMBER_16</td>
+<td data-row="16" data-col="2" data-content="Kamber 16" data-content-length="9">Kamber 20,30</td>
+<td style="display: none;" data-row="16" data-col="3" data-content="M Outdoor" data-content-length="9">M Outdoor</td>
+<td data-row="16" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="16" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="16" data-col="6" data-content="-" data-content-length="1">-</td>
+<td data-row="16" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="16" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="16" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="16" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="16" data-col="11" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="16" data-col="12" data-content="-" data-content-length="1">O/S</td>
+<td data-row="16" data-col="13" data-content="-" data-content-length="1">-</td>
+<td data-row="16" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="category">
+<td>
+<h5 class="t-text-[20px]">M Hydration</h5>
+</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="32" data-col="1">
+<td style="display: none;" data-row="32" data-col="1" data-content="MANTA" data-content-length="5">MANTA</td>
+<td data-row="32" data-col="2" data-content="Manta" data-content-length="5">Manta | Skarab</td>
+<td style="display: none;" data-row="32" data-col="3" data-content="M Hydration" data-content-length="11">M Hydration</td>
+<td data-row="32" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="32" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="32" data-col="6" data-content="O/S" data-content-length="3">-</td>
+<td data-row="32" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="32" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="32" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="32" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="32" data-col="11" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="32" data-col="12" data-content="-" data-content-length="1">O/S</td>
+<td data-row="32" data-col="13" data-content="-" data-content-length="1">-</td>
+<td data-row="32" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="35" data-col="1">
+<td style="display: none;" data-row="35" data-col="1" data-content="DURO" data-content-length="4">DURO</td>
+<td data-row="35" data-col="2" data-content="Duro" data-content-length="4">Duro LT, 6, 1.5</td>
+<td style="display: none;" data-row="35" data-col="3" data-content="M Hydration" data-content-length="11">M Hydration</td>
+<td colspan="11" data-row="35" data-col="4" data-content="-" data-content-length="1"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;SMALL (30-35\&quot; / 75-90 CM.) MEDIUM (35-41\&quot; / 90-105 CM.) LARGE (41-47\&quot; / 105-120 CM.)— CHEST MEASUREMENT&quot;}">SMALL (30-35" / 75-90 CM.) MEDIUM (35-41" / 90-105 CM.) LARGE (41-47" / 105-120 CM.)— CHEST MEASUREMENT</span></td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="35" data-col="1">
+<td style="display: none;" data-row="35" data-col="1" data-content="DURO" data-content-length="4">DURO</td>
+<td data-row="35" data-col="2" data-content="Duro" data-content-length="4">Duro 15</td>
+<td style="display: none;" data-row="35" data-col="3" data-content="M Hydration" data-content-length="11">M Hydration</td>
+<td colspan="11" data-row="35" data-col="4" data-content="-" data-content-length="1"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M (30-41\&quot; / 76-104 CM.) M/L (41-47\&quot; / 104-119 CM.) — CHEST MEASUREMENT&quot;}">S/M (30-41" / 76-104 CM.) M/L (41-47" / 104-119 CM.) — CHEST MEASUREMENT</span></td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="36" data-col="1">
+<td style="display: none;" data-row="36" data-col="1" data-content="SKARAB_18" data-content-length="9">SKARAB_18</td>
+<td data-row="36" data-col="2" data-content="Skarab" data-content-length="6">Raptor | Raptor Extended Fit |&nbsp;<br>Syncro|<br>Siskin | Katari</td>
+<td style="display: none;" data-row="36" data-col="3" data-content="M Hydration" data-content-length="11">M Hydration</td>
+<td data-row="36" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="36" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="36" data-col="6" data-content="O/S" data-content-length="3">-</td>
+<td data-row="36" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="36" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="36" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="36" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="36" data-col="11" data-content="-" data-content-length="1">O/S</td>
+<td data-row="36" data-col="12" data-content="-" data-content-length="1">-</td>
+<td data-row="36" data-col="13" data-content="-" data-content-length="1">-</td>
+<td data-row="36" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="category">
+<td>
+<h5 class="t-text-[20px]">M Travel</h5>
+</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="41" data-col="1">
+<td style="display: none;" data-row="41" data-col="1" data-content="FARPOINT" data-content-length="8">FARPOINT</td>
+<td data-row="41" data-col="2" data-content="Farpoint Travel Pack" data-content-length="20">Farpoint Travel Pack</td>
+<td style="display: none;" data-row="41" data-col="3" data-content="M Travel" data-content-length="8">M Travel</td>
+<td data-row="41" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="41" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="41" data-col="6" data-content="O/S" data-content-length="3">-</td>
+<td data-row="41" data-col="7" data-content="O/S" data-content-length="3">-</td>
+<td data-row="41" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="41" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="41" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="41" data-col="11" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="41" data-col="12" data-content="-" data-content-length="1">O/S</td>
+<td data-row="41" data-col="13" data-content="-" data-content-length="1">-</td>
+<td data-row="41" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="40" data-col="1">
+<td style="display: none;" data-row="40" data-col="1" data-content="FARPNTWHLS" data-content-length="10">FARPNTWHLS</td>
+<td data-row="40" data-col="2" data-content="Farpoint Trek" data-content-length="13">Farpoint Trek</td>
+<td style="display: none;" data-row="40" data-col="3" data-content="M Travel" data-content-length="8">M Travel</td>
+<td data-row="40" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="40" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="40" data-col="6" data-content="O/S" data-content-length="3">-</td>
+<td data-row="40" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="40" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="40" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="40" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="40" data-col="11" data-content="-" data-content-length="1">O/S</td>
+<td data-row="40" data-col="12" data-content="-" data-content-length="1">O/S</td>
+<td data-row="40" data-col="13" data-content="-" data-content-length="1">-</td>
+<td data-row="40" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+<tr data-row="43" data-col="1">
+<td style="display: none;" data-row="43" data-col="1" data-content="OZONE_DUPLEX" data-content-length="12">OZONE_DUPLEX</td>
+<td data-row="43" data-col="2" data-content="Ozone Duplex" data-content-length="12">Ozone Duplex (M)</td>
+<td style="display: none;" data-row="43" data-col="3" data-content="M Travel" data-content-length="8">M Travel</td>
+<td data-row="43" data-col="4" data-content="-" data-content-length="1">-</td>
+<td data-row="43" data-col="5" data-content="-" data-content-length="1">-</td>
+<td data-row="43" data-col="6" data-content="O/S" data-content-length="3">-</td>
+<td data-row="43" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="43" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="43" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="43" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="43" data-col="11" data-content="O/S" data-content-length="3">O/S</td>
+<td data-row="43" data-col="12" data-content="-" data-content-length="1">O/S</td>
+<td data-row="43" data-col="13" data-content="-" data-content-length="1">-</td>
+<td data-row="43" data-col="14" data-content="-" data-content-length="1">-</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+
+{% comment %} end mens sizing guide  {% endcomment %}
+
+
+{% comment %} Unisez sizing guide {% endcomment %}
+
+<table  class="size-fit-gender-sizing-table t-my-[60px] t-py-[30px]">
+<tbody>
+<tr style="height: 0px;" data-row="1" data-col="1">
+<th style="display: none; text-align: left; width: 0%; height: 50px;" data-row="1" data-col="1" data-content="Item Category Code" data-content-length="18">Item Category Code</th>
+<th style="width: 11.3966%; height: 50px;" scope="col" data-row="1" data-col="2" data-content="Item Category Name" data-content-length="18">
+<h2 style="text-align: left;" class="t-text-white t-p-[10px]">Unisex sizing</h2>
+<h4 style="text-align: left;" class="t-text-white t-p-[10px]">Torso</h4>
+</th>
+<th style="display: none; width: 0%; height: 50px;" scope="col" data-row="1" data-col="3" data-content="Category" data-content-length="8">Category</th>
+<th style="width: 11.2361%; height: 50px;" scope="col" data-row="1" data-col="4" data-content="14&quot; (35.5cm)" data-content-length="12">14" (35.5cm)</th>
+<th style="width: 5.85882%; height: 50px;" scope="col" data-row="1" data-col="5" data-content="15&quot; (38cm)" data-content-length="10">15" (38cm)</th>
+<th style="width: 10.9151%; height: 50px;" scope="col" data-row="1" data-col="6" data-content="16&quot; (40.5cm)" data-content-length="12">16" (40.5cm)</th>
+<th style="width: 6.17985%; height: 50px;" scope="col" data-row="1" data-col="7" data-content="17&quot; (43cm)" data-content-length="10">17" (43cm)</th>
+<th style="width: 10.6743%; height: 50px;" scope="col" data-row="1" data-col="8" data-content="18&quot; (46cm)" data-content-length="10">18" (46cm)</th>
+<th style="width: 6.17985%; height: 50px;" scope="col" data-row="1" data-col="9" data-content="19&quot; (48cm)" data-content-length="10">19" (48cm)</th>
+<th style="width: 6.58114%; height: 50px;" scope="col" data-row="1" data-col="10" data-content="20&quot; (51cm)" data-content-length="10">20" (51cm)</th>
+<th style="width: 6.17985%; height: 50px;" scope="col" data-row="1" data-col="11" data-content="21&quot; (53cm)" data-content-length="10">21" (53cm)</th>
+<th style="width: 6.58114%; height: 50px;" scope="col" data-row="1" data-col="12" data-content="22&quot; (56cm)" data-content-length="10">22" (56cm)</th>
+<th style="width: 6.90217%; height: 50px;" scope="col" data-row="1" data-col="13" data-content="23&quot; (58.5cm)" data-content-length="12">23" (58.5cm)</th>
+<th style="width: 5.21676%; height: 50px;" scope="col" data-row="1" data-col="14" data-content="24&quot; (61cm)" data-content-length="10">24" (61cm)</th>
+<th style="width: 5.45753%; height: 50px;" scope="col" data-row="1" data-col="15" data-content="25&quot; (63.5cm)" data-content-length="12">25" (63.5cm)</th>
+</tr>
+<tr class="category" style="height: 53.1875px;">
+<td style="width: 0%; height: 53.1875px;">
+<h5 class="t-text-[20px]">Outdoor</h5>
+</td>
+<td style="width: 11.3966%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 0%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 11.2361%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.85882%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 10.9151%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.17985%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 10.6743%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.17985%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.58114%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.17985%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.58114%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.90217%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.21676%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.45753%; height: 53.1875px;">&nbsp;</td>
+</tr>
+<tr style="height: 0px;" data-row="4" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="4" data-col="1" data-content="HIKELITE_18_26" data-content-length="14">HIKELITE_18_26</td>
+<td style="width: 11.3966%; height: 50px;" data-row="4" data-col="2" data-content="Hikelite 18 &amp; 26" data-content-length="16">Hikelite 18, 26</td>
+<td style="display: none; width: 0%; height: 50px;" data-row="4" data-col="3" data-content="U Outdoor" data-content-length="9">U Outdoor</td>
+<td style="width: 11.2361%; height: 50px;" data-row="4" data-col="4" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.85882%; height: 50px;" data-row="4" data-col="5" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 10.9151%; height: 50px;" data-row="4" data-col="6" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.17985%; height: 50px;" data-row="4" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 10.6743%; height: 50px;" data-row="4" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.17985%; height: 50px;" data-row="4" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.58114%; height: 50px;" data-row="4" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.17985%; height: 50px;" data-row="4" data-col="11" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.58114%; height: 50px;" data-row="4" data-col="12" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.90217%; height: 50px;" data-row="4" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.21676%; height: 50px;" data-row="4" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.45753%; height: 50px;" data-row="4" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+<tr style="height: 0px;" data-row="5" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="5" data-col="1" data-content="HIKELITE_28_32" data-content-length="14">HIKELITE_28_32</td>
+<td style="width: 11.3966%; height: 50px;" data-row="5" data-col="2" data-content="Hikelite 28 &amp; 32" data-content-length="16">Hikelite 28, 32</td>
+<td style="display: none; width: 0%; height: 50px;" data-row="5" data-col="3" data-content="U Outdoor" data-content-length="9">U Outdoor</td>
+<td style="width: 11.2361%; height: 50px;" data-row="5" data-col="4" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.85882%; height: 50px;" data-row="5" data-col="5" data-content="-" data-content-length="1"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M&quot;}">S/M</span></td>
+<td style="width: 10.9151%; height: 50px;" data-row="5" data-col="6" data-content="S/M" data-content-length="3">S/M</td>
+<td style="width: 6.17985%; height: 50px;" data-row="5" data-col="7" data-content="S/M" data-content-length="3">S/M</td>
+<td style="width: 10.6743%; height: 50px;" data-row="5" data-col="8" data-content="S/M" data-content-length="3"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M or M/L&quot;}">S/M or M/L</span></td>
+<td style="width: 6.17985%; height: 50px;" data-row="5" data-col="9" data-content="S/M OR M/L" data-content-length="10"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M or M/L&quot;}">S/M or M/L</span></td>
+<td style="width: 6.58114%; height: 50px;" data-row="5" data-col="10" data-content="S/M OR M/L" data-content-length="10"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;M/L&quot;}">M/L</span></td>
+<td style="width: 6.17985%; height: 50px;" data-row="5" data-col="11" data-content="M/L" data-content-length="3">M/L</td>
+<td style="width: 6.58114%; height: 50px;" data-row="5" data-col="12" data-content="M/L" data-content-length="3">M/L</td>
+<td style="width: 6.90217%; height: 50px;" data-row="5" data-col="13" data-content="M/L" data-content-length="3">-</td>
+<td style="width: 5.21676%; height: 50px;" data-row="5" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.45753%; height: 50px;" data-row="5" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 11.3966%; height: 50px;"><strong>Glade 5, 12</strong></td>
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 11.2361%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.85882%; height: 50px;"><strong>-</strong></td>
+<td style="width: 10.9151%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 10.6743%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.58114%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.58114%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.90217%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.21676%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.45753%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr>
+<td style="display: none; width: 0%;">&nbsp;</td>
+<td style="width: 11.3966%;"><strong>Firn 18, 28</strong></td>
+<td style="display: none; width: 0%;">&nbsp;</td>
+<td style="width: 11.2361%;"><strong>-</strong></td>
+<td style="width: 5.85882%;"><strong>S/M</strong></td>
+<td style="width: 10.9151%;"><strong>S/M</strong></td>
+<td style="width: 6.17985%;"><strong>S/M</strong></td>
+<td style="width: 10.6743%;"><strong>S/M or M/L</strong></td>
+<td style="width: 6.17985%;"><strong>S/M or M/L</strong></td>
+<td style="width: 6.58114%;"><strong>M/L<br></strong></td>
+<td style="width: 6.17985%;"><strong>M/L<br></strong></td>
+<td style="width: 6.58114%;"><strong>M/L<br></strong></td>
+<td style="width: 6.90217%;"><strong>-</strong></td>
+<td style="width: 5.21676%;"><strong>-</strong></td>
+<td style="width: 5.45753%;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 11.3966%; height: 50px;"><strong>Osprey Sportlite 15, 20</strong></td>
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 11.2361%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.85882%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 10.9151%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>O/S<br></strong></td>
+<td style="width: 10.6743%; height: 50px;"><strong>O/S<br></strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>O/S<br></strong></td>
+<td style="width: 6.58114%; height: 50px;"><strong>O/S<br></strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>O/S<br></strong></td>
+<td style="width: 6.58114%; height: 50px;"><strong>O/S<br></strong></td>
+<td style="width: 6.90217%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.21676%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.45753%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 11.3966%; height: 50px;"><strong>Osprey Sportlite 25, 30</strong></td>
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 11.2361%; height: 50px;"><strong>S/M</strong></td>
+<td style="width: 5.85882%; height: 50px;"><strong>S/M</strong></td>
+<td style="width: 10.9151%; height: 50px;"><strong>S/M</strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>S/M<br></strong></td>
+<td style="width: 10.6743%; height: 50px;"><strong>S/M or M/L<br></strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>M/L<br></strong></td>
+<td style="width: 6.58114%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 6.58114%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 6.90217%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.21676%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.45753%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 11.3966%; height: 50px;"><strong>Mutant 22</strong></td>
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 11.2361%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.85882%; height: 50px;"><strong>-</strong></td>
+<td style="width: 10.9151%; height: 50px;"><strong>O/S<br></strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>O/S<br></strong></td>
+<td style="width: 10.6743%; height: 50px;"><strong>O/S<br></strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>O/S<br></strong></td>
+<td style="width: 6.58114%; height: 50px;"><strong>O/S<br></strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.58114%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.90217%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.21676%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.45753%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 11.3966%; height: 50px;"><strong>Mutant 52, 38</strong></td>
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 11.2361%; height: 50px;"><strong>S/M</strong></td>
+<td style="width: 5.85882%; height: 50px;"><strong>S/M<br></strong></td>
+<td style="width: 10.9151%; height: 50px;"><strong>S/M<br></strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>S/M or M/L</strong></td>
+<td style="width: 10.6743%; height: 50px;"><strong>M/L<br></strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>M/L<br></strong></td>
+<td style="width: 6.58114%; height: 50px;"><strong>M/L<br></strong></td>
+<td style="width: 6.17985%; height: 50px;"><strong>M/L<br></strong></td>
+<td style="width: 6.58114%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.90217%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.21676%; height: 50px;"><strong>-</strong></td>
+<td style="width: 5.45753%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;" data-row="10" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="10" data-col="1" data-content="MUTANT_NIMSDAI_90" data-content-length="17">MUTANT_NIMSDAI_90</td>
+<td style="width: 11.3966%; height: 50px;" data-row="10" data-col="2" data-content="Mutant Nimsdai 90" data-content-length="17">Mutant Nimsdai 90</td>
+<td style="display: none; width: 0%; height: 50px;" data-row="10" data-col="3" data-content="U Outdoor" data-content-length="9">U Outdoor</td>
+<td style="width: 11.2361%; height: 50px;" data-row="10" data-col="4" data-content="S/M" data-content-length="3">S/M</td>
+<td style="width: 5.85882%; height: 50px;" data-row="10" data-col="5" data-content="S/M" data-content-length="3">S/M</td>
+<td style="width: 10.9151%; height: 50px;" data-row="10" data-col="6" data-content="S/M" data-content-length="3">S/M</td>
+<td style="width: 6.17985%; height: 50px;" data-row="10" data-col="7" data-content="S/M OR M/L" data-content-length="10">S/M OR M/L</td>
+<td style="width: 10.6743%; height: 50px;" data-row="10" data-col="8" data-content="M/L" data-content-length="3">M/L</td>
+<td style="width: 6.17985%; height: 50px;" data-row="10" data-col="9" data-content="M/L" data-content-length="3">M/L</td>
+<td style="width: 6.58114%; height: 50px;" data-row="10" data-col="10" data-content="M/L" data-content-length="3">M/L</td>
+<td style="width: 6.17985%; height: 50px;" data-row="10" data-col="11" data-content="M/L" data-content-length="3">M/L</td>
+<td style="width: 6.58114%; height: 50px;" data-row="10" data-col="12" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.90217%; height: 50px;" data-row="10" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.21676%; height: 50px;" data-row="10" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.45753%; height: 50px;" data-row="10" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+<tr style="height: 0px;" data-row="6" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="6" data-col="1" data-content="KAMBER_ABS" data-content-length="10">KAMBER_ABS</td>
+<td style="width: 11.3966%; height: 50px;" data-row="6" data-col="2" data-content="Kamber ABS" data-content-length="10">Zealot 30</td>
+<td style="display: none; width: 0%; height: 50px;" data-row="6" data-col="3" data-content="U Outdoor" data-content-length="9">U Outdoor</td>
+<td style="width: 11.2361%; height: 50px;" data-row="6" data-col="4" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.85882%; height: 50px;" data-row="6" data-col="5" data-content="-" data-content-length="1">-</td>
+<td style="width: 10.9151%; height: 50px;" data-row="6" data-col="6" data-content="S/M" data-content-length="3">O/S</td>
+<td style="width: 6.17985%; height: 50px;" data-row="6" data-col="7" data-content="S/M" data-content-length="3">O/S</td>
+<td style="width: 10.6743%; height: 50px;" data-row="6" data-col="8" data-content="S/M or M/L" data-content-length="10">O/S</td>
+<td style="width: 6.17985%; height: 50px;" data-row="6" data-col="9" data-content="S/M or M/L" data-content-length="10">O/S</td>
+<td style="width: 6.58114%; height: 50px;" data-row="6" data-col="10" data-content="M/L" data-content-length="3">O/S</td>
+<td style="width: 6.17985%; height: 50px;" data-row="6" data-col="11" data-content="M/L" data-content-length="3">-</td>
+<td style="width: 6.58114%; height: 50px;" data-row="6" data-col="12" data-content="M/L" data-content-length="3">-</td>
+<td style="width: 6.90217%; height: 50px;" data-row="6" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.21676%; height: 50px;" data-row="6" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.45753%; height: 50px;" data-row="6" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+<tr style="height: 0px;" data-row="11" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="11" data-col="1" data-content="POCO_CHILD_CARRIER" data-content-length="18">POCO_CHILD_CARRIER</td>
+<td style="width: 11.3966%; height: 50px;" data-row="11" data-col="2" data-content="Poco Child Carrier" data-content-length="18">Zealot 45</td>
+<td style="display: none; width: 0%; height: 50px;" data-row="11" data-col="3" data-content="U Outdoor" data-content-length="9">U Outdoor</td>
+<td style="width: 11.2361%; height: 50px;" data-row="11" data-col="4" data-content="-" data-content-length="1">S/M</td>
+<td style="width: 5.85882%; height: 50px;" data-row="11" data-col="5" data-content="O/S" data-content-length="3"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M&quot;}">S/M</span></td>
+<td style="width: 10.9151%; height: 50px;" data-row="11" data-col="6" data-content="O/S" data-content-length="3"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M&quot;}">S/M</span></td>
+<td style="width: 6.17985%; height: 50px;" data-row="11" data-col="7" data-content="O/S" data-content-length="3"><span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;S/M or M/L&quot;}">S/M or M/L</span></td>
+<td style="width: 10.6743%; height: 50px;" data-row="11" data-col="8" data-content="O/S" data-content-length="3">&nbsp;<span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;M/L&quot;}">M/L</span></td>
+<td style="width: 6.17985%; height: 50px;" data-row="11" data-col="9" data-content="O/S" data-content-length="3">&nbsp;<span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;M/L&quot;}">M/L</span></td>
+<td style="width: 6.58114%; height: 50px;" data-row="11" data-col="10" data-content="O/S" data-content-length="3">&nbsp;<span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;M/L&quot;}">M/L</span></td>
+<td style="width: 6.17985%; height: 50px;" data-row="11" data-col="11" data-content="O/S" data-content-length="3">&nbsp;<span data-sheets-root="1" data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;M/L&quot;}">M/L</span></td>
+<td style="width: 6.58114%; height: 50px;" data-row="11" data-col="12" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.90217%; height: 50px;" data-row="11" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.21676%; height: 50px;" data-row="11" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.45753%; height: 50px;" data-row="11" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+<tr class="category" style="height: 53.1875px;">
+<td style="width: 0%; height: 53.1875px;">
+<h5 class="t-text-[20px]">Hydration</h5>
+</td>
+<td style="width: 11.3966%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 0%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 11.2361%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.85882%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 10.9151%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.17985%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 10.6743%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.17985%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.58114%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.17985%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.58114%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.90217%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.21676%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.45753%; height: 53.1875px;">&nbsp;</td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 11.3966%; height: 50px;"><strong>Duro Dyna Belt</strong></td>
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 87.9626%; height: 50px;" colspan="12"><strong>O/S HIPBELT FIT RANGE IS 24 – 45" (60 – 115 CM)</strong></td>
+</tr>
+<tr style="height: 10px;">
+<td style="display: none; width: 0%; height: 10px;">&nbsp;</td>
+<td style="width: 11.3966%; height: 10px;"><strong>Raptor Pro</strong></td>
+<td style="display: none; width: 0%; height: 10px;">&nbsp;</td>
+<td style="width: 11.2361%; height: 10px;"><strong>-</strong></td>
+<td style="width: 5.85882%; height: 10px;"><strong>-</strong></td>
+<td style="width: 10.9151%; height: 10px;"><strong>-</strong></td>
+<td style="width: 6.17985%; height: 10px;"><strong>O/S<br></strong></td>
+<td style="width: 10.6743%; height: 10px;"><strong>O/S<br></strong></td>
+<td style="width: 6.17985%; height: 10px;"><strong>O/S<br></strong></td>
+<td style="width: 6.58114%; height: 10px;"><strong>-</strong></td>
+<td style="width: 6.17985%; height: 10px;"><strong>-</strong></td>
+<td style="width: 6.58114%; height: 10px;"><strong>-</strong></td>
+<td style="width: 6.90217%; height: 10px;"><strong>-</strong></td>
+<td style="width: 5.21676%; height: 10px;"><strong>-</strong></td>
+<td style="width: 5.45753%; height: 10px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 11.3966%; height: 50px;"><strong>Savu</strong></td>
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 87.9626%; height: 50px;" colspan="12"><strong>O/S HIPBELT FIT RANGE IS 26 – 50" (66 – 127 CM)<br></strong></td>
+</tr>
+<tr style="height: 10px;">
+<td style="display: none; width: 0%; height: 10px;">&nbsp;</td>
+<td style="width: 11.3966%; height: 10px;"><strong>Seral</strong></td>
+<td style="display: none; width: 0%; height: 10px;">&nbsp;</td>
+<td style="height: 10px; width: 87.9626%;" colspan="12"><strong>O/S HIPBELT FIT RANGE IS 26 – 50" (66 – 127 CM)</strong></td>
+</tr>
+<tr class="category" style="height: 53.1875px;">
+<td style="width: 0%; height: 53.1875px;">
+<h5 class="t-text-[20px]">Bike Commute</h5>
+</td>
+<td style="width: 11.3966%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 0%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 11.2361%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.85882%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 10.9151%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.17985%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 10.6743%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.17985%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.58114%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.17985%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.58114%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.90217%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.21676%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.45753%; height: 53.1875px;">&nbsp;</td>
+</tr>
+<tr style="height: 10px;">
+<td style="display: none; width: 0%; height: 10px;">&nbsp;</td>
+<td style="width: 11.3966%; height: 10px;"><strong>Radial</strong></td>
+<td style="display: none; width: 0%; height: 10px;">&nbsp;</td>
+<td style="height: 10px; width: 11.2361%;"><strong>-</strong></td>
+<td style="width: 5.85882%; height: 10px;"><strong>-</strong></td>
+<td style="width: 10.9151%; height: 10px;"><strong>-</strong></td>
+<td style="width: 6.17985%; height: 10px;"><strong>O/S<br></strong></td>
+<td style="width: 10.6743%; height: 10px;"><strong>O/S<br></strong></td>
+<td style="width: 6.17985%; height: 10px;"><strong>O/S<br></strong></td>
+<td style="width: 6.58114%; height: 10px;"><strong>O/S<br></strong></td>
+<td style="width: 6.17985%; height: 10px;"><strong>O/S<br></strong></td>
+<td style="width: 6.58114%; height: 10px;"><strong>O/S<br></strong></td>
+<td style="width: 6.90217%; height: 10px;"><strong>-</strong></td>
+<td style="width: 5.21676%; height: 10px;"><strong>-&nbsp;</strong></td>
+<td style="width: 5.45753%; height: 10px;"><strong>-</strong></td>
+</tr>
+<tr>
+<td style="display: none; width: 0%;">&nbsp;</td>
+<td style="width: 11.3966%;"><strong>Metron 26, 24</strong></td>
+<td style="display: none; width: 0%;">&nbsp;</td>
+<td style="width: 11.2361%;"><strong>-</strong></td>
+<td style="width: 5.85882%;"><strong>O/S<br></strong></td>
+<td style="width: 10.9151%;"><strong>O/S<br></strong></td>
+<td style="width: 6.17985%;"><strong>O/S<br></strong></td>
+<td style="width: 10.6743%;"><strong>O/S<br></strong></td>
+<td style="width: 6.17985%;"><strong>O/S<br></strong></td>
+<td style="width: 6.58114%;"><strong>O/S<br></strong></td>
+<td style="width: 6.17985%;"><strong>O/S<br></strong></td>
+<td style="width: 6.58114%;"><strong>-</strong></td>
+<td style="width: 6.90217%;"><strong>-</strong></td>
+<td style="width: 5.21676%;"><strong>-</strong></td>
+<td style="width: 5.45753%;"><strong>-</strong></td>
+</tr>
+<tr class="category" style="height: 53.1875px;">
+<td style="width: 0%; height: 53.1875px;">
+<h5 class="t-text-[20px]">Child Carrier</h5>
+</td>
+<td style="width: 11.3966%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 0%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 11.2361%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.85882%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 10.9151%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.17985%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 10.6743%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.17985%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.58114%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.17985%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.58114%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.90217%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.21676%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.45753%; height: 53.1875px;">&nbsp;</td>
+</tr>
+<tr style="height: 0px;" data-row="23" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="23" data-col="1" data-content="METRON" data-content-length="6">METRON</td>
+<td style="width: 11.3966%; height: 50px;" data-row="23" data-col="2" data-content="Metron" data-content-length="6">Poco SLT, Poco LT, <br>Poco, Poco Plus,<br>Poco Premium</td>
+<td style="display: none; width: 0%; height: 50px;" data-row="23" data-col="3" data-content="U Active Everyday" data-content-length="17">U Active Everyday</td>
+<td style="width: 11.2361%; height: 50px;" data-row="23" data-col="4" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.85882%; height: 50px;" data-row="23" data-col="5" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 10.9151%; height: 50px;" data-row="23" data-col="6" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.17985%; height: 50px;" data-row="23" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 10.6743%; height: 50px;" data-row="23" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.17985%; height: 50px;" data-row="23" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.58114%; height: 50px;" data-row="23" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.17985%; height: 50px;" data-row="23" data-col="11" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.58114%; height: 50px;" data-row="23" data-col="12" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.90217%; height: 50px;" data-row="23" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.21676%; height: 50px;" data-row="23" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 5.45753%; height: 50px;" data-row="23" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+</tbody>
+</table>
+{% comment %} end unisex sizing guide {% endcomment %}
+
+
+{% comment %} kids sizing guide {% endcomment %}
+
+<table class="t-my-[60px] t-py-[30px] size-fit-gender-sizing-table" style="width: 91.6221%;">
+<tbody>
+<tr style="height: 0px;" data-row="1" data-col="1">
+<th style="display: none; width: 0%; height: 50px;" scope="col" data-row="1" data-col="1" data-content="Item Category Code" data-content-length="18">Item Category Code</th>
+<th style="width: 16.0934%; height: 50px;" scope="col" data-row="1" data-col="2" data-content="Item Category Name" data-content-length="18">
+<h2 class="t-text-white">Kid's sizing</h2>
+<h4 class="t-text-white">Torso</h4>
+</th>
+<th style="display: none; width: 0.518807%; height: 50px;" scope="col" data-row="1" data-col="3" data-content="Category" data-content-length="8">Category</th>
+<th style="width: 5.8407%; height: 50px;" scope="col" data-row="1" data-col="4" data-content="11&quot; (28cm)" data-content-length="10">11" (28cm)</th>
+<th style="width: 7.52758%; height: 50px;" scope="col" data-row="1" data-col="5" data-content="12&quot; (30.5cm)" data-content-length="12">12" (30.5cm)</th>
+<th style="width: 7.52758%; height: 50px;" scope="col" data-row="1" data-col="6" data-content="13&quot; (33cm)" data-content-length="10">13" (33cm)</th>
+<th style="width: 7.52758%; height: 50px;" scope="col" data-row="1" data-col="7" data-content="14&quot; (35.5cm)" data-content-length="12">14" (35.5cm)</th>
+<th style="width: 7.52758%; height: 50px;" scope="col" data-row="1" data-col="8" data-content="15&quot; (38cm)" data-content-length="10">15" (38cm)</th>
+<th style="width: 7.52758%; height: 50px;" scope="col" data-row="1" data-col="9" data-content="16&quot; (40.5cm)" data-content-length="12">16" (40.5cm)</th>
+<th style="width: 7.52758%; height: 50px;" scope="col" data-row="1" data-col="10" data-content="17&quot; (43cm)" data-content-length="10">17" (43cm)</th>
+<th style="width: 6.4244%; height: 50px;" scope="col" data-row="1" data-col="11" data-content="18&quot; (46cm)" data-content-length="10">18" (46cm)</th>
+<th style="width: 6.4244%; height: 50px;" scope="col" data-row="1" data-col="12" data-content="19&quot; (48cm)" data-content-length="10">19" (48cm)</th>
+<th style="width: 6.4244%; height: 50px;" scope="col" data-row="1" data-col="13" data-content="20&quot; (51cm)" data-content-length="10">20" (51cm)</th>
+<th style="width: 6.4244%; height: 50px;" scope="col" data-row="1" data-col="14" data-content="21&quot; (53cm)" data-content-length="10">21" (53cm)</th>
+<th style="width: 6.4244%; height: 50px;" scope="col" data-row="1" data-col="15" data-content="22&quot; (56cm)" data-content-length="10">22" (56cm)</th>
+</tr>
+<tr style="height: 0px;" data-row="2" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="2" data-col="1" data-content="ACE_75" data-content-length="6">ACE_75</td>
+<td style="width: 16.0934%; height: 50px;" data-row="2" data-col="2" data-content="Ace 75 [age 11-18]" data-content-length="18">Ace 75 (age 12-17)</td>
+<td style="display: none; width: 0.518807%; height: 50px;" data-row="2" data-col="3" data-content="K Outdoor" data-content-length="9">K Outdoor</td>
+<td style="width: 5.8407%; height: 50px;" data-row="2" data-col="4" data-content="-" data-content-length="1">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="2" data-col="5" data-content="-" data-content-length="1">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="2" data-col="6" data-content="-" data-content-length="1">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="2" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="2" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="2" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="2" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.4244%; height: 50px;" data-row="2" data-col="11" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.4244%; height: 50px;" data-row="2" data-col="12" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="2" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="2" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="2" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+<tr style="height: 0px;" data-row="3" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="3" data-col="1" data-content="ACE_50" data-content-length="6">ACE_50</td>
+<td style="width: 16.0934%; height: 50px;" data-row="3" data-col="2" data-content="Ace 50 [age 8-14]" data-content-length="17">Ace 50 (age 8-14) | Ace 65 (age 10-17)</td>
+<td style="display: none; width: 0.518807%; height: 50px;" data-row="3" data-col="3" data-content="K Outdoor" data-content-length="9">K Outdoor</td>
+<td style="width: 5.8407%; height: 50px;" data-row="3" data-col="4" data-content="-" data-content-length="1">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="3" data-col="5" data-content="-" data-content-length="1">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="3" data-col="6" data-content="O/S" data-content-length="3">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="3" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="3" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="3" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="3" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.4244%; height: 50px;" data-row="3" data-col="11" data-content="-" data-content-length="1">O/S</td>
+<td style="width: 6.4244%; height: 50px;" data-row="3" data-col="12" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="3" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="3" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="3" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+<tr style="height: 0px;" data-row="4" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="4" data-col="1" data-content="ACE_38" data-content-length="6">ACE_38</td>
+<td style="width: 16.0934%; height: 50px;" data-row="4" data-col="2" data-content="Ace 38 [age 6-11]" data-content-length="17">Ace 38 (age 5-11)</td>
+<td style="width: 0.518807%; height: 50px;" data-row="4" data-col="4" data-content="O/S" data-content-length="3">-</td>
+<td style="width: 5.8407%; height: 50px;" data-row="4" data-col="5" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="4" data-col="6" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="4" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="4" data-col="8" data-content="-" data-content-length="1">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="4" data-col="9" data-content="-" data-content-length="1">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="4" data-col="10" data-content="-" data-content-length="1">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="4" data-col="11" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="4" data-col="12" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="4" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="4" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="4" data-col="15" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%;">&nbsp;</td>
+</tr>
+<tr style="height: 0px;" data-row="7" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="7" data-col="1" data-content="JET_18" data-content-length="6">JET_18</td>
+<td style="width: 16.0934%; height: 50px;" data-row="7" data-col="2" data-content="Jet 18 [age 8+]" data-content-length="15">Jet 18 (age 8-14)</td>
+<td style="display: none; width: 0.518807%; height: 50px;" data-row="7" data-col="3" data-content="K Outdoor" data-content-length="9">K Outdoor</td>
+<td style="width: 5.8407%; height: 50px;" data-row="7" data-col="4" data-content="-" data-content-length="1">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="7" data-col="5" data-content="-" data-content-length="1">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="7" data-col="6" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="7" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="7" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="7" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="7" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.4244%; height: 50px;" data-row="7" data-col="11" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="7" data-col="12" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="7" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="7" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="7" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+<tr style="height: 0px;" data-row="9" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="9" data-col="1" data-content="HYDRAJET" data-content-length="8">HYDRAJET</td>
+<td style="width: 16.0934%; height: 50px;" data-row="9" data-col="2" data-content="Hydrajet [age5+]" data-content-length="16">Hydrajet (age 4-12)</td>
+<td style="display: none; width: 0.518807%; height: 50px;" data-row="9" data-col="3" data-content="K Hydration" data-content-length="11">K Hydration</td>
+<td style="width: 5.8407%; height: 50px;" data-row="9" data-col="4" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="9" data-col="5" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="9" data-col="6" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="9" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="9" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="9" data-col="9" data-content="-" data-content-length="1">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="9" data-col="10" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="9" data-col="11" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="9" data-col="12" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="9" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="9" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="9" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+<tr style="height: 0px;" data-row="5" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="5" data-col="1" data-content="DAYLITE_KIDS" data-content-length="12">DAYLITE_KIDS</td>
+<td style="width: 16.0934%; height: 50px;" data-row="5" data-col="2" data-content="Daylite Kids [age 4-12]" data-content-length="23">Daylite JR (age 4-12)</td>
+<td style="display: none; width: 0.518807%; height: 50px;" data-row="5" data-col="3" data-content="K Outdoor" data-content-length="9">K Outdoor</td>
+<td style="width: 5.8407%; height: 50px;" data-row="5" data-col="4" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="5" data-col="5" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="5" data-col="6" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="5" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="5" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="5" data-col="9" data-content="O/S" data-content-length="3">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="5" data-col="10" data-content="O/S" data-content-length="3">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="5" data-col="11" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="5" data-col="12" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="5" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="5" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="5" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+<tr style="height: 0px;" data-row="10" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="10" data-col="1" data-content="MOKI" data-content-length="4">MOKI</td>
+<td style="width: 16.0934%; height: 50px;" data-row="10" data-col="2" data-content="Moki [age 5+]" data-content-length="13">Moki (age 4-12)</td>
+<td style="display: none; width: 0.518807%; height: 50px;" data-row="10" data-col="3" data-content="K Hydration" data-content-length="11">K Hydration</td>
+<td style="width: 5.8407%; height: 50px;" data-row="10" data-col="4" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="10" data-col="5" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="10" data-col="6" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="10" data-col="7" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="10" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="10" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="10" data-col="10" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="10" data-col="11" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="10" data-col="12" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="10" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="10" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="10" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+<tr style="height: 0px;" data-row="6" data-col="1">
+<td style="display: none; width: 0%; height: 50px;" data-row="6" data-col="1" data-content="TALON_TEMPEST_KIDS" data-content-length="18">TALON_TEMPEST_KIDS</td>
+<td style="width: 16.0934%; height: 50px;" data-row="6" data-col="2" data-content="Talon/Tempest JR [age 8-14]" data-content-length="27">Talon | <br>Tempest JR (age 8-14)</td>
+<td style="display: none; width: 0.518807%; height: 50px;" data-row="6" data-col="3" data-content="K Outdoor" data-content-length="9">K Outdoor</td>
+<td style="width: 5.8407%; height: 50px;" data-row="6" data-col="4" data-content="-" data-content-length="1">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="6" data-col="5" data-content="-" data-content-length="1">-</td>
+<td style="width: 7.52758%; height: 50px;" data-row="6" data-col="6" data-content="-" data-content-length="1">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="6" data-col="7" data-content="-" data-content-length="1">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="6" data-col="8" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="6" data-col="9" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 7.52758%; height: 50px;" data-row="6" data-col="10" data-content="O/S" data-content-length="3">O/S</td>
+<td style="width: 6.4244%; height: 50px;" data-row="6" data-col="11" data-content="O/S" data-content-length="3">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="6" data-col="12" data-content="O/S" data-content-length="3">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="6" data-col="13" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="6" data-col="14" data-content="-" data-content-length="1">-</td>
+<td style="width: 6.4244%; height: 50px;" data-row="6" data-col="15" data-content="-" data-content-length="1">-</td>
+</tr>
+<tr>
+<td style="display: none; width: 0%;">&nbsp;</td>
+<td style="width: 16.0934%;"><strong>Raptor Jr | Raven Jr (age 6-14)</strong></td>
+<td style="display: none; width: 0.518807%;">&nbsp;</td>
+<td style="width: 5.8407%;">-</td>
+<td style="width: 7.52758%;"><strong>-</strong></td>
+<td style="width: 7.52758%;"><strong>O/S</strong></td>
+<td style="width: 7.52758%;"><strong>O/S</strong></td>
+<td style="width: 7.52758%;"><strong>O/S</strong></td>
+<td style="width: 7.52758%;"><strong>O/S</strong></td>
+<td style="width: 7.52758%;"><strong>O/S</strong></td>
+<td style="width: 6.4244%;">-</td>
+<td style="width: 6.4244%;">-</td>
+<td style="width: 6.4244%;">-</td>
+<td style="width: 6.4244%;">-</td>
+<td style="width: 6.4244%;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+{% comment %} end kids sizing guide {% endcomment %}
+
+{% comment %} start Women's sizing guide {% endcomment %}
+
+<table class="size-fit-gender-sizing-table t-my-[60px] t-py-[30px]">
+<tbody>
+<tr style="height: 0px;">
+<th style="display: none; width: 0%; height: 50px;" scope="col" data-row="1">Item Category Code</th>
+<th style="width: 13.4204%; height: 50px;" data-row="1" data-col="2">
+<h2 class="t-text-white">Women's sizing</h2>
+<h4 class="t-text-white">Torso</h4>
+</th>
+<th style="display: none; width: 0%; height: 50px;" data-row="1">Category</th>
+<th style="width: 12.6535%; height: 50px;" scope="col" data-row="1">11" (28cm)</th>
+<th style="width: 6.36511%; height: 50px;" scope="col" data-row="1">12" (30.5cm)</th>
+<th style="width: 12.04%; height: 50px;" scope="col" data-row="1">13" (33cm)</th>
+<th style="width: 6.36511%; height: 50px;" scope="col" data-row="1">14" (35.5cm)</th>
+<th style="width: 11.5799%; height: 50px;" scope="col" data-row="1">15" (38cm)</th>
+<th style="width: 6.36511%; height: 50px;" scope="col" data-row="1">16" (40.5cm)</th>
+<th style="width: 5.98167%; height: 50px;" scope="col" data-row="1">17" (43cm)</th>
+<th style="width: 6.21173%; height: 50px;" scope="col" data-row="1">18" (46cm)</th>
+<th style="width: 5.98167%; height: 50px;" scope="col" data-row="1">19" (48cm)</th>
+<th style="width: 4.21784%; height: 50px;" scope="col" data-row="1">20" (51cm)</th>
+<th style="width: 4.21784%; height: 50px;" scope="col" data-row="1">21" (53cm)</th>
+<th style="width: 4.21784%; height: 50px;" scope="col" data-row="1">22" (56cm)</th>
+</tr>
+<tr class="category" style="height: 53.1875px;">
+<td style="width: 0%; height: 53.1875px;">
+<h5 class="t-text-[20px]">W Outdoor</h5>
+</td>
+<td style="width: 13.4204%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 0%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 12.6535%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.36511%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 12.04%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.36511%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 11.5799%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.36511%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.98167%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.21173%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.98167%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 4.21784%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 4.21784%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 4.21784%; height: 53.1875px;">&nbsp;</td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">ARIEL_PLUS</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Ariel Plus | Ariel</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">ARIEL_PRO</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Ariel Pro</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">AURA_AG</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Aura AG</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">AURA_LT</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Aura AG LT</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr>
+<td style="display: none; width: 0%;">&nbsp;</td>
+<td style="width: 13.4204%;">
+<p><strong>New 2025</strong></p>
+<p><strong>Tempest 11, 22, 26, 33</strong></p>
+<p><strong>Extended fit 22, 33</strong></p>
+</td>
+<td style="display: none; width: 0%;"><strong>&nbsp;</strong></td>
+<td style="width: 12.6535%;"><strong>-</strong></td>
+<td style="width: 6.36511%;"><strong>-</strong></td>
+<td style="width: 12.04%;"><strong>-</strong></td>
+<td style="width: 6.36511%;"><strong>O/S</strong></td>
+<td style="width: 11.5799%;"><strong>O/S</strong></td>
+<td style="width: 6.36511%;"><strong>O/S</strong></td>
+<td style="width: 5.98167%;"><strong>O/S</strong></td>
+<td style="width: 6.21173%;"><strong>O/S</strong></td>
+<td style="width: 5.98167%;"><strong>O/S</strong></td>
+<td style="width: 4.21784%;"><strong>-</strong></td>
+<td style="width: 4.21784%;"><strong>-</strong></td>
+<td style="width: 4.21784%;"><strong>-</strong></td>
+</tr>
+<tr>
+<td style="display: none; width: 0%;">&nbsp;</td>
+<td style="width: 13.4204%;"><strong>New 2025 Tempest 44</strong></td>
+<td style="display: none; width: 0%;"><strong>&nbsp;</strong></td>
+<td style="width: 12.6535%;"><strong>-</strong></td>
+<td style="width: 6.36511%;"><strong>-</strong></td>
+<td style="width: 12.04%;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%;"><strong>XS/S</strong></td>
+<td style="width: 11.5799%;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%;"><strong>XS/S or M/L</strong></td>
+<td style="width: 5.98167%;"><strong>XS/S or M/L</strong></td>
+<td style="width: 6.21173%;"><strong>M/L</strong></td>
+<td style="width: 5.98167%;"><strong>M/L</strong></td>
+<td style="width: 4.21784%;"><strong>-</strong></td>
+<td style="width: 4.21784%;"><strong>-</strong></td>
+<td style="width: 4.21784%;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">TEMPEST</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Tempest | Tempest Pro | <br>Tempest Velocity</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">TEMPEST_20_EXTENDED_FIT</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Tempest 6</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="height: 0px; width: 86.1974%;" colspan="12"><strong>O/S HIPBELT FIT RANGE IS 24-44" (61-112 CM.)</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">RENN</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Renn</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">VIVA</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Viva</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">EJA</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Eja | Eja Extended Fit</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">EJA_PRO</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Eja Pro</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S OR M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>XS/S OR M/L</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">KYTE</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Kyte</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">UNLTD_AGW</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Osprey UNLTD AG 32</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>M Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>XS/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>XS/S or M/L</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>M/L</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">SIRRUS</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Sirrus</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">SOPRIS</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Sopris Pro | Sopris</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">KRESTA_20_30</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Kresta 20, 30</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr class="category" style="height: 53.1875px;">
+<td style="width: 0%; height: 53.1875px;">
+<h5 class="t-text-[20px]">W Hydration</h5>
+</td>
+<td style="width: 13.4204%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 0%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 12.6535%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.36511%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 12.04%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.36511%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 11.5799%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.36511%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.98167%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.21173%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.98167%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 4.21784%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 4.21784%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 4.21784%; height: 53.1875px;">&nbsp;</td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">VIVA_EXTENDED_FIT</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Mira</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Outdoor</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Skimmer</strong></td>
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Dyna LT, 6, 1.5</strong></td>
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="height: 0px; width: 86.1974%;" colspan="12"><strong>SMALL (26-30" / 65-75 CM.) MEDIUM (30-35" / 75-90 CM.) LARGE (35-41" / 90-105 CM.)— CHEST MEASUREMENT</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Dyna 15</strong></td>
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="height: 0px; width: 86.1974%;" colspan="12"><strong>S/M (26-35" / 66-90 CM.) M/L (35-41" / 90-104 CM.) — CHEST MEASUREMENT</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Raven | Raven Extended Fit | Sylva |<br>Salida | Kitsuma</strong></td>
+<td style="display: none; width: 0%; height: 50px;">&nbsp;</td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr class="category" style="height: 53.1875px;">
+<td style="width: 0%; height: 53.1875px;">
+<h5 class="t-text-[20px]">W Travel</h5>
+</td>
+<td style="width: 13.4204%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 0%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 12.6535%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.36511%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 12.04%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.36511%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 11.5799%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.36511%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.98167%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 6.21173%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 5.98167%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 4.21784%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 4.21784%; height: 53.1875px;">&nbsp;</td>
+<td style="width: 4.21784%; height: 53.1875px;">&nbsp;</td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">FAIRVIEW</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Fairview Travel Pack</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Travel</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">FARVIEW_TREK</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Fairview Trek</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Travel</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+<tr style="height: 0px;">
+<td style="display: none; width: 0%; height: 50px;">OZONE_DUPLEX</td>
+<td style="width: 13.4204%; height: 50px;"><strong>Ozone Duplex (W)</strong></td>
+<td style="display: none; width: 0%; height: 50px;"><strong>W Travel</strong></td>
+<td style="width: 12.6535%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>-</strong></td>
+<td style="width: 12.04%; height: 50px;"><strong>-</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 11.5799%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.36511%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 6.21173%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 5.98167%; height: 50px;"><strong>O/S</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+<td style="width: 4.21784%; height: 50px;"><strong>-</strong></td>
+</tr>
+</tbody>
+</table>
+
+{% comment %} end women's sizing guide {% endcomment %}
+
+{% schema %}
+{
+  "name": "Sizing and Fit",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sizing and Fit"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "At Osprey Australia, we understand that finding the right fit is essential for our customers. That's why we offer a range of sizes and styles to suit every body shape and preference. Our sizing guide provides detailed measurements to help you choose the perfect fit, and our customer service team is always available to assist with any questions or concerns."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sizing and Fit",
+      "category": "page-sections"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,45 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header_override_qYhthB": {
+      "type": "header-override",
+      "name": "Header Override",
+      "settings": {
+        "override_enabled": true,
+        "header_position": "relative",
+        "header_background": "black",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "transparent"
+      }
+    },
+    "breadcrumbs_k8ccWK": {
+      "type": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "settings": {}
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "almighty_guarantee_page_mdzaTd": {
+      "type": "almighty-guarantee-page",
+      "name": "Almighty Guarantee Page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "header_override_qYhthB",
+    "breadcrumbs_k8ccWK",
+    "main",
+    "almighty_guarantee_page_mdzaTd"
+  ]
+}

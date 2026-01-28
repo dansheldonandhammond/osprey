@@ -1,0 +1,36 @@
+<div class="t-w-full t-bg-black  ">
+  <div class="t-max-w-[1300px]  t-mx-auto t-py-[40px] t-px-[15px]">
+    {% if section.settings.heading != blank %}
+      <h2 class="t-uppercase t-py-[40px] t-text-white t-text-center">{{ section.settings.heading }}</h2>
+    {% endif %}
+    <p class="t-text-white t-text-center lg:t-text-[34px] t-text-[22px] t-italic ">
+      {{ section.settings.text }}
+    </p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custodiants Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Acknowledgement of Country"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Osprey Australia acknowledges the Traditional Custodians of Country throughout Australia, recognising their deep and enduring connection to land, sea, and community. In the spirit of reconciliation, we pay our respects to Elders past and present, and extend that respect to all Aboriginal and Torres Strait Islander peoples. We honour the wisdom, resilience, and custodianship of First Nations peoples and commit to walking together toward a more inclusive and respectful future."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custodiants Section",
+      "category": "page-sections"
+    }
+  ]
+}
+{% endschema %}

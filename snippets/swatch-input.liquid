@@ -45,9 +45,15 @@
 <label
   for="{{ id }}"
   title="{{ value }}"
-  class="t-w-[35px] t-h-[35px] swatch-input__label{% if shape == 'square' %} swatch-input__label--square{% endif %}"
+  class="t-w-[35px] t-h-[35px] swatch-input__label swatch-regular{% if shape == 'square' %} swatch-input__label--square{% endif %}"
 >
-  {% render 'swatch', swatch: swatch, value: value, shape: shape, product: product %}
+  {% render 'swatch',
+    swatch: swatch,
+    value: value,
+    shape: shape,
+    product: product,
+    visually_disabled: visually_disabled
+  %}
 
   {{ help_text }}
 </label>

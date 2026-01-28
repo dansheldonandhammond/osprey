@@ -1,0 +1,256 @@
+{% comment %} Simple Modal Video Section - Direct Vimeo URL input {% endcomment %}
+{% assign video_url = section.settings.video_url | strip %}
+
+<div
+  class="video-modal-section lg:t-max-w-[1105px] xl:t-max-w-[1300px] t-mx-auto t-aspect-video t-py-0 t-leading-[0] t-mt-[30px] lg:t-mt-[90px] lg:t-mb-[90px] t-relative t-border-0 t-outline-none t-cursor-pointer"
+  style="margin-top: {{ section.settings.section_padding_top | default: 40 }}px; margin-bottom: {{ section.settings.section_padding_bottom | default: 40 }}px; padding-top: {{ section.settings.section_padding_top | default: 40 }}px; padding-bottom: {{ section.settings.section_padding_bottom | default: 40 }}px;"
+  onclick="openVideoModal('{{ section.id }}')"
+>
+  {% comment %} Video Thumbnail/Placeholder {% endcomment %}
+  <div class="t-relative t-w-full t-h-full t-rounded-lg t-overflow-hidden">
+    {% if section.settings.video_thumbnail %}
+      {% comment %} Custom thumbnail image {% endcomment %}
+      <img
+        src="{{ section.settings.video_thumbnail | img_url: '1280x720' }}"
+        alt="{{ section.settings.video_alt_text | default: 'Play video' }}"
+        class="t-w-full t-h-full t-object-cover"
+        loading="lazy"
+        width="1280"
+        height="720"
+      >
+      {% comment %} Dark overlay for better button visibility {% endcomment %}
+      <div class="t-absolute t-inset-0 t-bg-black t-bg-opacity-20"></div>
+    {% else %}
+      {% comment %} Default placeholder background {% endcomment %}
+      <div class="t-relative t-w-full t-h-full t-bg-gradient-to-br t-from-gray-400 t-to-gray-600">
+        {% comment %} Subtle pattern overlay {% endcomment %}
+        <div
+          class="t-absolute t-inset-0 t-opacity-20"
+          style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 20px 20px;"
+        ></div>
+      </div>
+    {% endif %}
+
+    {% comment %} Watch Button {% endcomment %}
+    <div class="t-absolute t-top-1/2 t-left-1/2 -t-translate-x-1/2 -t-translate-y-1/2 t-z-20 t-text-center t-mx-auto t-justify-center t-flex t-flex-col t-items-center t-pb-[20px] t-w-full">
+      <h3 class=" t-font-semibold t-text-white t-mb-2 t-opacity-80 lg:t-text-[36px] t-text-[20px] t-uppercase t-pb-[20px]">
+        {{ section.settings.video_title | default: 'Watch Our Video' }}
+      </h3>
+      <div
+        class=" t-group t-w-[120px] t-h-[44px] md:t-w-[140px] md:t-h-[50px] lg:t-w-[153px] lg:t-h-[56px] t-bg-white t-text-black t-flex t-items-center t-justify-center t-tracking-[1.28px] t-font-bold t-gap-[8px] md:t-gap-[10px] hover:t-bg-white hover:t-text-black t-transition-all t-duration-300 t-border-0"
+        role="button"
+        aria-label="Play Video"
+      >
+        <span class="t-text-sm md:t-text-base">{{ section.settings.watch_button_text | default: 'WATCH' }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %} Modal Overlay {% endcomment %}
+<div
+  id="video-modal-{{ section.id }}"
+  class="t-fixed t-inset-0 t-bg-black t-bg-opacity-90 t-z-50 t-flex t-items-center t-justify-center t-opacity-0 t-invisible t-transition-all t-duration-300"
+  onclick="closeVideoModal('{{ section.id }}')"
+  style="z-index: 9999;"
+>
+  {% comment %} Modal Content {% endcomment %}
+  <div class="t-relative t-w-full t-max-w-6xl t-mx-4 t-aspect-video" onclick="event.stopPropagation()">
+    {% comment %} Close button {% endcomment %}
+    <button
+      class="t-absolute -t-top-12 t-right-0 t-text-white t-text-2xl t-font-bold t-bg-black t-bg-opacity-50 t-rounded-full t-w-10 t-h-10 t-flex t-items-center t-justify-center hover:t-bg-opacity-70 t-transition-colors t-duration-200 t-z-10"
+      onclick="closeVideoModal('{{ section.id }}')"
+      aria-label="Close video"
+    >
+      ×
+    </button>
+
+    {% comment %} Video iframe container {% endcomment %}
+    <div
+      id="modal-video-container-{{ section.id }}"
+      class="t-w-full t-h-full t-bg-black t-rounded-lg t-overflow-hidden"
+    >
+      {% comment %} Video will be loaded here when modal opens {% endcomment %}
+    </div>
+  </div>
+</div>
+
+{% comment %} Setup instructions for editor {% endcomment %}
+{% if video_url == blank %}
+  <div class="t-text-center t-py-4 t-text-gray-500 t-text-sm t-border-t t-border-gray-200 t-mt-4">
+    <p><strong>Setup Instructions:</strong> Add your Vimeo player URL in the section settings</p>
+    <p class="t-text-xs t-mt-1">Example: https://player.vimeo.com/video/1036482323?autoplay=1&muted=1</p>
+  </div>
+{% endif %}
+
+<script>
+  function openVideoModal(sectionId) {
+    const modal = document.getElementById(`video-modal-${sectionId}`);
+    const videoContainer = document.getElementById(`modal-video-container-${sectionId}`);
+    const videoUrl = '{{ video_url }}';
+
+    if (!videoUrl) {
+      console.warn('No video URL provided');
+      return;
+    }
+
+    // Create and insert iframe
+    const iframe = document.createElement('iframe');
+    iframe.src = videoUrl;
+    iframe.frameBorder = '0';
+    iframe.allow = 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media';
+    iframe.title = "{{ section.settings.video_title | default: 'Video' }}";
+    iframe.className = 't-w-full t-h-full';
+    iframe.allowFullscreen = true;
+
+    // Clear container and add iframe
+    videoContainer.innerHTML = '';
+    videoContainer.appendChild(iframe);
+
+    // Show modal
+    modal.classList.remove('t-opacity-0', 't-invisible');
+    modal.classList.add('t-opacity-100', 't-visible');
+
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeVideoModal(sectionId) {
+    const modal = document.getElementById(`video-modal-${sectionId}`);
+    const videoContainer = document.getElementById(`modal-video-container-${sectionId}`);
+
+    // Hide modal
+    modal.classList.remove('t-opacity-100', 't-visible');
+    modal.classList.add('t-opacity-0', 't-invisible');
+
+    // Remove iframe to stop video
+    setTimeout(() => {
+      videoContainer.innerHTML = '';
+    }, 300);
+
+    // Restore body scroll
+    document.body.style.overflow = '';
+  }
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      const modals = document.querySelectorAll('[id^="video-modal-"]');
+      modals.forEach((modal) => {
+        if (!modal.classList.contains('t-invisible')) {
+          const sectionId = modal.id.replace('video-modal-', '');
+          closeVideoModal(sectionId);
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  /* Enhanced hover effects - removed zoom */
+  .video-modal-section:hover .t-group {
+    background-color: white;
+    color: black;
+  }
+
+  /* Smooth transitions for interactive elements only */
+  .video-modal-section .t-group {
+    transition: all 0.3s ease;
+  }
+
+  /* Modal animations */
+  .t-visible {
+    visibility: visible !important;
+  }
+
+  /* Better focus states for accessibility */
+  .video-modal-section:focus-visible {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 480px) {
+    .video-modal-section .t-w-[120px] {
+      width: 100px;
+      height: 38px;
+      font-size: 12px;
+    }
+
+    .video-modal-section .t-bottom-6 {
+      bottom: 1rem;
+    }
+  }
+
+  /* Ensure modal is above everything */
+  [id^='video-modal-'] {
+    z-index: 9999;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Modal Video Section",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "video_title",
+      "label": "Video Title",
+      "default": "Watch Our Video",
+      "info": "This title appears on the video thumbnail"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Vimeo Player URL",
+      "info": "Enter the full Vimeo player URL (e.g., https://player.vimeo.com/video/1036482323?autoplay=1&muted=1)",
+      "placeholder": "https://player.vimeo.com/video/1036482323?autoplay=1&muted=1"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_thumbnail",
+      "label": "Video Thumbnail",
+      "info": "Upload a custom thumbnail image. If not provided, a default placeholder will be shown."
+    },
+    {
+      "type": "text",
+      "id": "video_alt_text",
+      "label": "Thumbnail Alt Text",
+      "default": "Play video",
+      "info": "Describe the video thumbnail for accessibility"
+    },
+    {
+      "type": "text",
+      "id": "watch_button_text",
+      "label": "Watch Button Text",
+      "default": "WATCH",
+      "info": "Text that appears on the watch button"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Modal Video Section",
+      "category": "Video"
+    }
+  ]
+}
+{% endschema %}

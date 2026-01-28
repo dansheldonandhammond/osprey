@@ -1,0 +1,248 @@
+{% assign banner_overlay = section.settings.banner_overlay %}
+{% assign banner_layout = section.settings.banner_layout | default: 'one_column' %}
+{% assign banner_image_url = '/cdn/shop/' | append: section.settings.banner_image_url %}
+{% assign banner_image_heading = section.settings.banner_image_heading %}
+{% assign alt_text = section.settings.alt_text | default: 'Banner image' %}
+{% assign banner_image_x_axis = section.settings.banner_image_x_axis %}
+{% assign banner_image_y_axis = section.settings.banner_image_y_axis %}
+{% assign control_banner_image_height = section.settings.control_banner_image_height %}
+{% assign banner_image_height = section.settings.banner_image_height %}
+{% assign banner_cta = collection.metafields.custom.collection_cta.value %}
+{% assign banner_border_bottom = section.settings.banner_border_bottom %}
+{% assign banner_text_center = section.settings.banner_text_center %}
+{% assign banner_background_colour = section.settings.banner_background_colour %}
+{% assign banner_text_colour = section.settings.banner_text_colour %}
+{% assign button_bg_colour = section.settings.button_bg_colour %}
+{% assign button_text_colour = section.settings.button_text_colour %}
+{% assign subheading_text = section.settings.subheading_text %}
+{% assign subheading_background_colour = section.settings.subheading_background_colour %}
+
+
+{% case banner_layout %}
+  {% when 'one_column' %}
+    {% if banner_image_url %}
+      <section class="t-w-full t-relative t-h-[250px] md:t-h-[408px] lg:t-aspect-[16/7]">
+        <img
+          src="{{ banner_image_url }}"
+          class="t-h-full t-w-full t-object-cover t-absolute t-top-0 t-left-0"
+          alt="{{ alt_text | default: 'Banner image' }}"
+          style="object-position: {{ banner_image_x_axis }}% {{ banner_image_y_axis }}%;{% if banner_image_height > 0 %} height: {{ banner_image_height }}px;{% endif %}"
+        >
+
+        {% if banner_image_heading %}
+          <h2 class="t-font-[700] t-px-[20px] t-py-[26px] t-h-[fit-content] t-text-white t-text-[32px] md:t-text-[52px] {% if banner_text_center %} lg:t-text-center {% else %} lg:t-text-start {% endif %} t-m-0 t-absolute t-bottom-0 t-left-0 md:t-top-1/2 md:t-left-1/2 md:t-translate-x-[-50%] md:t-translate-y-[-50%] t-max-w-[1300px] t-w-full">
+            {{ banner_image_heading }}
+          </h2>
+        {% endif %}
+      </section>
+    {% endif %}
+
+  {% when 'two_column' %}
+    {% if banner_image_url %}
+      <section class=" {% if banner_overlay %} t-justify-center t-relative {% endif %} md:t-justify-end t-w-full t-flex md:t-flex-row t-flex-col-reverse  t-items-center" style="background-color: {{ banner_background_colour }}; {% if banner_border_bottom %} border-bottom: 2px solid #e0e0e0; {% endif %}">
+        
+        <div class="{% if banner_overlay %} t-z-[1] t-absolute{% endif %} t-px-[15px] md:t-px-0 md:t-relative md:t-ms-[20px] xl:t-ms-[0px] t-mx-auto xl:t-m-0 t-max-w-[400px] md:t-w-1/2 md:t-max-w-[640px] xl:t-w-full t-text-center md:t-text-start {% unless banner_overlay %} t-my-[40px]{% endunless %} {% if banner_overlay %} t-my-0 {% endif %} md:t-pe-[40px]">
+          {% if banner_image_heading %}
+            {% if banner_image_heading %}
+              <h2  class=" {% if banner_overlay %} t-hidden md:t-flex {% endif %} t-flex t-justify-center md:t-justify-start t-font-[700] t-text-[32px] lg:t-text-[52px] t-mt-0 t-mb-0 t-pb-[15px]" style="color: {{ banner_text_colour }};">{{ banner_image_heading }}</h2>
+            {% endif %}
+
+           
+              <div class="t-flex t-justify-center md:t-justify-start t-font-[700] t-text-[16px] t-mt-0 t-mb-0 t-pb-[15px]" >
+                <h3 style="color:{{ banner_text_colour }}; {% if subheading_background_colour != blank %} background-color: {{ subheading_background_colour }};  padding: 10px; margin:0px; {% endif %}">{{ subheading_text }}</h3>
+              </div>
+            
+
+          {% endif %}
+
+          {% if collection.description %}
+            <div
+              class="t-text-[16px] {% if banner_overlay %} t-hidden md:t-flex {% endif %} {% if banner_cta %} t-pb-[35px] {% endif %}t-justify-center md:t-justify-start t-flex t-flex-col t-my-0 t-leading-[30px]  md:t-max-w-[475px] md:t-w-[80%] xl:t-w-full"
+              style="color: {{ banner_text_colour }};"
+            >
+              {{ collection.description }}
+            </div>
+            {% if banner_overlay %}
+              <div
+                class="t-text-[16px] t-flex t-flex-col md:t-hidden t-justify-center md:t-justify-start  t-my-0 t-leading-[30px] {% if banner_cta %} t-pb-[20px] {% endif %}  md:t-max-w-[475px] md:t-w-[80%] xl:t-w-full"
+                style="color: white;"
+              >
+                {{ collection.description }}
+              </div>
+            {% endif %}
+          {% endif %}
+
+          {% if banner_cta %}
+            <a
+              href="{{ banner_cta.url }}"
+              class="t-font-[600] t-h-auto t-no-underline uppercase t-inline-block t-py-[18px] t-px-[35px] t-transition t-duration-300 t-text-[1.6rem] t-leading-[24px]"
+              style="background-color: {{ button_bg_colour }}; color: {{ button_text_colour }};"
+            >
+              {{ banner_cta.text }}
+            </a>
+          {% endif %}
+        </div>
+
+        {% if banner_overlay %}
+          <div class="t-absolute t-inset-0 t-bg-black t-opacity-60 t-block md:t-hidden"></div>
+        {% endif %}
+        <div
+          class="md:t-w-1/2 t-w-full {% unless control_banner_image_height %} t-h-[375px] xl:t-h-auto {% endunless %} lg:t-aspect-[27/14] t-leading-[0px]"
+          {% if control_banner_image_height %}
+            style="height: {{ banner_image_height }}px;"
+          {% endif %}
+        >
+          <img
+            src="{{ banner_image_url }}"
+            class="t-h-full t-w-full t-object-cover"
+            alt="{{ alt_text | default: 'Banner image' }}"
+            style="object-position: {{ banner_image_x_axis }}% {{ banner_image_y_axis }}%;"
+          >
+        </div>
+      </section>
+    {% endif %}
+{% endcase %}
+
+{% schema %}
+{
+  "name": "Banner Section",
+  "tag": "section",
+  "class": "banner-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "banner_layout",
+      "label": "Banner Layout",
+      "default": "one_column",
+      "options": [
+        { "value": "one_column", "label": "1 Column (Overlay Text)" },
+        { "value": "two_column", "label": "2 Column (Side by Side)" }
+      ]
+    },
+
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+
+    {
+      "type": "text",
+      "id": "banner_image_heading",
+      "label": "Heading",
+      "default": "Your Heading Here"
+    },
+    {
+      "type":"text",
+      "id":"subheading_text",
+      "label": "Subheading Text",
+    },
+    {
+      "type":"text",
+      "id":"subheading_background_colour",
+      "label": "Subheading Background",
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image_url",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "alt_text",
+      "label": "Image Alt Text",
+      "default": "Banner image"
+    },
+    {
+      "type": "range",
+      "id": "banner_image_x_axis",
+      "label": "Image Horizontal Position (%)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "banner_image_y_axis",
+      "label": "Image Vertical Position (%)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+
+    {
+      "type": "header",
+      "content": "1 Column Layout Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_text_center",
+      "label": "Center align text",
+      "default": true
+    },
+
+    {
+      "type": "header",
+      "content": "2 Column Layout Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "control_banner_image_height",
+      "label": "Control Banner Image Height",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "banner_image_height",
+      "label": "Image Height (px)",
+      "min": 0,
+      "max": 1000,
+      "step": 10,
+      "default": 500
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_border_bottom",
+      "label": "Show Bottom Border",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_overlay",
+      "label": "Show Overlay on mobile",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_bg_colour",
+      "label": "Button Background Colour",
+      "default": "white"
+    },
+    {
+      "type": "text",
+      "id": "button_text_colour",
+      "label": "Button Text Colour",
+      "default": "black"
+    },
+    {
+      "type": "text",
+      "id": "banner_background_colour",
+      "label": "Background Colour",
+      "default": "black"
+    },
+    {
+      "type": "text",
+      "id": "banner_text_colour",
+      "label": "Text Colour",
+      "default": "white"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Section",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

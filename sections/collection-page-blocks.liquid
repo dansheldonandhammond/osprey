@@ -1,0 +1,1420 @@
+{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'hero_row' %}
+      <!-- Hero Row Section Block -->
+      <div class="t-flex t-flex-col {% if block.settings.row_reverse %} lg:t-flex-row-reverse {% else %} lg:t-flex-row {% endif %} t-w-full t-gap-0 lg:t-max-h-[467px] lg:t-h-full t-mb-[40px] t-max-w-[1300px] t-mx-auto">
+        <div class="lg:t-w-1/2">
+          <img
+            class="t-w-full t-h-full t-object-cover"
+            src="{{ block.settings.hero_image | img_url: 'master' }}"
+            alt="{{ block.settings.hero_image.alt | default: 'Product Image' }}"
+          >
+        </div>
+        <div
+          class="t-h-[300px] lg:t-h-full lg:t-max-h-[467px] lg:t-w-1/2 t-w-full t-flex t-flex-col t-justify-center t-items-center t-text-center t-mx-auto t-overflow-hidden"
+          style="background-color: {{ block.settings.hero_bg_color }};"
+        >
+          <div class="t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4">
+            {% if block.settings.hero_subtitle != blank %}
+              <p
+                class="t-text-[16px] lg:t-text-[19px] t-tracking-[3.2px] t-uppercase t-mt-0 t-mb-[4px]"
+                style="color: {{ block.settings.hero_text_color }};"
+              >
+                {{ block.settings.hero_subtitle }}
+              </p>
+            {% endif %}
+            {% if block.settings.hero_title_part1 != blank or block.settings.hero_title_part2 != blank %}
+              <h2
+                class="t-text-[30px] lg:t-text-[46px] t-my-0 t-font-[700]"
+                style="color: {{ block.settings.hero_text_color }};"
+              >
+                {% if block.settings.hero_title_part1 != blank %}
+                  {{ block.settings.hero_title_part1 -}}
+                  {% if block.settings.hero_title_sup1 != blank -%}
+                    <sup class="t-text-[13.8px]">{{ block.settings.hero_title_sup1 }}</sup>
+                  {%- endif %}
+                {% endif %}
+                {% if block.settings.hero_title_part1 != blank and block.settings.hero_title_part2 != blank %}
+                  |
+                {% endif %}
+                {% if block.settings.hero_title_part2 != blank %}
+                  {{ block.settings.hero_title_part2 -}}
+                  {% if block.settings.hero_title_sup2 != blank -%}
+                    <sup class="t-text-[13.8px]">{{ block.settings.hero_title_sup2 }}</sup>
+                  {%- endif %}
+                {% endif %}
+              </h2>
+            {% endif %}
+            {% if block.settings.hero_description != blank %}
+              <p
+                class="t-mt-0 t-max-w-[80%] lg:t-max-w-[380px] t-leading-[26px]"
+                style="color: {{ block.settings.hero_text_color }};"
+              >
+                {{ block.settings.hero_description }}
+              </p>
+            {% endif %}
+            {% if block.settings.hero_button_text != blank %}
+              <a
+                class="t-py-[18px] t-px-[32px] t-no-underline t-ease-in-out t-duration-[0.3s] t-font-[700]"
+                style="color: {{ block.settings.hero_button_text_color }}; background-color: {{ block.settings.hero_button_bg_color }};"
+                href="{{ block.settings.hero_button_url }}"
+              >
+                {{- block.settings.hero_button_text -}}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+    {% when 'technology_header' %}
+      <!-- Technology Header Block -->
+      <div class="t-w-full t-text-center t-my-[40px] t-px-[20px]">
+        {% if block.settings.tech_subtitle != blank %}
+          <h2
+            class="t-font-[400] t-uppercase t-text-[25px] lg:t-text-[28px] t-mt-0"
+            style="color: {{ block.settings.header_text_color }};"
+          >
+            {{ block.settings.tech_subtitle }}
+          </h2>
+        {% endif %}
+        {% if block.settings.tech_main_title != blank %}
+          <h3
+            class="t-font-[700] lg:t-text-[48px] t-text-[25px] t-mb-0 t-mt-[10px]"
+            style="color: {{ block.settings.header_text_color }};"
+          >
+            {{ block.settings.tech_main_title }}
+          </h3>
+        {% endif %}
+      </div>
+
+    {% when 'technology_cards' %}
+      <!-- Technology Cards Section Block -->
+      <div
+        class="lg:t-flex t-gap-[20px] t-justify-center lg:t-py-[60px]"
+        style="{% if block.settings.tech_background_image != blank %}background-image: url('{{ block.settings.tech_background_image | img_url: 'master' }}'); background-size: cover; background-position: center;{% else %}background-color: {{ block.settings.tech_section_bg_color }};{% endif %}"
+      >
+        {% assign tech_cards = section.blocks | where: 'type', 'technology_card' %}
+        {% for card in tech_cards %}
+          <div
+            class="lg:t-max-w-[393px] t-text-center t-text-white t-py-[40px]"
+            style="background-color: {{ card.settings.card_bg_color }};"
+          >
+            {% if card.settings.tech_name_part1 != blank or card.settings.tech_name_part2 != blank %}
+              <h3
+                class="t-text-[28px] t-font-[400] t-tracking-[4.2px] t-uppercase t-mt-0"
+                style="color: {{ card.settings.card_text_color }};"
+              >
+                {% if card.settings.tech_name_part1 != blank %}{{ card.settings.tech_name_part1 }}{% endif -%}
+                {% if card.settings.tech_name_part2 != blank %}
+                  <span class="t-text-[28px] t-font-[700] t-tracking-[4.2px]">
+                    {{- card.settings.tech_name_part2 -}}
+                    {% if card.settings.tech_name_sup != blank %}
+                      <sup class="t-text-[10px] t-font-[300] t-tracking-[1] t-mb-[-20px]">
+                        {{- card.settings.tech_name_sup -}}
+                      </sup>
+                    {% endif %}
+                  </span>
+                {% endif %}
+              </h3>
+            {% endif %}
+            {% if card.settings.svg_code != blank %}
+              <div class="cmsb3971-inline-block">
+                {{ card.settings.svg_code }}
+              </div>
+            {% endif %}
+            <div
+              class="t-border-solid t-border-t-0 t-border-r-0 t-border-l-0 t-border-b-[1px] t-max-w-[110px] t-mx-auto t-py-[10px] t-mb-[40px] t-mt-[15px]"
+              style="border-color: {{ card.settings.card_accent_color }};"
+            ></div>
+
+            {% if card.settings.tech_description != blank %}
+              <p
+                class="t-max-w-[90%] t-mx-auto t-leading-[25px] t-mb-0"
+                style="color: {{ card.settings.card_text_color }};"
+              >
+                {{ card.settings.tech_description }}
+              </p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+    {% when 'bluesign_section' %}
+      <!-- Bluesign Section Block -->
+      <div
+        class="t-px-[20px] t-text-center t-flex t-justify-center t-h-[830px] t-flex-col"
+        style="{% if block.settings.bluesign_bg_image != blank %}background-image: url('{{ block.settings.bluesign_bg_image | img_url: 'master' }}'); background-size: cover; background-position: center;{% else %}background-color: {{ block.settings.bluesign_section_bg_color }};{% endif %}"
+      >
+        {% if block.settings.bluesign_logo != blank %}
+          <div class="t-mx-auto">
+            <img
+              class="t-w-[240px]"
+              src="{{ block.settings.bluesign_logo | img_url: '240x' }}"
+              alt="{{ block.settings.bluesign_logo.alt | default: 'Bluesign Logo' }}"
+            >
+          </div>
+        {% endif %}
+        {% if block.settings.bluesign_description != blank %}
+          <p
+            class="t-max-w-[716px] t-mx-auto t-py-[30px] t-leading-[25px]"
+            style="color: {{ block.settings.bluesign_text_color }};"
+          >
+            {{ block.settings.bluesign_description }}
+          </p>
+        {% endif %}
+        {% if block.settings.bluesign_button_text != blank %}
+          <a
+            class="t-py-[20px] t-font-[700] t-text-[18px] t-no-underline t-ease-in-out t-duration-[0.3s] t-px-[35px] t-border-[2px] t-border-solid t-w-fit t-mx-auto hover:t-bg-white hover:t-text-black"
+            style="color: {{ block.settings.bluesign_button_text_color }}; border-color: {{ block.settings.bluesign_button_border_color }};"
+            href="{{ block.settings.bluesign_button_url }}"
+          >
+            {{- block.settings.bluesign_button_text -}}
+          </a>
+        {% endif %}
+      </div>
+
+    {% when 'parallax_image' %}
+      <!-- Parallax Image Section Block -->
+      <section
+        id="cta-hero"
+        class="t-py-20 md:t-py-32 t-bg-cover t-bg-center t-text-center t-text-white t-relative t-h-[660px] t-flex t-items-center"
+      >
+        <style>
+          /* Mobile background (no parallax, most mobile browsers ignore fixed anyway) */
+          #cta-hero {
+            {% if block.settings.cta_bg_mobile %}
+              background-image: url('{{ block.settings.cta_bg_mobile | img_url: '800x' }}');
+            {% endif %}
+            background-attachment: scroll;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+          }
+          /* Desktop background with parallax */
+          @media (min-width: 768px) {
+            #cta-hero {
+              {% if block.settings.cta_bg_desktop %}
+                background-image: url('{{ block.settings.cta_bg_desktop | img_url: '1600x' }}');
+              {% endif %}
+              background-attachment: fixed;
+              background-position: center;
+              background-size: cover;
+            }
+          }
+        </style>
+        <div class="page-width t-mx-auto t-px-4 t-relative">
+          {% if block.settings.cta_title %}
+            <h3 class="t-text-white t-text-[26px] md:t-text-[36px] t-font-bold t-mb-12 t-tracking-wider t-max-w-[1300px] t-mx-auto t-px-4">
+              {{ block.settings.cta_title }}
+            </h3>
+          {% endif %}
+          {% if block.settings.cta_button_text and block.settings.cta_button_url %}
+            <a
+              href="{{ block.settings.cta_button_url }}"
+              class="t-inline-block t-bg-white t-text-black t-px-8 t-py-4 t-font-bold t-tracking-widest hover:t-bg-gray-600 hover:t-text-white t-transition-colors t-duration-300 t-no-underline"
+            >
+              {{ block.settings.cta_button_text }}
+            </a>
+          {% endif %}
+        </div>
+      </section>
+
+    {% when 'two_column_overlap' %}
+      <!-- Two Column Overlap Layout Block -->
+      <section class="t-py-16 md:t-py-24">
+        <div class="page-width t-px-4 t-w-[100vw] t-max-w-[1300px] t-mx-auto">
+          <!-- Mobile Content - Shows only on mobile -->
+          <div class="t-px-[20px] t-block md:t-hidden t-pb-[20px]">
+            {% if block.settings.main_pretitle != blank %}
+              <p class="t-max-w-[335px] t-text-[16px] t-font-light t-tracking-wider t-uppercase t-mb-4 t-text-gray-600">
+                {{ block.settings.main_pretitle }}
+              </p>
+            {% endif %}
+            {% if block.settings.main_title != blank %}
+              <h1 class="t-mt-0 t-mb-[15px] t-text-[28px] t-font-[600] t-leading-tight">
+                {{ block.settings.main_title }}
+              </h1>
+            {% endif %}
+            {% if block.settings.main_description != blank %}
+              <div class="t-leading-[1.4] t-space-y-4 t-text-gray-700">
+                {{ block.settings.main_description }}
+              </div>
+            {% endif %}
+          </div>
+          <!-- Main Grid Layout -->
+          <div class="t-h-[100vh] xl:t-max-h-[1000px] md:t-max-h-[1400px] lg:t-max-h-[1000px] t-h-auto t-mx-[0] xl:t-mx-[62px] t-px-[20px] t-border-box t-grid md:t-grid-cols-12 md:t-grid-rows-12 t-gap-[20px] t-box-border t-mb-[30px]">
+            <!-- Large Portrait Image - Left Side -->
+            {% if block.settings.portrait_image != blank %}
+              <img
+                class="t-row-span-12 t-h-full t-row-start-1 t-col-start-1 md:t-col-end-7 t-col-end-9 t-object-cover t-object-center t-w-full t-h-full lg:t-mt-[50px] t-rounded-lg"
+                src="{{ block.settings.portrait_image | img_url: '800x' }}"
+                alt="{{ block.settings.portrait_image.alt | default: 'Person hiking in mountains' }}"
+                loading="lazy"
+              >
+            {% else %}
+              <div class="t-row-span-12 t-h-full t-row-start-1 t-col-start-1 md:t-col-end-7 t-col-end-9 t-w-full t-h-full lg:t-mt-[50px] t-rounded-lg t-bg-gray-200 t-flex t-items-center t-justify-center">
+                <div class="t-text-center t-text-gray-500">
+                  <svg class="t-w-16 t-h-16 t-mx-auto t-mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                  <p class="t-text-sm">Portrait Image</p>
+                </div>
+              </div>
+            {% endif %}
+            <!-- Text Content - Top Right (Desktop Only) -->
+            <div class="t-hidden md:t-block t-row-span-10 lg:t-row-span-6 t-row-start-1 t-col-start-7 t-col-end-13 xl:t-ms-[40px] t-relative t-h-full">
+              {% if block.settings.main_pretitle != blank %}
+                <p class="t-max-w-[335px] t-text-sm md:t-text-base t-font-light t-tracking-wider t-uppercase t-mb-4 t-text-gray-600 t-text-[18px] md:t-text-[20px] t-leading-relaxed">
+                  {{ block.settings.main_pretitle | newline_to_br }}
+                </p>
+              {% else %}
+                <p class="t-max-w-[335px] t-text-sm md:t-text-base t-font-light t-tracking-wider t-uppercase t-mb-4 t-text-gray-600 t-text-[18px] md:t-text-[20px] t-leading-relaxed">
+                  {{ block.settings.pretitle_line1 -}}
+                  <br>
+                  {{ block.settings.pretitle_line2 }}
+                </p>
+              {% endif %}
+              {% if block.settings.main_title != blank %}
+                <h1 class="lg:t-text-[50px] t-mt-0 t-mb-[15px] t-text-[36px] t-font-[600] t-leading-tight">
+                  {{ block.settings.main_title }}
+                </h1>
+              {% endif %}
+              {% if block.settings.main_description != blank %}
+                <div class="t-leading-[1.4] t-space-y-4 t-text-gray-700">
+                  {{ block.settings.main_description }}
+                </div>
+              {% endif %}
+              {% if block.settings.button_text != blank or block.settings.button_link != blank %}
+                <div class="t-pt-[30px]">
+                  <a
+                    class="t-bg-black t-text-white t-py-[20px] t-px-[30px] t-mt-[20px] t-no-underline t-font-[700] hover:t-bg-white hover:t-text-black t-ease-in-out t-duration-[0.3s] t-border-[2px]  hover:t-border-[2px] t-border-solid"
+                    href="{{ block.settings.button_link }}"
+                  >
+                    {{ block.settings.button_text }}
+                  </a>
+                </div>
+              {% endif %}
+            </div>
+            <!-- Landscape Image - Bottom Right, Overlapping -->
+            {% if block.settings.landscape_image != blank %}
+              <img
+                src="{{ block.settings.landscape_image | img_url: '600x' }}"
+                alt="{{ block.settings.landscape_image.alt | default: 'Mountain landscape' }}"
+                class="t-mt-[18px] t-w-full t-object-cover t-row-start-9 md:t-row-start-8 lg:t-row-start-8 xl:t-row-start-7 t-row-span-4 lg:t-row-span-5 xl:t-row-span-6 t-col-start-2 lg:t-col-start-5 t-col-end-13 t-mb-[0px] xl:t-mb-[80px] t-rounded-lg t-shadow-lg"
+                loading="lazy"
+              >
+            {% else %}
+              <div class="t-mt-[18px] t-w-full t-row-start-9 md:t-row-start-8 lg:t-row-start-8 xl:t-row-start-7 t-row-span-4 lg:t-row-span-5 xl:t-row-span-6 t-col-start-2 lg:t-col-start-5 t-col-end-13 t-mb-[0px] xl:t-mb-[80px] t-rounded-lg t-shadow-lg t-bg-gray-200 t-flex t-items-center t-justify-center">
+                <div class="t-text-center t-text-gray-500">
+                  <svg class="t-w-12 t-h-12 t-mx-auto t-mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                  <p class="t-text-sm">Landscape Image</p>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+
+    {% when 'two_column_info' %}
+      <!-- Two Column Image Info Sections Block -->
+      {% if block.settings.image_1 or block.settings.image_1 != blank %}
+        <div class="t-flex t-flex-col lg:t-flex-row t-w-full t-gap-0">
+          {% comment %} Left Column{% endcomment %}
+          {% if block.settings.image_1 != blank %}
+            <div
+              class="t-relative t-flex t-flex-col t-justify-center t-items-center t-text-center t-mx-auto t-w-full  t-overflow-hidden"
+              style="background-image: url('{{ block.settings.image_1 | image_url: width: 2000 }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 600px; padding: 20px;"
+            >
+              <!-- Overlay -->
+              <div class="t-absolute t-inset-0 t-bg-black t-opacity-40" style="pointer-events: none;"></div>
+              <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4">
+                {% comment %} Icon  {% endcomment %}
+                {% if block.settings.icon_1 != empty %}
+                  {{ block.settings.icon_1 }}
+                {% endif %}
+                {% comment %} Heading {% endcomment %}
+                {% if block.settings.heading_1 != blank %}
+                  <h2 class="t-text-[32px] md:t-text-[48px] t-leading-tight t-text-white t-my-0">
+                    {{ block.settings.heading_1 }}
+                  </h2>
+                {% else %}
+
+                {% endif %}
+                {% comment %} description {% endcomment %}
+                {% if block.settings.description_1 != blank %}
+                  <p class="t-text-white  t-max-w-[639px]">{{ block.settings.description_1 }}</p>
+                {% else %}
+
+                {% endif %}
+                {% comment %}  Link {% endcomment %}
+                {% if block.settings.link_1 != blank %}
+                  <a
+                    class="t-ease-in-out t-duration-[0.3s] t-mt-[10px] t-px-[18px] t-py-[12px] t-border t-border-white t-text-white t-bg-transparent hover:t-bg-white/50 t-inline-block t-underline-none t-no-underline t-border-[1px] t-border-solid"
+                    href="{{ block.settings.link_1 }}"
+                    aria-label="{{ block.settings.link_text_1 }}"
+                  >
+                    {{ block.settings.link_text_1 }}
+                  </a>
+                {% else %}
+
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+          {% comment %} Right Column {% endcomment %}
+          {% if block.settings.image_2 != blank %}
+            <div
+              class="t-relative t-flex t-flex-col t-justify-center t-items-center t-text-center lg:t-my-0 t-mx-auto t-w-full  t-overflow-hidden"
+              style="background-image: url('{{ block.settings.image_2 | image_url: width: 2000 }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 600px; padding: 20px;"
+            >
+              {% comment %} Overlay {% endcomment %}
+              <div class="t-absolute t-inset-0 t-bg-black t-opacity-40" style="pointer-events: none;"></div>
+              {% comment %}  Content {% endcomment %}
+              <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4">
+                {% comment %} Icon {% endcomment %}
+                {% if block.settings.icon_2 != blank %}
+                  {{ block.settings.icon_2 | default: '
+                  ' }}
+                {% endif %}
+                {% comment %} Heading {% endcomment %}
+                {% if block.settings.heading_2 != blank %}
+                  <h2 class="t-text-[32px] md:t-text-[48px] t-leading-tight t-text-white t-my-0">
+                    {{ block.settings.heading_2 }}
+                  </h2>
+                {% else %}
+
+                {% endif %}
+                {% comment %} Description {% endcomment %}
+                {% if block.settings.description_2 != blank %}
+                  <p class="t-text-white  t-max-w-[639px]">{{ block.settings.description_2 }}</p>
+                {% else %}
+
+                {% endif %}
+                {% comment %}  Link {% endcomment %}
+                {% if block.settings.link_2 != blank %}
+                  <a
+                    class="t-ease-in-out t-duration-[0.3s] t-mt-[10px] t-px-[18px] t-py-[12px] t-border t-border-white t-text-white t-bg-transparent hover:t-bg-white/50 t-inline-block t-underline-none t-no-underline t-border-[1px] t-border-solid "
+                    href="{{ block.settings.link_2 }}"
+                    aria-label="{{ block.settings.link_text_2 }}"
+                  >
+                    {{ block.settings.link_text_2 }}
+                  </a>
+                {% else %}
+
+                {% endif %}
+              </div>
+            </div>
+            </div>
+          {% else %}
+
+          {% endif %}
+      {% else %}
+        <div class="t-flex t-flex-col lg:t-flex-row t-w-full t-gap-0">
+          <!-- Left Column -->
+          <div
+            class="t-relative t-flex t-flex-col t-justify-center t-items-center t-text-center t-mx-auto t-w-full  t-overflow-hidden"
+            style="background-color: #a7a7a7ff; height: 400px; padding: 20px;"
+          >
+            <div class="t-absolute t-inset-0 t-bg-black t-opacity-20" style="pointer-events: none;"></div>
+            <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4">
+              <h2 class="t-text-[32px] md:t-text-[48px] t-leading-tight t-text-white">Left Column Heading</h2>
+              <p class="t-text-white t-max-w-[52ch]">
+                Placeholder description for the left column. This block can be updated with your own text in the editor.
+              </p>
+              <a
+                class="t-mt-[10px] t-px-[18px] t-py-[12px] t-border t-border-white t-text-white t-bg-transparent hover:t-bg-white/50 t-inline-block t-border-[1px] t-border-solid"
+                href="#"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+          <!-- Right Column -->
+          <div
+            class="t-relative t-flex t-flex-col t-justify-center t-items-center t-text-center lg:t-my-0 t-mx-auto t-w-full t-overflow-hidden"
+            style="background-color: #a7a7a7ff; height: 400px; padding: 20px;"
+          >
+            <div class="t-absolute t-inset-0 t-bg-black t-opacity-20" style="pointer-events: none;"></div>
+            <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4">
+              <h2 class="t-text-[32px] md:t-text-[48px] t-leading-tight t-text-white">Right Column Heading</h2>
+              <p class="t-text-white t-max-w-[52ch]">
+                Placeholder description for the right column. Replace this with your content to customize.
+              </p>
+              <a
+                class="t-mt-[10px] t-px-[18px] t-py-[12px] t-border t-border-white t-text-white t-bg-transparent hover:t-bg-white/50 t-inline-block t-border-[1px] t-border-solid"
+                href="#"
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+    {% when 'modal_video' %}
+      <!-- Modal Video Section Block -->
+      {% assign video_url = block.settings.video_url | strip %}
+      <div
+        class="video-modal-section lg:t-max-w-[1105px] xl:t-max-w-[1300px] t-mx-auto t-aspect-video t-py-0 t-leading-[0] t-mt-[30px] lg:t-mt-[90px] lg:t-mb-[90px] t-relative t-border-0 t-outline-none t-cursor-pointer"
+        style="margin-top: {{ block.settings.section_padding_top | default: 40 }}px; margin-bottom: {{ block.settings.section_padding_bottom | default: 40 }}px; padding-top: {{ block.settings.section_padding_top | default: 40 }}px; padding-bottom: {{ block.settings.section_padding_bottom | default: 40 }}px;"
+        onclick="openVideoModal('{{ block.id }}')"
+      >
+        {% comment %} Video Thumbnail/Placeholder {% endcomment %}
+        <div class="t-relative t-w-full t-h-full t-rounded-lg t-overflow-hidden">
+          {% if block.settings.video_thumbnail %}
+            {% comment %} Custom thumbnail image {% endcomment %}
+            <img
+              src="{{ block.settings.video_thumbnail | img_url: '1280x720' }}"
+              alt="{{ block.settings.video_alt_text | default: 'Play video' }}"
+              class="t-w-full t-h-full t-object-cover"
+              loading="lazy"
+              width="1280"
+              height="720"
+            >
+            {% comment %} Dark overlay for better button visibility {% endcomment %}
+            <div class="t-absolute t-inset-0 t-bg-black t-bg-opacity-20"></div>
+          {% else %}
+            {% comment %} Default placeholder background {% endcomment %}
+            <div class="t-relative t-w-full t-h-full t-bg-gradient-to-br t-from-gray-400 t-to-gray-600">
+              {% comment %} Subtle pattern overlay {% endcomment %}
+              <div
+                class="t-absolute t-inset-0 t-opacity-20"
+                style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 20px 20px;"
+              ></div>
+            </div>
+          {% endif %}
+          {% comment %} Watch Button {% endcomment %}
+          <div class="t-absolute t-top-1/2 t-left-1/2 -t-translate-x-1/2 -t-translate-y-1/2 t-z-20 t-text-center t-mx-auto t-justify-center t-flex t-flex-col t-items-center t-pb-[20px] t-w-full">
+            <h3 class=" t-font-semibold t-text-white t-mb-2 t-opacity-80 lg:t-text-[36px] t-text-[20px] t-uppercase t-pb-[20px]">
+              {{ block.settings.video_title | default: 'Watch Our Video' }}
+            </h3>
+            <div
+              class=" t-group t-w-[120px] t-h-[44px] md:t-w-[140px] md:t-h-[50px] lg:t-w-[153px] lg:t-h-[56px] t-bg-white t-text-black t-flex t-items-center t-justify-center t-tracking-[1.28px] t-font-bold t-gap-[8px] md:t-gap-[10px] hover:t-bg-white hover:t-text-black t-transition-all t-duration-300 t-border-0"
+              role="button"
+              aria-label="Play Video"
+            >
+              <span class="t-text-sm md:t-text-base">{{ block.settings.watch_button_text | default: 'WATCH' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% comment %} Modal Overlay {% endcomment %}
+      <div
+        id="video-modal-{{ block.id }}"
+        class="t-fixed t-inset-0 t-bg-black t-bg-opacity-90 t-z-50 t-flex t-items-center t-justify-center t-opacity-0 t-invisible t-transition-all t-duration-300"
+        onclick="closeVideoModal('{{ block.id }}')"
+        style="z-index: 9999;"
+      >
+        {% comment %} Modal Content {% endcomment %}
+        <div class="t-relative t-w-full t-max-w-6xl t-mx-4 t-aspect-video" onclick="event.stopPropagation()">
+          {% comment %} Close button {% endcomment %}
+          <button
+            class="t-absolute -t-top-12 t-right-0 t-text-white t-text-2xl t-font-bold t-bg-black t-bg-opacity-50 t-rounded-full t-w-10 t-h-10 t-flex t-items-center t-justify-center hover:t-bg-opacity-70 t-transition-colors t-duration-200 t-z-10"
+            onclick="closeVideoModal('{{ block.id }}')"
+            aria-label="Close video"
+          >
+            ×
+          </button>
+          {% comment %} Video iframe container {% endcomment %}
+          <div
+            id="modal-video-container-{{ block.id }}"
+            class="t-w-full t-h-full t-bg-black t-rounded-lg t-overflow-hidden"
+          >
+            {% comment %} Video will be loaded here when modal opens {% endcomment %}
+          </div>
+        </div>
+      </div>
+      {% comment %} Setup instructions for editor {% endcomment %}
+      {% if video_url == blank %}
+        <div class="t-text-center t-py-4 t-text-gray-500 t-text-sm t-border-t t-border-gray-200 t-mt-4">
+          <p><strong>Setup Instructions:</strong> Add your Vimeo player URL in the section settings</p>
+          <p class="t-text-xs t-mt-1">Example: https://player.vimeo.com/video/1036482323?autoplay=1&muted=1</p>
+        </div>
+      {% endif %}
+      <script>
+        function openVideoModal(sectionId) {
+          const modal = document.getElementById(`video-modal-${sectionId}`);
+          const videoContainer = document.getElementById(`modal-video-container-${sectionId}`);
+          const videoUrl = '{{ video_url }}';
+          if (!videoUrl) {
+            console.warn('No video URL provided');
+            return;
+          }
+          // Create and insert iframe
+          const iframe = document.createElement('iframe');
+          iframe.src = videoUrl;
+          iframe.frameBorder = '0';
+          iframe.allow = 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media';
+          iframe.title = "{{ block.settings.video_title | default: 'Video' }}";
+          iframe.className = 't-w-full t-h-full';
+          iframe.allowFullscreen = true;
+          // Clear container and add iframe
+          videoContainer.innerHTML = '';
+          videoContainer.appendChild(iframe);
+          // Show modal
+          modal.classList.remove('t-opacity-0', 't-invisible');
+          modal.classList.add('t-opacity-100', 't-visible');
+          // Prevent body scroll
+          document.body.style.overflow = 'hidden';
+        }
+        function closeVideoModal(sectionId) {
+          const modal = document.getElementById(`video-modal-${sectionId}`);
+          const videoContainer = document.getElementById(`modal-video-container-${sectionId}`);
+          // Hide modal
+          modal.classList.remove('t-opacity-100', 't-visible');
+          modal.classList.add('t-opacity-0', 't-invisible');
+          // Remove iframe to stop video
+          setTimeout(() => {
+            videoContainer.innerHTML = '';
+          }, 300);
+          // Restore body scroll
+          document.body.style.overflow = '';
+        }
+        // Close modal with Escape key
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape') {
+            const modals = document.querySelectorAll('[id^="video-modal-"]');
+            modals.forEach((modal) => {
+              if (!modal.classList.contains('t-invisible')) {
+                const sectionId = modal.id.replace('video-modal-', '');
+                closeVideoModal(sectionId);
+              }
+            });
+          }
+        });
+      </script>
+      <style>
+        /* Enhanced hover effects - removed zoom */
+        .video-modal-section:hover .t-group {
+          background-color: white;
+          color: black;
+        }
+        /* Smooth transitions for interactive elements only */
+        .video-modal-section .t-group {
+          transition: all 0.3s ease;
+        }
+        /* Modal animations */
+        .t-visible {
+          visibility: visible !important;
+        }
+        /* Better focus states for accessibility */
+        .video-modal-section:focus-visible {
+          outline: 2px solid #4f46e5;
+          outline-offset: 2px;
+        }
+        /* Mobile responsiveness */
+        @media (max-width: 480px) {
+          .video-modal-section .t-w-[120px] {
+            width: 100px;
+            height: 38px;
+            font-size: 12px;
+          }
+          .video-modal-section .t-bottom-6 {
+            bottom: 1rem;
+          }
+        }
+        /* Ensure modal is above everything */
+        [id^='video-modal-'] {
+          z-index: 9999;
+        }
+      </style>
+
+    {% when 'top_picks' %}
+      <!-- Top Picks Block -->
+      {%- liquid
+        assign products = blank
+        if block.settings.use_collection and block.settings.collection != blank
+          assign products = block.settings.collection.products | limit: block.settings.max_items
+        else
+          assign block_products = section.blocks | where: 'type', 'product' | map: 'settings' | map: 'product' | compact
+          assign products = block_products
+        endif
+      -%}
+      {% if products.size == 0 %}
+        <div class="t-text-center t-py-8 t-text-gray-500">
+          {% if block.settings.use_collection and block.settings.collection == blank %}
+            <p>Please select a collection in the section settings.</p>
+          {% elsif block.settings.use_collection and block.settings.collection != blank %}
+            <p>The selected collection "{{ block.settings.collection.title }}" contains no products.</p>
+          {% else %}
+            <p>Please add product blocks or enable the collection option.</p>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if products.size > 0 %}
+        <div class=" t-max-w-[1308px] t-overflow-hidden t-mx-auto  t-px-0 lg:t-px-[20px] t-pt-[50px] t-pb-[30px]">
+          <div class="t-relative t-max-w-[1308px] t-mx-auto  t-h-[full] t-flex t-flex-col t-items-center t-justify-center t-mb-[30px] lg:t-mb-[60px] t-mt-[20px] ">
+            <h2 class="t-text-center t-font-bold t-text-header-3 t-uppercase t-leading-[1] t-text-[#333] t-mt-0 t-mb-[30px]">
+              {{ block.settings.title }}
+            </h2>
+            <!-- Arrows -->
+            <div class="arrows t-flex t-gap-[80px] t-items-center t-absolute t-right-[10%] t-top-1/2 t-translate-y-[-50%] t-hidden lg:t-flex">
+              <div
+                class="swiper-button-prev top-picks-prev t-text-black t-flex t-items-center t-justify-center transition t-text-[30px] "
+              ></div>
+              <div
+                class="swiper-button-next top-picks-next t-text-black t-flex t-items-center t-justify-center transition t-text-[30px]"
+              ></div>
+            </div>
+          </div>
+          <!-- Swiper Container -->
+          <div
+            id="product-slider"
+            class="swiper top-picks-swiper t-overflow-hidden t-px-[30px]"
+            data-desktop="{{ block.settings.items_per_view_desktop }}"
+          >
+            <div class="swiper-wrapper">
+              {% for product in products %}
+                <div class="swiper-slide">
+                  <a href="{{ product.url }}" class="t-block t-bg-white t-text-center t-h-full t-w-full t-no-underline">
+                    <!-- Product Image -->
+                    <div class="t-aspect-square t-bg-white t-mb-[20px] t-overflow-hidden">
+                      {% if product.featured_image %}
+                        <img
+                          src="{{ product.featured_image | image_url: width: 400 }}"
+                          alt="{{ product.title | escape }}"
+                          class="t-w-full t-h-full t-object-contain t-aspect-[4/5]"
+                          loading="lazy"
+                        >
+                      {% else %}
+                        <div class="t-w-full t-h-full t-bg-gray-100 t-flex t-items-center t-justify-center">
+                          <span class="t-text-gray-400 t-text-sm">No image</span>
+                        </div>
+                      {% endif %}
+                    </div>
+                    <!-- Product Title -->
+                    <h3 class="t-text-[18px] t-font-medium t-mb-[8px] t-text-black">
+                      {{ product.title }}
+                    </h3>
+                    <!-- Product Price -->
+                    <div class="t-text-[16px]">
+                      {% assign cap = product.compare_at_price | default: product.compare_at_price_max %}
+                      
+                      {%- comment -%} Check for custom sale price metafield {%- endcomment -%}
+                      {% assign custom_sale_price = product.metafields.custom.sale_price %}
+                      {% assign custom_sale_price_value = 0 %}
+                      {% assign formatted_custom_sale_price = '' %}
+                      {% if custom_sale_price %}
+                        {% assign custom_sale_price_raw = custom_sale_price.value | default: custom_sale_price %}
+                        {% if custom_sale_price_raw != blank %}
+                          {% assign custom_sale_price_string = custom_sale_price_raw | remove: '$' | remove: ',' | strip %}
+                          {% assign custom_sale_price_numeric = custom_sale_price_string | plus: 0.0 %}
+                          {% if custom_sale_price_numeric > 0 %}
+                            {% assign custom_sale_price_value = custom_sale_price_numeric | times: 100 | round %}
+                            {% assign formatted_custom_sale_price = '$' | append: custom_sale_price_string %}
+                          {% endif %}
+                        {% endif %}
+                      {% endif %}
+                      
+                      {% if custom_sale_price and custom_sale_price_value > 0 and custom_sale_price_value > product.price %}
+                        <span class="t-font-medium" style="color: #9e3223 !important;">{{ product.price | money }}</span>
+                        <s class="t-text-gray-500 t-line-through t-ml-[8px] t-text-[16px]">{{ formatted_custom_sale_price }}</s>
+                        {%- assign discount_amount = custom_sale_price_value | minus: product.price -%}
+                        {%- assign discount_percentage = discount_amount | times: 100.0 | divided_by: custom_sale_price_value | round -%}
+                        <span
+                          class="t-ms-[10px] badge price__badge-sale"
+                          style="display: inline-flex !important; background-color: #9E3223 !important; color: white !important; justify-content: center; align-items: center; padding: 10px 15px; border-radius: 0px; font-size: 12px; font-weight: 600; text-transform: uppercase; white-space: nowrap;"
+                        >
+                          -{{ discount_percentage }}% OFF
+                        </span>
+                      {% elsif cap > product.price %}
+                        <span class="t-text-red-600 t-font-medium">{{ product.price | money }}</span>
+                        <span class="t-text-gray-500 t-line-through t-ml-[8px]">{{ cap | money }}</span>
+                      {% else %}
+                        <span class="t-text-black t-font-medium">{{ product.price | money }}</span>
+                      {% endif %}
+                    </div>
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+            <!-- Custom Pagination host (Swiper will inject the track/indicator HTML here) -->
+            <div
+              class="top-picks-pagination swiper-pagination t-w-full t-max-w-full t-h-[4px] t-rounded-full t-bg-gray-200 t-relative t-overflow-hidden t-mx-auto t-z-[1] t-mt-[40px]"
+            ></div>
+          </div>
+        </div>
+        </div>
+      {% endif %}
+      <style>
+        /* Arrow styling (only top picks) */
+        .new-arrivals-prev,
+        .new-arrivals-next {
+          top: 0 !important;
+          bottom: auto !important;
+          transform: none !important;
+          margin-top: 0 !important;
+          position: relative;
+        }
+        @media (max-width: 1023px) {
+          .top-picks-prev,
+          .top-picks-next {
+            display: none !important;
+          }
+        }
+        .top-picks-prev,
+        .top-picks-next {
+          top: 0 !important;
+          bottom: auto !important;
+          transform: none !important;
+          margin-top: 0 !important;
+          position: relative;
+        }
+        @media (max-width: 1023px) {
+          .top-picks-prev,
+          .top-picks-next {
+            display: none !important;
+          }
+        }
+        /* Custom pagination visuals (match your New Arrivals look) */
+        .swiper-horizontal > .swiper-pagination-progressbar,
+        .swiper-pagination-progressbar.swiper-pagination-horizontal {
+          bottom: 0;
+          top: unset;
+        }
+        .top-picks-pagination.swiper-pagination {
+          height: 4px;
+          border-radius: 0px;
+        }
+        .swiper-pagination.swiper-pagination-horizontal {
+          margin: 0 auto;
+        }
+        .swiper-pagination-track {
+          position: relative;
+          background-color: #f3f4f6; /* light gray track */
+          width: 100%;
+          height: 100%;
+        }
+        .top-picks-pagination .swiper-pagination-indicator {
+          position: absolute;
+          top: 0;
+          height: 100%;
+          background-color: black !important; /* darker gray pill */
+          border-radius: 0;
+          transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+      </style>
+  {% endcase %}
+{% endfor %}
+
+{% schema %}
+{
+  "name": "Osprey Collection Page",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "hero_row",
+      "name": "Hero Row Section",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "row_reverse",
+          "label": "Reverse Row Layout",
+          "default": false,
+          "info": "Toggle to reverse the image and content positions"
+        },
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "hero_image",
+          "label": "Hero Image"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "hero_subtitle",
+          "label": "Subtitle",
+          "default": "Ultra-Premium Comfort"
+        },
+        {
+          "type": "text",
+          "id": "hero_title_part1",
+          "label": "Title Part 1",
+          "default": "Atmos"
+        },
+        {
+          "type": "text",
+          "id": "hero_title_sup1",
+          "label": "Title Superscript 1",
+          "default": "TM"
+        },
+        {
+          "type": "text",
+          "id": "hero_title_part2",
+          "label": "Title Part 2",
+          "default": "Aura"
+        },
+        {
+          "type": "text",
+          "id": "hero_title_sup2",
+          "label": "Title Superscript 2",
+          "default": "TM"
+        },
+        {
+          "type": "textarea",
+          "id": "hero_description",
+          "label": "Description",
+          "default": "Experience a seamless, wraparound fit with AntiGravityTM suspension and enhanced pocketing for all-day comfort on the trail."
+        },
+        {
+          "type": "text",
+          "id": "hero_button_text",
+          "label": "Button Text",
+          "default": "Shop Atmos | Aura"
+        },
+        {
+          "type": "url",
+          "id": "hero_button_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "hero_bg_color",
+          "label": "Background Color",
+          "default": "#f5f5f4"
+        },
+        {
+          "type": "color",
+          "id": "hero_text_color",
+          "label": "Text Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "hero_button_bg_color",
+          "label": "Button Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "hero_button_text_color",
+          "label": "Button Text Color",
+          "default": "#ffffff"
+        }
+      ]
+    },
+    {
+      "type": "technology_header",
+      "name": "Technology Header",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tech_subtitle",
+          "label": "Subtitle",
+          "default": "Comfort. Stability. Ventilation"
+        },
+        {
+          "type": "text",
+          "id": "tech_main_title",
+          "label": "Main Title",
+          "default": "Osprey Backpanel Technology"
+        },
+        {
+          "type": "color",
+          "id": "header_text_color",
+          "label": "Text Color",
+          "default": "#000000"
+        }
+      ]
+    },
+    {
+      "type": "technology_cards",
+      "name": "Technology Cards Section",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "tech_background_image",
+          "label": "Background Image"
+        },
+        {
+          "type": "color",
+          "id": "tech_section_bg_color",
+          "label": "Background Color (if no image)",
+          "default": "#ffffff"
+        }
+      ]
+    },
+    {
+      "type": "technology_card",
+      "name": "Technology Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tech_name_part1",
+          "label": "Technology Name Part 1",
+          "default": "Air"
+        },
+        {
+          "type": "text",
+          "id": "tech_name_part2",
+          "label": "Technology Name Part 2",
+          "default": "Scape"
+        },
+        {
+          "type": "text",
+          "id": "tech_name_sup",
+          "label": "Technology Name Superscript",
+          "default": "TM"
+        },
+        {
+          "type": "liquid",
+          "id": "svg_code",
+          "label": "SVG Code",
+          "info": "Paste your SVG code here"
+        },
+        {
+          "type": "textarea",
+          "id": "tech_description",
+          "label": "Description"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "card_bg_color",
+          "label": "Card Background Color",
+          "default": "#313133"
+        },
+        {
+          "type": "color",
+          "id": "card_text_color",
+          "label": "Card Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "card_accent_color",
+          "label": "Card Accent/Border Color",
+          "default": "#ffffff"
+        }
+      ]
+    },
+    {
+      "type": "bluesign_section",
+      "name": "Bluesign Section",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "bluesign_logo",
+          "label": "Bluesign Logo"
+        },
+        {
+          "type": "image_picker",
+          "id": "bluesign_bg_image",
+          "label": "Background Image"
+        },
+        {
+          "type": "textarea",
+          "id": "bluesign_description",
+          "label": "Description",
+          "default": "Consumer products carrying the bluesign® PRODUCT label meet the strict safety and environmental requirements of the bluesign® CRITERIA, as a whole. These products are made of bluesign® APPROVED fabric and components and are produced in a resource-conserving way to lower the impact on people and the environment."
+        },
+        {
+          "type": "text",
+          "id": "bluesign_button_text",
+          "label": "Button Text",
+          "default": "LEARN MORE ABOUT bluesign® PRODUCTS"
+        },
+        {
+          "type": "url",
+          "id": "bluesign_button_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "bluesign_section_bg_color",
+          "label": "Background Color (if no image)",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "bluesign_text_color",
+          "label": "Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "bluesign_button_text_color",
+          "label": "Button Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "bluesign_button_border_color",
+          "label": "Button Border Color",
+          "default": "#ffffff"
+        }
+      ]
+    },
+    {
+      "type": "parallax_image",
+      "name": "Parallax Image Section",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "cta_bg_mobile",
+          "label": "Mobile Background Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "cta_bg_desktop",
+          "label": "Desktop Background Image"
+        },
+        {
+          "type": "text",
+          "id": "cta_title",
+          "label": "Section Title",
+          "default": "this is the title"
+        },
+        {
+          "type": "text",
+          "id": "cta_button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "cta_button_url",
+          "label": "Button Link"
+        }
+      ]
+    },
+    {
+      "type": "two_column_overlap",
+      "name": "Two Column Overlap Layout",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Images"
+        },
+        {
+          "type": "image_picker",
+          "id": "portrait_image",
+          "label": "Portrait Image",
+          "info": "Main tall image on the left side. Recommended: 800x1000px or similar portrait ratio"
+        },
+        {
+          "type": "image_picker",
+          "id": "landscape_image",
+          "label": "Landscape Image",
+          "info": "Overlapping image on bottom right. Recommended: 600x400px or similar landscape ratio"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "pretitle_line1",
+          "label": "Pre-title Line 1",
+          "info": "First line of the pre-title (leave empty to hide)"
+        },
+        {
+          "type": "text",
+          "id": "pretitle_line2",
+          "label": "Pre-title Line 2",
+          "info": "Second line of the pre-title (leave empty to hide)"
+        },
+        {
+          "type": "text",
+          "id": "main_pretitle",
+          "label": "Main Pre-title",
+          "info": "Leave empty to use pretitle_line1 and pretitle_line2"
+        },
+        {
+          "type": "text",
+          "id": "main_title",
+          "label": "Main Title",
+          "default": "THE bluesign® SYSTEM"
+        },
+        {
+          "type": "richtext",
+          "id": "main_description",
+          "label": "Description",
+          "default": "<p>With its holistic approach based on Input Stream Management, the bluesign SYSTEM reduces the impact on people and on the environment, ensures responsible use of resources and guarantees a high level of consumer safety.</p><p>It avoids harmful substances that pose a risk to people and the environment at each step of the supply chain. It also ensures approved chemical products and raw materials are used throughout the value chain.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "info": "Leave empty to hide the button"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button Link"
+        }
+      ]
+    },
+    {
+      "type": "two_column_info",
+      "name": "Two Column Info Sections",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Left Column Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_1",
+          "label": "Left Column Heading",
+          "default": "Women's Fit"
+        },
+        {
+          "type": "liquid",
+          "id": "icon_1",
+          "label": "Left Column Icon"
+        },
+        {
+          "type": "textarea",
+          "id": "description_1",
+          "label": "Left Column Description",
+          "default": "Column Description"
+        },
+        {
+          "type": "url",
+          "id": "link_1",
+          "label": "Left Column Link"
+        },
+        {
+          "type": "text",
+          "id": "link_text_1",
+          "label": "Left Column Link Text",
+          "default": "Shop Women's Packs"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Right Column Image"
+        },
+        {
+          "type": "text",
+          "id": "heading_2",
+          "label": "Right Column Heading",
+          "default": "Men's Fit"
+        },
+        {
+          "type": "liquid",
+          "id": "icon_2",
+          "label": "Right Column Icon"
+        },
+        {
+          "type": "textarea",
+          "id": "description_2",
+          "label": "Right Column Description",
+          "default": "Description 2"
+        },
+        {
+          "type": "url",
+          "id": "link_2",
+          "label": "Right Column Link"
+        },
+        {
+          "type": "text",
+          "id": "link_text_2",
+          "label": "Right Column Link Text",
+          "default": "Shop EF Packs"
+        }
+      ]
+    },
+    {
+      "type": "modal_video",
+      "name": "Modal Video Section",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_title",
+          "label": "Video Title",
+          "default": "Watch Our Video",
+          "info": "This title appears on the video thumbnail"
+        },
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Vimeo Player URL",
+          "info": "Enter the full Vimeo player URL (e.g., https://player.vimeo.com/video/1036482323?autoplay=1&muted=1)",
+          "placeholder": "https://player.vimeo.com/video/1036482323?autoplay=1&muted=1"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_thumbnail",
+          "label": "Video Thumbnail",
+          "info": "Upload a custom thumbnail image. If not provided, a default placeholder will be shown."
+        },
+        {
+          "type": "text",
+          "id": "video_alt_text",
+          "label": "Thumbnail Alt Text",
+          "default": "Play video",
+          "info": "Describe the video thumbnail for accessibility"
+        },
+        {
+          "type": "text",
+          "id": "watch_button_text",
+          "label": "Watch Button Text",
+          "default": "WATCH",
+          "info": "Text that appears on the watch button"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "label": "Section Padding Top",
+          "min": 0,
+          "max": 200,
+          "step": 4,
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "label": "Section Padding Bottom",
+          "min": 0,
+          "max": 200,
+          "step": 4,
+          "default": 40
+        }
+      ]
+    },
+    {
+      "type": "top_picks",
+      "name": "Top Picks",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Top Picks"
+        },
+        {
+          "type": "range",
+          "id": "items_per_view_desktop",
+          "label": "Items per view (Desktop)",
+          "min": 3,
+          "max": 5,
+          "step": 1,
+          "default": 4
+        },
+        {
+          "type": "range",
+          "id": "max_items",
+          "label": "Maximum items to show",
+          "min": 4,
+          "max": 20,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "checkbox",
+          "id": "use_collection",
+          "label": "Use collection products",
+          "default": true
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Osprey Collection Page",
+      "category": "Collections",
+      "blocks": [
+        {
+          "type": "two_column_overlap"
+        },
+        {
+          "type": "top_picks"
+        },
+        {
+          "type": "modal_video"
+        },
+        {
+          "type": "technology_header"
+        },
+        {
+          "type": "technology_cards"
+        },
+        {
+          "type": "technology_card",
+          "settings": {
+            "tech_name_part1": "Air",
+            "tech_name_part2": "Scape",
+            "tech_name_sup": "TM",
+            "card_bg_color": "#313133",
+            "tech_description": "Built for those who value stability and dynamic movement, AirScape keeps the pack close to the body for a balanced, secure fit"
+          }
+        },
+        {
+          "type": "technology_card",
+          "settings": {
+            "tech_name_part1": "Air",
+            "tech_name_part2": "Speed",
+            "tech_name_sup": "TM",
+            "card_bg_color": "#454341",
+            "tech_description": "Designed for warm-weather adventures, AirSpeed features a suspended trampoline mesh backpanel that maximizes airflow to keep you cool."
+          }
+        },
+        {
+          "type": "technology_card",
+          "settings": {
+            "tech_name_part1": "Anti",
+            "tech_name_part2": "Gravity",
+            "tech_name_sup": "TM",
+            "card_bg_color": "#4D4433",
+            "tech_description": "AntiGravity takes AirSpeed to the next level, offering a continuous backpanel of lightweight mesh that contours to your body for superior comfort."
+          }
+        },
+
+        {
+          "type": "hero_row"
+        },
+        {
+          "type": "two_column_info"
+        },
+        {
+          "type": "bluesign_section"
+        },
+        {
+          "type": "parallax_image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

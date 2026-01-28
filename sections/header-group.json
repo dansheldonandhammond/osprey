@@ -17,15 +17,16 @@
         "announcement_fjyACR": {
           "type": "announcement",
           "settings": {
-            "richtext": "<p>Free Shipping <a href=\"/shipping/\" title=\"/shipping/\">See Details</a></p>",
-            "link": ""
+            "richtext": "<p>Free shipping for orders over $99</p>",
+            "link": "shopify://policies/shipping-policy"
           }
         },
         "announcement-bar-0": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
-            "richtext": "<p>Our New Arrivals are here! <a href=\"/collections\" title=\"All collections\">Shop Now</a></p>",
-            "link": ""
+            "richtext": "<p>Get 30% off on all Farpoint | Fairview with code: GOFAR30AU</p>",
+            "link": "shopify://collections/farpoint-fairview"
           }
         }
       },
@@ -40,11 +41,100 @@
         "show_line_separator": false,
         "show_social": false,
         "enable_country_selector": false,
-        "enable_language_selector": false
+        "enable_language_selector": false,
+        "banner_customer_service_text": "Customer Support",
+        "banner_customer_service_link": "https://sheldonandhammondau.kustomer.help/",
+        "storelocator_text": "Find a Store"
       }
     },
     "header": {
       "type": "header",
+      "blocks": {
+        "menu_UEfJJQ": {
+          "type": "menu",
+          "settings": {
+            "link_only": true,
+            "menu": "main-menu",
+            "menu_label": "New Season",
+            "shop_all_url": "shopify://collections/new-arrivals",
+            "shop_all_text": "Shop All"
+          }
+        },
+        "menu_UTJdMR": {
+          "type": "menu",
+          "settings": {
+            "link_only": false,
+            "menu": "backpacks-bags",
+            "menu_label": "",
+            "menu_image": "shopify://shop_images/HOOSUS-2231-backpacks-d_1.webp",
+            "shop_all_url": "https://ospreyaustralia.com.au/collections/outdoor-packs",
+            "shop_all_text": "Shop All"
+          }
+        },
+        "menu_9MRXFq": {
+          "type": "menu",
+          "settings": {
+            "link_only": false,
+            "menu": "travel",
+            "menu_label": "",
+            "menu_image": "shopify://shop_images/HOOSUS-2231-travel-d.jpg",
+            "shop_all_url": "",
+            "shop_all_text": "Shop All"
+          }
+        },
+        "menu_43fRir": {
+          "type": "menu",
+          "settings": {
+            "link_only": false,
+            "menu": "accessories",
+            "menu_label": "",
+            "menu_image": "shopify://shop_images/HOOSUS-2231-accessories-d.jpg",
+            "shop_all_url": "shopify://collections/accessories",
+            "shop_all_text": "Shop All"
+          }
+        },
+        "menu_87mca6": {
+          "type": "menu",
+          "settings": {
+            "link_only": false,
+            "menu": "featured",
+            "menu_label": "",
+            "menu_image": "shopify://shop_images/HOOSUS-2231-featured-d.jpg",
+            "shop_all_url": "",
+            "shop_all_text": "Shop All"
+          }
+        },
+        "menu_cUr4hm": {
+          "type": "menu",
+          "settings": {
+            "link_only": true,
+            "menu": "",
+            "menu_label": "",
+            "shop_all_url": "shopify://collections/sale",
+            "shop_all_text": "Shop All"
+          }
+        },
+        "menu_LhXRKy": {
+          "type": "menu",
+          "settings": {
+            "link_only": false,
+            "menu": "explore",
+            "menu_label": "",
+            "menu_image": "shopify://shop_images/HOOSUS-2231-backpacks-d_1.webp",
+            "shop_all_url": "",
+            "shop_all_text": "Shop All"
+          }
+        }
+      },
+      "block_order": [
+        "menu_UEfJJQ",
+        "menu_UTJdMR",
+        "menu_9MRXFq",
+        "menu_43fRir",
+        "menu_87mca6",
+        "menu_cUr4hm",
+        "menu_LhXRKy"
+      ],
       "custom_css": [
         "#main-menu {background: transparent;}"
       ],
@@ -54,6 +144,7 @@
         "menu": "main-menu",
         "menu_type_desktop": "drawer",
         "sticky_header_type": "on-scroll-up",
+        "header_position": "normal",
         "show_line_separator": false,
         "color_scheme": "scheme-3",
         "menu_color_scheme": "scheme-1",
@@ -64,22 +155,10 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
-    },
-    "header_override_6ez3fM": {
-      "type": "header-override",
-      "name": "Header Override",
-      "settings": {
-        "override_enabled": true,
-        "header_position": "relative",
-        "header_background": "black",
-        "navigation_text_colour": "white",
-        "bottom_border_colour": "transparent"
-      }
     }
   },
   "order": [
     "announcement-bar",
-    "header",
-    "header_override_6ez3fM"
+    "header"
   ]
 }

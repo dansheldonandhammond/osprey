@@ -1,0 +1,244 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header_override_YQY9jJ": {
+      "type": "header-override",
+      "settings": {
+        "override_enabled": true,
+        "header_position": "relative",
+        "header_background": "black",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "transparent"
+      }
+    },
+    "collection_2_columns_T7qAaJ": {
+      "type": "Collection_2_columns",
+      "name": "Banner Section",
+      "settings": {
+        "banner_layout": "one_column",
+        "banner_image_heading": "",
+        "subheading_text": "",
+        "subheading_background_colour": "",
+        "banner_image_url": "{{ collection.image }}",
+        "alt_text": "{{ collection.title }} Banner image",
+        "banner_image_x_axis": 50,
+        "banner_image_y_axis": 50,
+        "banner_text_center": true,
+        "control_banner_image_height": false,
+        "banner_image_height": 500,
+        "banner_border_bottom": false,
+        "banner_overlay": true,
+        "button_bg_colour": "white",
+        "button_text_colour": "black",
+        "banner_background_colour": "black",
+        "banner_text_colour": "white"
+      }
+    },
+    "2_col_img_overlap_AGQz7R": {
+      "type": "2-col-img-overlap",
+      "name": "Two Column Overlap Layout",
+      "settings": {
+        "button_text": "",
+        "button_url": "",
+        "portrait_image": "shopify://shop_images/hoosus_2456_collageleft_d.webp",
+        "landscape_image": "shopify://shop_images/hoosus_2456_collageright_d.webp",
+        "pretitle_line1": "Explore Spontaneously",
+        "pretitle_line2": "",
+        "main_title": "FARPOINT | FAIRVIEW",
+        "main_description": "<p>Compared to traditional luggage, travel packs deliver freedom. Freedom to move nimbly and seek adventure. Our Farpoint/Fairview Family blurs the line between technical backpacks and travel luggage, providing feature-rich solutions with tangible benefits like smart organization and ease of packing. In addition, they are lightweight and comfortable to carry whether wheeled or worn on your back.</p>"
+      }
+    },
+    "video_section_3iqmwf": {
+      "type": "video-section",
+      "name": "Modal Video Section",
+      "settings": {
+        "video_title": "Watch Our Video",
+        "video_url": "https://player.vimeo.com/video/1008595840?h=9ded392a85&badge=0&autopause=1&player_id=0&app_id=58479&dnt=true",
+        "video_thumbnail": "shopify://shop_images/video-holder_hoosus-1440.jpg",
+        "video_alt_text": "Play video",
+        "watch_button_text": "WATCH",
+        "section_padding_top": 40,
+        "section_padding_bottom": 40
+      }
+    },
+    "aether_ariel_4VgkEX": {
+      "type": "aether-ariel",
+      "blocks": {
+        "two_column_rFE4Dp": {
+          "type": "two_column",
+          "settings": {
+            "heading": "Farpoint | FairviewTravel Pack",
+            "text": "<p>Available volumes</p><p>Men's <strong>Farpoint Travel Pack </strong><a href=\"https://ospreyaustralia.com.au/products/fairview-40?variant=42483735560259\" title=\"https://ospreyaustralia.com.au/products/fairview-40?variant=42483735560259\"><strong>40 L</strong></a><strong> | </strong><a href=\"https://ospreyaustralia.com.au/products/fairview-55?variant=42423463903299\" title=\"https://ospreyaustralia.com.au/products/fairview-55?variant=42423463903299\"><strong>55 L</strong></a><strong> | </strong><a href=\"https://ospreyaustralia.com.au/products/farpoint-70?_pos=4&_psq=farpoint&_ss=e&_v=1.0&variant=42423463542851\" title=\"https://ospreyaustralia.com.au/products/farpoint-70?_pos=4&_psq=farpoint&_ss=e&_v=1.0&variant=42423463542851\"><strong>70 L</strong></a><strong>*</strong></p><p>Women's <strong>Fairview Travel Pack </strong><a href=\"https://ospreyaustralia.com.au/products/fairview-40?variant=42483735560259\" title=\"https://ospreyaustralia.com.au/products/fairview-40?variant=42483735560259\"><strong>40 L</strong></a><strong> | </strong><a href=\"https://ospreyaustralia.com.au/products/fairview-55?variant=42423463903299\" title=\"https://ospreyaustralia.com.au/products/fairview-55?variant=42423463903299\"><strong>55 L</strong></a><strong> | </strong><a href=\"https://ospreyaustralia.com.au/products/farpoint-70\" title=\"https://ospreyaustralia.com.au/products/farpoint-70\"><strong>70 L</strong></a><strong>*</strong></p><p>(Carry-on*)</p><p>Lightweight and sophisticated, the best-selling Farpoint/Fairview Travel Pack series combines a precise gender-specific fit with stable, supportive suspension for world-class comfort. Embark on bucket list adventures with convenient travel features, dialed organization, lasting durability and a detachable daypack for side quests on your journey (daypack included with 55 L and 70 L only).</p>",
+            "image": "shopify://shop_images/grid-info1_hoosus-1440.webp",
+            "reverse_layout": true,
+            "heading_font_weight": "700",
+            "heading_margin_top": 0,
+            "heading_margin_bottom": 20,
+            "heading_margin_left": 0,
+            "heading_margin_right": 0,
+            "text_margin_top": 0,
+            "text_margin_bottom": 0,
+            "text_margin_left": 0,
+            "text_margin_right": 0,
+            "heading_color": "#000000",
+            "text_color": "#000000"
+          }
+        },
+        "two_column_TWxLRP": {
+          "type": "two_column",
+          "settings": {
+            "heading": "Farpoint | FairviewTrek",
+            "text": "<p>Available volumes</p><p>Men's <strong>Farpoint Trek </strong><a href=\"https://ospreyaustralia.com.au/products/farpoint-trek-pack-75?_pos=1&_psq=Farpoint%E2%84%A2+Trek+75&_ss=e&_v=1.0&variant=42423464132675\" title=\"https://ospreyaustralia.com.au/products/farpoint-trek-pack-75?_pos=1&_psq=Farpoint%E2%84%A2+Trek+75&_ss=e&_v=1.0&variant=42423464132675\"><strong>75 L</strong></a><strong> | </strong><a href=\"https://ospreyaustralia.com.au/products/farpoint-trek-pack-55?_pos=4&_psq=55&_ss=e&_v=1.0&variant=42423464165443\" title=\"https://ospreyaustralia.com.au/products/farpoint-trek-pack-55?_pos=4&_psq=55&_ss=e&_v=1.0&variant=42423464165443\"><strong>55 L</strong></a></p><p>Women's <strong>Fairview Trek </strong><a href=\"https://ospreyaustralia.com.au/products/fairview-trek-pack-70?_pos=5&_psq=70&_ss=e&_v=1.0\" title=\"https://ospreyaustralia.com.au/products/fairview-trek-pack-70?_pos=5&_psq=70&_ss=e&_v=1.0\"><strong>70 L</strong></a><strong> | </strong><a href=\"https://ospreyaustralia.com.au/products/fairview-trek-pack-50?_pos=2&_psq=Fairview+Trek&_ss=e&_v=1.0&variant=42423464230979\" title=\"https://ospreyaustralia.com.au/products/fairview-trek-pack-50?_pos=2&_psq=Fairview+Trek&_ss=e&_v=1.0&variant=42423464230979\"><strong>50 L</strong></a></p><p>The Farpoint/Fairview Trek Series is purpose-built for adventure travel that involves extended time on the trail. With smart organization that makes it easy to find your gear, a highly ventilated AirSpeed backpanel for humid climates and an easily adjustable suspension for the perfect fit, there’s no better option.</p>",
+            "image": "shopify://shop_images/grid-info2_hoosus-1440.jpg",
+            "reverse_layout": false,
+            "heading_font_weight": "700",
+            "heading_margin_top": 0,
+            "heading_margin_bottom": 20,
+            "heading_margin_left": 0,
+            "heading_margin_right": 0,
+            "text_margin_top": 0,
+            "text_margin_bottom": 0,
+            "text_margin_left": 0,
+            "text_margin_right": 0,
+            "heading_color": "#000000",
+            "text_color": "#000000"
+          }
+        },
+        "two_column_WH6BQN": {
+          "type": "two_column",
+          "settings": {
+            "heading": "Farpoint | Fairview Wheeled Travel Pack",
+            "text": "<p>Available volumes</p><p>Men's <strong>Farpoint Wheeled </strong><a href=\"https://ospreyaustralia.com.au/products/farpoint-wheeled-travel-pack-65\" title=\"https://ospreyaustralia.com.au/products/farpoint-wheeled-travel-pack-65\"><strong>65 L</strong></a><strong> | </strong><a href=\"https://ospreyaustralia.com.au/products/farpoint-wheeled-travel-pack-36?_pos=4&_psq=36&_ss=e&_v=1.0&variant=42423464460355\" title=\"https://ospreyaustralia.com.au/products/farpoint-wheeled-travel-pack-36?_pos=4&_psq=36&_ss=e&_v=1.0&variant=42423464460355\"><strong>36 L</strong></a><strong>*</strong></p><p>(Carry-on*)</p><p>Frequent fliers will appreciate this sleek, full-featured carry-on laptop pack made with durable, ultralight materials. A breathable AirScape™ backpanel with trolley pass-through ensures carry comfort while thoughtful pocketing and a direct zip, padded laptop sleeve keep your travel essentials easily accessible.</p>",
+            "image": "shopify://shop_images/grid-info3_hoosus-1440.webp",
+            "reverse_layout": true,
+            "heading_font_weight": "700",
+            "heading_margin_top": 0,
+            "heading_margin_bottom": 20,
+            "heading_margin_left": 0,
+            "heading_margin_right": 0,
+            "text_margin_top": 0,
+            "text_margin_bottom": 0,
+            "text_margin_left": 0,
+            "text_margin_right": 0,
+            "heading_color": "#000000",
+            "text_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "two_column_rFE4Dp",
+        "two_column_TWxLRP",
+        "two_column_WH6BQN"
+      ],
+      "name": "Aether-Ariel",
+      "settings": {}
+    },
+    "aether_ariel_GpLGi4": {
+      "type": "aether-ariel",
+      "blocks": {
+        "parallax_wGRFmQ": {
+          "type": "parallax",
+          "settings": {
+            "viewport_height": 70,
+            "background_image": "shopify://shop_images/parallax_hoosus-1440.webp",
+            "bg_position_mobile": "center center",
+            "bg_position_desktop": "right center",
+            "overlay_opacity": 30,
+            "heading": "Agile and purpose-built for adventure",
+            "text_color": "#ffffff",
+            "text_size_mobile": 28,
+            "text_size_desktop": 38,
+            "font_weight": "600",
+            "letter_spacing": 1
+          }
+        }
+      },
+      "block_order": [
+        "parallax_wGRFmQ"
+      ],
+      "name": "Aether-Ariel",
+      "settings": {}
+    },
+    "collection_page_blocks_8nUFJA": {
+      "type": "collection-page-blocks",
+      "blocks": {
+        "bluesign_section_iTTiDn": {
+          "type": "bluesign_section",
+          "settings": {
+            "bluesign_logo": "shopify://shop_images/bluesign_product_RGB_1.jpg",
+            "bluesign_bg_image": "shopify://shop_images/hero-bludesign-hoosus-673.jpg",
+            "bluesign_description": "Consumer products carrying the bluesign® PRODUCT label meet the strict safety and environmental requirements of the bluesign® CRITERIA, as a whole. These products are made of bluesign® APPROVED fabric and components and are produced in a resource-conserving way to lower the impact on people and the environment.",
+            "bluesign_button_text": "LEARN MORE ABOUT bluesign® PRODUCTS",
+            "bluesign_button_url": "shopify://pages/bluesign®",
+            "bluesign_section_bg_color": "#000000",
+            "bluesign_text_color": "#ffffff",
+            "bluesign_button_text_color": "#ffffff",
+            "bluesign_button_border_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "bluesign_section_iTTiDn"
+      ],
+      "name": "Osprey Collection Page",
+      "settings": {}
+    },
+    "breadcrumbs_wXfkMU": {
+      "type": "breadcrumbs",
+      "settings": {
+        "bg_color": "#ffffff",
+        "text_color": "#000000"
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "enable_load_more": true,
+        "products_per_page": 16,
+        "columns_desktop": 3,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "enable_filtering": true,
+        "filter_type": "vertical",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "header_override_YQY9jJ",
+    "collection_2_columns_T7qAaJ",
+    "2_col_img_overlap_AGQz7R",
+    "video_section_3iqmwf",
+    "aether_ariel_4VgkEX",
+    "aether_ariel_GpLGi4",
+    "collection_page_blocks_8nUFJA",
+    "breadcrumbs_wXfkMU",
+    "banner",
+    "product-grid"
+  ]
+}

@@ -1,0 +1,238 @@
+{% schema %}
+{
+  "name": "Newsletter Signup",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "sign up here to get the very first launch notification."
+    },
+    {
+      "type": "text",
+      "id": "mailchimp_action_url",
+      "label": "Mailchimp Form Action URL",
+      "info": "Full Mailchimp form action URL from your embed code"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder Text",
+      "default": "Your Email Here"
+    },
+    {
+      "type": "text",
+      "id": "submit_text",
+      "label": "Submit Button Text",
+      "default": "SIGN-UP"
+    },
+    {
+      "type": "text",
+      "id": "consent_text",
+      "label": "Consent Text",
+      "default": "By providing your email, you agree to receive marketing emails from Osprey Packs. You may unsubscribe at any time."
+    },
+    {
+      "type": "richtext",
+      "id": "disclaimer_text",
+      "label": "Disclaimer Text",
+      "default": "<p>By submitting this form and signing up for texts, you consent to receive marketing text messages (e.g. promos, cart reminders) from Osprey Packs at the number provided, including messages sent by autodialer. Consent is not a condition of purchase. Msg & data rates may apply. Msg frequency varies. Unsubscribe at any time by replying STOP or clicking the unsubscribe link (where available). <a href='#'>Privacy Policy</a> & <a href='#'>Terms</a>.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter Signup",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="newsletter-signup t-py-[50px]">
+  <h3 class="newsletter-heading">
+    {{ section.settings.heading }}
+  </h3>
+
+  <form
+    action="{{ section.settings.mailchimp_action_url }}"
+    method="post"
+    id="mc-embedded-subscribe-form"
+    name="mc-embedded-subscribe-form"
+    class="newsletter-form validate"
+    target="_blank"
+    novalidate
+  >
+    <div id="mc_embed_signup_scroll-page">
+      <div class="email-input-container">
+        <input
+          type="email"
+          name="EMAIL"
+          id="mce-EMAIL-page-hero"
+          class="email-input required email"
+          placeholder="{{ section.settings.email_placeholder }}"
+          tabindex="0"
+          aria-label="{{ section.settings.email_placeholder }}"
+          aria-required="true"
+          required
+          autocomplete="email"
+        >
+      </div>
+
+      <div class="consent-container">
+        <input type="checkbox" id="consent-checkbox-page" class="consent-checkbox" required>
+        <label for="consent-checkbox" class="consent-label">
+          {{ section.settings.consent_text }}
+        </label>
+      </div>
+
+      <div class="disclaimer-text">
+        {{ section.settings.disclaimer_text }}
+      </div>
+
+      <!-- Mailchimp response messages -->
+      <div id="mce-responses-page-hero" class="clear">
+        <div class="response" id="mce-error-response-page-hero" style="display:none"></div>
+        <div class="response" id="mce-success-response-page-hero" style="display:none"></div>
+      </div>
+
+      <!-- Bot prevention field (do not remove) -->
+      <div style="position: absolute; left: -5000px;" aria-hidden="true">
+        <input type="text" name="b_edc6e57443056e21d04674ef0_ac018335f4" tabindex="-1" value="">
+      </div>
+
+      <input
+        type="submit"
+        name="subscribe"
+        id="mc-embedded-subscribe-page-hero"
+        class="submit-button"
+        value="{{ section.settings.submit_text }}"
+      >
+    </div>
+  </form>
+</div>
+
+<style>
+  .newsletter-signup {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    color: #333;
+    text-align: center;
+  }
+
+  .newsletter-heading {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 25px;
+    text-align: center;
+    text-transform: none;
+    color: #333;
+  }
+
+  .email-input-container {
+    margin-bottom: 20px;
+  }
+
+  .email-input {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: #999;
+    box-sizing: border-box;
+    border-radius: 2px;
+  }
+
+  .email-input::placeholder {
+    color: #aaa;
+  }
+
+  .consent-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .consent-checkbox {
+    margin-right: 10px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .consent-label {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #555;
+  }
+
+  .disclaimer-text {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #777;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .disclaimer-text a {
+    color: #333;
+    text-decoration: underline;
+  }
+
+  .submit-button {
+    width: 100%;
+    max-width: 300px;
+    padding: 18px 40px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    letter-spacing: 1px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .submit-button:hover {
+    background-color: #222;
+  }
+
+  /* Mailchimp response styling */
+  #mce-responses {
+    margin: 15px 0;
+  }
+
+  .response {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+  }
+
+  #mce-error-response {
+    background-color: #ffe6e6;
+    color: #c00;
+    border: 1px solid #fcc;
+  }
+
+  #mce-success-response {
+    background-color: #e6ffe6;
+    color: #0c0;
+    border: 1px solid #cfc;
+  }
+</style>
+
+<script type="text/javascript">
+  (function ($) {
+    window.fnames = new Array();
+    window.ftypes = new Array();
+    fnames[0] = 'EMAIL';
+    ftypes[0] = 'email';
+  })(jQuery);
+  var $mcj = jQuery.noConflict(true);
+</script>

@@ -142,13 +142,23 @@ class FacetFiltersForm extends HTMLElement {
           const { className: previousElementClassName, id: previousElementId } = facetsToRender[index - 1];
           // Same facet type (eg horizontal/vertical or drawer/mobile)
           if (elementToRender.className === previousElementClassName) {
-            document.getElementById(previousElementId).after(elementToRender);
+            const previousElement = document.getElementById(previousElementId);
+            if (previousElement) {
+              previousElement.after(elementToRender);
+            } else {
+              console.warn('Facets: Previous element not found for insertion, skipping');
+            }
             return;
           }
         }
 
         if (elementToRender.parentElement) {
-          document.querySelector(`#${elementToRender.parentElement.id} .js-filter`).before(elementToRender);
+          const targetElement = document.querySelector(`#${elementToRender.parentElement.id} .js-filter`);
+          if (targetElement) {
+            targetElement.before(elementToRender);
+          } else {
+            console.warn('Facets: Target element not found for insertion, skipping');
+          }
         }
       }
     });
@@ -157,10 +167,17 @@ class FacetFiltersForm extends HTMLElement {
     FacetFiltersForm.renderAdditionalElements(parsedHTML);
 
     if (countsToRender) {
-      const closestJSFilterID = event.target.closest('.js-filter').id;
+      const closestJSFilter = event.target.closest('.js-filter');
+      
+      if (!closestJSFilter) {
+        console.warn('FacetFiltersForm: No .js-filter found for event target, skipping count rendering');
+        return;
+      }
+      
+      const closestJSFilterID = closestJSFilter.id;
 
       if (closestJSFilterID) {
-        FacetFiltersForm.renderCounts(countsToRender, event.target.closest('.js-filter'));
+        FacetFiltersForm.renderCounts(countsToRender, closestJSFilter);
         FacetFiltersForm.renderMobileCounts(countsToRender, document.getElementById(closestJSFilterID));
 
         const newFacetDetailsElement = document.getElementById(closestJSFilterID);
@@ -169,7 +186,7 @@ class FacetFiltersForm extends HTMLElement {
           : `.facets__summary`;
         const newElementToActivate = newFacetDetailsElement.querySelector(newElementSelector);
 
-        const isTextInput = event.target.getAttribute('type') === 'text';
+        const isTextInput = event && event.target ? event.target.getAttribute('type') === 'text' : false;
 
         if (newElementToActivate && !isTextInput) newElementToActivate.focus();
       }
@@ -261,13 +278,40 @@ class FacetFiltersForm extends HTMLElement {
 
   onSubmitHandler(event) {
     event.preventDefault();
+    
+    // Check if main search is updating to prevent conflicts
+    if (window.mainSearchUpdating) {
+      console.warn('FacetFiltersForm: Main search is updating, skipping facet submit');
+      return;
+    }
+    
+    // Add safety checks to prevent errors during DOM updates
+    if (!event || !event.target) {
+      console.warn('FacetFiltersForm: Invalid event or event target, skipping submit handler');
+      return;
+    }
+    
+    // Check if the target element is still connected to the DOM
+    if (!event.target.isConnected) {
+      console.warn('FacetFiltersForm: Event target is disconnected from DOM, skipping submit handler');
+      return;
+    }
+    
     const sortFilterForms = document.querySelectorAll('facet-filters-form form');
+    
+    // Add null checks to prevent errors when DOM elements are being replaced
+    const targetForm = event.target.closest('form');
+    if (!targetForm) {
+      console.warn('FacetFiltersForm: No form found for event target, skipping submit handler');
+      return;
+    }
+    
     if (event.srcElement.className == 'mobile-facets__checkbox') {
-      const searchParams = this.createSearchParams(event.target.closest('form'));
+      const searchParams = this.createSearchParams(targetForm);
       this.onSubmitForm(searchParams, event);
     } else {
       const forms = [];
-      const isMobile = event.target.closest('form').id === 'FacetFiltersFormMobile';
+      const isMobile = targetForm.id === 'FacetFiltersFormMobile';
 
       sortFilterForms.forEach((form) => {
         if (!isMobile) {
@@ -284,6 +328,19 @@ class FacetFiltersForm extends HTMLElement {
 
   onActiveFilterClick(event) {
     event.preventDefault();
+    
+    // Check if main search is updating to prevent conflicts
+    if (window.mainSearchUpdating) {
+      console.warn('FacetFiltersForm: Main search is updating, skipping active filter click');
+      return;
+    }
+    
+    // Add safety checks
+    if (!event || !event.currentTarget) {
+      console.warn('FacetFiltersForm: Invalid event or currentTarget, skipping active filter click');
+      return;
+    }
+    
     FacetFiltersForm.toggleActiveFacets();
     const url =
       event.currentTarget.href.indexOf('?') == -1

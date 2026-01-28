@@ -1,0 +1,110 @@
+.pd_banner-container{
+    background-color: #163330;
+    display: flex;
+    justify-content: center;
+    min-height: 407px;
+}
+
+.pd_banner-inner{
+    padding: 160px 0 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1080px;
+}
+.pd_banner-inner .col_one{
+    max-width: 300px;
+}
+.pd_banner-inner .col_two{
+    max-width: 535px;
+    margin: 0;
+}
+
+.pd_banner-inner h2{
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1.08;
+    margin: 0;
+    color: white;
+}
+.pd_banner-inner .text_container p{
+    color: white;
+    line-height: 1.38;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.pd_banner-inner .button_container {
+    display: flex;
+}
+.pd_banner-inner .button_container .pd_btn{
+    width: auto;
+    flex: 1;
+    padding-block: 20px;
+    text-align: center;
+    letter-spacing: 1.28px;
+    min-width: auto;
+    font-weight: 700;
+    text-decoration: none;
+}
+.pd_banner-inner .button_container a:not([href]) {
+    opacity: 0.5;
+}
+.pd_banner-inner .button_container .primary_btn{
+    margin-right: 16px;
+    max-width: 132px;
+    background-color: white;
+    color: #163330;
+}
+.pd_banner-inner .button_container .primary_btn:hover{
+    background-color: #666;
+    color: white;
+}
+.pd_banner-inner .button_container .secondary_btn{
+    background-color: #163330;
+    color: white;
+    outline: solid 3px white;
+    outline-offset: -3px;
+    box-shadow: none;
+    max-width: 178px;
+}
+.pd_banner-inner .button_container .secondary_btn:hover{
+    outline: solid 3px #666;
+    background: #666;
+}
+@media (max-width: 1140px) {
+    .pd_banner-inner{
+        margin-inline: 30px;
+    }
+}
+
+@media (max-width: 900px){
+    .pd_banner-inner{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .pd_banner-inner .col_one{
+        margin-bottom: 35px;
+    }
+    .pd_banner-inner .col_two .text_container{
+        margin-bottom: 25px;
+    }
+}
+@media (max-width: 767px) {
+    .pd_banner-inner{
+        padding: 90px 0 25px;
+        margin-top: 30px;
+    }
+    .pd_banner-inner .col_one{
+        margin-bottom: 15px;
+    }
+    .pd_banner-inner h2{
+        font-size: 42px;
+        max-width: 200px;
+    }
+    .pd_banner-inner .col_two .text_container{
+        margin-bottom: 0px;
+    }
+    
+}

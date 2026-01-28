@@ -8,3 +8,15 @@
 ehthumbs.db
 Thumbs.db
 .shopify
+
+# Dependencies
+node_modules/
+
+# Build artifacts (optional - uncomment if you don't want to track lock file)
+# package-lock.json
+
+# Note: The following files SHOULD be tracked in git:
+# ✓ tailwind.config.js (source config - tracked)
+# ✓ style.css (source input file - tracked)
+# ✓ package.json (dependencies and scripts - tracked)
+# ✓ assets/tailwind.css (compiled output - needed for Shopify, tracked)

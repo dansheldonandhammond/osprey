@@ -38,6 +38,21 @@
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
+
+  assign custom_sale_price = product.metafields.custom.sale_price
+  assign formatted_custom_sale_price = ''
+  assign custom_sale_price_value = 0
+  if custom_sale_price
+    assign custom_sale_price_raw = custom_sale_price.value | default: custom_sale_price
+    if custom_sale_price_raw != blank
+      assign custom_sale_price_string = custom_sale_price_raw | remove: '$' | remove: ',' | strip
+      assign custom_sale_price_numeric = custom_sale_price_string | plus: 0.0
+      if custom_sale_price_numeric > 0
+        assign custom_sale_price_value = custom_sale_price_numeric | times: 100 | round
+        assign formatted_custom_sale_price = '$' | append: custom_sale_price_string
+      endif
+    endif
+  endif
 -%}
 
 {%- unless target == null and placeholder == null -%}
@@ -49,7 +64,7 @@
       {%- if compare_at_price > price and product.quantity_price_breaks_configured? != true %} price--on-sale{% endif -%}
       {%- if compare_at_price > price and product.quantity_price_breaks_configured? %} volume-pricing--sale-badge{% endif -%}
       {%- if product.price_varies == false and product.compare_at_price_varies %} price--no-compare{% endif -%}
-      {%- if show_badges %} t-mt-[50px]  price--show-badge{% endif -%}
+      {%- if show_badges %} lg:t-mt-0  price--show-badge lg:t-py-[10px] {% endif -%}
     "
   >
     <div class="price__container">
@@ -80,7 +95,7 @@
           <span class="visually-hidden visually-hidden--inline ">
             {{- 'products.product.price.regular_price' | t -}}
           </span>
-          <span class="price-item price-item--regular t-text-black">
+          <span class="price-item price-item--regular t-text-black lg:t-py-[10px]  t-text-[24px] lg:t-text-[28px]">
             {{-
               'products.product.volume_pricing.price_range'
               | t: minimum: money_price_min, maximum: money_price_max
@@ -88,16 +103,45 @@
           </span>
         {%- else -%}
           <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
-          <span class="price-item price-item--regular t-text-black">
+          <span class="price-item price-item--regular lg:t-py-0 t-text-[24px] lg:t-text-[20px] {% unless custom_sale_price and custom_sale_price_value > 0 and custom_sale_price_value > price %}t-text-black{% endunless %}" {% if custom_sale_price and custom_sale_price_value > 0 and custom_sale_price_value > price %}style="color: #9e3223 !important;"{% endif %}>
             {{ money_price }}
           </span>
+          {%- if custom_sale_price and custom_sale_price_value > 0 and custom_sale_price_value > price -%}
+            <s class="price-item price-item--regular t-text-black t-py-[5px] t-px-[5px] t-text-[16px] t-ms-[15px]">
+              {{ formatted_custom_sale_price }}
+            </s>
+            {%- assign discount_amount = custom_sale_price_value | minus: price -%}
+            {%- assign discount_percentage = discount_amount | times: 100.0 | divided_by: custom_sale_price_value | round -%}
+            <span
+              class="t-ms-[10px] badge price__badge-sale"
+              style="display: inline-flex !important; background-color: #9E3223 !important; color: white !important; justify-content: center; align-items: center; padding: 10px 15px; border-radius: 0px; font-size: 12px; font-weight: 600; text-transform: uppercase; white-space: nowrap;"
+            >
+              -{{ discount_percentage }}% OFF
+            </span>
+          {%- elsif compare_at_price > price -%}
+            <s class="price-item price-item--regular t-text-black t-py-[5px] t-px-[5px] t-text-[16px] t-ms-[15px]">
+              {% if settings.currency_code_enabled %}
+                {{ compare_at_price | money_with_currency }}
+              {% else %}
+                {{ compare_at_price | money }}
+              {% endif %}
+            </s>
+            {%- assign discount_amount = compare_at_price | minus: price -%}
+            {%- assign discount_percentage = discount_amount | times: 100.0 | divided_by: compare_at_price | round -%}
+            <span
+              class="t-ms-[10px] badge price__badge-sale"
+              style="display: inline-flex !important; background-color: #9E3223 !important; color: white !important; justify-content: center; align-items: center; padding: 10px 15px; border-radius: 0px; font-size: 12px; font-weight: 600; text-transform: uppercase; white-space: nowrap;"
+            >
+              -{{ discount_percentage }}%
+            </span>
+          {%- endif -%}
         {%- endif -%}
       </div>
       <div class="price__sale">
         {%- unless product.price_varies == false and product.compare_at_price_varies %}
           <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
           <span>
-            <s class="price-item price-item--regular t-text-black">
+            <s class="price-item price-item--regular t-text-black lg:t-py-[10px]">
               {% if settings.currency_code_enabled %}
                 {{ compare_at_price | money_with_currency }}
               {% else %}
@@ -127,13 +171,15 @@
       </small>
     </div>
     {%- if show_badges -%}
-      <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
-        {{ 'products.product.on_sale' | t }}
-      </span>
+      {% comment %}
+        <span class="t-ms-[20px] badge price__badge-sold-out t-aspect-[16/9] t-bg-[#9E3223] t-text-white t-justify-center t-items-center t-h-[50px] t-w-[70px] t-rounded-none">
+          {{ 'products.product.on_sale' | t }}
+        </span>
 
-      <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
-        {{ 'products.product.sold_out' | t }}
-      </span>
+        <span class="t-ms-[20px] badge price__badge-sale t-aspect-[16/9] t-bg-black t-text-white t-justify-center t-items-center t-h-[50px] t-w-[70px] t-rounded-none">
+          {{ 'products.product.sold_out' | t }}
+        </span>
+      {% endcomment %}
     {%- endif -%}
   </div>
 {% endunless %}

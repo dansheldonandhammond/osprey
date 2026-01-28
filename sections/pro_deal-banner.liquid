@@ -1,0 +1,94 @@
+{{ 'pro_deals-banner-style.css' | asset_url | stylesheet_tag }}
+
+<div class="pd_banner-container">
+  <div class="pd_banner-inner">
+    <div class="col_one">
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+      {% endif %}
+    </div>
+    <div class="col_two">
+      {% if section.settings.text != blank %}
+        <div class="text_container">
+          <p>{{ section.settings.text }}</p>
+        </div>
+      {% endif %}
+      {% if section.settings.btn_one_text or section.settings.btn_two_text != blank %}
+        <div class="button_container">
+          {% if section.settings.btn_one_text != blank %}
+            <a
+              class="primary_btn pd_btn"
+              {% if section.settings.btn_one_link != blank %}
+                href="{{ section.settings.btn_one_link }}"
+              {% endif %}
+            >
+              {{ section.settings.btn_one_text }}
+            </a>
+          {% endif %}
+          {% if section.settings.btn_two_text != blank %}
+            <a
+              class="secondary_btn pd_btn"
+              {% if section.settings.btn_two_link != blank %}
+                href="{{ section.settings.btn_two_link }}"
+              {% endif %}
+            >
+              {{ section.settings.btn_two_text }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pro Deals",
+  "class": "pro_deal-banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left Column"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Page Heading",
+      "default": "Osprey Pro Deal"
+    },
+    {
+      "type": "header",
+      "content": "Right Column"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Banner Text",
+      "default": "Enter Text Here"
+    },
+    {
+      "type": "text",
+      "id": "btn_one_text",
+      "label": "Button One Text",
+      "default": "Button Text One"
+    },
+    {
+      "type": "url",
+      "id": "btn_one_link",
+      "label": "Button One Link"
+    },
+    {
+      "type": "text",
+      "id": "btn_two_text",
+      "label": "Button Two Text",
+      "default": "Button Text Two"
+    },
+    {
+      "type": "url",
+      "id": "btn_two_link",
+      "label": "Button Two Link"
+    }
+  ],
+  "presets": [{ "name": "Pro Deal Banner", "category": "Pro Deal" }]
+}
+{% endschema %}

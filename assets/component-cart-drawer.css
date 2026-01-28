@@ -185,17 +185,42 @@ cart-drawer {
 }
 
 cart-drawer-items {
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   flex: 1;
+  min-height: 0; /* Allows flex child to shrink below content size */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Ensure scrollbar styling on mobile when it appears */
+@media screen and (max-width: 749px) {
+  cart-drawer-items {
+    overflow-y: auto; /* Only show scrollbar when content exceeds height */
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Make scrollbar more visible on mobile when it appears */
+  cart-drawer-items::-webkit-scrollbar {
+    width: 6px; /* Wider scrollbar on mobile */
+  }
+  
+  cart-drawer-items::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--color-foreground), 0.5);
+    border-radius: 100px;
+  }
+  
+  cart-drawer-items::-webkit-scrollbar-track {
+    background-color: rgba(var(--color-foreground), 0.1);
+  }
 }
 
 @media screen and (max-height: 650px) {
   cart-drawer-items {
-    overflow: visible;
+    overflow-y: auto; /* Only show scrollbar when needed */
   }
 
   .drawer__inner {
-    overflow: scroll;
+    overflow: auto; /* Only show scrollbar when needed */
   }
 }
 

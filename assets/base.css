@@ -247,6 +247,14 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   font-weight: var(--font-body-weight);
 }
 
+span {
+  font-family: var(--font-body-family) !important;
+}
+
+button {
+  font-family: var(--font-body-family) !important;
+}
+
 h1,
 h2,
 h3,
@@ -1227,7 +1235,7 @@ button.shopify-payment-button__button--unbranded {
   background-color: rgba(var(--color-button), var(--alpha-button-background));
 }
 
-.button:before,
+/* .button:before,
 .shopify-challenge__button:before,
 .customer button:before,
 .shopify-payment-button__button--unbranded:before {
@@ -1241,7 +1249,7 @@ button.shopify-payment-button__button--unbranded {
   border-radius: var(--buttons-radius-outset);
   box-shadow: var(--shadow-horizontal-offset) var(--shadow-vertical-offset) var(--shadow-blur-radius)
     rgba(var(--color-shadow), var(--shadow-opacity));
-}
+} */
 
 /* .button:after,
 .shopify-challenge__button:after,
@@ -2328,7 +2336,7 @@ input[type='checkbox'] {
 }
 
 .shopify-section-group-header-group {
-  z-index: 4;
+  z-index: 0;
 }
 
 .section-header ~ .shopify-section-group-header-group {
@@ -2658,7 +2666,7 @@ details[open] .modal-overlay::after {
   min-height: calc(100% + var(--inputs-margin-offset) + (2 * var(--inputs-border-width)));
   height: 100%;
 }
-
+/* 
 .search-modal__content {
   display: flex;
   align-items: center;
@@ -2668,7 +2676,7 @@ details[open] .modal-overlay::after {
   padding: 0 5rem 0 1rem;
   line-height: calc(1 + 0.8 / var(--font-body-scale));
   position: relative;
-}
+} */
 
 .search-modal__content-bottom {
   bottom: calc((var(--inputs-margin-offset) / 2));

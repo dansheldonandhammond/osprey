@@ -1,0 +1,373 @@
+{% comment %}
+  ALLT Series Hero Banner Section
+  Displays a full-width hero with background image, logo, title, and subtitle
+{% endcomment %}
+
+{%- liquid
+  assign max_height = section.settings.max_height
+  assign logo_width_mobile = section.settings.logo_width_mobile
+  assign logo_width_tablet = section.settings.logo_width_tablet
+  assign logo_width_desktop = section.settings.logo_width_desktop
+  assign title_weight = section.settings.title_weight
+  assign subtitle_weight = section.settings.subtitle_weight
+  assign title_size_mobile = section.settings.title_size_mobile
+  assign title_size_tablet = section.settings.title_size_tablet
+  assign title_size_desktop = section.settings.title_size_desktop
+  assign subtitle_size_mobile = section.settings.subtitle_size_mobile
+  assign subtitle_size_tablet = section.settings.subtitle_size_tablet
+  assign subtitle_size_desktop = section.settings.subtitle_size_desktop
+  assign logo_spacing = section.settings.logo_spacing
+  assign title_spacing = section.settings.title_spacing
+  assign title_line_height = section.settings.title_line_height
+-%}
+
+<style>
+  .hero-{{ section.id }} {
+    max-height: {{ max_height }}px;
+  }
+  .hero-logo-{{ section.id }} {
+    width: {{ logo_width_mobile }}px;
+    padding-bottom: {{ logo_spacing }}px;
+  }
+  .hero-title-{{ section.id }} {
+    font-size: {{ title_size_mobile }}px;
+    font-weight: {{ title_weight }};
+    margin-bottom: {{ title_spacing }}px;
+  }
+  .hero-title-{{ section.id }} p {
+    margin: 0;
+    padding: 0;
+    line-height: {{ title_line_height }};
+  }
+  .hero-subtitle-{{ section.id }} {
+    font-weight: {{ subtitle_weight }};
+    font-size: {{ subtitle_size_mobile }}px;
+    letter-spacing: 4.5px;
+  }
+  @media (min-width: 768px) {
+    .hero-logo-{{ section.id }} {
+      width: {{ logo_width_tablet }}px;
+    }
+    .hero-title-{{ section.id }} {
+      font-size: {{ title_size_tablet }}px;
+    }
+    .hero-subtitle-{{ section.id }} {
+      font-size: {{ subtitle_size_tablet }}px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .hero-logo-{{ section.id }} {
+      width: {{ logo_width_desktop }}px;
+    }
+    .hero-title-{{ section.id }} {
+      font-size: {{ title_size_desktop }}px;
+    }
+    .hero-subtitle-{{ section.id }} {
+      font-size: {{ subtitle_size_desktop }}px;
+    }
+  }
+</style>
+
+<section class="hero-{{ section.id }} t-relative t-w-full t-h-screen t-overflow-hidden t-flex t-items-center">
+  {%- if section.settings.background_image -%}
+    <div class="t-absolute t-inset-0 t-z-0">
+      <img
+        style="object-position: 82% 100%;"
+        src="{{ section.settings.background_image | img_url: '2048x' }}"
+        alt="{{ section.settings.background_image.alt | escape }}"
+        class="t-w-full t-h-full t-object-cover"
+        loading="eager"
+      >
+      <div class="t-absolute t-inset-0 t-bg-gradient-to-b t-from-blue-900/60 t-to-blue-950/80"></div>
+    </div>
+  {%- else -%}
+    <div class="t-absolute t-inset-0 t-z-0 t-bg-gradient-to-br t-from-blue-900 t-via-blue-950 t-to-slate-900"></div>
+  {%- endif -%}
+
+  <div class="t-relative t-container t-mx-auto t-px-4 t-w-full t-text-center lg:t-py-20 t-pb-[28rem] ">
+    {%- if section.settings.show_logo -%}
+      <div class="t-mx-auto  t-flex t-items-center t-justify-center hero-logo-{{ section.id }}">
+        {%- if section.settings.logo -%}
+          <img
+            src="{{ section.settings.logo | img_url: 'master' }}"
+            alt="{{ section.settings.logo.alt | escape }}"
+            class="t-h-auto t-object-contain t-w-full"
+          >
+        {%- else -%}
+          <div class="t-text-white t-text-2xl t-font-bold t-tracking-wider">LOGO</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="t-max-w-4xl t-mx-auto">
+      {%- if section.settings.title != blank -%}
+        <div class="hero-title-{{ section.id }} t-text-white t-tracking-wider t-leading-tight">
+          {{ section.settings.title }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.subtitle != blank -%}
+        <p
+          class="hero-subtitle-{{ section.id }} t-text-white t-tracking-widest t-uppercase t-opacity-90"
+          style="letterspacing: 4.5px"
+        >
+          {{ section.settings.subtitle }}
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ALLT Series Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "range",
+      "id": "max_height",
+      "min": 400,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Max Height",
+      "default": 800
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_logo",
+      "label": "Show Logo",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width_mobile",
+      "min": 100,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Width (Mobile)",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "logo_width_tablet",
+      "min": 100,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Width (Tablet)",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "logo_width_desktop",
+      "min": 100,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Width (Desktop)",
+      "default": 250
+    },
+    {
+      "type": "range",
+      "id": "logo_spacing",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Logo Bottom Spacing",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "<p>ALLT SERIES</p>"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Size (Mobile)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "title_size_tablet",
+      "min": 32,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Size (Tablet)",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "min": 40,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Size (Desktop)",
+      "default": 80
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title Font Weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold"
+        },
+        {
+          "value": "900",
+          "label": "Black"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Title Bottom Spacing",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "title_line_height",
+      "label": "Title Line Height",
+      "min": 0.1,
+      "max": 5.0,
+      "step": 0.1,
+      "default": 1.0
+    },
+    {
+      "type": "header",
+      "content": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "A CIRCULAR DESIGN COLLABORATION"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle Size (Mobile)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_tablet",
+      "min": 14,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle Size (Tablet)",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_desktop",
+      "min": 16,
+      "max": 56,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle Size (Desktop)",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "subtitle_weight",
+      "label": "Subtitle Font Weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "300"
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALLT Series Hero"
+    }
+  ]
+}
+{% endschema %}

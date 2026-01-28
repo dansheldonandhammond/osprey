@@ -20,20 +20,349 @@
         "bottom_border_colour": "transparent"
       }
     },
+    "main_banner_3NY8ec": {
+      "type": "main-banner",
+      "blocks": {
+        "subheading_eriWUy": {
+          "type": "subheading",
+          "settings": {
+            "subheading_text": "OSPREY | HOUDINI"
+          }
+        },
+        "heading_Q7W8xz": {
+          "type": "heading",
+          "settings": {
+            "heading_block_heading_text": "ALLT SERIES",
+            "heading_block_text_color": "black",
+            "heading_block_heading_tag": "h1",
+            "heading_block_heading_size_default": "1.9rem",
+            "heading_block_heading_size_large": "3.4rem",
+            "heading_block_heading_size_extra_large": "3.4rem",
+            "heading_block_font_weight": "t-font-semibold",
+            "heading_block_heading_case": "t-uppercase",
+            "heading_block_heading_font": "font-secondary",
+            "heading_block_top_default_padding": 10,
+            "heading_block_bottom_default_padding": 10,
+            "heading_block_top_large_padding": 15,
+            "heading_block_bottom_large_padding": 0,
+            "heading_block_max_width": 1920
+          }
+        },
+        "text_dPTPLE": {
+          "type": "text",
+          "settings": {
+            "text_block_text": "Technical materials. Sophisticated dsign. Limited supply.",
+            "text_block_text_color": "black",
+            "text_block_text_size_default": "1.5rem",
+            "text_block_text_size_large": "1.9rem",
+            "text_block_text_size_extra_large": "2.5rem",
+            "text_block_font_weight": "t-font-normal",
+            "text_block_text_case": "t-normalcase",
+            "text_block_text_font": "font-secondary",
+            "text_block_top_default_padding": 0,
+            "text_block_bottom_default_padding": 0,
+            "text_block_top_large_padding": 5,
+            "text_block_bottom_large_padding": 5,
+            "text_block_max_width": 500
+          }
+        },
+        "buttons_NCDefx": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop OSPREY X HOUDINI",
+            "button_link_1": "https://ospreyaustralia.com.au/pages/houdini",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_eriWUy",
+        "heading_Q7W8xz",
+        "text_dPTPLE",
+        "buttons_NCDefx"
+      ],
+      "disabled": true,
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "video_url": "",
+        "video_embed_url": "",
+        "mobile": "shopify://shop_images/imgi_166_hoose_2059_houdini_launch_d_x2_295cfc23-d1bf-4608-b1ba-d625abdadab1.jpg",
+        "mobile_image_horizontal_axis": 50,
+        "mobile_image_vertical_axis": 50,
+        "laptop": "shopify://shop_images/imgi_166_hoose_2059_houdini_launch_d_x2_295cfc23-d1bf-4608-b1ba-d625abdadab1.jpg",
+        "desktop": "shopify://shop_images/imgi_166_hoose_2059_houdini_launch_d_x2_295cfc23-d1bf-4608-b1ba-d625abdadab1.jpg",
+        "desktop_image_horizontal_axis": 50,
+        "desktop_image_vertical_axis": 100,
+        "hero_banner_height_mobile_tablet": 667,
+        "hero_banner_height_laptop": 800,
+        "hero_banner_height_large_laptop": 780,
+        "hero_banner_height_desktop": 800,
+        "image_behavior": "none"
+      }
+    },
+    "main_banner_JXaBnM": {
+      "type": "main-banner",
+      "blocks": {
+        "subheading_nRdtJX": {
+          "type": "subheading",
+          "settings": {
+            "subheading_text": ""
+          }
+        },
+        "heading_kcYayy": {
+          "type": "heading",
+          "settings": {
+            "heading_block_heading_text": "Create New Traditions",
+            "heading_block_text_color": "white",
+            "heading_block_heading_tag": "h1",
+            "heading_block_heading_size_default": "1.5rem",
+            "heading_block_heading_size_large": "3.4rem",
+            "heading_block_heading_size_extra_large": "3.4rem",
+            "heading_block_font_weight": "t-font-semibold",
+            "heading_block_heading_case": "t-uppercase",
+            "heading_block_heading_font": "font-secondary",
+            "heading_block_top_default_padding": 10,
+            "heading_block_bottom_default_padding": 10,
+            "heading_block_top_large_padding": 15,
+            "heading_block_bottom_large_padding": 0,
+            "heading_block_max_width": 1920
+          }
+        },
+        "text_xEPXcH": {
+          "type": "text",
+          "settings": {
+            "text_block_text": "Explore new landscapes or reconnect with familiar people and places that make the holidays sparkle. Discover perfect gifts for every journey and budget—made to carry through the years.",
+            "text_block_text_color": "white",
+            "text_block_text_size_default": "1.1rem",
+            "text_block_text_size_large": "1.9rem",
+            "text_block_text_size_extra_large": "2.5rem",
+            "text_block_font_weight": "t-font-normal",
+            "text_block_text_case": "t-normalcase",
+            "text_block_text_font": "font-secondary",
+            "text_block_top_default_padding": 0,
+            "text_block_bottom_default_padding": 0,
+            "text_block_top_large_padding": 5,
+            "text_block_bottom_large_padding": 5,
+            "text_block_max_width": 500
+          }
+        },
+        "buttons_dqtekY": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop Now",
+            "button_link_1": "shopify://collections/all",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_nRdtJX",
+        "heading_kcYayy",
+        "text_xEPXcH",
+        "buttons_dqtekY"
+      ],
+      "disabled": true,
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "video_url": "",
+        "video_embed_url": "",
+        "mobile": "shopify://shop_images/imgi_90_HOOSUS-2630-bg-mobile.jpg",
+        "mobile_image_horizontal_axis": 50,
+        "mobile_image_vertical_axis": 50,
+        "laptop": "shopify://shop_images/imgi_86_HOOSUS-2630-bg_1_45a65c66-d661-4f48-8c57-66c2e6359d48.jpg",
+        "desktop": "shopify://shop_images/imgi_86_HOOSUS-2630-bg_1_45a65c66-d661-4f48-8c57-66c2e6359d48.jpg",
+        "desktop_image_horizontal_axis": 50,
+        "desktop_image_vertical_axis": 100,
+        "hero_banner_height_mobile_tablet": 667,
+        "hero_banner_height_laptop": 800,
+        "hero_banner_height_large_laptop": 780,
+        "hero_banner_height_desktop": 800,
+        "image_behavior": "none"
+      }
+    },
+    "main_banner_dhHCPq": {
+      "type": "main-banner",
+      "blocks": {
+        "heading_bjUwQ6": {
+          "type": "heading",
+          "settings": {
+            "heading_block_heading_text": "Welcome to the White Room",
+            "heading_block_text_color": "white",
+            "heading_block_heading_tag": "h2",
+            "heading_block_heading_size_default": "1.9rem",
+            "heading_block_heading_size_large": "3.4rem",
+            "heading_block_heading_size_extra_large": "3.4rem",
+            "heading_block_font_weight": "t-font-semibold",
+            "heading_block_heading_case": "t-uppercase",
+            "heading_block_heading_font": "font-secondary",
+            "heading_block_top_default_padding": 10,
+            "heading_block_bottom_default_padding": 10,
+            "heading_block_top_large_padding": 15,
+            "heading_block_bottom_large_padding": 0,
+            "heading_block_max_width": 1920
+          }
+        },
+        "text_fDdnnh": {
+          "type": "text",
+          "settings": {
+            "text_block_text": "Light-and-fast designs for backcountry or fully featured for all-day resort play. Discover winter packs built for your preferred terrain.",
+            "text_block_text_color": "white",
+            "text_block_text_size_default": "1.5rem",
+            "text_block_text_size_large": "1.9rem",
+            "text_block_text_size_extra_large": "2.5rem",
+            "text_block_font_weight": "t-font-normal",
+            "text_block_text_case": "t-normalcase",
+            "text_block_text_font": "font-secondary",
+            "text_block_top_default_padding": 0,
+            "text_block_bottom_default_padding": 0,
+            "text_block_top_large_padding": 5,
+            "text_block_bottom_large_padding": 5,
+            "text_block_max_width": 500
+          }
+        },
+        "buttons_m4nmgk": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop ski & snowboard packs",
+            "button_link_1": "shopify://collections/skiing-snowboarding",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_bjUwQ6",
+        "text_fDdnnh",
+        "buttons_m4nmgk"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "video_url": "",
+        "video_embed_url": "",
+        "mobile": "shopify://shop_images/imgi_90_hoosus_2662_hb_m.jpg",
+        "mobile_image_horizontal_axis": 50,
+        "mobile_image_vertical_axis": 50,
+        "laptop": "shopify://shop_images/imgi_86_hoosus_2662_hb_d.jpg",
+        "desktop": "shopify://shop_images/imgi_86_hoosus_2662_hb_d.jpg",
+        "desktop_image_horizontal_axis": 50,
+        "desktop_image_vertical_axis": 50,
+        "hero_banner_height_mobile_tablet": 667,
+        "hero_banner_height_laptop": 800,
+        "hero_banner_height_large_laptop": 780,
+        "hero_banner_height_desktop": 800,
+        "image_behavior": "none"
+      }
+    },
+    "main_banner_6EiGHT": {
+      "type": "main-banner",
+      "blocks": {
+        "subheading_HtdGAY": {
+          "type": "subheading",
+          "settings": {
+            "subheading_text": "Starting 26 December 2025"
+          }
+        },
+        "heading_QnRbKp": {
+          "type": "heading",
+          "settings": {
+            "heading_block_heading_text": "BOXING DAY SALE",
+            "heading_block_text_color": "white",
+            "heading_block_heading_tag": "h1",
+            "heading_block_heading_size_default": "1.5rem",
+            "heading_block_heading_size_large": "3.4rem",
+            "heading_block_heading_size_extra_large": "3.4rem",
+            "heading_block_font_weight": "t-font-semibold",
+            "heading_block_heading_case": "t-uppercase",
+            "heading_block_heading_font": "font-secondary",
+            "heading_block_top_default_padding": 10,
+            "heading_block_bottom_default_padding": 10,
+            "heading_block_top_large_padding": 15,
+            "heading_block_bottom_large_padding": 0,
+            "heading_block_max_width": 1920
+          }
+        },
+        "text_qxX68f": {
+          "type": "text",
+          "settings": {
+            "text_block_text": "Use Code: GOFAR30AU at checkout to get 30% off Fairview & Farpoint.",
+            "text_block_text_color": "white",
+            "text_block_text_size_default": "1.1rem",
+            "text_block_text_size_large": "1.9rem",
+            "text_block_text_size_extra_large": "2.5rem",
+            "text_block_font_weight": "t-font-normal",
+            "text_block_text_case": "t-normalcase",
+            "text_block_text_font": "font-secondary",
+            "text_block_top_default_padding": 0,
+            "text_block_bottom_default_padding": 0,
+            "text_block_top_large_padding": 5,
+            "text_block_bottom_large_padding": 5,
+            "text_block_max_width": 500
+          }
+        },
+        "buttons_437pqz": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop Now",
+            "button_link_1": "https://ospreyaustralia.com.au/collections/farpoint-fairview",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_HtdGAY",
+        "heading_QnRbKp",
+        "text_qxX68f",
+        "buttons_437pqz"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".hero-text-overlay {background-color: rgba(0, 0, 0, 0.3); padding: 20px; width: 100%;}",
+        "@media (max-width: 1023px) {.hero-content p.t-text-white.t-font-normal.t-normalcase.font-secondary {font-size: 14px !important; }}",
+        ".hero-content .t-uppercase.t-tracking-widest.t-text-white.t-font-medium.t-mb-4 {font-size: 10px !important;}"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "video_url": "",
+        "video_embed_url": "",
+        "mobile": "shopify://shop_images/OSPREY_mobile_1200_x_675_Your_Story_1.jpg",
+        "mobile_image_horizontal_axis": 50,
+        "mobile_image_vertical_axis": 50,
+        "laptop": "shopify://shop_images/OSPREY_desktop_2400_x_1350_px.png",
+        "desktop": "shopify://shop_images/OSPREY_desktop_2400_x_1350_px.png",
+        "desktop_image_horizontal_axis": 50,
+        "desktop_image_vertical_axis": 100,
+        "hero_banner_height_mobile_tablet": 667,
+        "hero_banner_height_laptop": 800,
+        "hero_banner_height_large_laptop": 780,
+        "hero_banner_height_desktop": 800,
+        "image_behavior": "none"
+      }
+    },
     "main_banner_TLYdfh": {
       "type": "main-banner",
       "blocks": {
         "subheading_Af4aCh": {
           "type": "subheading",
           "settings": {
-            "subheading_text": "Sub Heading"
+            "subheading_text": "Adventure Awaits"
           }
         },
         "heading_VVq3xw": {
           "type": "heading",
           "settings": {
-            "heading_block_heading_text": "HEADING",
-            "heading_block_text_color": "primary",
+            "heading_block_heading_text": "Adventure Awaits - Starting 1 November",
+            "heading_block_text_color": "white",
             "heading_block_heading_tag": "h2",
             "heading_block_heading_size_default": "1.9rem",
             "heading_block_heading_size_large": "3.2rem",
@@ -44,35 +373,35 @@
             "heading_block_top_default_padding": 10,
             "heading_block_bottom_default_padding": 10,
             "heading_block_top_large_padding": 15,
-            "heading_block_bottom_large_padding": 15,
+            "heading_block_bottom_large_padding": 0,
             "heading_block_max_width": 1920
           }
         },
         "text_qXPLcr": {
           "type": "text",
           "settings": {
-            "text_block_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut nisl sagittis, semper quam id, malesuada nisl. Vestibulum in faucibus est. Etiam eu eros egestas, tempor augue",
-            "text_block_text_color": "primary",
-            "text_block_text_size_default": "1.9rem",
-            "text_block_text_size_large": "3.2rem",
-            "text_block_text_size_extra_large": "3.2rem",
-            "text_block_font_weight": "t-font-semibold",
-            "text_block_text_case": "t-uppercase",
+            "text_block_text": "Follow us on Instagram, tag your trail buddies, and subscribe for bonus entries. Three winners. Epic prizes. Let the adventure begin.",
+            "text_block_text_color": "white",
+            "text_block_text_size_default": "1.5rem",
+            "text_block_text_size_large": "1.9rem",
+            "text_block_text_size_extra_large": "2.5rem",
+            "text_block_font_weight": "t-font-normal",
+            "text_block_text_case": "t-normalcase",
             "text_block_text_font": "font-secondary",
             "text_block_top_default_padding": 10,
             "text_block_bottom_default_padding": 10,
             "text_block_top_large_padding": 15,
             "text_block_bottom_large_padding": 15,
-            "text_block_max_width": 1920
+            "text_block_max_width": 500
           }
         },
         "buttons_7cz6D7": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop Now",
-            "button_link_1": "",
+            "button_label_1": "Learn More",
+            "button_link_1": "https://mailchi.mp/ospreyaustralia.com.au/novcompetition",
             "button_style_secondary_1": false,
-            "button_label_2": "Button label",
+            "button_label_2": "",
             "button_link_2": "",
             "button_style_secondary_2": false
           }
@@ -84,18 +413,105 @@
         "text_qXPLcr",
         "buttons_7cz6D7"
       ],
+      "disabled": true,
       "name": "t:sections.image-banner.presets.name",
       "settings": {
         "video_url": "",
+        "video_embed_url": "",
+        "mobile": "shopify://shop_images/4_no_text_26da3c30-33d3-4958-8a59-84b21770dab7.png",
         "mobile_image_horizontal_axis": 50,
         "mobile_image_vertical_axis": 50,
-        "desktop": "shopify://shop_images/HOOSUS-1717-bg-2x.jpg",
+        "laptop": "shopify://shop_images/4_no_text.png",
+        "desktop": "shopify://shop_images/4_no_text.png",
         "desktop_image_horizontal_axis": 50,
         "desktop_image_vertical_axis": 100,
         "hero_banner_height_mobile_tablet": 650,
         "hero_banner_height_laptop": 650,
         "hero_banner_height_large_laptop": 650,
         "hero_banner_height_desktop": 650,
+        "image_behavior": "none"
+      }
+    },
+    "main_banner_QyUtjU": {
+      "type": "main-banner",
+      "blocks": {
+        "subheading_mgc89X": {
+          "type": "subheading",
+          "settings": {
+            "subheading_text": ""
+          }
+        },
+        "heading_8Ge4BM": {
+          "type": "heading",
+          "settings": {
+            "heading_block_heading_text": "Built for the Long Haul",
+            "heading_block_text_color": "white",
+            "heading_block_heading_tag": "h2",
+            "heading_block_heading_size_default": "5.4rem",
+            "heading_block_heading_size_large": "5.4rem",
+            "heading_block_heading_size_extra_large": "5.4rem",
+            "heading_block_font_weight": "t-font-semibold",
+            "heading_block_heading_case": "t-normalcase",
+            "heading_block_heading_font": "font-secondary",
+            "heading_block_top_default_padding": 0,
+            "heading_block_bottom_default_padding": 0,
+            "heading_block_top_large_padding": 0,
+            "heading_block_bottom_large_padding": 0,
+            "heading_block_max_width": 340
+          }
+        },
+        "text_tiUnXm": {
+          "type": "text",
+          "settings": {
+            "text_block_text": "Experience the trail with packs designed for exceptional fit, all-day comfort and rugged durability. Our legacy of sustainable innovation ensures your gear is built to go the distance.",
+            "text_block_text_color": "white",
+            "text_block_text_size_default": "1.9rem",
+            "text_block_text_size_large": "1.9rem",
+            "text_block_text_size_extra_large": "1.9rem",
+            "text_block_font_weight": "t-font-light",
+            "text_block_text_case": "t-normalcase",
+            "text_block_text_font": "font-secondary",
+            "text_block_top_default_padding": 0,
+            "text_block_bottom_default_padding": 15,
+            "text_block_top_large_padding": 0,
+            "text_block_bottom_large_padding": 15,
+            "text_block_max_width": 540
+          }
+        },
+        "buttons_Jk67Lh": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop Now",
+            "button_link_1": "shopify://collections/outdoor-packs",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_mgc89X",
+        "heading_8Ge4BM",
+        "text_tiUnXm",
+        "buttons_Jk67Lh"
+      ],
+      "disabled": true,
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "video_url": "",
+        "video_embed_url": "https://player.vimeo.com/video/1101210100?muted=1&autoplay=1&controls=0&dnt=1&loop=1&background=1&app_id=122963&",
+        "fallback_image": "shopify://shop_images/imgi_81_HOOSUS-1691-hero-bg-desktop.jpg",
+        "mobile": "shopify://shop_images/HOOSUS-1691-hero-bg-mobile_1.jpg",
+        "mobile_image_horizontal_axis": 50,
+        "mobile_image_vertical_axis": 50,
+        "desktop": "shopify://shop_images/imgi_81_HOOSUS-1691-hero-bg-desktop.jpg",
+        "desktop_image_horizontal_axis": 100,
+        "desktop_image_vertical_axis": 100,
+        "hero_banner_height_mobile_tablet": 600,
+        "hero_banner_height_laptop": 650,
+        "hero_banner_height_large_laptop": 650,
+        "hero_banner_height_desktop": 700,
         "image_behavior": "none"
       }
     },
@@ -129,6 +545,7 @@
         "custom_content_block_pJUfyb",
         "custom_content_block_JVtAkE"
       ],
+      "disabled": true,
       "name": "Logos Carousel",
       "settings": {}
     },
@@ -149,8 +566,8 @@
           "type": "new_arrival_slide",
           "settings": {
             "image": "shopify://shop_images/00314pvc.png",
-            "title": "New | Colours",
-            "link": "",
+            "title": "Latest Arrivals",
+            "link": "shopify://collections/new-arrivals",
             "button_text": "Discover Now"
           }
         },
@@ -159,7 +576,7 @@
           "settings": {
             "image": "shopify://shop_images/qfvvj85n.png",
             "title": "Talon | Tempest",
-            "link": "/",
+            "link": "shopify://collections/talon-tempest",
             "button_text": "Discover Now"
           }
         },
@@ -168,7 +585,7 @@
           "settings": {
             "image": "shopify://shop_images/4nfy4s17.png",
             "title": "Transporter",
-            "link": "",
+            "link": "shopify://collections/transporter-series",
             "button_text": "Discover Now"
           }
         },
@@ -177,7 +594,7 @@
           "settings": {
             "image": "shopify://shop_images/kyn4fyhk.png",
             "title": "Poco Soft Carrier",
-            "link": "",
+            "link": "shopify://collections/poco",
             "button_text": "Discover Now"
           }
         },
@@ -186,7 +603,7 @@
           "settings": {
             "image": "shopify://shop_images/rexid06v.png",
             "title": "Raptor | Raven",
-            "link": "",
+            "link": "shopify://collections/raptor-raven",
             "button_text": "Discover Now"
           }
         },
@@ -195,7 +612,7 @@
           "settings": {
             "image": "shopify://shop_images/ljsugkqf.png",
             "title": "Escapist | Velocity",
-            "link": "",
+            "link": "shopify://collections/escapist-1",
             "button_text": "Discover Now"
           }
         }
@@ -210,12 +627,196 @@
       ],
       "name": "Discover New Arrivals",
       "settings": {
-        "new_arrivals_title": "Discover New Arrivals",
-        "new_arrivals_title_mobile": "Discover New Arrivals"
+        "new_arrivals_title": "Shop by Range",
+        "new_arrivals_title_mobile": "Shop by Range"
+      }
+    },
+    "slider_products_DVrL4r": {
+      "type": "slider-products",
+      "name": "Top Picks",
+      "settings": {
+        "title": "Top Picks",
+        "items_per_view_desktop": 4,
+        "max_items": 12,
+        "use_collection": true,
+        "collection": "top-picks-collection-home-page"
+      }
+    },
+    "main_banner_hhjQy6": {
+      "type": "main-banner",
+      "blocks": {
+        "subheading_fcdJAc": {
+          "type": "subheading",
+          "settings": {
+            "subheading_text": "YOUR CHANGE TO WIN 1- 30 November 2025"
+          }
+        },
+        "heading_whYWgM": {
+          "type": "heading",
+          "settings": {
+            "heading_block_heading_text": "Adventure Awaits",
+            "heading_block_text_color": "white",
+            "heading_block_heading_tag": "h2",
+            "heading_block_heading_size_default": "1.9rem",
+            "heading_block_heading_size_large": "3.2rem",
+            "heading_block_heading_size_extra_large": "3.2rem",
+            "heading_block_font_weight": "t-font-semibold",
+            "heading_block_heading_case": "t-uppercase",
+            "heading_block_heading_font": "font-secondary",
+            "heading_block_top_default_padding": 10,
+            "heading_block_bottom_default_padding": 10,
+            "heading_block_top_large_padding": 15,
+            "heading_block_bottom_large_padding": 15,
+            "heading_block_max_width": 1920
+          }
+        },
+        "text_yYYbx6": {
+          "type": "text",
+          "settings": {
+            "text_block_text": "Follow us on Instagram, tag your trail buddies, and subscribe for bonus entries. Three winners. Epic prizes. Let the adventure begin.",
+            "text_block_text_color": "white",
+            "text_block_text_size_default": "1.9rem",
+            "text_block_text_size_large": "1.9rem",
+            "text_block_text_size_extra_large": "1.9rem",
+            "text_block_font_weight": "t-font-normal",
+            "text_block_text_case": "t-normalcase",
+            "text_block_text_font": "font-secondary",
+            "text_block_top_default_padding": 10,
+            "text_block_bottom_default_padding": 10,
+            "text_block_top_large_padding": 15,
+            "text_block_bottom_large_padding": 15,
+            "text_block_max_width": 600
+          }
+        },
+        "buttons_YagarJ": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Learn More",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_fcdJAc",
+        "heading_whYWgM",
+        "text_yYYbx6",
+        "buttons_YagarJ"
+      ],
+      "disabled": true,
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "video_url": "",
+        "video_embed_url": "",
+        "mobile": "shopify://shop_images/4_no_text_26da3c30-33d3-4958-8a59-84b21770dab7.png",
+        "mobile_image_horizontal_axis": 50,
+        "mobile_image_vertical_axis": 50,
+        "laptop": "shopify://shop_images/4_no_text.png",
+        "desktop": "shopify://shop_images/4_no_text.png",
+        "desktop_image_horizontal_axis": 50,
+        "desktop_image_vertical_axis": 50,
+        "hero_banner_height_mobile_tablet": 667,
+        "hero_banner_height_laptop": 800,
+        "hero_banner_height_large_laptop": 780,
+        "hero_banner_height_desktop": 800,
+        "image_behavior": "none"
+      }
+    },
+    "explore_by_activity_v2_AYPmqA": {
+      "type": "explore-by-activity-v2",
+      "blocks": {
+        "activity_Qknwkj": {
+          "type": "activity",
+          "settings": {
+            "image": "shopify://shop_images/HOOSE-1716-hp-activity-1.jpg",
+            "title": "Travel",
+            "main_link": "shopify://collections/travel",
+            "button_1_text": "BACKPACKS",
+            "button_1_link": "shopify://collections/backpacking",
+            "button_2_text": "DUFFELS",
+            "button_2_link": "shopify://collections/duffel-bags"
+          }
+        },
+        "activity_cKzf4X": {
+          "type": "activity",
+          "settings": {
+            "image": "shopify://shop_images/HOOSE-1716-hp-activity-2.webp",
+            "title": "Hiking",
+            "main_link": "shopify://collections/hiking",
+            "button_1_text": "MEN'S",
+            "button_1_link": "shopify://collections/mens-hiking-packs",
+            "button_2_text": "WOMEN'S",
+            "button_2_link": "shopify://collections/womens-hiking-packs"
+          }
+        },
+        "activity_3bkRnH": {
+          "type": "activity",
+          "settings": {
+            "image": "shopify://shop_images/HOOSE-1716-hp-activity-3.webp",
+            "title": "Backpacking",
+            "main_link": "shopify://collections/backpacking",
+            "button_1_text": "MEN'S",
+            "button_1_link": "shopify://collections/mens-backpacking-packs",
+            "button_2_text": "WOMEN'S",
+            "button_2_link": "shopify://collections/womens-backpacking-packs"
+          }
+        },
+        "activity_aDWzwN": {
+          "type": "activity",
+          "settings": {
+            "image": "shopify://shop_images/HOOSE-1716-hp-activity-4.webp",
+            "title": "Biking",
+            "main_link": "shopify://collections/biking-packs",
+            "button_1_text": "MEN'S",
+            "button_1_link": "shopify://collections/mens-biking",
+            "button_2_text": "WOMEN'S",
+            "button_2_link": "shopify://collections/womens-biking"
+          }
+        },
+        "activity_X4tRet": {
+          "type": "activity",
+          "settings": {
+            "image": "shopify://shop_images/HOOSE-1716-hp-activity-5.webp",
+            "title": "Running",
+            "main_link": "shopify://collections/running-backpacks",
+            "button_1_text": "MEN'S",
+            "button_1_link": "shopify://collections/mens-running-packs",
+            "button_2_text": "WOMEN'S",
+            "button_2_link": "shopify://collections/womens-running-packs"
+          }
+        },
+        "activity_FEEmbW": {
+          "type": "activity",
+          "settings": {
+            "image": "shopify://shop_images/HOOSE-1716-hp-activity-6.webp",
+            "title": "Daypacks",
+            "main_link": "shopify://collections/lifestyle-day-packs",
+            "button_1_text": "LIFESTYLE",
+            "button_1_link": "shopify://collections/lifestyle-day-packs",
+            "button_2_text": "CAMPUS",
+            "button_2_link": "shopify://collections/campus-commute-backpacks"
+          }
+        }
+      },
+      "block_order": [
+        "activity_Qknwkj",
+        "activity_cKzf4X",
+        "activity_3bkRnH",
+        "activity_aDWzwN",
+        "activity_X4tRet",
+        "activity_FEEmbW"
+      ],
+      "name": "Explore by Activity",
+      "settings": {
+        "heading": "Explore by Activity"
       }
     },
     "shop_by_category_89cP4X": {
       "type": "shop-by-category",
+      "disabled": true,
       "name": "Shop by Category",
       "settings": {}
     },
@@ -236,47 +837,57 @@
         "icon_image": "shopify://shop_images/HOOSE-1368-d-amg-icon.webp",
         "headline": "We only create high-quality products and back them with our All Mighty Guarantee™",
         "button_text": "Find out More",
-        "button_link": "/",
+        "button_link": "shopify://pages/all-mighty-guarantee",
         "text_block_top_default_margin": 10,
         "text_block_bottom_default_margin": 10,
         "text_block_top_large_margin": 0,
         "text_block_bottom_large_margin": 0
       }
     },
-    "osprey_ambassadors_rnPPVQ": {
-      "type": "osprey-ambassadors",
-      "name": "Osprey Ambassadors",
-      "settings": {}
-    },
     "osprey_blog_6JJyc4": {
       "type": "osprey-blog",
       "name": "Osprey Blog Slider",
       "settings": {
-        "heading": "Osprey Blog",
-        "view_all_link": "",
-        "cta_text": "View All"
+        "heading": "Osprey Stories",
+        "view_all_link": "shopify://blogs/osprey-blog",
+        "cta_text": "Read More"
       }
+    },
+    "osprey_ambassadors_rnPPVQ": {
+      "type": "osprey-ambassadors",
+      "disabled": true,
+      "name": "Osprey Ambassadors",
+      "settings": {}
     },
     "social_proof_88bEgG": {
       "type": "social-proof",
       "name": "Social Proof Section",
       "settings": {
         "social_proof_title": "#ospreypacks",
-        "social_proof_subtitle": "Share your adventures with @ospreyAustralia"
+        "social_proof_subtitle": "Share your adventures with @ospreyAustralia",
+        "social_proof_iframe": "<!-- LightWidget WIDGET --><script src=\"https://cdn.lightwidget.com/widgets/lightwidget.js\"></script><iframe src=\"https://cdn.lightwidget.com/widgets/506c1b795d865b23a3e31c7b63588a05.html\" scrolling=\"no\" allowtransparency=\"true\" class=\"lightwidget-widget\" style=\"width:100%;border:0;overflow:hidden;\"></iframe>"
       }
     }
   },
   "order": [
     "header_override_Vj6ezh",
+    "main_banner_3NY8ec",
+    "main_banner_JXaBnM",
+    "main_banner_dhHCPq",
+    "main_banner_6EiGHT",
     "main_banner_TLYdfh",
+    "main_banner_QyUtjU",
     "slider_logos_qMgJqc",
     "custom_liquid_nVzNfQ",
     "discover_new_arrivals_pfAhW7",
+    "slider_products_DVrL4r",
+    "main_banner_hhjQy6",
+    "explore_by_activity_v2_AYPmqA",
     "shop_by_category_89cP4X",
     "home_video_section_kw9iLe",
+    "osprey_blog_6JJyc4",
     "almighty_guarantee_section_dHi3Pm",
     "osprey_ambassadors_rnPPVQ",
-    "osprey_blog_6JJyc4",
     "social_proof_88bEgG"
   ]
 }

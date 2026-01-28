@@ -11,11 +11,73 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "header_override_dPhkRX": {
+      "type": "header-override",
+      "name": "Header Override",
+      "settings": {
+        "override_enabled": false,
+        "header_position": "relative",
+        "header_background": "black",
+        "navigation_text_colour": "black",
+        "bottom_border_colour": "transparent"
+      }
+    },
     "osprey_footer_WDfxJT": {
       "type": "osprey-footer",
+      "blocks": {
+        "menu_column_CDCxCU": {
+          "type": "menu_column",
+          "settings": {
+            "menu_title": "Company",
+            "menu": "company"
+          }
+        },
+        "menu_column_iGdFKa": {
+          "type": "menu_column",
+          "settings": {
+            "menu_title": "Customer Support",
+            "menu": "footer-customer-service"
+          }
+        },
+        "stacked_menu_column_6zLwr3": {
+          "type": "stacked_menu_column",
+          "settings": {
+            "first_menu_title": "Policy",
+            "first_menu": "footer-policy",
+            "second_menu_title": "Resources",
+            "second_menu": "resources"
+          }
+        },
+        "newsletter_signup_UP8nWG": {
+          "type": "newsletter_signup",
+          "settings": {
+            "newsletter_title": "Stay in Touch",
+            "mailchimp_action_url": "https://ospreyaustralia.us19.list-manage.com/subscribe/post?u=edc6e57443056e21d04674ef0&id=2b1a9a4869&f_id=0084c2e2f0",
+            "mailchimp_tags": "Osprey Footer .com site",
+            "email_placeholder": "Enter Email Address",
+            "submit_text": "Sign Up",
+            "consent_text": "I consent to receiving marketing emails and understand I can opt out at any time."
+          }
+        }
+      },
+      "block_order": [
+        "menu_column_CDCxCU",
+        "menu_column_iGdFKa",
+        "stacked_menu_column_6zLwr3",
+        "newsletter_signup_UP8nWG"
+      ],
       "name": "Osprey Footer",
       "settings": {
-        "instagram_widget_src": ""
+        "footer_graphic": "shopify://shop_images/osprey-footer.svg",
+        "guarantee_icon": "shopify://shop_images/all-mighty-guarantee.svg",
+        "custodian_text": "Osprey Australia acknowledges the Traditional Custodians of Country across Australia and their enduring connection to land, sea, and community. We pay our respects to Elders past and present and extend that respect to all Aboriginal and Torres Strait Islander peoples.",
+        "copyright_text": "Osprey",
+        "terms_privacy_url": "shopify://policies/privacy-policy",
+        "terms_privacy_text": "Terms & Privacy",
+        "amg_declaration_url": "shopify://pages/all-mighty-guarantee-policy",
+        "amg_declaration_text": "All Mighty Guarantee Policy",
+        "cookie_preferences_url": "",
+        "cookie_preferences_text": ""
       }
     },
     "footer": {
@@ -38,6 +100,7 @@
     }
   },
   "order": [
+    "header_override_dPhkRX",
     "osprey_footer_WDfxJT",
     "footer"
   ]

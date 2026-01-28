@@ -13,50 +13,31 @@
       "type": "header-override",
       "settings": {
         "override_enabled": true,
-        "header_position": "absolute",
-        "header_background": "black-transparent",
+        "header_position": "relative",
+        "header_background": "black",
         "navigation_text_colour": "white",
         "bottom_border_colour": "transparent"
       }
     },
-    "collection_banner_JT96AF": {
-      "type": "collection-banner",
-      "blocks": {
-        "heading_DkxcQ7": {
-          "type": "heading",
-          "settings": {
-            "heading_block_heading_text": "{{ collection.title }}",
-            "heading_block_text_color": "white",
-            "heading_block_heading_tag": "h2",
-            "heading_block_heading_size_default": "1.9rem",
-            "heading_block_heading_size_large": "3.2rem",
-            "heading_block_heading_size_extra_large": "3.2rem",
-            "heading_block_font_weight": "t-font-semibold",
-            "heading_block_heading_case": "t-uppercase",
-            "heading_block_heading_font": "font-secondary",
-            "heading_block_top_default_padding": 10,
-            "heading_block_bottom_default_padding": 10,
-            "heading_block_top_large_padding": 15,
-            "heading_block_bottom_large_padding": 15,
-            "heading_block_max_width": 1920
-          }
-        }
-      },
-      "block_order": [
-        "heading_DkxcQ7"
-      ],
+    "collection_2_columns_T7qAaJ": {
+      "type": "Collection_2_columns",
+      "name": "Banner Section",
       "settings": {
-        "video_url": "",
-        "mobile_image_horizontal_axis": 50,
-        "mobile_image_vertical_axis": 50,
-        "desktop": "{{ collection.image }}",
-        "desktop_image_horizontal_axis": 50,
-        "desktop_image_vertical_axis": 50,
-        "hero_banner_height_mobile_tablet": 408,
-        "hero_banner_height_laptop": 408,
-        "hero_banner_height_large_laptop": 408,
-        "hero_banner_height_desktop": 408,
-        "image_behavior": "none"
+        "banner_layout": "one_column",
+        "banner_image_heading": "{{ collection.title }}",
+        "banner_image_url": "{{ collection.image }}",
+        "alt_text": "{{ collection.title }} Banner image",
+        "banner_image_x_axis": 50,
+        "banner_image_y_axis": 50,
+        "banner_text_center": true,
+        "control_banner_image_height": false,
+        "banner_image_height": 500,
+        "banner_border_bottom": false,
+        "banner_overlay": true,
+        "button_bg_colour": "white",
+        "button_text_colour": "black",
+        "banner_background_colour": "black",
+        "banner_text_colour": "white"
       }
     },
     "breadcrumbs_wXfkMU": {
@@ -79,11 +60,11 @@
         "columns_desktop": 3,
         "columns_mobile": "2",
         "color_scheme": "scheme-1",
-        "image_ratio": "square",
+        "image_ratio": "portrait",
         "image_shape": "default",
-        "show_secondary_image": false,
+        "show_secondary_image": true,
         "show_vendor": false,
-        "show_rating": true,
+        "show_rating": false,
         "quick_add": "standard",
         "enable_filtering": true,
         "filter_type": "vertical",
@@ -95,7 +76,7 @@
   },
   "order": [
     "header_override_YQY9jJ",
-    "collection_banner_JT96AF",
+    "collection_2_columns_T7qAaJ",
     "breadcrumbs_wXfkMU",
     "banner",
     "product-grid"

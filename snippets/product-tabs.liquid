@@ -1,72 +1,26 @@
-<div class="t-flex t-flex-col">
-  <!-- Tab Navigation -->
+<div class="t-flex t-flex-col" id="product-tabs-container">
+  <!-- Tab Navigation (Desktop Only) -->
   <ul
-    class="t-flex t-gap-[20px] t-font-[600] t-list-none t-p-0 t-border-b t-border-gray-200"
+    class="t-hidden lg:t-flex t-gap-[20px] t-font-[600] t-list-none t-p-0 t-border-b t-border-gray-200"
     role="tablist"
+    id="desktop-tablist"
     style="border-bottom: 1px solid black;"
   >
-    <li>
-      <a
-        href="#description"
-        class="tab-btn t-no-underline t-text-black t-pb-2 t-bg-white t-cursor-pointer t-inline-block t-text-[1.8rem]"
-        data-tab="description"
-        style="border-bottom: 3px solid black;"
-      >
-        Description
-      </a>
-    </li>
-
-    <li>
-      <a
-        href="#attributes"
-        class="tab-btn t-no-underline t-text-black t-pb-2 t-bg-white t-cursor-pointer t-inline-block t-text-[1.8rem]"
-        data-tab="attributes"
-      >
-        Key Attributes
-      </a>
-    </li>
-
-    <li>
-      <a
-        href="#carry"
-        class="tab-btn t-no-underline t-text-black t-pb-2 t-bg-white t-cursor-pointer t-inline-block t-text-[1.8rem]"
-        data-tab="carry"
-      >
-        Carry Information
-      </a>
-    </li>
-
-    <li>
-      <a
-        href="#specs"
-        class="tab-btn t-no-underline t-text-black t-pb-2 t-bg-white t-cursor-pointer t-inline-block t-text-[1.8rem]"
-        data-tab="specs"
-      >
-        Specs
-      </a>
-    </li>
-
-    <li>
-      <a
-        href="#reviews"
-        class="tab-btn t-no-underline t-text-black t-pb-2 t-bg-white t-cursor-pointer t-inline-block t-text-[1.8rem]"
-        data-tab="reviews"
-      >
-        Reviews
-      </a>
-    </li>
-  </ul>
-
-  <!-- Tab Panels -->
-  <div class="tab-content t-mt-4">
-    <!-- Description Tab -->
     {% if product.description != blank %}
-      <div id="description" class="tab-panel">
-        {{ product.description }}
-      </div>
+      <li>
+        <button
+          type="button"
+          class="tab-btn t-no-underline t-text-black t-pb-2 t-bg-white t-cursor-pointer t-inline-block t-text-[1.8rem] t-border-0"
+          role="tab"
+          aria-controls="description"
+          aria-selected="false"
+          tabindex="-1"
+          data-tab="description"
+        >
+          Description
+        </button>
+      </li>
     {% endif %}
-
-    <!-- Key Attributes Tab -->
     {% if product.metafields.custom.osprey_key_attribute_title_1
       or product.metafields.custom.osprey_key_attribute_title_2
       or product.metafields.custom.osprey_key_attribute_title_3
@@ -80,32 +34,20 @@
       or product.metafields.custom.osprey_key_attribute_content_5
       or product.metafields.custom.osprey_key_attribute_content_6
     %}
-      <div id="attributes" class="tab-panel t-hidden">
-        <section class="t-grow t-w-full  t-block">
-          <div class="t-grid t-gap-y-8 t-gap-x-20 md:t-grid-cols-2">
-            {% for i in (1..6) %}
-              {% assign title_field = 'osprey_key_attribute_title_' | append: i %}
-              {% assign content_field = 'osprey_key_attribute_content_' | append: i %}
-              {% assign title = product.metafields.custom[title_field] %}
-              {% assign content = product.metafields.custom[content_field] %}
-
-              {% if title and content %}
-                <div>
-                  <h2 class="t-text-[20px] t-font-bold t-mb-2.5 t-mt-0 md:t-text-[28px]">
-                    {{ title | metafield_tag }}
-                  </h2>
-                  <div class="t-product-tab-content">
-                    {{ content | metafield_tag }}
-                  </div>
-                </div>
-              {% endif %}
-            {% endfor %}
-          </div>
-        </section>
-      </div>
+      <li>
+        <button
+          type="button"
+          class="tab-btn t-no-underline t-text-black t-pb-2 t-bg-white t-cursor-pointer t-inline-block t-text-[1.8rem] t-border-0"
+          role="tab"
+          aria-controls="attributes"
+          aria-selected="false"
+          tabindex="-1"
+          data-tab="attributes"
+        >
+          Key Attributes
+        </button>
+      </li>
     {% endif %}
-
-    <!-- Carry Information Tab -->
     {% if product.metafields.custom.osprey_carry_attribute_content_1
       or product.metafields.custom.osprey_carry_attribute_content_2
       or product.metafields.custom.osprey_carry_attribute_content_3
@@ -119,137 +61,676 @@
       or product.metafields.custom.osprey_carry_attribute_title_5
       or product.metafields.custom.osprey_carry_attribute_title_6
     %}
-      <div id="carry" class="tab-panel t-hidden">
-        <div class="t-grid t-gap-y-8 t-gap-x-20 md:t-grid-cols-2">
-          {% for i in (1..6) %}
-            {% assign title_field = 'osprey_carry_attribute_title_' | append: i %}
-            {% assign content_field = 'osprey_carry_attribute_content_' | append: i %}
-            {% assign title = product.metafields.custom[title_field] %}
-            {% assign content = product.metafields.custom[content_field] %}
+      <li>
+        <button
+          type="button"
+          class="tab-btn t-no-underline t-text-black t-pb-2 t-bg-white t-cursor-pointer t-inline-block t-text-[1.8rem] t-border-0"
+          role="tab"
+          aria-controls="carry"
+          aria-selected="false"
+          tabindex="-1"
+          data-tab="carry"
+        >
+          Carry Information
+        </button>
+      </li>
+    {% endif %}
+    {% if product.metafields.custom.fabric_main
+      or product.metafields.custom.osprey_fabric_lining
+      or product.metafields.custom.fabric_bottom
+      or product.metafields.custom.osprey_load_range
+      or product.metafields.custom.size_1
+      or product.metafields.custom.size_2
+      or product.metafields.custom.size_3
+    %}
+      <li>
+        <button
+          type="button"
+          class="tab-btn t-no-underline t-text-black t-pb-2 t-bg-white t-cursor-pointer t-inline-block t-text-[1.8rem] t-border-0"
+          role="tab"
+          aria-controls="specs"
+          aria-selected="false"
+          tabindex="-1"
+          data-tab="specs"
+        >
+          Specs
+        </button>
+      </li>
+    {% endif %}
+    <li>
+      <button
+        type="button"
+        class="tab-btn t-no-underline t-text-black t-pb-2 t-bg-white t-cursor-pointer t-inline-block t-text-[1.8rem] t-border-0"
+        role="tab"
+        aria-controls="reviews"
+        aria-selected="false"
+        tabindex="-1"
+        data-tab="reviews"
+      >
+        Reviews
+      </button>
+    </li>
+  </ul>
+  <!-- Accordion Headers (Mobile Only) & Tab Panels -->
+  <div class="tab-content t-mt-4" id="content-container">
+    <!-- Description Section -->
+    {% if product.description != blank %}
+      <!-- Mobile Accordion Header -->
+      <button
+        type="button"
+        class="accordion-header t-flex lg:t-hidden t-w-full t-justify-between t-items-center t-py-3 t-border-b t-border-gray-200 t-bg-transparent t-border-0 t-text-left t-text-[1.8rem] t-font-[600]"
+        aria-expanded="false"
+        aria-controls="description"
+        data-accordion="description"
+        id="description-header"
+      >
+        <span>Description</span>
+        <svg
+          class="accordion-icon t-w-6 t-h-6 t-transition-transform t-duration-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+      </button>
+      <!-- Panel Content -->
+      <div
+        id="description"
+        class="tab-panel-content t-hidden t-transition-all t-duration-300 t-ease-in-out t-overflow-hidden"
+        role="tabpanel"
+        aria-labelledby="description-header"
+        data-panel="description"
+      >
+        <div class="panel-content-items t-pt-4">
+          {{ product.description }}
+        </div>
+      </div>
+    {% endif %}
+    <!-- Key Attributes Section -->
+    {% if product.metafields.custom.osprey_key_attribute_title_1
+      or product.metafields.custom.osprey_key_attribute_title_2
+      or product.metafields.custom.osprey_key_attribute_title_3
+      or product.metafields.custom.osprey_key_attribute_title_4
+      or product.metafields.custom.osprey_key_attribute_title_5
+      or product.metafields.custom.osprey_key_attribute_title_6
+      or product.metafields.custom.osprey_key_attribute_content_1
+      or product.metafields.custom.osprey_key_attribute_content_2
+      or product.metafields.custom.osprey_key_attribute_content_3
+      or product.metafields.custom.osprey_key_attribute_content_4
+      or product.metafields.custom.osprey_key_attribute_content_5
+      or product.metafields.custom.osprey_key_attribute_content_6
+    %}
+      <!-- Mobile Accordion Header -->
+      <button
+        type="button"
+        class="accordion-header t-flex lg:t-hidden t-w-full t-justify-between t-items-center t-py-3 t-border-b t-border-gray-200 t-bg-transparent t-border-0 t-text-left t-text-[1.8rem] t-font-[600]"
+        aria-expanded="false"
+        aria-controls="attributes"
+        data-accordion="attributes"
+        id="attributes-header"
+      >
+        <span>Key Attributes</span>
+        <svg
+          class="accordion-icon t-w-6 t-h-6 t-transition-transform t-duration-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+      </button>
+      <!-- Panel Content -->
+      <div
+        id="attributes"
+        class="tab-panel-content t-hidden t-transition-all t-duration-300 t-ease-in-out t-overflow-hidden"
+        role="tabpanel"
+        aria-labelledby="attributes-header"
+        data-panel="attributes"
+      >
+        <div class="panel-content-items t-pt-4">
+          <section class="t-grow t-w-full t-block">
+            <div class="t-grid t-gap-y-8 t-gap-x-20 md:t-grid-cols-2">
+              {% for i in (1..6) %}
+                {% assign title_field = 'osprey_key_attribute_title_' | append: i %}
+                {% assign content_field = 'osprey_key_attribute_content_' | append: i %}
+                {% assign title = product.metafields.custom[title_field] %}
+                {% assign content = product.metafields.custom[content_field] %}
+                {% if title and content %}
+                  <div>
+                    <h2 class="t-text-[20px] t-font-bold t-mb-2.5 t-mt-0 md:t-text-[28px]">
+                      {{ title | metafield_tag }}
+                    </h2>
+                    <div class="t-product-tab-content">
+                      {{ content | metafield_tag }}
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </section>
+        </div>
+      </div>
+    {% endif %}
+    <!-- Carry Information Section -->
+    {% if product.metafields.custom.osprey_carry_attribute_content_1
+      or product.metafields.custom.osprey_carry_attribute_content_2
+      or product.metafields.custom.osprey_carry_attribute_content_3
+      or product.metafields.custom.osprey_carry_attribute_content_4
+      or product.metafields.custom.osprey_carry_attribute_content_5
+      or product.metafields.custom.osprey_carry_attribute_content_6
+      or product.metafields.custom.osprey_carry_attribute_title_1
+      or product.metafields.custom.osprey_carry_attribute_title_2
+      or product.metafields.custom.osprey_carry_attribute_title_3
+      or product.metafields.custom.osprey_carry_attribute_title_4
+      or product.metafields.custom.osprey_carry_attribute_title_5
+      or product.metafields.custom.osprey_carry_attribute_title_6
+    %}
+      <!-- Mobile Accordion Header -->
+      <button
+        type="button"
+        class="accordion-header t-flex lg:t-hidden t-w-full t-justify-between t-items-center t-py-3 t-border-b t-border-gray-200 t-bg-transparent t-border-0 t-text-left t-text-[1.8rem] t-font-[600]"
+        aria-expanded="false"
+        aria-controls="carry"
+        data-accordion="carry"
+        id="carry-header"
+      >
+        <span>Carry Information</span>
+        <svg
+          class="accordion-icon t-w-6 t-h-6 t-transition-transform t-duration-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+      </button>
+      <!-- Panel Content -->
+      <div
+        id="carry"
+        class="tab-panel-content t-hidden t-transition-all t-duration-300 t-ease-in-out t-overflow-hidden"
+        role="tabpanel"
+        aria-labelledby="carry-header"
+        data-panel="carry"
+      >
+        <div class="panel-content-items t-pt-4">
+          <div class="t-grid t-gap-y-8 t-gap-x-20 md:t-grid-cols-2">
+            {% for i in (1..6) %}
+              {% assign title_field = 'osprey_carry_attribute_title_' | append: i %}
+              {% assign content_field = 'osprey_carry_attribute_content_' | append: i %}
+              {% assign title = product.metafields.custom[title_field] %}
+              {% assign content = product.metafields.custom[content_field] %}
+              {% if title and content %}
+                <div>
+                  <h2 class="t-text-[20px] t-font-bold t-mb-2.5 t-mt-0 md:t-text-[28px]">
+                    {{ title | metafield_tag }}
+                  </h2>
+                  <div class="t-product-tab-content">
+                    {{ content | metafield_tag }}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    <!-- Specs Section -->
+    {% if product.metafields.custom.fabric_main
+      or product.metafields.custom.osprey_fabric_lining
+      or product.metafields.custom.fabric_bottom
+      or product.metafields.custom.osprey_load_range
+      or product.metafields.custom.size_1
+      or product.metafields.custom.size_2
+      or product.metafields.custom.size_3
+    %}
+      <!-- Mobile Accordion Header -->
+      <button
+        type="button"
+        class="accordion-header t-flex lg:t-hidden t-w-full t-justify-between t-items-center t-py-3 t-border-b t-border-gray-200 t-bg-transparent t-border-0 t-text-left t-text-[1.8rem] t-font-[600]"
+        aria-expanded="false"
+        aria-controls="specs"
+        data-accordion="specs"
+        id="specs-header"
+      >
+        <span>Specs</span>
+        <svg
+          class="accordion-icon t-w-6 t-h-6 t-transition-transform t-duration-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+      </button>
+      <!-- Panel Content -->
+      <div
+        id="specs"
+        class="tab-panel-content t-hidden t-transition-all t-duration-300 t-ease-in-out t-overflow-hidden"
+        role="tabpanel"
+        aria-labelledby="specs-header"
+        data-panel="specs"
+      >
+        <div class="panel-content-items t-pt-4">
+          <div class="t-flex t-gap-[20px] t-flex-col lg:t-flex-row t-pt-[20px]">
+            <!-- Specifications Table -->
+            <div class="spec-block t-w-full lg:t-w-[433px] ">
+              <table class="t-shadow-none t-w-full" style="border-collapse: collapse;">
+                <!-- Load Range -->
+                {% if product.metafields.custom.osprey_load_range %}
+                  <tr style="border-bottom: solid 1px #000; border-top: solid 1px #000;">
+                    <td class="t-py-[18px]" style="padding: 12px; font-weight: bold;">LOAD RANGE</td>
+                    <td style="padding: 12px;">
+                      {{ product.metafields.custom.osprey_load_range }}
+                    </td>
+                  </tr>
+                {% endif %}
+                <!-- Size Information -->
+                {% for option in product.options_with_values %}
+                  {% if option.name == 'Size' %}
+                    {% for size_value in option.values %}
+                      {% assign size_index = forloop.index %}
+                      {% assign size_field = 'size_' | append: size_index %}
+                      {% assign size_data = product.metafields.custom[size_field].value %}
+                      {% if size_data %}
+                        <!-- Size Header -->
+                        <tr style="border-bottom: solid 1px #000;">
+                          <td colspan="2" style="font-weight: bold; padding: 12px; font-size: 18px;">
+                            {{ size_value | upcase }}
+                          </td>
+                        </tr>
+                        <!-- Volume -->
+                        {% if size_data.volume %}
+                          <tr style="border-bottom: solid 1px #000;">
+                            <td style="padding: 12px;">VOLUME</td>
+                            <td style="padding: 12px;">
+                              {{ size_data.volume.value -}}
+                              {{- size_data.volume.unit | upcase }}
+                            </td>
+                          </tr>
+                        {% endif %}
+                        <!-- Dimensions -->
+                        {% if size_data.height and size_data.width and size_data.depth %}
+                          <tr style="border-bottom: solid 1px #000;">
+                            <td style="padding: 12px;">DIMENSIONS</td>
+                            <td style="padding: 12px;">
+                              {{ size_data.height.value }}H X {{ size_data.width.value }}W X
+                              {{ size_data.depth.value }}D
+                            </td>
+                          </tr>
+                        {% endif %}
+                        <!-- Weight -->
+                        {% if size_data.weight %}
+                          <tr style="border-bottom: solid 1px #000;">
+                            <td style="padding: 12px;">WEIGHT</td>
+                            <td style="padding: 12px;">
+                              {{ size_data.weight.value -}}
+                              {{- size_data.weight.unit | upcase }}
+                            </td>
+                          </tr>
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endfor %}
+              </table>
 
-            {% if title and content %}
-              <div>
-                <h2 class="t-text-[20px] t-font-bold t-mb-2.5  t-mt-0 md:t-text-[28px]">
-                  {{ title | metafield_tag }}
-                </h2>
-                <div class="t-product-tab-content">
-                  {{ content | metafield_tag }}
+              <!-- Move scripts to the end, after the SKU element -->
+              {%- assign current_variant_sku = product.selected_or_first_available_variant -%}
+              <p id="variantSku" class="t-text-black t-font-[700] t-text-[16px] t-uppercase">
+                SKU: {{ current_variant_sku.sku }}
+              </p>
+
+              <script>
+                // Set up global variables first
+                window.initialVariantSku = {{ product.selected_or_first_available_variant.sku | json }};
+                window.productVariants = {{ product.variants | json }};
+
+                // Debug logging
+                console.log('Initial variant SKU:', window.initialVariantSku);
+                console.log('Product variants:', window.productVariants);
+              </script>
+
+              <script>
+                (function () {
+                  'use strict';
+
+                  let isInitialized = false;
+
+                  // Enhanced variant updater with better Shopify integration
+                  function initVariantUpdater() {
+                    if (isInitialized) return;
+
+                    const variantSkuElement = document.getElementById('variantSku');
+                    console.log('Variant SKU element found:', !!variantSkuElement);
+
+                    if (!variantSkuElement) {
+                      console.warn('Variant SKU element not found');
+                      return;
+                    }
+
+                    // Check if productVariants is available
+                    if (!window.productVariants || !Array.isArray(window.productVariants)) {
+                      console.warn('Product variants not available, retrying...');
+                      // Retry after a short delay
+                      setTimeout(initVariantUpdater, 200);
+                      return;
+                    }
+
+                    console.log('Product variants loaded:', window.productVariants.length);
+                    isInitialized = true;
+
+                    // Function to update SKU display
+                    function updateVariantSku(selectedVariant) {
+                      if (selectedVariant && selectedVariant.sku) {
+                        variantSkuElement.textContent = `Sku: ${selectedVariant.sku}`;
+                        console.log('Updated SKU to:', selectedVariant.sku);
+                      }
+                    }
+
+                    // Enhanced variant finding with multiple strategies
+                    function findSelectedVariant() {
+                      const selectedOptions = [];
+                      let foundInputs = 0;
+
+                      // Strategy 1: Look for standard Shopify variant selectors
+                      const standardSelectors = [
+                        'input[name="id"]:checked', // Hidden variant ID input
+                        '.product-form__input input[type="radio"]:checked',
+                        '.product-form__input select',
+                        '.swatch-input__input:checked',
+                        'input[name^="options["]:checked',
+                        'select[name^="options["]',
+                      ];
+
+                      // First try to find a direct variant ID
+                      const variantIdInput = document.querySelector('input[name="id"]');
+                      if (variantIdInput && variantIdInput.value) {
+                        const directVariant = window.productVariants.find(
+                          (v) => v.id.toString() === variantIdInput.value
+                        );
+                        if (directVariant) {
+                          console.log('Found variant by direct ID:', directVariant.sku);
+                          return directVariant;
+                        }
+                      }
+
+                      // Strategy 2: Collect option values
+                      standardSelectors.forEach((selector) => {
+                        const elements = document.querySelectorAll(selector);
+                        foundInputs += elements.length;
+
+                        elements.forEach((input) => {
+                          let value;
+                          if (input.type === 'radio' && input.checked) {
+                            value = input.value;
+                          } else if (input.tagName === 'SELECT') {
+                            value = input.value;
+                          } else if (input.checked) {
+                            value = input.value;
+                          }
+
+                          if (value && !selectedOptions.includes(value)) {
+                            selectedOptions.push(value);
+                          }
+                        });
+                      });
+
+                      console.log('Found inputs:', foundInputs);
+                      console.log('Selected options:', selectedOptions);
+
+                      // Strategy 3: Match by options
+                      if (selectedOptions.length > 0) {
+                        const matchingVariant = window.productVariants.find((variant) => {
+                          if (!variant.options || variant.options.length !== selectedOptions.length) {
+                            return false;
+                          }
+                          return variant.options.every((option, index) => option === selectedOptions[index]);
+                        });
+
+                        if (matchingVariant) {
+                          console.log('Found variant by options:', matchingVariant.sku);
+                          return matchingVariant;
+                        }
+                      }
+
+                      // Strategy 4: Use the first available variant as fallback
+                      const firstAvailable = window.productVariants.find((v) => v.available);
+                      if (firstAvailable) {
+                        console.log('Using first available variant:', firstAvailable.sku);
+                        return firstAvailable;
+                      }
+
+                      return null;
+                    }
+
+                    // Event handler for variant changes
+                    function handleVariantChange(event) {
+                      console.log('Variant change detected:', event.target?.tagName, event.target?.name);
+
+                      // Small delay to ensure all inputs are updated
+                      setTimeout(() => {
+                        const selectedVariant = findSelectedVariant();
+                        if (selectedVariant) {
+                          updateVariantSku(selectedVariant);
+                        }
+                      }, 50);
+                    }
+
+                    // Attach event listeners with broader coverage
+                    function attachEventListeners() {
+                      const selectors = [
+                        '.product-form input[type="radio"]',
+                        '.product-form select',
+                        '.swatch-input__input',
+                        'input[name="id"]',
+                        'input[name^="options"]',
+                        'select[name^="options"]',
+                        '.variant-input',
+                        '.product-form__input input',
+                        '.product-form__input select',
+                      ];
+
+                      let listenersAttached = 0;
+                      selectors.forEach((selector) => {
+                        const elements = document.querySelectorAll(selector);
+                        elements.forEach((element) => {
+                          // Avoid duplicate listeners
+                          if (!element.hasAttribute('data-sku-listener')) {
+                            element.addEventListener('change', handleVariantChange);
+                            element.addEventListener('input', handleVariantChange);
+                            element.setAttribute('data-sku-listener', 'true');
+                            listenersAttached++;
+                            console.log('Attached listener to:', element.tagName, element.name || element.className);
+                          }
+                        });
+                      });
+
+                      console.log('Total listeners attached:', listenersAttached);
+
+                      // Also listen to the entire product form
+                      const productForm = document.querySelector(
+                        '.product-form, form[action*="/cart/add"], .product-single__form'
+                      );
+                      if (productForm && !productForm.hasAttribute('data-sku-form-listener')) {
+                        productForm.addEventListener('change', handleVariantChange);
+                        productForm.setAttribute('data-sku-form-listener', 'true');
+                        console.log('Attached form listener');
+                      }
+                    }
+
+                    // Enhanced MutationObserver
+                    function setupMutationObserver() {
+                      const observer = new MutationObserver((mutations) => {
+                        let shouldUpdate = false;
+
+                        mutations.forEach((mutation) => {
+                          if (mutation.type === 'attributes') {
+                            const attr = mutation.attributeName;
+                            if (attr === 'checked' || attr === 'selected' || attr === 'value') {
+                              shouldUpdate = true;
+                            }
+                          } else if (mutation.type === 'childList') {
+                            // New elements might be variant inputs
+                            mutation.addedNodes.forEach((node) => {
+                              if (node.nodeType === 1) {
+                                // Element node
+                                const isVariantInput =
+                                  node.matches?.('input[type="radio"], select') ||
+                                  node.querySelector?.('input[type="radio"], select');
+                                if (isVariantInput) {
+                                  shouldUpdate = true;
+                                }
+                              }
+                            });
+                          }
+                        });
+
+                        if (shouldUpdate) {
+                          // Re-attach listeners to new elements
+                          setTimeout(() => {
+                            attachEventListeners();
+                            handleVariantChange({ target: document });
+                          }, 10);
+                        }
+                      });
+
+                      // Observe the entire product area
+                      const observeTarget = document.querySelector('.product, .product-single, main') || document.body;
+                      observer.observe(observeTarget, {
+                        attributes: true,
+                        childList: true,
+                        subtree: true,
+                        attributeFilter: ['checked', 'selected', 'value'],
+                      });
+                      console.log('MutationObserver setup complete');
+                    }
+
+                    // Initialize everything
+                    attachEventListeners();
+                    setupMutationObserver();
+
+                    // Set initial variant
+                    setTimeout(() => {
+                      const initialVariant = findSelectedVariant();
+                      if (initialVariant) {
+                        updateVariantSku(initialVariant);
+                      } else if (window.initialVariantSku) {
+                        console.log('Using fallback initial SKU');
+                        variantSkuElement.textContent = `Sku: ${window.initialVariantSku}`;
+                      }
+                    }, 100);
+
+                    console.log('Variant updater initialized successfully');
+                  }
+
+                  // Multiple initialization strategies
+                  function tryInitialization() {
+                    if (document.readyState === 'loading') {
+                      document.addEventListener('DOMContentLoaded', () => {
+                        setTimeout(initVariantUpdater, 100);
+                      });
+                    } else {
+                      // DOM already loaded, try immediately and with delays
+                      initVariantUpdater();
+                      setTimeout(initVariantUpdater, 100);
+                      setTimeout(initVariantUpdater, 500);
+                    }
+
+                    // Also try after Shopify's scripts load
+                    if (typeof Shopify !== 'undefined' && Shopify.theme) {
+                      setTimeout(initVariantUpdater, 200);
+                    }
+
+                    // Listen for theme script completion
+                    document.addEventListener('shopify:section:load', () => {
+                      setTimeout(initVariantUpdater, 100);
+                    });
+                  }
+
+                  tryInitialization();
+                })();
+              </script>
+            </div>
+
+            {% if product.metafields.custom.fabric_main
+              or product.metafields.custom.osprey_fabric_lining
+              or product.metafields.custom.fabric_bottom
+            %}
+              <!-- Fabric Information -->
+              <div class="lg:t-px-[70px] t-w-full lg:t-w-[438px]">
+                <div class="fabric-section t-mt-[20px] lg:t-mt-0">
+                  <h3 class="t-text-[28px] t-font-[700] t-pt-0 t-mt-0">FABRIC</h3>
+                  {% if product.metafields.custom.fabric_main %}
+                    <h5 class="t-mt-[16px] t-mb-[8px] t-text-[16px]">MAIN</h5>
+                    <p class="t-mb-[8px] t-mt-0">
+                      {{ product.metafields.custom.fabric_main }}
+                    </p>
+                  {% endif %}
+                  {% if product.metafields.custom.osprey_fabric_lining %}
+                    <h5 class="t-mt-[16px] t-mb-[8px] t-text-[16px]">LINING</h5>
+                    <p class="t-mb-[8px] t-mt-0">
+                      {{ product.metafields.custom.osprey_fabric_lining }}
+                    </p>
+                  {% endif %}
+                  {% if product.metafields.custom.fabric_bottom %}
+                    <h5 class="t-mt-[16px] t-mb-[8px] t-text-[16px]">BOTTOM</h5>
+                    <p class="t-mb-[8px] t-mt-0">
+                      {{ product.metafields.custom.fabric_bottom }}
+                    </p>
+                  {% endif %}
                 </div>
               </div>
             {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    {% endif %}
-
-    <!-- Specs Tab -->
-    {% if product.metafields.custom.size_1 or product.metafields.custom.size_2 %}
-      <div id="specs" class="tab-panel t-hidden">
-        <div class="t-flex t-gap-[20px] t-flex-col lg:t-flex-row t-pt-[20px]">
-          <!-- Specifications Table -->
-          <div class="spec-block t-w-full lg:t-w-[433px]">
-            <table class="t-shadow-none t-w-full" style="border-collapse: collapse;">
-              <!-- Load Range -->
-              {% if product.metafields.custom.osprey_load_range %}
-                <tr style="border-bottom: solid 1px #000; border-top: solid 1px #000;">
-                  <td class="t-py-[18px]" style="padding: 12px; font-weight: bold;">LOAD RANGE</td>
-                  <td style="padding: 12px;">
-                    {{ product.metafields.custom.osprey_load_range }}
-                  </td>
-                </tr>
-              {% endif %}
-
-              <!-- Size Information -->
-              {% for option in product.options_with_values %}
-                {% if option.name == 'Size' %}
-                  {% for size_value in option.values %}
-                    {% assign size_index = forloop.index %}
-                    {% assign size_field = 'size_' | append: size_index %}
-                    {% assign size_data = product.metafields.custom[size_field].value %}
-
-                    {% if size_data %}
-                      <!-- Size Header -->
-                      <tr style="border-bottom: solid 1px #000;">
-                        <td colspan="2" style="font-weight: bold; padding: 12px; font-size: 18px;">
-                          {{ size_value | upcase }}
-                        </td>
-                      </tr>
-
-                      <!-- Volume -->
-                      {% if size_data.volume %}
-                        <tr style="border-bottom: solid 1px #000;">
-                          <td style="padding: 12px;">VOLUME</td>
-                          <td style="padding: 12px;">
-                            {{ size_data.volume.value -}}
-                            {{- size_data.volume.unit | upcase }}
-                          </td>
-                        </tr>
-                      {% endif %}
-
-                      <!-- Dimensions -->
-                      {% if size_data.height and size_data.width and size_data.depth %}
-                        <tr style="border-bottom: solid 1px #000;">
-                          <td style="padding: 12px;">DIMENSIONS</td>
-                          <td style="padding: 12px;">
-                            {{ size_data.height.value }}H X {{ size_data.width.value }}W X {{ size_data.depth.value }}D
-                          </td>
-                        </tr>
-                      {% endif %}
-
-                      <!-- Weight -->
-                      {% if size_data.weight %}
-                        <tr style="border-bottom: solid 1px #000;">
-                          <td style="padding: 12px;">WEIGHT</td>
-                          <td style="padding: 12px;">
-                            {{ size_data.weight.value -}}
-                            {{- size_data.weight.unit | upcase }}
-                          </td>
-                        </tr>
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-              {% endfor %}
-            </table>
-          </div>
-
-          <!-- Fabric Information -->
-          <div class="lg:t-px-[70px] t-w-full lg:t-w-[438px] ">
-            <div class="fabric-section t-mt-[20px] lg:t-mt-0">
-              <h3 class="t-text-[28px] t-font-[700] t-pt-0 t-mt-0">FABRIC</h3>
-
-              {% if product.metafields.custom.fabric_main %}
-                <h5 class="t-mt-[16px] t-mb-[8px] t-text-[16px]">MAIN</h5>
-                <p class="t-mb-[8px] t-mt-0">
-                  {{ product.metafields.custom.fabric_main }}
-                </p>
-              {% endif %}
-
-              {% if product.metafields.custom.osprey_fabric_lining %}
-                <h5 class="t-mt-[16px] t-mb-[8px] t-text-[16px]">LINING</h5>
-                <p class="t-mb-[8px] t-mt-0">
-                  {{ product.metafields.custom.osprey_fabric_lining }}
-                </p>
-              {% endif %}
-
-              {% if product.metafields.custom.fabric_bottom %}
-                <h5 class="t-mt-[16px] t-mb-[8px] t-text-[16px]">BOTTOM</h5>
-                <p class="t-mb-[8px] t-mt-0">
-                  {{ product.metafields.custom.fabric_bottom }}
-                </p>
-              {% endif %}
-            </div>
           </div>
         </div>
       </div>
     {% endif %}
 
-    <!-- Reviews Tab -->
-    <div id="reviews" class="tab-panel t-hidden">
-      <p>Jotopo Reviews Will Go Here</p>
+    <!-- Reviews Section -->
+    <!-- Mobile Accordion Header -->
+    <button
+      type="button"
+      class="accordion-header t-flex lg:t-hidden t-w-full t-justify-between t-items-center t-py-3 t-border-b t-border-gray-200 t-bg-transparent t-border-0 t-text-left t-text-[1.8rem] t-font-[600]"
+      aria-expanded="false"
+      aria-controls="reviews"
+      data-accordion="reviews"
+      id="reviews-header"
+    >
+      <span>Reviews</span>
+      <svg
+        class="accordion-icon t-w-6 t-h-6 t-transition-transform t-duration-300"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+      </svg>
+    </button>
+    <!-- Panel Content -->
+    <div
+      id="reviews"
+      class="tab-panel-content t-hidden t-transition-all t-duration-300 t-ease-in-out t-overflow-hidden"
+      role="tabpanel"
+      aria-labelledby="reviews-header"
+      data-panel="reviews"
+    >
+      <div class="panel-content-items t-pt-4">
+        <!-- Yotpo Reviews Widget (Reviews Only) -->
+        <div
+          class="yotpo-widget-instance"
+          data-yotpo-instance-id="1195708"
+          data-yotpo-product-id="{{product.id}}"
+          data-yotpo-name="{{ product.title | escape }}"
+          data-yotpo-url="{{ shop.url }}{{ product.url }}"
+          data-yotpo-image-url="{{ product.featured_image | product_img_url: "large" | prepend: "https:" | replace: '?', '%3F' | replace: '&','%26'}}"
+          data-yotpo-price="{{ product.price | divided_by: 100.00 }}"
+          data-yotpo-currency="{{ shop.currency }}"
+          data-yotpo-description="{{ product.description | escape }}"
+        ></div>
+      </div>
     </div>
   </div>
-
   <!-- Owner's Manual Download -->
   {% if product.metafields.custom.owners_manual %}
     <div class="t-mt-[30px] t-pt-[45px]">
@@ -276,76 +757,318 @@
     </div>
   {% endif %}
 </div>
-
-<!-- Tab Script -->
+<!-- Tab/Accordion Script -->
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const tabLinks = document.querySelectorAll('.tab-btn');
-    const tabPanels = document.querySelectorAll('.tab-panel');
+  (function () {
+    'use strict';
+    // Global state
+    let currentMode = 'desktop';
+    let activePanel = null;
+    let tabListeners = [];
+    let accordionListeners = [];
 
-    // Initialize first visible tab as active
-    if (tabLinks.length > 0 && tabPanels.length > 0) {
-      // Get the first tab's target
-      const firstTabTarget = tabLinks[0].getAttribute('data-tab');
-      const firstPanel = document.getElementById(firstTabTarget);
+    // Debounce function
+    function debounce(func, wait) {
+      let timeout;
+      return function () {
+        const context = this,
+          args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          func.apply(context, args);
+        }, wait);
+      };
+    }
 
-      if (firstPanel) {
-        firstPanel.classList.remove('t-hidden');
-        tabLinks[0].style.borderBottom = '3px solid black';
+    // Helper functions
+    function isDesktop() {
+      return window.matchMedia('(min-width: 1024px)').matches;
+    }
+
+    function getAvailablePanels() {
+      return Array.from(document.querySelectorAll('[data-panel]')).map((panel) => panel.dataset.panel);
+    }
+
+    function activateTab(panelId) {
+      if (activePanel === panelId) return;
+
+      requestAnimationFrame(() => {
+        // Hide all panels
+        document.querySelectorAll('.tab-panel-content').forEach((panel) => {
+          panel.classList.add('t-hidden');
+          panel.setAttribute('aria-hidden', 'true');
+        });
+        // Reset all tab buttons
+        document.querySelectorAll('.tab-btn').forEach((btn) => {
+          btn.setAttribute('aria-selected', 'false');
+          btn.setAttribute('tabindex', '-1');
+        });
+        // Show target panel
+        const targetPanel = document.getElementById(panelId);
+        if (targetPanel) {
+          targetPanel.classList.remove('t-hidden');
+          targetPanel.setAttribute('aria-hidden', 'false');
+        }
+        // Activate target tab
+        const targetTab = document.querySelector(`[data-tab="${panelId}"]`);
+        if (targetTab) {
+          targetTab.setAttribute('aria-selected', 'true');
+          targetTab.setAttribute('tabindex', '0');
+        }
+        activePanel = panelId;
+      });
+    }
+
+    function toggleAccordion(panelId) {
+      const header = document.getElementById(`${panelId}-header`);
+      const panel = document.getElementById(panelId);
+      const icon = header?.querySelector('.accordion-icon');
+      if (!header || !panel) return;
+      const isExpanded = header.getAttribute('aria-expanded') === 'true';
+      if (isExpanded && activePanel === panelId) return;
+      requestAnimationFrame(() => {
+        if (isExpanded) {
+          // Collapse
+          header.setAttribute('aria-expanded', 'false');
+          panel.classList.add('t-hidden');
+          panel.setAttribute('aria-hidden', 'true');
+          if (icon) icon.style.transform = 'rotate(0deg)';
+          if (activePanel === panelId) activePanel = null;
+        } else {
+          // Expand
+          header.setAttribute('aria-expanded', 'true');
+          panel.classList.remove('t-hidden');
+          panel.setAttribute('aria-hidden', 'false');
+          if (icon) icon.style.transform = 'rotate(45deg)';
+          activePanel = panelId;
+        }
+      });
+    }
+
+    function setupTabMode() {
+      // Hide accordion headers
+      document.querySelectorAll('.accordion-header').forEach((header) => {
+        header.style.display = 'none';
+      });
+      // Show tablist
+      const tablist = document.getElementById('desktop-tablist');
+      if (tablist) {
+        tablist.classList.remove('t-hidden');
+        tablist.classList.add('lg:t-flex');
+      }
+      // Clean up accordion listeners
+      accordionListeners.forEach(({ element, type, handler }) => {
+        element.removeEventListener(type, handler);
+      });
+      accordionListeners = [];
+      // Setup tab listeners
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      tabButtons.forEach((btn) => {
+        const clickHandler = (e) => {
+          e.preventDefault();
+          activateTab(btn.dataset.tab);
+        };
+        const keyHandler = (e) => {
+          const tabs = Array.from(document.querySelectorAll('.tab-btn'));
+          const currentIndex = tabs.indexOf(btn);
+          if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            const nextIndex = (currentIndex + 1) % tabs.length;
+            tabs[nextIndex].focus();
+          } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            const prevIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+            tabs[prevIndex].focus();
+          } else if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            activateTab(btn.dataset.tab);
+          }
+        };
+        btn.addEventListener('click', clickHandler);
+        btn.addEventListener('keydown', keyHandler);
+        tabListeners.push(
+          { element: btn, type: 'click', handler: clickHandler },
+          { element: btn, type: 'keydown', handler: keyHandler }
+        );
+      });
+      // Activate first available tab or preserve selection
+      const availablePanels = getAvailablePanels();
+      if (availablePanels.length > 0) {
+        const targetPanel = activePanel && availablePanels.includes(activePanel) ? activePanel : availablePanels[0];
+        activateTab(targetPanel);
       }
     }
 
-    tabLinks.forEach((link) => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const target = this.getAttribute('data-tab');
-
-        // Hide all panels
-        tabPanels.forEach((panel) => panel.classList.add('t-hidden'));
-
-        // Show selected panel
-        const targetPanel = document.getElementById(target);
-        if (targetPanel) {
-          targetPanel.classList.remove('t-hidden');
-        }
-
-        // Reset all tabs
-        tabLinks.forEach((tab) => {
-          tab.style.borderBottom = '3px solid transparent';
-        });
-
-        // Set active tab
-        this.style.borderBottom = '3px solid black';
+    function setupAccordionMode() {
+      // Hide tablist
+      const tablist = document.getElementById('desktop-tablist');
+      if (tablist) {
+        tablist.classList.add('t-hidden');
+        tablist.classList.remove('lg:t-flex');
+      }
+      // Show accordion headers
+      document.querySelectorAll('.accordion-header').forEach((header) => {
+        header.style.display = 'flex';
       });
-    });
-  });
+      // Clean up tab listeners
+      tabListeners.forEach(({ element, type, handler }) => {
+        element.removeEventListener(type, handler);
+      });
+      tabListeners = [];
+      // Collapse all panels first
+      document.querySelectorAll('.tab-panel-content').forEach((panel) => {
+        panel.classList.add('t-hidden');
+        panel.setAttribute('aria-hidden', 'true');
+      });
+      document.querySelectorAll('.accordion-header').forEach((header) => {
+        header.setAttribute('aria-expanded', 'false');
+        const icon = header.querySelector('.accordion-icon');
+        if (icon) icon.style.transform = 'rotate(0deg)';
+      });
+      // Setup accordion listeners
+      const accordionHeaders = document.querySelectorAll('.accordion-header');
+      accordionHeaders.forEach((header) => {
+        const clickHandler = (e) => {
+          e.preventDefault();
+          toggleAccordion(header.dataset.accordion);
+        };
+        const keyHandler = (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleAccordion(header.dataset.accordion);
+          }
+        };
+        header.addEventListener('click', clickHandler);
+        header.addEventListener('keydown', keyHandler);
+        accordionListeners.push(
+          { element: header, type: 'click', handler: clickHandler },
+          { element: header, type: 'keydown', handler: keyHandler }
+        );
+      });
+      // Open first available panel or preserve selection
+      const availablePanels = getAvailablePanels();
+      if (availablePanels.length > 0) {
+        const targetPanel = activePanel && availablePanels.includes(activePanel) ? activePanel : availablePanels[0];
+        toggleAccordion(targetPanel);
+      }
+    }
+
+    function handleModeChange() {
+      const wasDesktop = currentMode === 'desktop';
+      const nowDesktop = isDesktop();
+      if (wasDesktop !== nowDesktop) {
+        currentMode = nowDesktop ? 'desktop' : 'mobile';
+        if (nowDesktop) {
+          setupTabMode();
+        } else {
+          setupAccordionMode();
+        }
+      }
+    }
+
+    function init() {
+      // Set initial mode
+      currentMode = isDesktop() ? 'desktop' : 'mobile';
+      // Hide all panels initially to prevent FOUC
+      document.querySelectorAll('.tab-panel-content').forEach((panel) => {
+        panel.classList.add('t-hidden');
+        panel.setAttribute('aria-hidden', 'true');
+      });
+      // Setup initial mode
+      if (currentMode === 'desktop') {
+        setupTabMode();
+      } else {
+        setupAccordionMode();
+      }
+      // Listen for viewport changes (debounced)
+      const mediaQuery = window.matchMedia('(min-width: 1024px)');
+      mediaQuery.addEventListener('change', debounce(handleModeChange, 100));
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
 </script>
-
 <style>
-  .tab-btn {
-    transition: border-bottom 0.2s ease;
+    /* Reserve space for the border (transparent by default) */
+    .tab-btn {
+      border-bottom: 3px solid transparent;
+      padding-bottom: calc(0.5rem - 3px);
+      will-change: border-bottom;
+    }
+
+  /* Active tab has a black bottom border */
+  .tab-btn[aria-selected="true"] {
+    border-bottom: 3px solid black !important;
   }
 
-  .tab-btn:hover {
-    border-bottom: 3px solid #666 !important;
+  {% comment %} add the border to the currently selected description {% endcomment %}
+  .tab-panel[aria-hidden="false"] .tab-btn {
+    border-bottom: 3px solid black !important;
   }
 
-  .t-product-tab-content {
-    line-height: 1.6;
+  /* Focus state for keyboard navigation */
+  .tab-btn:focus {
+    outline: none;
+    border-bottom: 3px solid black !important;
   }
 
-  .t-product-tab-content p {
-    margin-bottom: 1rem;
-  }
+    .accordion-icon {
+      transition: transform 0.3s ease;
+    }
 
-  .t-product-tab-content ul {
-    list-style-type: disc;
-    margin-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
+    .t-product-tab-content {
+      line-height: 1.6;
+    }
 
-  .t-product-tab-content li {
-    margin-bottom: 0.5rem;
-  }
+    .t-product-tab-content p {
+      margin-bottom: 1rem;
+    }
+
+    .t-product-tab-content ul {
+      list-style-type: disc;
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .t-product-tab-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Prevent layout shift on desktop */
+    @media (min-width: 1024px) {
+      .tab-panel {
+        height: auto !important;
+        overflow: visible !important;
+      }
+    }
+
+    /* Smooth accordion transitions on mobile */
+    @media (max-width: 1023px) {
+      .tab-panel {
+        transition: all 0.3s ease-in-out;
+      }
+    }
+
+    /* Fixed height for tablist to prevent layout shifts */
+    #desktop-tablist {
+      height: 37px;
+      overflow: hidden;
+    }
 </style>
+
+<!-- Yotpo Script - Add to theme.liquid if not already present -->
+<script type="text/javascript">
+  (function e() {
+    var e = document.createElement('script');
+    (e.type = 'text/javascript'),
+      (e.async = true),
+      (e.src = '//staticw2.yotpo.com/{{ shop.metafields.yotpo.yotpo_app_key }}/widget.js');
+    var t = document.getElementsByTagName('script')[0];
+    t.parentNode.insertBefore(e, t);
+  })();
+</script>

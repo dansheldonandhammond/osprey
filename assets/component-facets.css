@@ -520,8 +520,8 @@
   visibility: hidden;
   position: absolute;
   left: 0.3rem;
-  z-index: 5;
-  top: 1.4rem;
+  z-index: 1;
+  top: 1rem;
   width: 1.1rem;
   height: 0.7rem;
 }
@@ -1136,7 +1136,7 @@ input.mobile-facets__checkbox {
   .facets__form-vertical {
     display: flex;
     flex-direction: column;
-    width: 26rem;
+    width: 310px;
   }
 
   .facets__disclosure-vertical {

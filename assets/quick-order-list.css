@@ -1,5 +1,15 @@
 quick-order-list {
   display: block;
+  position: relative;
+  z-index: 1;
+}
+
+@media screen and (min-width: 990px) {
+  quick-order-list {
+    position: relative;
+    z-index: 1;
+    margin-top: 0;
+  }
 }
 
 quick-order-list .quantity {
@@ -18,6 +28,27 @@ quick-order-list .pagination-wrapper {
 .quick-order-list__contents {
   position: relative;
   padding-bottom: 2rem;
+  z-index: 1;
+}
+
+@media screen and (min-width: 990px) {
+  .quick-order-list__contents {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.quick-order-list-container {
+  position: relative;
+  z-index: 1;
+}
+
+@media screen and (min-width: 990px) {
+  .quick-order-list-container {
+    position: relative;
+    z-index: 1;
+    margin-top: 0;
+  }
 }
 
 .quick-order-list__container--disabled {

@@ -66,7 +66,8 @@
 .price--sold-out .price__badge-sold-out,
 .price--on-sale .price__badge-sale,
 .volume-pricing--sale-badge .price__badge-sale {
-  display: inline-block;
+  display: flex;
+  display: inline-flex;
 }
 
 .volume-pricing--sale-badge .price__badge-sale {

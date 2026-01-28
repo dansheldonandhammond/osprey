@@ -1,0 +1,143 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "header_override_wBUJXg": {
+      "type": "header-override",
+      "settings": {
+        "override_enabled": true,
+        "header_position": "absolute",
+        "header_background": "black-transparent",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "transparent"
+      }
+    },
+    "pro_deal-banner": {
+      "type": "pro_deal-banner",
+      "settings": {
+        "heading": "Osprey Pro Deal",
+        "text": "We invite qualified Australian based individuals to apply to our exclusive Osprey Australia Pro Programs. As representatives & users of our brand, you'll enjoy benefits and help us spread the word about Osprey's exceptional products to friends, family, colleagues, and the world.",
+        "btn_one_text": "LOG IN",
+        "btn_one_link": "/apps/alliance-pro",
+        "btn_two_text": "APPLY HERE",
+        "btn_two_link": "/apps/alliance-pro/application"
+      }
+    },
+    "pro_deal-page": {
+      "type": "pro_deal-page",
+      "blocks": {
+        "faq_accordion_Y4rMP8": {
+          "type": "faq-accordion",
+          "settings": {
+            "faq_accordion_heading": "How can I get access to the Osprey Pro Deal program?",
+            "faq_accordion_content": "<p>The Osprey Pro Programs are membership-based program for eligible individuals. To participate, you must first apply via our application at <a href=\"https://ospreyaustralia.com.au/apps/alliance-pro/application\" target=\"_blank\" title=\"https://ospreyaustralia.com.au/apps/alliance-pro/application\">ospreyaustralia.com.au/apps/alliance-pro/application</a></p>"
+          }
+        },
+        "faq_accordion_RtDX4c": {
+          "type": "faq-accordion",
+          "settings": {
+            "faq_accordion_heading": "How do I return products?",
+            "faq_accordion_content": "<p>Pro Members are responsible for return shipping unless otherwise indicated by promotional messaging. To start a return, please fill out our <a href=\"https://support.ospreyaustralia.com.au/contact/osprey-contact-form-SyduMPUWx\" title=\"https://support.ospreyaustralia.com.au/contact/osprey-contact-form-SyduMPUWx\">Contact Form</a></p>"
+          }
+        },
+        "faq_accordion_FadFBH": {
+          "type": "faq-accordion",
+          "settings": {
+            "faq_accordion_heading": "What is my discount?",
+            "faq_accordion_content": "<p>Once logged into your pro program account, you will see your discounted pricing on product pages and at checkout. Members are not eligible for free shipping/returns or other retail promotions, except when announced via email/SMS.</p>"
+          }
+        },
+        "faq_accordion_GHKdML": {
+          "type": "faq-accordion",
+          "settings": {
+            "faq_accordion_heading": "How long is my Pro Deal membership valid?",
+            "faq_accordion_content": "<p>Your Pro Deal membership is valid for one year from the date of approval. You may be asked to re-apply or re-submit details to renew membership</p>"
+          }
+        },
+        "faq_accordion_KBVmQ7": {
+          "type": "faq-accordion",
+          "settings": {
+            "faq_accordion_heading": "Can I share my Pro Deal discount?",
+            "faq_accordion_content": "<p>No. Members are only authorized to purchase gear for their own use. Using your discount to purchase products for friends or family is strictly prohibited and may result in removal from the program. If in doubt, please contact <a href=\"mailto:info@ospreyaustralia.com.au\" title=\"mailto:info@ospreyaustralia.com.au\">info@ospreyaustralia.com.au </a>to clarify or seek approval.</p>"
+          }
+        },
+        "faq_accordion_RkNKD7": {
+          "type": "faq-accordion",
+          "settings": {
+            "faq_accordion_heading": "What if I forget my password?",
+            "faq_accordion_content": "<p>If you forget your password, you can reset it by clicking on the \"Forgot Password?\" link on the login page. Follow the instructions in the email you receive to create a new password.</p>"
+          }
+        },
+        "accordion_KURq7Y": {
+          "type": "accordion",
+          "settings": {
+            "accordion_heading": "Outdoor Pros",
+            "accordion_content": "<p>To apply for our official Pro Program, please apply below and add as much detail as possible about your role in the outdoor and supporting industries.</p><ul><li>Adventure Travel Guides & Instructors</li><li>Backcountry Hiking Guides</li><li>Bike Coaches & Instructors</li><li>Climbing Gym Instructor & Staff</li><li>Climbing, Ski, & Mountaineering Guides</li><li>University & School Outdoor Program and Education Staff</li><li>Environmental NGO's</li><li>Employeed & Volunteer Firefighters</li><li>Hunt/Fish Guides & Outfitters</li><li>Mountain Resort Employees</li><li>Non-Military Law Enforcement</li><li>Outdoor Experiential Educator</li><li>Outdoor / Ski / Bike Industry Employees</li><li>River/Water Guides / Staff</li><li>Search & Rescue</li><li>Ski Patrol / Snow Safety</li><li>Ski/Snowboard Instructor / Staff</li><li>SES Members</li><li>As well as other related industry roles!</li></ul>"
+          }
+        },
+        "accordion_aWpgeh": {
+          "type": "accordion",
+          "settings": {
+            "accordion_heading": "Osprey Outdoor/Bike Retail Store Employees",
+            "accordion_content": "<ul><li>Select retail stores that sell Osprey products.</li></ul>"
+          }
+        },
+        "accordion_7ibYnt": {
+          "type": "accordion",
+          "settings": {
+            "accordion_heading": "First Responders",
+            "accordion_content": "<ul><li>Firefighters</li><li>Law Enforcement</li><li>EMT</li><li>Paramedics</li></ul>"
+          }
+        },
+        "accordion_UMx36n": {
+          "type": "accordion",
+          "settings": {
+            "accordion_heading": "Military Personnel",
+            "accordion_content": "<ul><li>Active duty</li><li>Veterans</li><li>Reserves</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_accordion_Y4rMP8",
+        "faq_accordion_RtDX4c",
+        "faq_accordion_FadFBH",
+        "faq_accordion_GHKdML",
+        "faq_accordion_KBVmQ7",
+        "faq_accordion_RkNKD7",
+        "accordion_KURq7Y",
+        "accordion_aWpgeh",
+        "accordion_7ibYnt",
+        "accordion_UMx36n"
+      ],
+      "settings": {
+        "subheading": "Who is Eligible for an Osprey Pro Deal?",
+        "sub_text": "",
+        "faq_heading": "FAQ's",
+        "faq_sub_text": "",
+        "faq_img": "shopify://shop_images/HOOSUS-896-shreeid-faq.jpg",
+        "guide_heading": "",
+        "guide_content_1": "",
+        "guide_content_2": "",
+        "guideline_img": "shopify://shop_images/hoosus-896-sheerid-guidelines-bottom-banner.jpg",
+        "guide_img_text": "APPLY TO THE OSPREY PRO DEAL PROGRAM TODAY."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "header_override_wBUJXg",
+    "pro_deal-banner",
+    "pro_deal-page"
+  ]
+}

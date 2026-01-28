@@ -56,18 +56,54 @@
             {% comment %} Pills are right below the title for filter type vertical {% endcomment %}
             {%- if filter_type == 'vertical' -%}
               <div class="active-facets active-facets-desktop">
-                <div class="active-facets-vertical-filter">
+                <div class="active-facets-vertical-filter t-justify-start t-flex t-gap-[10px] t-items-center t-mb-[10px]">
                   {%- unless results.filters == empty -%}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      version="1.1"
+                      viewBox="-10 0 1044 1024"
+                      class="h-6 w-6"
+                      width="24"
+                      height="24"
+                      role="img"
+                    >
+                         <path fill="currentColor" d="M298 43q33 0 60.5 17.5t40.5 46.5h625v97h-625q-13 29 -40.5 46.5t-60.5 17.5q-34 0 -61.5 -17.5t-40.5 -46.5h-196v-97h196q13 -29 40.5 -46.5t61.5 -17.5zM405 756q34 0 61 17.5t41 46.5h517v97h-517q-14 29 -41 46.5t-61 17.5q-33 0 -60.5 -17.5t-40.5 -46.5h-304v-97 h304q13 -29 40.5 -46.5t60.5 -17.5v0zM639 372q33 0 60.5 17.5t41.5 46.5h283v97h-283q-14 29 -41.5 46.5t-60.5 17.5q-34 0 -61 -17.5t-41 -46.5h-537v-97h537q14 -29 41 -46.5t61 -17.5v0z"></path>
+                      <title>filters</title>
+                    </svg>
                     <h2
-                      class="facets__heading facets__heading--vertical caption-large text-body"
+                      class="facets__heading t-text-[18px] facets__heading--vertical caption-large text-body t-my-0"
                       id="verticalTitle"
                       tabindex="-1"
                     >
-                      {{ 'products.facets.filter_by_label' | t }}
+                      {%- assign has_active_filters = false -%}
+                      {%- for filter in results.filters -%}
+                        {%- if filter.active_values.size > 0 -%}
+                          {%- assign has_active_filters = true -%}
+                          {%- break -%}
+                        {%- endif -%}
+                        {%- if filter.type == 'price_range' -%}
+                          {%- assign min = filter.min_value.value -%}
+                          {%- assign max = filter.max_value.value -%}
+                          {%- if min != null or max != null -%}
+                            {%- assign has_active_filters = true -%}
+                            {%- break -%}
+                          {%- endif -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+
+                      {%- if has_active_filters -%}
+                        Now filtering by:
+                      {%- else -%}
+                        Filter by:
+                      {%- endif -%}
                     </h2>
                   {%- endunless -%}
-                  <facet-remove class="active-facets__button-wrapper">
-                    <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
+                  <facet-remove class="active-facets__button-wrapper t-mb-0">
+                    <a
+                      href="{{ results_url }}"
+                      class="active-facets__button-remove underlined-link t-font-[700] t-text-[16px]"
+                    >
                       <span>{{ 'products.facets.clear_all' | t }}</span>
                     </a>
                   </facet-remove>
@@ -134,11 +170,13 @@
                     {% endif %}
                   >
                     <summary
-                      class="facets__summary caption-large focus-offset"
-                      aria-label="{{ filter.label | escape }} ({{ 'products.facets.filters_selected.one' | t: count: filter.active_values.size }})"
+                      class="facets__summary caption-large focus-offset t-text-[18px] t-font-[700]"
+                      aria-label="{{ filter.label | escape }} ({{ filter.active_values.size }} selected)"
+                      role="button"
+                      aria-expanded="false"
                     >
-                      <div>
-                        <span class="facets__summary-label">
+                      <div class="facets__summary-inner t-flex t-items-center t-justify-between">
+                        <span class="facets__summary-label t-uppercase ">
                           {{- filter.label | escape }}
                           {%- if filter_type == 'vertical' -%}
                             <span class="facets__selected{% if filter.active_values.size == 0 %} hidden{% endif %}">
@@ -151,9 +189,66 @@
                             {{ 'products.facets.filter_and_operator_subtitle' | t }}
                           </span>
                         {%- endif -%}
-                        {{- 'icon-caret.svg' | inline_asset_content -}}
+                        <span
+                          class="facets__plus-icon-wrapper t-ml-2"
+                          style="display: flex; align-items: center; justify-content: center;"
+                        >
+                          <svg
+                            class="facets__plus-icon transition-transform duration-300"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            aria-hidden="true"
+                            style="display: block; margin: auto;"
+                          >
+                            <g>
+                              <rect class="facets__plus-vertical transition-transform duration-300" x="9" y="4" width="2" height="12" rx="1" style="transform: rotate(0deg); opacity: 1;"/>
+                              <rect class="facets__plus-horizontal" x="4" y="9" width="12" height="2" rx="1"/>
+                            </g>
+                          </svg>
+                        </span>
                       </div>
                     </summary>
+                    <script>
+                      document.addEventListener('DOMContentLoaded', function () {
+                        document.querySelectorAll('details.js-filter').forEach(function (details) {
+                          var summary = details.querySelector('summary');
+                          var verticalLine = summary && summary.querySelector('.facets__plus-vertical');
+                          if (verticalLine) {
+                            function updateIcon() {
+                              if (details.open) {
+                                verticalLine.style.transform = 'rotate(-90deg)';
+                                verticalLine.style.opacity = '0';
+                              } else {
+                                verticalLine.style.transform = 'rotate(0deg)';
+                                verticalLine.style.opacity = '1';
+                              }
+                            }
+                            details.addEventListener('toggle', updateIcon);
+                            updateIcon();
+                          }
+                        });
+                      });
+                    </script>
+                    <style>
+                      .facets__plus-icon {
+                        vertical-align: middle;
+                        display: block;
+                        margin: auto;
+                      }
+                      .facets__plus-vertical {
+                        transition: transform 0.3s, opacity 0.3s;
+                        transform-origin: 50% 50%;
+                      }
+                      .facets__plus-horizontal {
+                        transition: opacity 0.3s;
+                      }
+                      .facets__plus-icon-wrapper {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                      }
+                    </style>
                     <div
                       id="Facet-{{ forloop.index }}-{{ section.id }}"
                       class="parent-display {% if filter_type == 'horizontal' %}facets__display{% else %}facets__display-vertical{% endif %}"
@@ -201,12 +296,12 @@
                               endif
                             %}
                             {%- capture label_class -%}
-                            facets__label facet-checkbox{% if is_disabled %} disabled{% endif %}{% if value.active %} active{% endif %}
+                            t-py-[5px]  facets__label facet-checkbox{% if is_disabled %} disabled{% endif %}{% if value.active %} active{% endif %}
                             {%- endcapture -%}
 
                             {%- capture text_value -%}
-                              <span class="facet-checkbox__text" aria-hidden="true">
-                                <span class="facet-checkbox__text-label">{{- value.label | escape }}</span> ({{- value.count -}})
+                              <span class="facet-checkbox__text t-text-[16px] t-cursor-default" aria-hidden="true">
+                                <span class="facet-checkbox__text-label t-no-underline">{{- value.label | escape }}</span> ({{- value.count -}})
                               </span>
                               <span class="visually-hidden">
                                 {{- value.label | escape }} (
@@ -304,21 +399,92 @@
                       open
                     {% endif %}
                   >
-                    <summary class="facets__summary caption-large focus-offset">
-                      <div>
-                        <span>{{ filter.label | escape }}</span>
-                        {{- 'icon-caret.svg' | inline_asset_content -}}
+                    <summary
+                      class="facets__summary caption-large focus-offset t-text-[18px] t-font-[700]"
+                      aria-label="{{ filter.label | escape }} ({{ filter.active_values.size }} selected)"
+                      role="button"
+                      aria-expanded="false"
+                    >
+                      <div class="facets__summary-inner t-flex t-items-center t-justify-between">
+                        <span class="facets__summary-label t-uppercase ">
+                          {{- filter.label | escape }}
+                        </span>
+                        {%- if filter_type == 'vertical' and filter.operator == 'AND' -%}
+                          <span class="facets__and-helptext">
+                            {{ 'products.facets.filter_and_operator_subtitle' | t }}
+                          </span>
+                        {%- endif -%}
+                        <span
+                          class="facets__plus-icon-wrapper t-ml-2"
+                          style="display: flex; align-items: center; justify-content: center;"
+                        >
+                          <svg
+                            class="facets__plus-icon transition-transform duration-300"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            aria-hidden="true"
+                            style="display: block; margin: auto;"
+                          >
+                            <g>
+                              <rect class="facets__plus-vertical transition-transform duration-300" x="9" y="4" width="2" height="12" rx="1" style="transform: rotate(0deg); opacity: 1;"/>
+                              <rect class="facets__plus-horizontal" x="4" y="9" width="12" height="2" rx="1"/>
+                            </g>
+                          </svg>
+                        </span>
                       </div>
                     </summary>
+                    <script>
+                      document.addEventListener('DOMContentLoaded', function () {
+                        document.querySelectorAll('details.js-filter').forEach(function (details) {
+                          var summary = details.querySelector('summary');
+                          var verticalLine = summary && summary.querySelector('.facets__plus-vertical');
+                          if (verticalLine) {
+                            function updateIcon() {
+                              if (details.open) {
+                                verticalLine.style.transform = 'rotate(-90deg)';
+                                verticalLine.style.opacity = '0';
+                              } else {
+                                verticalLine.style.transform = 'rotate(0deg)';
+                                verticalLine.style.opacity = '1';
+                              }
+                            }
+                            details.addEventListener('toggle', updateIcon);
+                            updateIcon();
+                          }
+                        });
+                      });
+                    </script>
+                    <style>
+                      .facets__plus-icon {
+                        vertical-align: middle;
+                        display: block;
+                        margin: auto;
+                      }
+                      .facets__plus-vertical {
+                        transition: transform 0.3s, opacity 0.3s;
+                        transform-origin: 50% 50%;
+                      }
+                      .facets__plus-horizontal {
+                        transition: opacity 0.3s;
+                      }
+                      .facets__plus-icon-wrapper {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                      }
+                    </style>
                     <div
                       id="Facet-{{ forloop.index }}-{{ section.id }}"
                       class="{% if filter_type == 'horizontal' %}facets__display{% else %}facets__display-vertical{% endif %}"
                     >
-                      <div class="{% if filter_type == 'horizontal' %}facets__header{% else %}facets__header-vertical{% endif %}">
+                      <div class="{% if filter_type == 'horizontal' %}facets__header{% else %}t-hidden facets__header-vertical{% endif %}">
                         {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
-                        <span class="facets__selected">
-                          {{- 'products.facets.max_price' | t: price: max_price_amount -}}
-                        </span>
+                        {% comment %}
+                          <span class="facets__selected">
+                            {{- 'products.facets.max_price' | t: price: max_price_amount -}}
+                          </span>
+                        {% endcomment %}
                         {%- if filter_type != 'vertical' -%}
                           <facet-remove>
                             <a href="{{ filter.url_to_remove }}" class="facets__reset link underlined-link">
@@ -574,7 +740,7 @@
                               {%- endcapture -%}
 
                               {%- capture text_value -%}
-                                <span class="facet-checkbox__text" aria-hidden="true">
+                                <span class="facet-checkbox__text t-text-[16px] t-cursor-default" aria-hidden="true">
                                   <span class="facet-checkbox__text-label">{{- value.label | escape }}</span> ({{- value.count -}})
                                 </span>
                                 <span class="visually-hidden">
@@ -689,9 +855,6 @@
                           </button>
 
                           {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
-                          <p class="mobile-facets__info">
-                            {{ 'products.facets.max_price' | t: price: max_price_amount }}
-                          </p>
 
                           <price-range class="facets__price">
                             {% render 'price-facet', filter: filter, id_prefix: 'Mobile-Filter-' %}

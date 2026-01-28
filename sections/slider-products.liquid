@@ -1,0 +1,256 @@
+{% schema %}
+{
+  "name": "Top Picks",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Top Picks"
+    },
+    {
+      "type": "range",
+      "id": "items_per_view_desktop",
+      "label": "Items per view (Desktop)",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "max_items",
+      "label": "Maximum items to show",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "use_collection",
+      "label": "Use collection products",
+      "default": true
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Top Picks",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
+{%- liquid
+  assign products = blank
+  if section.settings.use_collection and section.settings.collection != blank
+    assign products = section.settings.collection.products | limit: section.settings.max_items
+  else
+    assign block_products = section.blocks | where: 'type', 'product' | map: 'settings' | map: 'product' | compact
+    assign products = block_products
+  endif
+-%}
+
+{% if products.size == 0 %}
+  <div class="t-text-center t-py-8 t-text-gray-500">
+    {% if section.settings.use_collection and section.settings.collection == blank %}
+      <p>Please select a collection in the section settings.</p>
+    {% elsif section.settings.use_collection and section.settings.collection != blank %}
+      <p>The selected collection "{{ section.settings.collection.title }}" contains no products.</p>
+    {% else %}
+      <p>Please add product blocks or enable the collection option.</p>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if products.size > 0 %}
+  <div class=" t-max-w-[1308px] t-overflow-hidden t-mx-auto  t-px-0 lg:t-px-[20px] t-pt-[50px] t-pb-[30px]">
+    <div class="t-relative t-max-w-[1308px] t-mx-auto  t-h-[full] t-flex t-flex-col t-items-center t-justify-center t-mb-[30px] lg:t-mb-[60px] t-mt-[20px] ">
+      <h2 class="t-text-center t-font-bold t-text-header-3 t-uppercase t-leading-[1] t-text-[#333] t-mt-0 t-mb-[30px]">
+        {{ section.settings.title }}
+      </h2>
+
+      <!-- Arrows -->
+      <div class="arrows t-flex t-gap-[80px] t-items-center t-absolute t-right-[10%] t-top-1/2 t-translate-y-[-50%] t-hidden lg:t-flex">
+        <div
+          class="swiper-button-prev top-picks-prev t-text-black t-flex t-items-center t-justify-center transition t-text-[30px] "
+        ></div>
+        <div
+          class="swiper-button-next top-picks-next t-text-black t-flex t-items-center t-justify-center transition t-text-[30px]"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Swiper Container -->
+    <div
+      id="product-slider"
+      class="swiper top-picks-swiper t-overflow-hidden t-px-[30px]"
+      data-desktop="{{ section.settings.items_per_view_desktop }}"
+    >
+      <div class="swiper-wrapper">
+        {% for product in products %}
+            <div class="swiper-slide">
+            <a href="{{ product.url }}" class="t-block t-bg-white t-text-center t-h-full t-w-full t-no-underline">
+              <!-- Product Image -->
+              <div class="t-aspect-square t-bg-white t-mb-[20px] t-overflow-hidden t-relative">
+              {% if product.featured_image %}
+                <img
+                src="{{ product.featured_image | image_url: width: 400 }}"
+                alt="{{ product.title | escape }}"
+                class="t-w-full t-h-full t-object-contain t-aspect-[4/5]"
+                loading="lazy"
+                >
+              {% else %}
+                <div class="t-w-full t-h-full t-bg-gray-100 t-flex t-items-center t-justify-center">
+                <span class="t-text-gray-400 t-text-sm">No image</span>
+                </div>
+              {% endif %}
+              
+              {%- comment -%} Check for custom sale price metafield {%- endcomment -%}
+              {% assign custom_sale_price = product.metafields.custom.sale_price %}
+              {% assign custom_sale_price_value = 0 %}
+              {% assign formatted_custom_sale_price = '' %}
+              {% if custom_sale_price %}
+                {% assign custom_sale_price_raw = custom_sale_price.value | default: custom_sale_price %}
+                {% if custom_sale_price_raw != blank %}
+                  {% assign custom_sale_price_string = custom_sale_price_raw | remove: '$' | remove: ',' | strip %}
+                  {% assign custom_sale_price_numeric = custom_sale_price_string | plus: 0.0 %}
+                  {% if custom_sale_price_numeric > 0 %}
+                    {% assign custom_sale_price_value = custom_sale_price_numeric | times: 100 | round %}
+                    {% assign formatted_custom_sale_price = '$' | append: custom_sale_price_string %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+              
+              {%- comment -%} Discount Badge on Image {%- endcomment -%}
+              {% if custom_sale_price and custom_sale_price_value > 0 and custom_sale_price_value > product.price %}
+                {%- assign discount_amount = custom_sale_price_value | minus: product.price -%}
+                {%- assign discount_percentage = discount_amount | times: 100.0 | divided_by: custom_sale_price_value | round -%}
+                <span
+                  class="badge price__badge-sale t-absolute t-top-0 t-left-0 t-z-[9999] slider-discount-badge"
+                  style="position: absolute !important; top: 0 !important; left: 0 !important; z-index: 9999 !important; display: inline-flex !important; background-color: #9E3223 !important; color: white !important; justify-content: center; align-items: center; padding: 6px 10px; border-radius: 0px; font-size: 10px; font-weight: 600; text-transform: uppercase; white-space: nowrap; width: fit-content !important;"
+                >
+                  -{{ discount_percentage }}% OFF
+                </span>
+              {% endif %}
+              </div>
+
+              <!-- Product Title -->
+              <h3 class="t-text-[18px] t-font-medium t-mb-[8px] t-text-black">
+              {{ product.title }}
+              </h3>
+
+              <!-- Product Price -->
+              <div class="t-text-[16px]">
+              {% assign cap = product.compare_at_price | default: product.compare_at_price_max %}
+              
+              {% if custom_sale_price and custom_sale_price_value > 0 and custom_sale_price_value > product.price %}
+                <span class="t-font-medium" style="color: #9e3223 !important;">{{ product.price | money }}</span>
+                <s class="t-text-gray-500 t-line-through t-ml-[8px] t-text-[16px]">{{ formatted_custom_sale_price }}</s>
+              {% elsif cap > product.price %}
+                <span class="t-text-red-600 t-font-medium">{{ product.price | money }}</span>
+                <span class="t-text-gray-500 t-line-through t-ml-[8px]">{{ cap | money }}</span>
+              {% else %}
+                <span class="t-text-black t-font-medium">{{ product.price | money }}</span>
+              {% endif %}
+              </div>
+            </a>
+            </div>
+        {% endfor %}
+      </div>
+
+      <!-- Custom Pagination host (Swiper will inject the track/indicator HTML here) -->
+      <div
+        class="top-picks-pagination swiper-pagination t-w-full t-max-w-full t-h-[4px] t-rounded-full t-bg-gray-200 t-relative t-overflow-hidden t-mx-auto t-z-[1] t-mt-[40px]"
+      ></div>
+    </div>
+  </div>
+  </div>
+{% endif %}
+
+<style>
+  /* Arrow styling (only top picks) */
+  .new-arrivals-prev,
+  .new-arrivals-next {
+    top: 0 !important;
+    bottom: auto !important;
+    transform: none !important;
+    margin-top: 0 !important;
+    position: relative;
+  }
+  @media (max-width: 1023px) {
+    .top-picks-prev,
+    .top-picks-next {
+      display: none !important;
+    }
+  }
+
+  .top-picks-prev,
+  .top-picks-next {
+    top: 0 !important;
+    bottom: auto !important;
+    transform: none !important;
+    margin-top: 0 !important;
+    position: relative;
+  }
+  @media (max-width: 1023px) {
+    .top-picks-prev,
+    .top-picks-next {
+      display: none !important;
+    }
+  }
+
+  /* Custom pagination visuals (match your New Arrivals look) */
+  .swiper-horizontal > .swiper-pagination-progressbar,
+  .swiper-pagination-progressbar.swiper-pagination-horizontal {
+    bottom: 0;
+    top: unset;
+  }
+  .top-picks-pagination.swiper-pagination {
+    height: 4px;
+    border-radius: 0px;
+  }
+
+  .swiper-pagination.swiper-pagination-horizontal {
+    margin: 0 auto;
+  }
+  .swiper-pagination-track {
+    position: relative;
+    background-color: #f3f4f6; /* light gray track */
+    width: 100%;
+    height: 100%;
+  }
+  .top-picks-pagination .swiper-pagination-indicator {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background-color: black !important; /* darker gray pill */
+    border-radius: 0;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (min-width: 1024px) {
+    .slider-discount-badge {
+      padding: 10px 15px !important;
+      font-size: 12px !important;
+    }
+  }
+</style>

@@ -1,7 +1,7 @@
 /* swatch lives in its own file for reusability of the swatch in swatch-input and dropdown */
 .swatch {
   --swatch--size: var(--swatch-input--size, 4.4rem);
-  --swatch--border-radius: var(--swatch-input--border-radius, 50%);
+  /* --swatch--border-radius: var(--swatch-input--border-radius, 50%); */
 
   display: block;
   width: var(--swatch--size);
@@ -16,7 +16,7 @@
 }
 
 .swatch--square {
-  --swatch--border-radius: var(--swatch-input--border-radius, 0.2rem);
+  /* --swatch--border-radius: var(--swatch-input--border-radius, 0.2rem); */
 }
 
 .swatch--unavailable {

@@ -1,40 +1,88 @@
-<div class="  t-w-full t-mx-auto t-flex t-items-center t-justify-center">
-  <nav
-    class="t-text-[#000] t-my-[12px] t-max-w-[1340px] t-px-[29px] t-text-[12px] breadcrumbs font-primary t-font-light t-w-full"
-    aria-label="Breadcrumb"
-  >
-    <a class="t-text-[#000] t-text-[12px] t-font-normal" href="{{ routes.root_url }}">Home</a>
+<div
+  class="t-w-full t-h-full"
+  style="color:{{ section.settings.text_color }}; background-color: {{ section.settings.bg_color }}"
+>
+  <div class="t-max-w-[1340px] t-mx-auto t-flex t-items-center t-justify-center">
+    <nav
+      class="t-py-[12px] t-px-[29px] t-text-[12px] breadcrumbs font-primary t-font-light t-w-full"
+      style="color:{{ section.settings.text_color }};"
+      aria-label="Breadcrumb"
+    >
+      <a
+        class="t-text-[12px] t-font-normal t-no-underline"
+        style="color:{{ section.settings.text_color }}"
+        href="{{ routes.root_url }}"
+        >Home</a
+      >
 
-    {% if template.name == 'collection' %}
-      / <span class="t-text-[#6b6b6b] t-text-[12px] t-font-normal">{{ collection.title }}</span>
+      {% if template.name == 'collection' %}
+        / <span class="t-text-[12px] t-font-normal">{{ collection.title }}</span>
 
-    {% elsif template.name == 'product' %}
-      /
-      <a class="t-text-[#6b6b6b] t-text-[12px] t-font-normal" href="{{ product.collections.first.url }}">
-        {{- product.collections.first.title -}}
-      </a>
-      /
-      <span class="t-text-[#6b6b6b] t-text-[12px] t-font-normal">{{ product.title }}</span>
+      {% elsif template.name == 'product' %}
+        {% assign collection = product.collections.first %}
+        {% if collection %}
+          /
+          <a
+            class="t-no-underline t-text-[12px] t-font-normal"
+            style="color:{{ section.settings.text_color }}"
+            href="{{ collection.url }}"
+          >
+            {{ collection.title }}
+          </a>
+          /
+          <span class="t-text-[12px] t-font-normal">{{ product.title }}</span>
+        {% else %}
+          /
+          <span class="t-text-[12px] t-font-normal">{{ product.title }}</span>
+        {% endif %}
 
-    {% elsif template.name == 'page' %}
-      / <span class="t-text-[#6b6b6b] t-text-[12px] t-font-normal">{{ page.title }}</span>
+      {% elsif template.name == 'page' %}
+        / <span class="t-text-[12px] t-font-normal">{{ page.title }}</span>
 
-    {% elsif template.name == 'blog' %}
-      / <a class="t-text-[#6b6b6b] t-text-[12px] t-font-normal" href="{{ blog.url }}">{{ blog.title }}</a>
+      {% elsif template.name == 'blog' %}
+        / <span class="t-text-[12px] t-font-normal">{{ blog.title }}</span>
 
-    {% elsif template.name == 'article' %}
-      /
-      <a class="t-text-[#6b6b6b] t-text-[12px] t-font-normal" href="{{ article.blog.url }}">{{ article.blog.title }}</a>
-      /
-      <span class="t-text-[#6b6b6b] t-text-[12px] t-font-normal">{{ article.title }}</span>
-    {% endif %}
-  </nav>
+      {% elsif template.name == 'article' %}
+        /
+        <a
+          class="t-no-underline t-text-[12px] t-font-normal"
+          style="color:{{ section.settings.text_color }}"
+          href="{{ article.blog.url }}"
+        >
+          {{ article.blog.handle | default: 'Blog' }}
+        </a>
+        /
+        <span class="t-text-[12px] t-font-normal">{{ article.title }}</span>
+      {% endif %}
+    </nav>
+  </div>
 </div>
 
 {% schema %}
 {
   "name": "Breadcrumbs",
-  "settings": [],
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Color",
+      "options": [
+        { "value": "#ffffff", "label": "White" },
+        { "value": "#000000", "label": "Black" }
+      ],
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text Color",
+      "options": [
+        { "value": "#000000", "label": "Black" },
+        { "value": "#ffffff", "label": "White" }
+      ],
+      "default": "#000000"
+    }
+  ],
   "presets": [
     {
       "name": "Breadcrumbs",

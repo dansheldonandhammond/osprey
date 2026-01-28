@@ -1,0 +1,293 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header_override_YQY9jJ": {
+      "type": "header-override",
+      "settings": {
+        "override_enabled": true,
+        "header_position": "relative",
+        "header_background": "black",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "transparent"
+      }
+    },
+    "collection_2_columns_T7qAaJ": {
+      "type": "Collection_2_columns",
+      "name": "Banner Section",
+      "settings": {
+        "banner_layout": "one_column",
+        "banner_image_heading": "",
+        "banner_image_url": "{{ collection.image }}",
+        "alt_text": "{{ collection.title }} Banner image",
+        "banner_image_x_axis": 100,
+        "banner_image_y_axis": 50,
+        "banner_text_center": true,
+        "control_banner_image_height": false,
+        "banner_image_height": 500,
+        "banner_border_bottom": false,
+        "banner_overlay": true,
+        "button_bg_colour": "white",
+        "button_text_colour": "black",
+        "banner_background_colour": "black",
+        "banner_text_colour": "white"
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "aether_ariel_8hUJPA": {
+      "type": "aether-ariel",
+      "blocks": {
+        "three_column_aYgF39": {
+          "type": "three_column",
+          "settings": {
+            "heading": "AN ICON EVOLVED",
+            "text_content": "<p>Almost 25 years ago, we set out to design the best backpack ever made. Beloved on the trail our Aether™ | Ariel Series has continually set the standard for what a pack should do and what it should weigh.</p><p>Today, the all-new Aether | Ariel Series has gone through a quarter century of relentless evolution and innovation to last a lifetime of trips. In 2021, our Aether/Ariel 55 was awarded the Backpacker Editors’ Choice Gold Award.</p>",
+            "image_1": "shopify://shop_images/Aether_Ariel_collage_portrait-hoosus-332.webp",
+            "image_2": "shopify://shop_images/Aether_Ariel_collage_landscape-hoosus-332.webp",
+            "heading_size": 60,
+            "heading_font_weight": "700",
+            "text_size": 16,
+            "heading_spacing": 20,
+            "paragraph_spacing": 16,
+            "image_border_radius": 0,
+            "heading_color": "#000000",
+            "text_color": "#000000"
+          }
+        },
+        "two_column_9rrENc": {
+          "type": "two_column",
+          "settings": {
+            "heading": "SUSPENSION",
+            "text": "<p>After years of thoughtful patterning, clever compression, vertical support and stiffer suspension, we added a Lightwire spring steel peripheral frame and an Airscape® ventilated backpanel, resulting in the best quality carry ever offered.<br/><br/></p>",
+            "image": "shopify://shop_images/grid-info_1-hoosus-332.jpg",
+            "reverse_layout": true,
+            "heading_font_weight": "700",
+            "heading_margin_top": 0,
+            "heading_margin_bottom": 0,
+            "heading_margin_left": 0,
+            "heading_margin_right": 0,
+            "text_margin_top": 0,
+            "text_margin_bottom": 0,
+            "text_margin_left": 0,
+            "text_margin_right": 0,
+            "heading_color": "#000000",
+            "text_color": "#000000"
+          }
+        },
+        "two_column_B44agk": {
+          "type": "two_column",
+          "settings": {
+            "heading": "LOAD CAPACITY",
+            "text": "<p>To ensure the best possible fit and load transfer, we have continually shifted the shape and design of the harness and hipbelt. The stable close-to-body carry on our new design is ideal for managing heavier loads when the trail gets technical.</p>",
+            "image": "shopify://shop_images/grid-info_2-hoosus-332.jpg",
+            "reverse_layout": false,
+            "heading_font_weight": "700",
+            "heading_margin_top": 0,
+            "heading_margin_bottom": 0,
+            "heading_margin_left": 0,
+            "heading_margin_right": 0,
+            "text_margin_top": 0,
+            "text_margin_bottom": 0,
+            "text_margin_left": 0,
+            "text_margin_right": 0,
+            "heading_color": "#000000",
+            "text_color": "#000000"
+          }
+        },
+        "two_column_VkM7qU": {
+          "type": "two_column",
+          "settings": {
+            "heading": "CUSTOM FIT",
+            "text": "<p>Founder Mike Pfotenhauer and team rose to the challenge of eliminating the interchangeable harness and hipbelt. Our new Custom Fit-on-the-Fly® design does away with complexity while offering a truly fine-tuned fit.</p>",
+            "image": "shopify://shop_images/grid-info_3-hoosus-332.jpg",
+            "reverse_layout": true,
+            "heading_font_weight": "700",
+            "heading_margin_top": 0,
+            "heading_margin_bottom": 0,
+            "heading_margin_left": 0,
+            "heading_margin_right": 0,
+            "text_margin_top": 0,
+            "text_margin_bottom": 0,
+            "text_margin_left": 0,
+            "text_margin_right": 0,
+            "heading_color": "#000000",
+            "text_color": "#000000"
+          }
+        },
+        "two_column_Xy79Xp": {
+          "type": "two_column",
+          "settings": {
+            "heading": "DURABLE & SUSTAINABLE",
+            "text": "<p>Over time, we've stuck with our core sustainability philosophy to make packs as durable as possible while using high-quality materials with low environmental impact</p>",
+            "image": "shopify://shop_images/grid-info_4-hoosus-332_1.jpg",
+            "reverse_layout": false,
+            "heading_font_weight": "700",
+            "heading_margin_top": 0,
+            "heading_margin_bottom": 0,
+            "heading_margin_left": 0,
+            "heading_margin_right": 0,
+            "text_margin_top": 0,
+            "text_margin_bottom": 0,
+            "text_margin_left": 0,
+            "text_margin_right": 0,
+            "heading_color": "#000000",
+            "text_color": "#000000"
+          }
+        },
+        "parallax_pzt8EW": {
+          "type": "parallax",
+          "settings": {
+            "viewport_height": 70,
+            "background_image": "shopify://shop_images/Aether_ariel_Parallax-hoosus-332.webp",
+            "bg_position_mobile": "right top",
+            "bg_position_desktop": "right center",
+            "overlay_opacity": 30,
+            "heading": "WE'VE SET THE STANDARD FOR WHAT A PACK SHOULD DO.",
+            "text_color": "#ffffff",
+            "text_size_mobile": 18,
+            "text_size_desktop": 24,
+            "font_weight": "600",
+            "letter_spacing": 1
+          }
+        },
+        "two_column_AcQMwt": {
+          "type": "two_column",
+          "settings": {
+            "heading": "AETHER | ARIEL PLUS",
+            "text": "<p>Blazing the trail for those in search of a customizable, perfect-fitting pack, the Aether|Ariel Plus is ideal for a week on the trail, a gear-intensive weekend or a big adventure. Offering a stable carry that can manage the heaviest of loads. Dial in the perfect fit with a Custom Fit-on-the-Fly Hipelt and Shoulder Strap and detach the top lid to use as a daypack for side trips. Constructed with high quality bluesign®-approved high-tenacity nylon and PFC-free DWR.</p>",
+            "image": "shopify://shop_images/grid-info_5-hoosus-332.jpg",
+            "reverse_layout": true,
+            "heading_font_weight": "700",
+            "heading_margin_top": 0,
+            "heading_margin_bottom": 0,
+            "heading_margin_left": 0,
+            "heading_margin_right": 0,
+            "text_margin_top": 0,
+            "text_margin_bottom": 0,
+            "text_margin_left": 0,
+            "text_margin_right": 0,
+            "heading_color": "#000000",
+            "text_color": "#000000"
+          }
+        },
+        "two_column_zKMPVr": {
+          "type": "two_column",
+          "settings": {
+            "heading": "AETHER | ARIEL",
+            "text": "<p>Whether it's an extended excursion into the backcountry or a weekend full of creature comforts, the Aether|Ariel is built to carry the heaviest of loads. Offering a fine-tuned fit for a variety of body shapes and sizes with a Custom Fit-on-the-Fly Hipbelt, Shoulder Straps and adjustable torso length. An injection-molded backpanel offers close-to-body performance. Featuring an included raincover and made with bluesign®-approved nylon and PFC-free DWR</p>",
+            "image": "shopify://shop_images/grid-info_6-hoosus-332.webp",
+            "reverse_layout": false,
+            "heading_font_weight": "700",
+            "heading_margin_top": 0,
+            "heading_margin_bottom": 20,
+            "heading_margin_left": 0,
+            "heading_margin_right": 0,
+            "text_margin_top": 0,
+            "text_margin_bottom": 0,
+            "text_margin_left": 0,
+            "text_margin_right": 0,
+            "heading_color": "#000000",
+            "text_color": "#000000"
+          }
+        },
+        "two_column_N4JLCh": {
+          "type": "two_column",
+          "settings": {
+            "heading": "AETHER | ARIEL PRO",
+            "text": "<p>Osprey's stripped down, streamlined and svelte Aether/Ariel Pro is made for type-two adventures that span days or months; alpine climbing expeditions with remote basecamps, or boundary-pushing thru-hikes through unknown landscapes where the only trail is the one you make. With upgraded fabrics and hardware, this pack provides worry-free dependability for people pushing the boundaries.</p>",
+            "image": "shopify://shop_images/grid-info_7-hoosus-332_1.webp",
+            "reverse_layout": true,
+            "heading_font_weight": "700",
+            "heading_margin_top": 0,
+            "heading_margin_bottom": 0,
+            "heading_margin_left": 0,
+            "heading_margin_right": 0,
+            "text_margin_top": 0,
+            "text_margin_bottom": 0,
+            "text_margin_left": 0,
+            "text_margin_right": 0,
+            "heading_color": "#000000",
+            "text_color": "#000000"
+          }
+        },
+        "two_column_BxgPBC": {
+          "type": "two_column",
+          "settings": {
+            "heading": "AETHER | ARIEL EXTENDED FIT (EF)",
+            "text": "<p>Our EF pack collection provides larger sizing to core packs, offering people in bigger bodies the same uncompromised performance Osprey is known for with a more inclusive fit. An extended hipbelt fits up to 70-inch hips while repositioned pockets and longer shoulder and sternum straps complete the package. Aether and Ariel 65 are available in with Extended Fit, delivering heavy-duty carry capacity in a fully-featured package.</p>",
+            "image": "shopify://shop_images/grid-info_8-hoosus-332.jpg",
+            "reverse_layout": false,
+            "heading_font_weight": "700",
+            "heading_margin_top": 0,
+            "heading_margin_bottom": 20,
+            "heading_margin_left": 0,
+            "heading_margin_right": 0,
+            "text_margin_top": 0,
+            "text_margin_bottom": 0,
+            "text_margin_left": 0,
+            "text_margin_right": 0,
+            "heading_color": "#000000",
+            "text_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "three_column_aYgF39",
+        "two_column_9rrENc",
+        "two_column_B44agk",
+        "two_column_VkM7qU",
+        "two_column_Xy79Xp",
+        "parallax_pzt8EW",
+        "two_column_AcQMwt",
+        "two_column_zKMPVr",
+        "two_column_N4JLCh",
+        "two_column_BxgPBC"
+      ],
+      "name": "Aether-Ariel",
+      "settings": {}
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "enable_load_more": true,
+        "products_per_page": 16,
+        "columns_desktop": 3,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "enable_filtering": true,
+        "filter_type": "vertical",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "header_override_YQY9jJ",
+    "collection_2_columns_T7qAaJ",
+    "banner",
+    "aether_ariel_8hUJPA",
+    "product-grid"
+  ]
+}

@@ -1,0 +1,224 @@
+{% comment %}
+  Section: Two Column Image Info Sections
+  - Uses image pickers with safe fallbacks
+  - Background images applied via inline style with computed URLs
+  - Overlay works (parent is relative; overlay is absolute)
+{% endcomment %}
+
+{% if section.settings.image_1 or section.settings.image_1 != blank %}
+  <div class="t-flex t-flex-col lg:t-flex-row t-w-full t-gap-0">
+    {% comment %} Left Column{% endcomment %}
+    {% if section.settings.image_1 != blank %}
+      <div
+        class="t-relative t-flex t-flex-col t-justify-center t-items-center t-text-center t-mx-auto t-w-full  t-overflow-hidden"
+        style="background-image: url('{{ section.settings.image_1 | image_url: width: 2000 }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 400px; padding: 20px;"
+      >
+        <!-- Overlay -->
+        <div class="t-absolute t-inset-0 t-bg-black t-opacity-40" style="pointer-events: none;"></div>
+
+        <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4">
+          {% comment %} Icon  {% endcomment %}
+          {% if section.settings.icon_1 != empty %}
+            {{ section.settings.icon_1 }}
+          {% endif %}
+
+          {% comment %} Heading {% endcomment %}
+          {% if section.settings.heading_1 != blank %}
+            <h2 class="t-text-[32px] md:t-text-[48px] t-leading-tight t-text-white t-my-0">
+              {{ section.settings.heading_1 }}
+            </h2>
+          {% else %}
+
+          {% endif %}
+          {% comment %} description {% endcomment %}
+          {% if section.settings.description_1 != blank %}
+            <p class="t-text-white">{{ section.settings.description_1 }}</p>
+          {% else %}
+
+          {% endif %}
+
+          {% comment %}  Link {% endcomment %}
+          {% if section.settings.link_1 != blank %}
+            <a
+              class="t-mt-[10px] t-px-[18px] t-py-[12px] t-border t-border-white t-text-white t-bg-transparent hover:t-bg-white/50 t-inline-block t-underline-none t-no-underline t-border-[1px] t-border-solid t-rounded"
+              href="{{ section.settings.link_1 }}"
+              aria-label="{{ section.settings.link_text_1 }}"
+            >
+              {{ section.settings.link_text_1 }}
+            </a>
+          {% else %}
+
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% comment %} Right Column {% endcomment %}
+    {% if section.settings.image_2 != blank %}
+      <div
+        class="t-relative t-flex t-flex-col t-justify-center t-items-center t-text-center lg:t-my-0 t-mx-auto t-w-full  t-overflow-hidden"
+        style="background-image: url('{{ section.settings.image_2 | image_url: width: 2000 }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 400px; padding: 20px;"
+      >
+        {% comment %} Overlay {% endcomment %}
+        <div class="t-absolute t-inset-0 t-bg-black t-opacity-40" style="pointer-events: none;"></div>
+        {% comment %}  Content {% endcomment %}
+        <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4">
+          {% comment %} Icon {% endcomment %}
+          {% if section.settings.icon_2 != blank %}
+            {{ section.settings.icon_2 | default: '
+            
+            ' }}
+          {% endif %}
+          {% comment %} Heading {% endcomment %}
+          {% if section.settings.heading_2 != blank %}
+            <h2 class="t-text-[32px] md:t-text-[48px] t-leading-tight t-text-white t-my-0">
+              {{ section.settings.heading_2 }}
+            </h2>
+          {% else %}
+
+          {% endif %}
+          {% comment %} Description {% endcomment %}
+          {% if section.settings.description_2 != blank %}
+            <p class="t-text-white ">{{ section.settings.description_2 }}</p>
+          {% else %}
+
+          {% endif %}
+
+          {% comment %}  Link {% endcomment %}
+          {% if section.settings.link_2 != blank %}
+            <a
+              class="t-mt-[10px] t-px-[18px] t-py-[12px] t-border t-border-white t-text-white t-bg-transparent hover:t-bg-white/50 t-inline-block t-underline-none t-no-underline t-border-[1px] t-border-solid t-rounded"
+              href="{{ section.settings.link_2 }}"
+              aria-label="{{ section.settings.link_text_2 }}"
+            >
+              {{ section.settings.link_text_2 }}
+            </a>
+          {% else %}
+
+          {% endif %}
+        </div>
+      </div>
+      </div>
+    {% else %}
+
+    {% endif %}
+{% else %}
+  <div class="t-flex t-flex-col lg:t-flex-row t-w-full t-gap-0">
+    <!-- Left Column -->
+    <div
+      class="t-relative t-flex t-flex-col t-justify-center t-items-center t-text-center t-mx-auto t-w-full t-rounded-[8px] t-overflow-hidden"
+      style="background-color: #a7a7a7ff; height: 400px; padding: 20px;"
+    >
+      <div class="t-absolute t-inset-0 t-bg-black t-opacity-20" style="pointer-events: none;"></div>
+      <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4">
+        <h2 class="t-text-[32px] md:t-text-[48px] t-leading-tight t-text-white">Left Column Heading</h2>
+        <p class="t-text-white t-max-w-[52ch]">
+          Placeholder description for the left column. This block can be updated with your own text in the editor.
+        </p>
+        <a
+          class="t-mt-[10px] t-px-[18px] t-py-[12px] t-border t-border-white t-text-white t-bg-transparent hover:t-bg-white/50 t-rounded t-inline-block t-border-[1px] t-border-solid"
+          href="#"
+        >
+          Learn More
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div
+      class="t-relative t-flex t-flex-col t-justify-center t-items-center t-text-center lg:t-my-0 t-mx-auto t-w-full t-rounded-[8px] t-overflow-hidden"
+      style="background-color: #a7a7a7ff; height: 400px; padding: 20px;"
+    >
+      <div class="t-absolute t-inset-0 t-bg-black t-opacity-20" style="pointer-events: none;"></div>
+      <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4">
+        <h2 class="t-text-[32px] md:t-text-[48px] t-leading-tight t-text-white">Right Column Heading</h2>
+        <p class="t-text-white t-max-w-[52ch]">
+          Placeholder description for the right column. Replace this with your content to customize.
+        </p>
+        <a
+          class="t-mt-[10px] t-px-[18px] t-py-[12px] t-border t-border-white t-text-white t-bg-transparent hover:t-bg-white/50 t-rounded t-inline-block t-border-[1px] t-border-solid"
+          href="#"
+        >
+          Learn More
+        </a>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Two Column Sections",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Left Column Image"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Left Column Heading",
+      "default": "Women's Fit"
+    },
+    {
+      "type": "liquid",
+      "id": "icon_1",
+      "label": "Left Column Icon"
+    },
+    {
+      "type": "textarea",
+      "id": "description_1",
+      "label": "Left Column Description",
+      "default": "Column Description"
+    },
+    {
+      "type": "url",
+      "id": "link_1",
+      "label": "Left Column Link"
+    },
+    {
+      "type": "text",
+      "id": "link_text_1",
+      "label": "Left Column Link Text",
+      "default": "Shop Women's Packs"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Right Column Image"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Right Column Heading",
+      "default": "Men's Fit"
+    },
+    {
+      "type": "liquid",
+      "id": "icon_2",
+      "label": "Right Column Icon"
+    },
+    {
+      "type": "textarea",
+      "id": "description_2",
+      "label": "Right Column Description",
+      "default": "Description 2"
+    },
+
+    { "type": "url", "id": "link_2", "label": "Right Column Link" },
+    {
+      "type": "text",
+      "id": "link_text_2",
+      "label": "Right Column Link Text",
+      "default": "Shop EF Packs"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two Column Sections",
+      "category": "Collection Category"
+    }
+  ]
+}
+{% endschema %}

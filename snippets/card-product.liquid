@@ -40,7 +40,7 @@
       assign ratio = 1
     endif
   -%}
-  <div class="card-wrapper product-card-wrapper underline-links-hover ">
+  <div class="card-wrapper product-card-wrapper underline-links-hover group">
     <div
       class="
         card card--{{ settings.card_style }}
@@ -54,7 +54,12 @@
       style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
     >
       <div
-        class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"
+        class="
+          card__inner
+          {% if settings.card_style == 'standard' %} color-{{ settings.card_color_scheme }} gradient{% endif %}
+          {% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}
+          {% if show_secondary_image and card_product.media[1] %} hover-swap{% endif %}
+        "
         style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
       >
         {%- if card_product.featured_media -%}
@@ -89,9 +94,10 @@
                 {% endfor %}
               </div>
             {% endif %}
-            <div class="media media--transparent media--hover-effect">
+            <div class="media media--transparent">
               {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
               <img
+                id="card-image-{{ card_product.id }}"
                 srcset="
                   {%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
                   {%- if card_product.featured_media.width >= 360 -%}{{ card_product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
@@ -136,60 +142,340 @@
             </div>
           </div>
         {%- endif -%}
-        <div class="card__content t-w-full t-pb-[0px]">
-          <div class="card__information">
+
+        <a
+          href="{{ card_product.url }}?variant={{ card_product.selected_or_first_available_variant.id }}"
+
+          id="CardImageLink-{{ section_id }}-{{ card_product.id }}"
+          class="t-absolute t-top-0 t-bottom-0 t-left-0 t-right-0 js-variant-target"
+          data-product-id="{{ card_product.id }}"
+          aria-label="{{ card_product.title | escape }}"
+        >
+          <div class="card__content t-w-full t-pb-[0px] t-cursor-pointer">
+            <div class="card__information">
+              <h3
+                class="card__heading"
+                {% if card_product.featured_media == null and settings.card_style == 'standard' %}
+                  id="title-{{ section_id }}-{{ card_product.id }}"
+                {% endif %}
+              ></h3>
+            </div>
+            <div class="card__badge  {{ settings.badge_position }} t-relative">
+              <div class="t-absolute t-left-0 t-top-0 t-flex t-flex-col t-gap-1 t-z-[9999]" style="position: absolute !important; left: 0 !important; top: 0 !important; z-index: 9999 !important;">
+                {%- if card_product.available == false -%}
+                  <span
+                    id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
+                    class="badge price__badge-sale"
+                    style="display: inline-flex !important; background-color: #000000 !important; color: white !important; justify-content: flex-start !important; align-items: center; padding: 6px 10px; border-radius: 0px; font-size: 10px; font-weight: 600; text-transform: uppercase; white-space: nowrap; width: fit-content !important;"
+                  >
+                    {{- 'products.product.sold_out' | t | upcase -}}
+                  </span>
+                {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
+                  <span
+                    id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
+                    class="badge price__badge-sale"
+                    style="display: inline-flex !important; background-color: #000000 !important; color: white !important; justify-content: flex-start !important; align-items: center; padding: 6px 10px; border-radius: 0px; font-size: 10px; font-weight: 600; text-transform: uppercase; white-space: nowrap; width: fit-content !important;"
+                  >
+                    {{- 'products.product.on_sale' | t | upcase -}}
+                  </span>
+                {%- endif -%}
+                
+                <!-- Product Tag Badges (Sale and Past Season) -->
+                {% assign has_sale_tag = false %}
+                {% assign has_past_season_tag = false %}
+                
+                {% if card_product.tags contains 'Sale' %}
+                  {% assign has_sale_tag = true %}
+                {% endif %}
+                
+                {% if card_product.tags contains 'Past Season' %}
+                  {% assign has_past_season_tag = true %}
+                {% endif %}
+
+                {% if has_sale_tag %}
+                  <span
+                    class="badge price__badge-sale"
+                    style="display: inline-flex !important; background-color: #000000 !important; color: white !important; justify-content: flex-start !important; align-items: center; padding: 6px 10px; border-radius: 0px; font-size: 10px; font-weight: 600; text-transform: uppercase; white-space: nowrap; width: fit-content !important;"
+                  >
+                    SALE
+                  </span>
+                {% endif %}
+                {% if has_past_season_tag %}
+                  <span
+                    class="badge price__badge-sale"
+                    style="display: inline-flex !important; background-color: #000000 !important; color: white !important; justify-content: flex-start !important; align-items: center; padding: 6px 10px; border-radius: 0px; font-size: 10px; font-weight: 600; text-transform: uppercase; white-space: nowrap; width: fit-content !important;"
+                  >
+                    PAST SEASON
+                  </span>
+                {% endif %}
+              </div>
+              <style>
+                @media (min-width: 1024px) {
+                  .card__badge .price__badge-sale {
+                    padding: 10px 15px !important;
+                    font-size: 12px !important;
+                  }
+                }
+              </style>
+            </div>
+          </div>
+        </a>
+        {% comment %}
+          <a
+            href="{{ card_product.url }}?variant={{ card_product.selected_or_first_available_variant.id }}"
+            id="CardLink-{{ section_id }}-{{ card_product.id }}"
+            class="full-unstyled-link js-variant-target"
+            data-product-id="{{ card_product.id }}"
+          >
+            {{ card_product.title | escape }}
+          </a>
+        {% endcomment %}
+      </div>
+      <div class="card__content t-h-fit">
+        <div class="card__information">
+          <script
+            type="application/json"
+            id="variant-data-{{ card_product.id }}"
+            data-product-url="{{ card_product.url }}"
+            data-selected-variant="{{ card_product.selected_or_first_available_variant.id }}"
+            data-variant-json="{{ card_product.variants | json }}"
+          >
+            {{ card_product.variants | json }}
+          </script>
+          {% if matched_variant and matched_variant.featured_image %}
+            <label
+              class="t-font-[100] t-aspect-square t-border-none t-p-0 t-m-0 t-w-[36px] t-h-[36px]  t-ms-[4px]"
+              for="{{ input_id }}"
+            >
+              <img
+                src="{{ matched_variant.featured_image | image_url: width: 60, height: 60, crop: 'center' }}"
+                alt="{{ value }}"
+                width="34"
+                height="34"
+                style="width: 34px; height: auto;"
+                loading="lazy"
+              >
+            </label>
+          {% else %}
+            <label class="t-font-[100]" for="{{ input_id }}">
+              {{ value }}
+            </label>
+          {% endif %}
+
+          {% comment %} Added code {% endcomment %}
+
+          <a
+            href="{{ card_product.url }}?variant={{ card_product.selected_or_first_available_variant.id }}"
+            class="t-no-underline hover:t-underline js-variant-target"
+            data-product-id="{{ card_product.id }}"
+          >
             <h3
-              class="card__heading"
-              {% if card_product.featured_media == null and settings.card_style == 'standard' %}
+              class="t-no-underline t-font-[700] t-text-[16px] t-text-[800] card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %} t-font-"
+              {% if card_product.featured_media or settings.card_style == 'card' %}
                 id="title-{{ section_id }}-{{ card_product.id }}"
               {% endif %}
             >
-              <a
-                href="{{ card_product.url }}"
-                id="StandardCardNoMediaLink-{{ section_id }}-{{ card_product.id }}"
-                class="full-unstyled-link"
-                aria-labelledby="StandardCardNoMediaLink-{{ section_id }}-{{ card_product.id }} NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
-              >
-                {{ card_product.title | escape }}
-              </a>
-            </h3>
-          </div>
-          <div class="card__badge {{ settings.badge_position }}">
-            {%- if card_product.available == false -%}
-              <span
-                id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
-                class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}"
-              >
-                {{- 'products.product.sold_out' | t -}}
-              </span>
-            {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
-              <span
-                id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
-                class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
-              >
-                {{- 'products.product.on_sale' | t -}}
-              </span>
-            {%- endif -%}
-          </div>
-        </div>
-      </div>
-      <div class="card__content">
-        <div class="card__information">
-          <h3
-            class="t-text-[16px] t-text-[800] card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %} t-font-"
-            {% if card_product.featured_media or settings.card_style == 'card' %}
-              id="title-{{ section_id }}-{{ card_product.id }}"
-            {% endif %}
-          >
-            <a
-              href="{{ card_product.url }}"
-              id="CardLink-{{ section_id }}-{{ card_product.id }}"
-              class="full-unstyled-link"
-              aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
-            >
               {{ card_product.title | escape }}
-            </a>
-          </h3>
+            </h3>
+          </a>
+
+          {% comment %} added code {% endcomment %}
+
+          {% comment %} Color swatches for product cards {% endcomment %}
+          {% assign color_option_index = null %}
+          {% assign color_option_name = '' %}
+
+          {%- for option in card_product.options_with_values -%}
+            {%- if option.name contains 'Colour' -%}
+              {% assign color_option_index = forloop.index0 %}
+              {% assign color_option_name = option.name %}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {% if color_option_index != null %}
+            {% assign selected_color = card_product.selected_or_first_available_variant.options[color_option_index] %}
+            <div class="t-mb-[8px] t-mt-[15px]">
+              <span>{{ color_option_name }}:</span>
+              <span id="color-label-{{ card_product.id }}">
+                {{ selected_color }}
+              </span>
+            </div>
+            <div
+              class="t-flex t-flex-wrap t-gap-[4px] js-color-list"
+              data-product-id="{{ card_product.id }}"
+              data-option-index="{{ color_option_index }}"
+            >
+              {% for value in card_product.options_with_values[color_option_index].values %}
+                {% assign matched_variant = null %}
+                {% assign color_has_available_variant = false %}
+
+                {% comment %} Find a representative variant for this color and check if ANY variant with this color is available {% endcomment %}
+                {% for variant in card_product.variants %}
+                  {% if variant.options[color_option_index] == value %}
+                    {% if matched_variant == null %}
+                      {% assign matched_variant = variant %}
+                    {% endif %}
+                    {% if variant.available %}
+                      {% assign color_has_available_variant = true %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+
+                {% if matched_variant %}
+                  {% if matched_variant.options[color_option_index] == selected_color %}
+                    {% assign is_selected = true %}
+                  {% else %}
+                    {% assign is_selected = false %}
+                  {% endif %}
+
+                  <a
+                    href="{{ card_product.url }}?variant={{ matched_variant.id }}"
+                    class="
+                      t-block t-aspect-square t-w-[36px] t-h-[36px] t-border t-border-solid js-color-swatch
+                      {% if is_selected %}t-border-black{% else %}t-border-gray-300{% endif %}
+                      {% unless color_has_available_variant %}swatch swatch-strike cursor-not-allowed{% endunless %}
+                    "
+                    title="{{ value }}"
+                    data-product-id="{{ card_product.id }}"
+                    data-variant-id="{{ matched_variant.id }}"
+                    data-color-value="{{ value }}"
+                    data-color-available="{{ color_has_available_variant }}"
+                    {% assign variant_image = matched_variant.featured_image | default: card_product.featured_media %}
+                    {% if variant_image %}
+                      data-image-src="{{ variant_image | image_url: width: 533 }}"
+                      data-image-srcset="
+                        {%- if variant_image.width >= 165 -%}{{ variant_image | image_url: width: 165 }} 165w,{%- endif -%}
+                        {%- if variant_image.width >= 360 -%}{{ variant_image | image_url: width: 360 }} 360w,{%- endif -%}
+                        {%- if variant_image.width >= 533 -%}{{ variant_image | image_url: width: 533 }} 533w,{%- endif -%}
+                        {%- if variant_image.width >= 720 -%}{{ variant_image | image_url: width: 720 }} 720w,{%- endif -%}
+                        {%- if variant_image.width >= 940 -%}{{ variant_image | image_url: width: 940 }} 940w,{%- endif -%}
+                        {%- if variant_image.width >= 1066 -%}{{ variant_image | image_url: width: 1066 }} 1066w,{%- endif -%}
+                        {{ variant_image | image_url }} {{ variant_image.width }}w
+                      "
+                    {% endif %}
+                  >
+                    {% if matched_variant.featured_image %}
+                      <img
+                        src="{{ matched_variant.featured_image | image_url: width: 60, height: 60, crop: 'center' }}"
+                        alt="{{ value }}"
+                        class="t-w-full t-h-full t-object-cover"
+                        loading="lazy"
+                        width="60"
+                        height="60"
+                      >
+                    {% else %}
+                      <span class="t-w-full t-h-full t-bg-gray-200"></span>
+                    {% endif %}
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% comment %} <div class="sp-compare-custom-collection t-block" product-handle="{{product.handle}}">test</div> {% endcomment %}
+
+          {% comment %}
+            Size options for product card
+          {% endcomment %}
+          {% assign size_option_index = null %}
+          {% assign size_option_name = '' %}
+
+          {%- for option in card_product.options_with_values -%}
+            {%- if option.name contains 'Size' -%}
+              {% assign size_option_index = forloop.index0 %}
+              {% assign size_option_name = option.name %}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {% if size_option_index != null %}
+            {% assign selected_size = card_product.selected_or_first_available_variant.options[size_option_index] %}
+            <div class="t-mt-[5px] t-my-[10px] t-w-fit">
+              <span>{{ size_option_name }}:</span>
+              <span id="size-label-{{ card_product.id }}">
+                {{ selected_size }}
+              </span>
+            </div>
+            <div
+              class="t-flex t-flex-wrap t-gap-[4px] t-w-fit js-size-list"
+              data-product-id="{{ card_product.id }}"
+              data-option-index="{{ size_option_index }}"
+            >
+              {% for value in card_product.options_with_values[size_option_index].values %}
+                {% assign matched_variant = null %}
+                {% for variant in card_product.variants %}
+                  {% if variant.options[size_option_index] == value %}
+                    {% assign matched_variant = variant %}
+                    {% break %}
+                  {% endif %}
+                {% endfor %}
+
+                {% if matched_variant %}
+                  {% assign is_selected = false %}
+                  {% if matched_variant.options[size_option_index] == selected_size %}
+                    {% assign is_selected = true %}
+                  {% endif %}
+                  {% assign is_available = matched_variant.available %}
+                  {% if is_available %}
+                    {% assign display_value = value %}
+                    {% assign value_lc = value | downcase | strip %}
+                    {% if value == 'O/S'
+                      or value_lc == 'os'
+                      or value_lc == 'OS'
+                      or value_lc == '0S'
+                      or value_lc == 'oS'
+                      or value_lc == 'Os'
+                    %}
+                      {% assign display_value = 'One Size' %}
+                    {% endif %}
+
+                    <a
+                      href="{{ card_product.url }}?variant={{ matched_variant.id }}"
+                      class="
+                        t-no-underline t-w-fit t-p-[5px] t-flex t-items-center t-justify-center t-border t-border-solid
+                        {% if is_selected %}t-border-black t-bg-black t-text-white{% else %}t-border-gray-300{% endif %}
+                        t-text-[14px] t-font-medium js-size-option
+                      "
+                      title="{{ display_value }}"
+                      data-product-id="{{ card_product.id }}"
+                      data-size-value="{{ value }}"
+
+                      aria-label="{{ display_value }}"
+                    >
+                      {{ display_value }}
+                    </a>
+
+                  {% else %}
+                    {% assign display_value = value %}
+                    {% assign value_lc = value | downcase | strip %}
+                    {% if value == 'O/S'
+                      or value_lc == 'os'
+                      or value_lc == 'OS'
+                      or value_lc == '0S'
+                      or value_lc == 'oS'
+                      or value_lc == 'Os'
+                    %}
+                      {% assign display_value = 'One Size' %}
+                    {% endif %}
+                    <button
+                      type="button"
+                      class="
+                        t-no-underline t-w-fit t-p-[5px] t-flex t-items-center t-justify-center t-border t-border-solid
+                        t-border-gray-300 t-text-[14px] t-font-medium js-size-option
+                        swatch-strike
+                      "
+                      title="{{ display_value }}"
+                      data-product-id="{{ card_product.id }}"
+                      data-size-value="{{ value }}"
+                      aria-label="{{ display_value }}"
+                    >
+                      {{ display_value }}
+                    </button>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
           <div class="card-information">
             {%- if show_vendor -%}
               <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
@@ -317,107 +603,82 @@
               {% endif %}
             {%- endif -%}
           </div>
+          <!-- Debug: Check if metafield exists -->
+          {% comment %}Debug info: {{ card_product.metafields.custom.osprey_usage | json }}{% endcomment %}
+
+          {% if card_product.metafields.custom.osprey_usage or card_product.metafields.custom.activity %}
+            <div class="t-font-[700] product-type mt-4 md:mt-0 t-pb-[5px] t-pt-[10px] t-text-[14px] t-text-black">
+              {% if card_product.metafields.custom.activity %}
+                {{ card_product.metafields.custom.activity | metafield_tag }}
+              {% endif %}
+              {% comment %}
+                {% if card_product.metafields.custom.osprey_usage %}
+                  |
+                  {{ card_product.metafields.custom.osprey_usage | metafield_tag }}
+                {% endif %}
+              {% endcomment %}
+            </div>
+          {% endif %}
         </div>
         {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
         {% if quick_add == 'standard' %}
-          <div class="quick-add no-js-hidden t-hidden group-hover:t-block t-w-full">
-            {%- liquid
-              assign qty_rules = false
-              if card_product.selected_or_first_available_variant.quantity_rule.min > 1 or card_product.selected_or_first_available_variant.quantity_rule.max != null or card_product.selected_or_first_available_variant.quantity_rule.increment > 1
-                assign qty_rules = true
-              endif
-            -%}
-            {%- if card_product.variants_count > 1 or qty_rules -%}
-              <modal-opener data-modal="#QuickAdd-{{ card_product.id }}">
-                <button
-                  id="{{ product_form_id }}-submit"
-                  type="submit"
-                  name="add"
-                  class="t-w-full quick-add__submit button button--full-width button--secondary{% if horizontal_quick_add %} card--horizontal__quick-add animate-arrow{% endif %}"
-                  aria-haspopup="dialog"
-                  aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
-                  data-product-url="{{ card_product.url }}"
+          {% assign product_form_id = 'quick-add-' | append: section.id | append: '-' | append: card_product.id %}
+          {% assign product_form_dom_id = product_form_id | append: '-form' %}
+
+          <div
+            id="{{ product_form_id }}"
+            class="quick-add no-js-hidden {% if template.name == 'search' %}t-visible{% else %}lg:t-invisible t-visible group-hover:t-visible{% endif %} t-w-full"
+          >
+            <product-form data-section-id="{{ section.id }}" data-product-id="{{ card_product.id }}">
+              {%- form 'product',
+                card_product,
+                id: product_form_dom_id,
+                class: 'form',
+                novalidate: 'novalidate',
+                data-type: 'add-to-cart-form'
+              -%}
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ card_product.selected_or_first_available_variant.id }}"
+                  class="product-variant-id"
+                  {% unless card_product.selected_or_first_available_variant.available %}
+                    disabled
+                  {% endunless %}
                 >
-                  {{ 'products.product.choose_options' | t }}
-                  {%- if horizontal_quick_add -%}
-                    <span class="icon-wrap">
-                      {{- 'icon-arrow.svg' | inline_asset_content -}}
-                    </span>
-                  {%- endif -%}
-                  {%- render 'loading-spinner' -%}
-                </button>
-              </modal-opener>
-              <quick-add-modal id="QuickAdd-{{ card_product.id }}" class="quick-add-modal">
-                <div
-                  role="dialog"
-                  aria-label="{{ 'products.product.choose_product_options' | t: product_name: card_product.title | escape }}"
-                  aria-modal="true"
-                  class="quick-add-modal__content global-settings-popup"
-                  tabindex="-1"
-                >
-                  <button
-                    id="ModalClose-{{ card_product.id }}"
-                    type="button"
-                    class="quick-add-modal__toggle"
-                    aria-label="{{ 'accessibility.close' | t }}"
-                  >
-                    {{- 'icon-close.svg' | inline_asset_content -}}
-                  </button>
-                  <div id="QuickAddInfo-{{ card_product.id }}" class="quick-add-modal__content-info"></div>
-                </div>
-              </quick-add-modal>
-            {%- else -%}
-              <product-form data-section-id="{{ section.id }}">
-                {%- form 'product',
-                  card_product,
-                  id: product_form_id,
-                  class: 'form',
-                  novalidate: 'novalidate',
-                  data-type: 'add-to-cart-form'
-                -%}
-                  <input
-                    type="hidden"
-                    name="id"
-                    value="{{ card_product.selected_or_first_available_variant.id }}"
-                    class="product-variant-id"
-                    {% if card_product.selected_or_first_available_variant.available == false %}
-                      disabled
-                    {% endif %}
-                  >
+                {% if card_product.selected_or_first_available_variant.available %}
                   <button
                     id="{{ product_form_id }}-submit"
                     type="submit"
                     name="add"
-                    class="quick-add__submit button button--full-width button--secondary{% if horizontal_quick_add %} card--horizontal__quick-add{% endif %}"
-                    aria-haspopup="dialog"
-                    aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
+                    class="t-no-underline quick-add__submit button button--full-width button--secondary"
                     aria-live="polite"
-                    data-sold-out-message="true"
-                    {% if card_product.selected_or_first_available_variant.available == false %}
-                      disabled
-                    {% endif %}
+                    data-add-text="{{ 'products.product.add_to_cart' | t }}"
+                    data-unavailable-text="Out of Stock"
+                    data-product-id="{{ card_product.id }}"
                   >
-                    <span>
-                      {%- if card_product.selected_or_first_available_variant.available -%}
+                    <span class="button-text">
+                      {% if card_product.selected_or_first_available_variant.available %}
                         {{ 'products.product.add_to_cart' | t }}
-                      {%- else -%}
-                        {{ 'products.product.sold_out' | t }}
-                      {%- endif -%}
+                      {% else %}
+                        Out of Stock
+                      {% endif %}
                     </span>
-                    <span class="sold-out-message hidden">
-                      {{ 'products.product.sold_out' | t }}
-                    </span>
-                    {%- if horizontal_quick_add -%}
-                      <span class="icon-wrap">
-                        {{- 'icon-plus.svg' | inline_asset_content -}}
-                      </span>
-                    {%- endif -%}
                     {%- render 'loading-spinner' -%}
                   </button>
-                {%- endform -%}
-              </product-form>
-            {%- endif -%}
+                {% else %}
+                  <a
+                    href="{{ card_product.url }}?variant={{ card_product.selected_or_first_available_variant.id }}"
+                    class="t-no-underline quick-add__submit button button--full-width button--secondary"
+                    aria-live="polite"
+                  >
+                    <span> Out of Stock </span>
+                  </a>
+                {% endif %}
+              {%- endform -%}
+            </product-form>
           </div>
+
         {% elsif quick_add == 'bulk' %}
           {% if card_product.variants_count == 1 %}
             <quick-add-bulk
@@ -431,16 +692,14 @@
                   id="{{ product_form_id }}-submit"
                   type="submit"
                   name="add"
-                  class="quick-add__submit button button--full-width button--secondary"
-                  aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
-                  data-sold-out-message="true"
-                  disabled
+                  class="t-no-underline quick-add__submit button button--full-width button--secondary"
+                  aria-live="polite"
+                  data-view-href="{{ card_product.url }}"
                 >
-                  <span>{{ 'products.product.sold_out' | t }}</span>
-                  <span class="sold-out-message hidden">
-                    {{ 'products.product.sold_out' | t }}
-                  </span>
+                  <span>{{ 'products.product.add_to_cart' | t }}</span>
+                  {%- render 'loading-spinner' -%}
                 </button>
+
               {% else %}
                 {% render 'quantity-input', variant: card_product.selected_or_first_available_variant, min: 0 %}
               {% endif %}
@@ -578,22 +837,63 @@
             </div>
           {% endif %}
         {% endif %}
-        <div class="card__badge {{ settings.badge_position }}">
-          {%- if card_product.available == false -%}
-            <span
-              id="Badge-{{ section_id }}-{{ card_product.id }}"
-              class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}"
-            >
-              {{- 'products.product.sold_out' | t -}}
-            </span>
-          {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
-            <span
-              id="Badge-{{ section_id }}-{{ card_product.id }}"
-              class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
-            >
-              {{- 'products.product.on_sale' | t -}}
-            </span>
-          {%- endif -%}
+        <div class="card__badge {{ settings.badge_position }} t-relative">
+          <div class="t-absolute t-left-0 t-top-0 t-flex t-flex-col t-gap-1 t-z-[9999]" style="position: absolute !important; left: 0 !important; top: 0 !important; z-index: 9999 !important;">
+            {%- if card_product.available == false -%}
+              <span
+                id="Badge-{{ section_id }}-{{ card_product.id }}"
+                class="badge price__badge-sale"
+                style="display: inline-flex !important; background-color: #000000 !important; color: white !important; justify-content: flex-start !important; align-items: center; padding: 6px 10px; border-radius: 0px; font-size: 10px; font-weight: 600; text-transform: uppercase; white-space: nowrap; width: fit-content !important;"
+              >
+                {{- 'products.product.sold_out' | t | upcase -}}
+              </span>
+            {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
+              <span
+                id="Badge-{{ section_id }}-{{ card_product.id }}"
+                class="badge price__badge-sale"
+                style="display: inline-flex !important; background-color: #000000 !important; color: white !important; justify-content: flex-start !important; align-items: center; padding: 6px 10px; border-radius: 0px; font-size: 10px; font-weight: 600; text-transform: uppercase; white-space: nowrap; width: fit-content !important;"
+              >
+                {{- 'products.product.on_sale' | t | upcase -}}
+              </span>
+            {%- endif -%}
+            
+            <!-- Product Tag Badges (Sale and Past Season) -->
+            {% assign has_sale_tag_card = false %}
+            {% assign has_past_season_tag_card = false %}
+            
+            {% if card_product.tags contains 'Sale' %}
+              {% assign has_sale_tag_card = true %}
+            {% endif %}
+            
+            {% if card_product.tags contains 'Past Season' %}
+              {% assign has_past_season_tag_card = true %}
+            {% endif %}
+
+            {% if has_sale_tag_card %}
+              <span
+                class="badge price__badge-sale"
+                style="display: inline-flex !important; background-color: #000000 !important; color: white !important; justify-content: flex-start !important; align-items: center; padding: 6px 10px; border-radius: 0px; font-size: 10px; font-weight: 600; text-transform: uppercase; white-space: nowrap; width: fit-content !important;"
+              >
+                SALE
+              </span>
+            {% endif %}
+            {% if has_past_season_tag_card %}
+              <span
+                class="badge price__badge-sale"
+                style="display: inline-flex !important; background-color: #000000 !important; color: white !important; justify-content: flex-start !important; align-items: center; padding: 6px 10px; border-radius: 0px; font-size: 10px; font-weight: 600; text-transform: uppercase; white-space: nowrap; width: fit-content !important;"
+              >
+                PAST SEASON
+              </span>
+            {% endif %}
+          </div>
+          <style>
+            @media (min-width: 1024px) {
+              .card__badge .price__badge-sale {
+                padding: 10px 15px !important;
+                font-size: 12px !important;
+              }
+            }
+          </style>
         </div>
       </div>
     </div>
@@ -635,6 +935,152 @@
       </div>
       <div class="card__content">
         <div class="card__information">
+          {%- render 'product-variant-picker', product: card_product, section_id: section_id -%}
+
+          {%- comment -%} Compute option indexes once {%- endcomment -%}
+          {% assign color_option_index = null %}
+          {% assign size_option_index = null %}
+          {% for opt in card_product.options_with_values %}
+            {% assign n = opt.name | downcase %}
+            {% if n contains 'color' or n contains 'colour' -%}
+              {%- assign color_option_index = forloop.index0 -%}
+            {%- endif %}
+            {% if n contains 'size' %}{% assign size_option_index = forloop.index0 %}{% endif %}
+          {% endfor %}
+
+          <script
+            type="application/json"
+            id="variant-data-{{ card_product.id }}"
+            data-product-url="{{ card_product.url }}"
+            data-selected-variant="{{ card_product.selected_or_first_available_variant.id }}"
+            data-variant-json
+          >
+            {
+              "option_names": {{ card_product.options | json }},
+              "color_index": {{ color_option_index | default: 'null' }},
+              "size_index":  {{ size_option_index  | default: 'null' }},
+
+              "sizes_all":
+                {% if size_option_index != nil %}
+                  {{ card_product.options_with_values[size_option_index].values | json }}
+                {% else %}
+                  []
+                {% endif %},
+
+              "sizes_by_color":
+              {% if color_option_index != nil and size_option_index != nil %}
+              {
+                {% assign colors = card_product.options_with_values[color_option_index].values %}
+                {% for color in colors %}
+                  {{ color | json }}: [
+                    {% assign first = true %}
+                    {% for v in card_product.variants %}
+                      {% if v.options[color_option_index] == color %}
+                        {% unless first %},{% endunless %}
+                        {
+                          "size": {{ v.options[size_option_index] | json }},
+                          "id": {{ v.id }},
+                          "available": {{ v.available | json }},
+                          "url": {{ v.url | json }}
+                        }
+                        {% assign first = false %}
+                      {% endif %}
+                    {% endfor %}
+                  ]{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              }
+              {% else %}
+                {}
+              {% endif %},
+
+              /* keep both shapes for compatibility */
+              "variants": {
+                {% for variant in card_product.variants %}
+                  "{{ variant.id }}": {
+                    "id": {{ variant.id | json }},
+                    "available": {{ variant.available | json }},
+                    "price": {{ variant.price | json }},
+                    "compare_at_price": {{ variant.compare_at_price | json }},
+                    "featured_image": {% assign vimg = variant.featured_image | default: card_product.featured_media %}{% if vimg %}{{ vimg | image_url | json }}{% else %}null{% endif %},
+                    "url": {{ variant.url | json }},
+                    "options": {{ variant.options | json }}
+                  }{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              },
+              "variants_array": {{ card_product.variants | json }}
+            }
+          </script>
+
+          {% comment %}
+            Work out which options are Color/Colour and Size
+          {% endcomment %}
+          {% assign color_option_index = null %}
+          {% assign size_option_index = null %}
+          {% for opt in card_product.options_with_values %}
+            {% assign n = opt.name | downcase %}
+            {% if n contains 'color' or n contains 'colour' %}
+              {% assign color_option_index = forloop.index0 %}
+            {% endif %}
+            {% if n contains 'size' %}
+              {% assign size_option_index = forloop.index0 %}
+            {% endif %}
+          {% endfor %}
+
+          <script type="application/json" id="variant-data-{{ card_product.id }}">
+            {
+              "option_names": {{ card_product.options | json }},
+              "color_index": {{ color_option_index | default: 'null' }},
+              "size_index":  {{ size_option_index  | default: 'null' }},
+
+              "sizes_all":
+                {% if size_option_index != nil %}
+                  {{ card_product.options_with_values[size_option_index].values | json }}
+                {% else %}
+                  []
+                {% endif %},
+
+              "sizes_by_color":
+              {% if color_option_index != nil and size_option_index != nil %}
+              {
+                {% assign colors = card_product.options_with_values[color_option_index].values %}
+                {% for color in colors %}
+                  {{ color | json }}: [
+                    {% assign first = true %}
+                    {% for v in card_product.variants %}
+                      {% if v.options[color_option_index] == color %}
+                        {% unless first %},{% endunless %}
+                        {
+                          "size": {{ v.options[size_option_index] | json }},
+                          "id": {{ v.id }},
+                          "available": {{ v.available | json }},
+                          "url": {{ v.url | json }}
+                        }
+                        {% assign first = false %}
+                      {% endif %}
+                    {% endfor %}
+                  ]{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              }
+              {% else %}
+                {}
+              {% endif %},
+
+              "variants": {
+                {% for variant in card_product.variants %}
+                  "{{ variant.id }}": {
+                    "id": {{ variant.id | json }},
+                    "available": {{ variant.available | json }},
+                    "price": {{ variant.price | json }},
+                    "compare_at_price": {{ variant.compare_at_price | json }},
+                    "featured_image": {% assign variant_img = variant.featured_image | default: card_product.featured_media %}{% if variant_img %}{{ variant_img | image_url | json }}{% else %}null{% endif %},
+                    "url": {{ variant.url | json }},
+                    "options": {{ variant.options | json }}
+                  }{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              }
+            }
+          </script>
+
           <h3 class="card__heading card__heading--placeholder{% if settings.card_style == 'standard' %} h5{% endif %}">
             <a role="link" aria-disabled="true" class="full-unstyled-link">
               {{ 'onboarding.product_title' | t }}
@@ -652,3 +1098,776 @@
     </div>
   </div>
 {%- endif -%}
+
+<script>
+    (function () {
+      // ---------- Helpers ----------
+      function getVariants(productId) {
+        const el = document.getElementById('variant-data-' + productId);
+        if (!el) return [];
+        try {
+          const variantData = JSON.parse(el.textContent || '{}');
+          // Convert object format to array format for easier use
+          const variants = Object.values(variantData);
+          console.log('Parsed variants for product', productId, ':', variants);
+          return variants;
+        } catch (error) {
+          console.error('Error parsing variant data for product', productId, ':', error);
+          return [];
+        }
+      }
+      // Helper function to construct proper variant URL
+      function constructVariantUrl(productId, variant) {
+        if (!variant) return null;
+
+        // Try to get product URL from variant data
+        const variantData = document.getElementById('variant-data-' + productId);
+        let productUrl = variantData ? variantData.getAttribute('data-product-url') : '';
+
+        // Use variant.url if available, otherwise construct from product URL + variant ID
+        if (variant.url) {
+          return variant.url;
+        } else if (productUrl) {
+          // Remove any existing variant parameter to avoid duplicates
+          productUrl = productUrl.replace(/[?&]variant=\d+/g, '');
+
+          // Check if URL already has query parameters
+          const separator = productUrl.includes('?') ? '&' : '?';
+          return productUrl + separator + 'variant=' + variant.id;
+        }
+        return null;
+      }
+
+      // Helper function to get the correct quick-add selector
+      function getQuickAddSelector(productId) {
+        // First try to find by product form data attribute, then get its parent container
+        const productForm = document.querySelector('product-form[data-product-id="' + productId + '"]');
+        if (productForm) {
+          const quickAddContainer = productForm.closest('[id*="quick-add"]');
+          if (quickAddContainer) {
+            console.log('Found quick-add container via product-form:', quickAddContainer.id);
+            return '#' + quickAddContainer.id;
+          }
+        }
+
+        // Fallback: try different possible form ID formats
+        let selector = '#quick-add-{{ section.id }}-' + productId;
+        let element = document.querySelector(selector);
+
+        if (!element) {
+          selector = '#quick-add-{{ section_id }}' + productId;
+          element = document.querySelector(selector);
+        }
+
+        if (!element) {
+          selector = '#quick-add-' + productId;
+          element = document.querySelector(selector);
+        }
+
+        console.log('Quick-add selector search result:', selector, element ? 'found' : 'not found');
+        return element ? selector : null;
+      }
+
+      function getLabel(productId, type) {
+        return document.getElementById(type + '-label-' + productId);
+      }
+      function getOptionIndex(containerSel, productId) {
+        const box = document.querySelector(containerSel + '[data-product-id="' + productId + '"]');
+        return box ? parseInt(box.getAttribute('data-option-index'), 10) : null;
+      }
+      function findVariantByOptions(productId, wantedByIndex) {
+        const variants = getVariants(productId);
+        return (
+          variants.find((v) => Object.keys(wantedByIndex).every((idx) => v.options[+idx] === wantedByIndex[idx])) || null
+        );
+      }
+      function setSelectedClasses(a, selected) {
+        a.classList.toggle('t-border-black', selected);
+        a.classList.toggle('t-bg-black', selected);
+        a.classList.toggle('t-text-white', selected);
+        a.classList.toggle('t-border-gray-300', !selected);
+      }
+      function setAvailabilityClasses(a, available) {
+        a.classList.toggle('swatch-strike', !available);
+        a.classList.toggle('cursor-not-allowed', !available);
+        a.setAttribute('aria-disabled', available ? 'false' : 'true');
+      }
+      // Reorder elements to show in-stock items first
+      function reorderByAvailability(container, itemSelector, getVariantId) {
+        const items = Array.from(container.querySelectorAll(itemSelector));
+        const variants = getVariants(container.dataset.productId);
+
+        // Sort items: available first, then unavailable
+        items.sort((a, b) => {
+          const aVariantId = getVariantId(a);
+          const bVariantId = getVariantId(b);
+          const aVariant = variants.find(v => String(v.id) === String(aVariantId));
+          const bVariant = variants.find(v => String(v.id) === String(bVariantId));
+
+          const aAvailable = aVariant ? aVariant.available : false;
+          const bAvailable = bVariant ? bVariant.available : false;
+
+          // Available items come first
+          if (aAvailable && !bAvailable) return -1;
+          if (!aAvailable && bAvailable) return 1;
+          return 0;
+        });
+
+        // Reappend items in sorted order
+        items.forEach(item => container.appendChild(item));
+      }
+
+      // Reorder color swatches to show available colors first
+      function reorderColorSwatches(productId) {
+        const colorContainer = document.querySelector('.js-color-list[data-product-id="' + productId + '"]');
+        if (!colorContainer) return;
+
+        // Use custom logic for color swatches that checks if ANY variant with that color is available
+        const swatches = Array.from(colorContainer.querySelectorAll('.js-color-swatch'));
+        const variants = getVariants(productId);
+        const colorIdx = getOptionIndex('.js-color-list', productId);
+
+        swatches.sort((a, b) => {
+          const aColorValue = a.getAttribute('data-color-value');
+          const bColorValue = b.getAttribute('data-color-value');
+
+          // Check if any variant with this color is available
+          const aHasAvailable = colorIdx !== null && variants.some(v =>
+            v.options[colorIdx] === aColorValue && v.available
+          );
+          const bHasAvailable = colorIdx !== null && variants.some(v =>
+            v.options[colorIdx] === bColorValue && v.available
+          );
+
+          // Available colors come first
+          if (aHasAvailable && !bHasAvailable) return -1;
+          if (!aHasAvailable && bHasAvailable) return 1;
+          return 0;
+        });
+
+        // Reappend swatches in sorted order
+        swatches.forEach(swatch => colorContainer.appendChild(swatch));
+      }
+
+      // Update color swatch availability styling based on whether ANY variant with that color is available
+      function updateColorSwatchAvailability(productId) {
+        const colorContainer = document.querySelector('.js-color-list[data-product-id="' + productId + '"]');
+        if (!colorContainer) return;
+
+        const swatches = Array.from(colorContainer.querySelectorAll('.js-color-swatch'));
+        const variants = getVariants(productId);
+        const colorIdx = getOptionIndex('.js-color-list', productId);
+
+        swatches.forEach(swatch => {
+          const colorValue = swatch.getAttribute('data-color-value');
+
+          // Check if any variant with this color is available
+          const hasAvailableVariant = colorIdx !== null && variants.some(v =>
+            v.options[colorIdx] === colorValue && v.available
+          );
+
+          // Update styling based on availability
+          swatch.classList.toggle('swatch-strike', !hasAvailableVariant);
+          swatch.classList.toggle('cursor-not-allowed', !hasAvailableVariant);
+
+          // Update data attribute for consistency
+          swatch.setAttribute('data-color-available', hasAvailableVariant.toString());
+        });
+      }
+
+      // Ensure first available variant is selected and displayed
+      function selectFirstAvailableVariant(productId) {
+        const variants = getVariants(productId);
+        const availableVariant = variants.find(v => v.available);
+
+        if (availableVariant) {
+          const colorIdx = getOptionIndex('.js-color-list', productId);
+          const sizeIdx = getOptionIndex('.js-size-list', productId);
+
+          // Update color if there's a color option
+          if (colorIdx !== null && availableVariant.options[colorIdx]) {
+            const colorLabel = getLabel(productId, 'color');
+            if (colorLabel) {
+              colorLabel.textContent = availableVariant.options[colorIdx];
+              activateSwatchForColor(productId, availableVariant.options[colorIdx]);
+            }
+          }
+
+          // Update size if there's a size option
+          if (sizeIdx !== null && availableVariant.options[sizeIdx]) {
+            const sizeLabel = getLabel(productId, 'size');
+            if (sizeLabel) {
+              const variants = getVariants(productId);
+              const displayValue = normalizeSizeDisplay(availableVariant.options[sizeIdx], variants);
+              sizeLabel.textContent = displayValue;
+            }
+          }
+
+          // Apply the available variant
+          applyVariant(productId, availableVariant);
+        }
+      }
+
+  function setQuickAddForVariant(productId, variant) {
+    console.log('setQuickAddForVariant called with:', { productId, variant });
+
+    // Use helper to get the correct form selector
+    const QUICK_ADD_SELECTOR = getQuickAddSelector(productId);
+    if (!QUICK_ADD_SELECTOR) {
+      console.log('Could not find quick-add selector for product:', productId);
+      return;
+    }
+
+    console.log('Using quick-add selector:', QUICK_ADD_SELECTOR);
+
+    const root = document.querySelector(QUICK_ADD_SELECTOR);
+    if (!root) {
+      console.log('Could not find quick-add root element for selector:', QUICK_ADD_SELECTOR);
+      return;
+    }
+
+    console.log('Found quick-add root element:', root);
+
+    // Hidden input
+    const varInput = root.querySelector('input.product-variant-id');
+    if (varInput) {
+      varInput.value = variant.id;
+      varInput.disabled = !variant.available;
+    }
+
+    // Handle both button and link cases
+    const btn = root.querySelector('button.quick-add__submit');
+    const link = root.querySelector('a.quick-add__submit');
+
+    if (btn) {
+      const label = btn.querySelector('.button-text');
+      console.log('Found button:', btn, 'available:', variant.available, 'variant URL:', variant.url);
+      if (variant.available) {
+        btn.disabled = false;
+        btn.type = 'submit';
+        if (label) label.textContent = btn.dataset.addText || {{ 'products.product.add_to_cart' | t | json }};
+        btn.onclick = null;
+      } else {
+        btn.disabled = false;
+        btn.type = 'button';
+        if (label) label.textContent = btn.dataset.unavailableText || 'Sold Out';
+        // Use helper function to construct proper URL
+        const href = constructVariantUrl(productId, variant);
+        console.log('Setting button onclick to navigate to:', href);
+        btn.onclick = (e) => { e.preventDefault(); window.location.href = href; };
+      }
+    }
+
+    if (link) {
+      // Use helper function to construct proper URL
+      const newHref = constructVariantUrl(productId, variant);
+      console.log('Found link:', link, 'setting href to:', newHref);
+      link.href = newHref;
+      const span = link.querySelector('span');
+
+      // Get the size information for the link text
+      const sizeIdx = getOptionIndex('.js-size-list', productId);
+      const sizeValue = sizeIdx !== null && variant.options ? variant.options[sizeIdx] : null;
+
+      if (variant.available) {
+        if (span) span.textContent = {{ 'products.product.add_to_cart' | t | json }};
+      } else {
+        if (span) span.textContent = 'Sold Out';
+      }
+    }
+  }
+
+
+      // Swap image / update link / hidden input for quick-add
+      function applyVariant(productId, variant) {
+        if (!variant) return;
+
+        console.log('Applying variant for product', productId, ':', variant);
+
+        // 1) Image
+        const img = document.getElementById('card-image-' + productId);
+        const imgSrc = variant.featured_image;
+        console.log('Image source:', imgSrc);
+        if (img && imgSrc) {
+          // Ensure imgSrc is a string before calling includes()
+          const imageUrl = typeof imgSrc === 'string' ? imgSrc : String(imgSrc);
+          // Add width parameter to the URL
+          const finalSrc = imageUrl + (imageUrl.includes('?') ? '&' : '?') + 'width=533';
+          console.log('Setting image src to:', finalSrc);
+          img.setAttribute('src', finalSrc);
+        } else {
+          console.log('No image or image source found for variant:', variant);
+        }
+
+        // 2) Update every link that should follow the variant (title, image overlay, etc.)
+        const variantUrl = constructVariantUrl(productId, variant);
+        if (variantUrl) {
+          document.querySelectorAll('.js-variant-target[data-product-id="' + productId + '"]').forEach((a) => {
+            a.href = variantUrl;
+          });
+        }
+
+        // 3) Quick-add hidden input
+        const QUICK_ADD_SELECTOR = getQuickAddSelector(productId);
+        if (QUICK_ADD_SELECTOR) {
+          const varInput = document.querySelector(QUICK_ADD_SELECTOR + ' .product-variant-id');
+          if (varInput) varInput.value = variant.id;
+        }
+
+        // 4) (Optional) Try the old IDs as a fallback only
+        if (variantUrl) {
+          const idPrefixCandidates = [
+            'CardLink--' + productId, // example if you ever change IDs
+            'CardLink-' + productId, // simplified
+          ];
+          for (const id of idPrefixCandidates) {
+            const el = document.getElementById(id);
+            if (el) {
+              el.href = variantUrl;
+              break;
+            }
+          }
+        }
+        setQuickAddForVariant(productId, variant);
+
+      }
+
+      // Helper function to normalize size display values
+      function normalizeSizeDisplay(sizeValue, variants) {
+        // Get all size options from variants
+        const allSizeOptions = [...new Set(variants.flatMap(v => v.options))];
+        const uniqueSizes = allSizeOptions.filter(opt => {
+          const optLower = opt.toLowerCase();
+          return optLower.includes('size') ||
+                 ['xs', 's', 'm', 'l', 'xl', 'xxl', '3xl', '4xl', '5xl'].includes(optLower) ||
+                 ['o/s', 'os', 'one size', 'onesize'].includes(optLower);
+        });
+
+        // If only one size option and it's a variant of "one size", normalize it
+        if (uniqueSizes.length === 1) {
+          const sizeLower = sizeValue.toLowerCase();
+          if (['o/s', 'os', 'one size', 'onesize'].includes(sizeLower)) {
+            return 'One Size';
+          }
+        }
+
+        return sizeValue;
+      }
+
+      // Rebuild all size pills when color changes (updates hrefs, availability, and selected state)
+      function rebuildSizesForColor(productId) {
+      const sizeWrap = document.querySelector('.js-size-list[data-product-id="' + productId + '"]');
+      if (!sizeWrap) return;
+
+      const sizeIdx = getOptionIndex('.js-size-list', productId);
+      const colorIdx = getOptionIndex('.js-color-list', productId);
+      const sizeLabel = getLabel(productId, 'size');
+      const colorLabel = getLabel(productId, 'color');
+      const chosenColor = colorIdx != null && colorLabel ? colorLabel.textContent.trim() : null;
+
+      // IMPORTANT: include buttons since all size options are now buttons
+      const pills = Array.from(sizeWrap.querySelectorAll('button.js-size-option'));
+      const variants = getVariants(productId);
+
+      let firstAvailable = null;
+      let stillSelectedValid = false;
+
+      pills.forEach((el, i) => {
+        const sizeValue = el.getAttribute('data-size-value');
+
+        // Find a variant that matches current color (if any) + this size
+        const wanted = {};
+        if (sizeIdx != null) wanted[sizeIdx] = sizeValue;
+        if (chosenColor != null) wanted[colorIdx] = chosenColor;
+
+        const match = variants.find(v =>
+          Object.keys(wanted).every(idx => v.options[+idx] === wanted[idx])
+        );
+
+        if (match) {
+          // All size options are now buttons, so no need to convert elements
+
+          // Ensure text content is set with normalized display value
+          const displayValue = normalizeSizeDisplay(sizeValue, variants);
+          if (!el.textContent || el.textContent !== displayValue) {
+            el.textContent = displayValue;
+          }
+
+          // Store variant info in data attributes (no href for buttons)
+          el.dataset.variantId = match.id;
+          setAvailabilityClasses(el, match.available); // Use actual variant availability
+
+          if (!firstAvailable && match.available) firstAvailable = el;
+
+          const selected = sizeLabel && (sizeLabel.textContent.trim() === sizeValue || sizeLabel.textContent.trim() === displayValue);
+          setSelectedClasses(el, selected);
+          if (selected && match.available) stillSelectedValid = true;
+
+        } else {
+          // No variant for this color+size → ensure disabled state
+          delete el.dataset.variantId;
+          setAvailabilityClasses(el, false);
+          setSelectedClasses(el, false);
+        }
+      });
+
+      // Auto-select first available size if current selection isn't valid
+      if (!stillSelectedValid && firstAvailable) {
+        const sizeValue = firstAvailable.getAttribute('data-size-value');
+        const displayValue = normalizeSizeDisplay(sizeValue, variants);
+        if (sizeLabel) sizeLabel.textContent = displayValue;
+        pills.forEach(a => setSelectedClasses(a, a === firstAvailable));
+      }
+
+      // Keep available sizes first
+      reorderSizeOptions(productId);
+    }
+
+
+      function reorderSizeOptions(productId) {
+        const sizeContainer = document.querySelector('.js-size-list[data-product-id="' + productId + '"]');
+        if (!sizeContainer) return;
+
+        reorderByAvailability(sizeContainer, '.js-size-option', (sizeOption) => {
+          return sizeOption.getAttribute('data-variant-id') || sizeOption.dataset.variantId;
+        });
+      }
+
+      function previewImageFromVariant(productId, variant) {
+        const img = document.getElementById('card-image-' + productId);
+        const imgSrc = variant && variant.featured_image;
+        if (!img || !imgSrc) return;
+
+        console.log('Previewing image from variant:', imgSrc);
+        // Ensure imgSrc is a string before calling includes()
+        const imageUrl = typeof imgSrc === 'string' ? imgSrc : String(imgSrc);
+        // Add width parameter to the URL
+        const finalSrc = imageUrl + (imageUrl.includes('?') ? '&' : '?') + 'width=533';
+        console.log('Final image src:', finalSrc);
+        img.setAttribute('src', finalSrc);
+      }
+
+      function activateSwatchForColor(productId, colorValue) {
+        const list = document.querySelector('.js-color-list[data-product-id="' + productId + '"]');
+        if (!list) return;
+        const swatch = Array.from(list.querySelectorAll('a.js-color-swatch')).find(
+          (a) => a.getAttribute('data-color-value') === colorValue
+        );
+        if (!swatch) return;
+
+        // active border and move to front
+        setActiveBorder(swatch, '.js-color-list');
+        if (list.firstElementChild !== swatch) list.prepend(swatch);
+
+        // if the swatch carries a specific image in data-attrs, reflect it immediately
+        const img = document.getElementById('card-image-' + productId);
+        const src = swatch.getAttribute('data-image-src');
+        const srcset = swatch.getAttribute('data-image-srcset');
+        if (img && src) img.setAttribute('src', src);
+        if (img && srcset) img.setAttribute('srcset', srcset);
+
+        // sync hrefs/quick-add to the swatch variant (before/without size)
+        const swatchHref = swatch.getAttribute('href');
+        if (swatchHref) {
+          document.querySelectorAll('.js-variant-target[data-product-id="' + productId + '"]').forEach((a) => {
+            a.href = swatchHref;
+          });
+          const section = (typeof section_id !== 'undefined' ? section_id : '') || '';
+          const mainLink =
+            document.getElementById('CardLink-' + section + '-' + productId) ||
+            document.getElementById('StandardCardNoMediaLink-' + section + '-' + productId);
+          if (mainLink) mainLink.href = swatchHref;
+
+          const variantId = swatch.getAttribute('data-variant-id');
+          if (variantId) {
+            const QUICK_ADD_SELECTOR = getQuickAddSelector(productId);
+            if (QUICK_ADD_SELECTOR) {
+              const varInput = document.querySelector(QUICK_ADD_SELECTOR + ' .product-variant-id');
+              if (varInput) varInput.value = variantId;
+            }
+          }
+        }
+      }
+
+      function setActiveBorder(activeEl, containerSel) {
+        const container = activeEl.closest(containerSel);
+        if (!container) return;
+
+        // Remove active state from all siblings
+        container.querySelectorAll('.js-color-swatch, .js-size-option').forEach(el => {
+          el.classList.remove('t-border-black', 't-bg-black', 't-text-white');
+          el.classList.add('t-border-gray-300');
+        });
+
+        // Add active state to clicked element
+        activeEl.classList.remove('t-border-gray-300');
+        activeEl.classList.add('t-border-black');
+        if (activeEl.classList.contains('js-size-option')) {
+          activeEl.classList.add('t-bg-black', 't-text-white');
+        }
+      }
+
+      // ---------- Event handlers ----------
+
+      // On page load: initialize each card from its selected variant
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('[id^="variant-data-"]').forEach((metaEl) => {
+          const productId = metaEl.id.replace('variant-data-', '');
+          const variants = getVariants(productId);
+          const selectedId = metaEl.getAttribute('data-selected-variant');
+          const variant = variants.find((v) => String(v.id) === String(selectedId)) || variants[0];
+          if (!variant) return;
+
+          const colorIdx = getOptionIndex('.js-color-list', productId);
+          const sizeIdx = getOptionIndex('.js-size-list', productId);
+
+          // color (if store has color)t-w-full t-h-full t-object-cover
+          if (colorIdx != null) {
+            const colorValue = variant.options[colorIdx];
+            const colorLabel = getLabel(productId, 'color');
+            if (colorLabel) colorLabel.textContent = colorValue;
+            activateSwatchForColor(productId, colorValue); // sets border, moves swatch, syncs links/quick-add, preview img
+          }
+
+          // size (if store has size)
+          if (sizeIdx != null) {
+            const sizeValue = variant.options[sizeIdx];
+            const variants = getVariants(productId);
+            const displayValue = normalizeSizeDisplay(sizeValue, variants);
+            const sizeLabel = getLabel(productId, 'size');
+            if (sizeLabel) sizeLabel.textContent = displayValue;
+
+            const sizeWrap = document.querySelector('.js-size-list[data-product-id="' + productId + '"]');
+            if (sizeWrap) {
+              sizeWrap.querySelectorAll('button.js-size-option').forEach((a) => {
+                const selected = a.getAttribute('data-size-value') === sizeValue;
+                setSelectedClasses(a, selected);
+              });
+            }
+            setQuickAddForVariant(productId, variant);
+
+          }
+
+          // make size pills valid for the active color (or no-color case)
+          rebuildSizesForColor(productId);
+
+          // reorder color swatches to show available colors first
+          reorderColorSwatches(productId);
+
+          // update color swatch availability styling
+          updateColorSwatchAvailability(productId);
+
+          // finally, set image/srcset + all .js-variant-target + quick-add hidden input
+          applyVariant(productId, variant);
+        });
+      });
+
+      // Color click → update label, border, preview image, and try exact color+size variant
+      document.addEventListener('click', function (e) {
+        const swatch = e.target.closest('.js-color-swatch');
+        if (!swatch) return;
+        if (!(e.metaKey || e.ctrlKey)) e.preventDefault();
+
+        const productId = swatch.getAttribute('data-product-id');
+        const colorValue = swatch.getAttribute('data-color-value');
+        const variantId = swatch.getAttribute('data-variant-id');
+
+        console.log('Color swatch clicked:', { productId, colorValue, variantId });
+
+        const colorLabel = getLabel(productId, 'color');
+        if (colorLabel) colorLabel.textContent = colorValue;
+
+        setActiveBorder(swatch, '.js-color-list');
+
+        // Find the variant for this color from our variant data
+        const variants = getVariants(productId);
+        const selectedVariant = variants.find(v => String(v.id) === String(variantId));
+
+        console.log('Selected variant:', selectedVariant);
+        console.log('Swatch data-image-src:', swatch.getAttribute('data-image-src'));
+
+        if (selectedVariant) {
+          // Quick preview - try variant data first, then fallback to swatch data attributes
+          const img = document.getElementById('card-image-' + productId);
+          let imageSrc = selectedVariant.featured_image;
+
+          console.log('Variant featured_image:', imageSrc);
+
+          // Fallback to swatch data attributes if variant doesn't have image
+          if (!imageSrc) {
+            imageSrc = swatch.getAttribute('data-image-src');
+            console.log('Using swatch data-image-src:', imageSrc);
+          }
+
+          if (img && imageSrc) {
+            console.log('Final image source being applied:', imageSrc);
+            // Ensure imageSrc is a string before calling includes()
+            const imageUrl = typeof imageSrc === 'string' ? imageSrc : String(imageSrc);
+            // Add width parameter if not already present
+            const finalSrc = imageUrl.includes('width=') ? imageUrl : imageUrl + (imageUrl.includes('?') ? '&' : '?') + 'width=533';
+            console.log('Setting final src:', finalSrc);
+            img.setAttribute('src', finalSrc);
+
+            // Also update srcset if available from swatch
+            const srcset = swatch.getAttribute('data-image-srcset');
+            if (srcset) {
+              img.setAttribute('srcset', srcset);
+              console.log('Applied srcset:', srcset);
+            }
+          } else {
+            console.log('No image available for this variant - keeping current image');
+          }
+
+          // Update all .js-variant-target links to this specific variant
+          const variantUrl = constructVariantUrl(productId, selectedVariant);
+          if (variantUrl) {
+            document.querySelectorAll('.js-variant-target[data-product-id="' + productId + '"]').forEach((a) => {
+              a.href = variantUrl;
+              console.log('Updated variant target link to:', variantUrl);
+            });
+
+            // update quick-add hidden input from the selected variant
+            const QUICK_ADD_SELECTOR = getQuickAddSelector(productId);
+            if (QUICK_ADD_SELECTOR) {
+              const varInput = document.querySelector(QUICK_ADD_SELECTOR + ' .product-variant-id');
+              if (varInput) varInput.value = selectedVariant.id;
+            }
+
+            // Note: setQuickAddForVariant will be called by applyVariant below
+          }
+        }
+
+        // recompute size pills for this color
+        rebuildSizesForColor(productId);
+
+        // reorder color swatches to show available first
+        reorderColorSwatches(productId);
+
+        // prefer exact color+size variant if we have a size selected
+        const sizeLabel = getLabel(productId, 'size');
+        const colorIdx = getOptionIndex('.js-color-list', productId);
+        const sizeIdx = getOptionIndex('.js-size-list', productId);
+        if (colorIdx != null && sizeIdx != null && sizeLabel && selectedVariant) {
+          const match = findVariantByOptions(productId, {
+            [colorIdx]: colorValue,
+            [sizeIdx]: sizeLabel.textContent.trim(),
+          });
+          if (match) {
+            console.log('Found exact color+size match:', match);
+            applyVariant(productId, match);
+          } else {
+            console.log('No exact color+size match, using color variant:', selectedVariant);
+            applyVariant(productId, selectedVariant);
+          }
+        } else if (selectedVariant) {
+          console.log('Applying color variant:', selectedVariant);
+          applyVariant(productId, selectedVariant);
+        }
+      });
+
+      // Size click → update label and apply exact variant (respecting current color if any)
+      // Size click → update label and apply exact variant (respecting current color if any)
+      document.addEventListener('click', function (e) {
+        const sizeBtn = e.target.closest('.js-size-option');
+        if (!sizeBtn) return;
+        if (!(e.metaKey || e.ctrlKey)) e.preventDefault();
+
+        const productId = sizeBtn.getAttribute('data-product-id');
+        const sizeValue = sizeBtn.getAttribute('data-size-value');
+        const variants = getVariants(productId);
+        const displayValue = normalizeSizeDisplay(sizeValue, variants);
+        const sizeLabel = getLabel(productId, 'size');
+        if (sizeLabel) sizeLabel.textContent = displayValue;
+
+        // toggle selected classes
+        const group = sizeBtn.closest('.js-size-list');
+        if (group) {
+          group.querySelectorAll('.js-size-option').forEach((a) => setSelectedClasses(a, a === sizeBtn));
+        }
+
+        // resolve variant with current color (if set)
+        const colorLabel = getLabel(productId, 'color');
+        const colorIdx = getOptionIndex('.js-color-list', productId);
+        const sizeIdx = getOptionIndex('.js-size-list', productId);
+
+        const wanted = {};
+        if (sizeIdx != null) wanted[sizeIdx] = sizeValue;
+        if (colorIdx != null && colorLabel) wanted[colorIdx] = colorLabel.textContent.trim();
+
+        const match =
+          findVariantByOptions(productId, wanted) || findVariantByOptions(productId, { [sizeIdx]: sizeValue });
+
+        if (!match) {
+          console.log('No matching variant found for size:', sizeValue);
+          return;
+        }
+
+        console.log('Size click - found matching variant:', match);
+        console.log('Size click - wanted options:', wanted);
+
+        // Use helper function to construct proper URL
+        const properUrl = constructVariantUrl(productId, match);
+        sizeBtn.href = properUrl;
+        sizeBtn.dataset.variantId = match.id;
+
+        // 1) Make the color swatch UI reflect the matched variant’s color (even if user didn’t click a swatch)
+        if (colorIdx != null) {
+          const matchedColor = match.options[colorIdx];
+          const colorLabelEl = getLabel(productId, 'color');
+          if (colorLabelEl) colorLabelEl.textContent = matchedColor;
+          activateSwatchForColor(productId, matchedColor);
+        }
+
+        // 2) Update the image from the matched variant (if it has its own image)
+        previewImageFromVariant(productId, match);
+
+        // 3) Apply the variant (updates all .js-variant-target, title link, quick-add id, and image srcset again)
+        applyVariant(productId, match);
+
+        // 4) Rebuild sizes (href/availability) for the now-active color
+        rebuildSizesForColor(productId);
+      });
+
+      // Initial pass: make sure sizes reflect the default color on load and select first available variant
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.js-size-list').forEach((list) => {
+          const pid = list.getAttribute('data-product-id');
+          rebuildSizesForColor(pid);
+          selectFirstAvailableVariant(pid);
+          updateColorSwatchAvailability(pid);
+        });
+      });
+    })();
+    // Update the hidden input + button inside this card’s form
+    const formRoot =
+      document.getElementById('quick-add-{{ section_id }}' + productId) ||
+      document.getElementById('quick-add-' + productId);
+
+    if (formRoot) {
+      const varInput = formRoot.querySelector('.product-variant-id');
+      if (varInput) {
+        varInput.value = variant.id;
+        varInput.toggleAttribute('disabled', !variant.available);
+      }
+      const btn = formRoot.querySelector('.quick-add__submit');
+      if (btn) btn.disabled = !variant.available;
+    }
+</script>
+<script>
+  document.addEventListener('change', (e) => {
+    // Case A: your swatch/option emits a direct variant id
+    const variantIdAttr = e.target.closest('[data-variant-id]')?.getAttribute('data-variant-id');
+
+    // Case B: compute from options within the same card
+    const productForm = e.target.closest('product-form');
+    if (!productForm) return;
+
+    const card = productForm.closest('.quick-add');
+    const hiddenInput = card?.querySelector('input.product-variant-id');
+    const submitBtn = card?.querySelector('button[type="submit"]');
+    const productId = productForm.getAttribute('data-product-id');
+    if (!hiddenInput || !productId) return;
+
+    let newVariantId = variantIdAttr;
+  });
+</script>

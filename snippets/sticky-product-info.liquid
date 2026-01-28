@@ -1,19 +1,9 @@
 <div>
-  <div id="makeStickyProductInfo" class="sticky-on-scroll  t-mx-auto t-w-full  ">
+  <div id="makeStickyProductInfo" class="sticky-on-scroll t-mx-auto t-w-full initially-hidden">
     <div class="t-max-w-[500px] t-flex t-flex-col t-items-center t-mb-0">
       <h1 class="t-mb-0 sticky-on-scroll t-px-0 t-w-full font-secondary t-font-bold banner__heading inline-richtext  t-tracking-[-0.1rem] t-text-header-4 md:t-text-header-3  xl:t-text-header-2 t-mt-0 t-pt-0">
         {{ product.title | escape }}
         {%- assign current_variant = product.selected_or_first_available_variant -%}
-        {% comment %}
-          {%- unless current_variant.option1 == 'Default Title' -%}
-            <span
-              id=""
-              class="sticky-on-scroll variant-size t-text-[var(--primary-colour)] font-secondary t-font-[700]  md:t-text-header-3  xl:t-text-header-2"
-            >
-              {{ product.selected_or_first_available_variant.option1 }}
-            </span>
-          {%- endunless -%}
-        {% endcomment %}
       </h1>
       <div class="t-flex t-justify-start t-flex-end xl:t-hidden" id="price-{{ section.id }}" role="status">
         {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: 'price--large' -%}
@@ -64,10 +54,10 @@
               endif
             -%}
             <button
-              id="ProductSubmitButton-{{ section_id }}"
+              id="ProductSubmitButton-sticky-{{ section_id }}"
               type="submit"
               name="add"
-              class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
+              class="product-form__submit button button--full-width product-add-to-cart-btn {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
               {% if product.selected_or_first_available_variant.available == false
                 or quantity_rule_soldout
                 or product.selected_or_first_available_variant == null
@@ -79,7 +69,7 @@
                 {%- if product.selected_or_first_available_variant == null -%}
                   {{ 'products.product.unavailable' | t }}
                 {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
-                  {{ 'products.product.sold_out' | t }}
+                  Out of Stock
                 {%- else -%}
                   {{ 'products.product.add_to_cart' | t }}
                 {%- endif -%}
@@ -128,6 +118,11 @@
       const originalOffset = stickyElement.offsetTop + 300;
       let lastScrollY = window.scrollY;
 
+      // Hide entire sticky element initially
+      if (stickyElement) {
+        stickyElement.style.display = 'none';
+      }
+
       // Hide sticky add to cart initially
       if (stickyAddToCart) {
         stickyAddToCart.style.display = 'none';
@@ -135,6 +130,10 @@
 
       function handleScroll() {
         if (window.scrollY > originalOffset) {
+          // Show sticky element when it should become sticky
+          if (stickyElement) {
+            stickyElement.style.display = 'flex';
+          }
           stickyElement.classList.add('is-sticky', 'show-sticky', 'small-font');
           if (window.scrollY < lastScrollY) {
             // Scrolling up - hide sticky
@@ -149,6 +148,10 @@
           }
         } else {
           stickyElement.classList.remove('is-sticky', 'show-sticky', 'small-font');
+          // Hide entire sticky element when not sticky
+          if (stickyElement) {
+            stickyElement.style.display = 'none';
+          }
           // Hide sticky add to cart
           if (stickyAddToCart) {
             stickyAddToCart.style.display = 'none';
@@ -162,6 +165,11 @@
   </script>
 
   <style>
+    /* Initially hide the sticky element completely */
+    .sticky-on-scroll.initially-hidden {
+      display: none !important;
+    }
+
     .sticky-on-scroll {
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
       will-change: transform;
@@ -193,9 +201,9 @@
       .sticky-on-scroll.is-sticky {
         top: 0;
       }
-      body {
+      {% comment %} body {
         padding-top: 60px;
-      }
+      } {% endcomment %}
     }
   </style>
 </div>

@@ -9,19 +9,20 @@
  */
 {
   "sections": {
-    "header_override_G3TMHy": {
+    "header_override_HEkhLC": {
       "type": "header-override",
       "name": "Header Override",
       "settings": {
         "override_enabled": true,
         "header_position": "relative",
-        "header_background": "white",
+        "header_background": "black",
         "navigation_text_colour": "white",
         "bottom_border_colour": "transparent"
       }
     },
     "main": {
       "type": "main-list-collections",
+      "disabled": true,
       "settings": {
         "title": "Collections",
         "sort": "alphabetical",
@@ -32,7 +33,7 @@
     }
   },
   "order": [
-    "header_override_G3TMHy",
+    "header_override_HEkhLC",
     "main"
   ]
 }

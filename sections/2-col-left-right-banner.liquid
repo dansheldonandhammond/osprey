@@ -1,0 +1,204 @@
+{% comment %}
+  Two Column Image Info Section
+  - Responsive two-column layout with image background and content overlay
+  - Configurable through section settings
+  - Supports reverse layout option
+{% endcomment %}
+
+{% if section.settings.image_1 != blank %}
+  {% assign has_image = true %}
+{% else %}
+  {% assign has_image = false %}
+{% endif %}
+
+{% assign reverse_layout = section.settings['reverse-row'] %}
+
+<div class="t-flex t-flex-col {% if reverse_layout %}lg:t-flex-row-reverse{% else %}lg:t-flex-row{% endif %} t-w-full t-gap-0">
+  {% comment %} Left Column - Image Background {% endcomment %}
+  {% if has_image %}
+    <div
+      class="t-relative t-flex t-flex-col t-justify-center t-items-center t-text-center t-mx-auto t-w-full t-overflow-hidden"
+      style="background-image: url('{{ section.settings.image_1 | image_url: width: 2000 }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 400px; padding: 20px;"
+    >
+      <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4 t-text-[19px] t-leading-[4.2px]">
+        {% comment %} Pre-text Icon {% endcomment %}
+        {% if section.settings['pre-text-1'] != empty %}
+          <p class="t-text-white">{{ section.settings['pre-text-1'] }}</p>
+        {% endif %}
+
+        {% comment %} Heading {% endcomment %}
+        {% if section.settings.heading_1 != blank %}
+          <h2 class="t-text-[32px] md:t-text-[48px] t-leading-tight t-text-white t-my-0">
+            {{ section.settings.heading_1 }}
+          </h2>
+        {% endif %}
+
+        {% comment %} Description {% endcomment %}
+        {% if section.settings.description_1 != blank %}
+          <p class="t-text-white">{{ section.settings.description_1 }}</p>
+        {% endif %}
+
+        {% comment %} Call-to-Action Link {% endcomment %}
+        {% if section.settings.link_1 != blank %}
+          <a
+            class="t-mt-[10px] t-px-[18px] t-py-[12px] t-border t-border-white t-text-white t-bg-transparent hover:t-bg-white/50 t-inline-block t-no-underline t-border-solid t-rounded"
+            href="{{ section.settings.link_1 }}"
+            aria-label="{{ section.settings.link_text_1 }}"
+          >
+            {{ section.settings.link_text_1 }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    {% comment %} Fallback Left Column {% endcomment %}
+    <div
+      class="t-relative t-flex t-flex-col t-justify-center t-items-center t-text-center t-mx-auto t-w-full t-overflow-hidden"
+      style="background-color: #a7a7a7; height: 400px; padding: 20px;"
+    >
+      <div class="t-absolute t-inset-0 t-bg-black t-opacity-20" style="pointer-events: none;"></div>
+
+      <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4">
+        <h2 class="t-text-[32px] md:t-text-[48px] t-leading-tight t-text-white">Left Column Heading</h2>
+        <p class="t-text-white t-max-w-[52ch]">
+          Placeholder description for the left column. This block can be updated with your own text in the editor.
+        </p>
+        <a
+          class="t-mt-[10px] t-px-[18px] t-py-[12px] t-border t-border-white t-text-white t-bg-transparent hover:t-bg-white/50 t-rounded t-inline-block t-border-solid"
+          href="#"
+        >
+          Learn More
+        </a>
+      </div>
+    </div>
+  {% endif %}
+
+  {% comment %} Right Column - Content Only {% endcomment %}
+  <div
+    class="t-relative t-flex t-flex-col t-justify-center t-items-center t-text-center t-mx-auto t-w-full t-overflow-hidden"
+    style="background-color: #f5f5f4; height: 400px; padding: 20px;"
+  >
+    <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4 t-text-[19px] t-leading-[4.2px]">
+      {% comment %} Pre-text Icon {% endcomment %}
+      {% if section.settings['pre-text-2'] != blank %}
+        <p class="t-text-white">{{ section.settings['pre-text-2'] }}</p>
+      {% endif %}
+
+      {% comment %} Heading {% endcomment %}
+      {% if section.settings.heading_2 != blank %}
+        <h2 class="t-text-[32px] md:t-text-[48px] t-leading-tight t-text-black t-my-0">
+          {{ section.settings.heading_2 }}
+        </h2>
+      {% endif %}
+
+      {% comment %} Description {% endcomment %}
+      {% if section.settings.description_2 != blank %}
+        <p class="t-text-black">{{ section.settings.description_2 }}</p>
+      {% endif %}
+
+      {% comment %} Call-to-Action Link {% endcomment %}
+      {% if section.settings.link_2 != blank %}
+        <a
+          class="t-mt-[10px] t-px-[18px] t-py-[12px] t-border t-border-black t-text-black t-bg-transparent hover:t-bg-black/10 t-inline-block t-no-underline t-border-solid t-rounded"
+          href="{{ section.settings.link_2 }}"
+          aria-label="{{ section.settings.link_text_2 }}"
+        >
+          {{ section.settings.link_text_2 }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Two Column Image & Info",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse-row",
+      "label": "Reverse column order on desktop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Left Column"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "pre-text-1",
+      "label": "Pre-text/Icon"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading",
+      "default": "Women's Fit"
+    },
+    {
+      "type": "textarea",
+      "id": "description_1",
+      "label": "Description",
+      "default": "Add your description here"
+    },
+    {
+      "type": "url",
+      "id": "link_1",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "link_text_1",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "header",
+      "content": "Right Column"
+    },
+    {
+      "type": "text",
+      "id": "pre-text-2",
+      "label": "Pre-text/Icon"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading",
+      "default": "Right Column Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "description_2",
+      "label": "Description",
+      "default": "Add your description here"
+    },
+    {
+      "type": "url",
+      "id": "link_2",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "link_text_2",
+      "label": "Button Text",
+      "default": "Shop Now"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two Column Image & Info",
+      "category": "Layout"
+    }
+  ]
+}
+{% endschema %}

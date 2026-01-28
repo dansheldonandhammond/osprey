@@ -1,0 +1,180 @@
+<!-- Main Content Section -->
+<section class="t-py-16 md:t-py-24">
+  <div class="page-width t-px-4 t-w-[100vw] t-max-w-[1300px] t-mx-auto">
+    <!-- Mobile Content - Shows only on mobile -->
+    <div class="t-px-[20px] t-block md:t-hidden t-pb-[20px]">
+      {% if section.settings.main_pretitle != blank %}
+        <p class="t-max-w-[335px] t-text-[16px] t-font-light t-tracking-wider t-uppercase t-mb-4 t-text-gray-600">
+          {{ section.settings.main_pretitle }}
+        </p>
+      {% else %}
+
+      {% endif %}
+
+      {% if section.settings.main_title != blank %}
+        <h1 class="t-mt-0 t-mb-[15px] t-text-[28px] t-font-[600] t-leading-tight">
+          {{ section.settings.main_title }}
+        </h1>
+      {% else %}
+
+      {% endif %}
+
+      {% if section.settings.main_description != blank %}
+        <div class="t-leading-[1.4] t-space-y-4 t-text-gray-700">
+          {{ section.settings.main_description }}
+        </div>
+      {% else %}
+
+      {% endif %}
+    </div>
+
+    <!-- Main Grid Layout -->
+    <div class="t-h-[100vh] xl:t-max-h-[1000px] md:t-max-h-[1400px] lg:t-max-h-[1000px] t-h-auto t-mx-[0] xl:t-mx-[62px] t-px-[20px] t-border-box t-grid md:t-grid-cols-12 md:t-grid-rows-12 t-gap-[20px] t-box-border t-mb-[30px]">
+      <!-- Large Portrait Image - Left Side -->
+      {% if section.settings.portrait_image != blank %}
+        <img
+          class="t-row-span-12 t-h-full t-row-start-1 t-col-start-1 md:t-col-end-7 t-col-end-9 t-object-cover t-object-center t-w-full t-h-full lg:t-mt-[50px] t-rounded-lg"
+          src="{{ section.settings.portrait_image | img_url: '800x' }}"
+          alt="{{ section.settings.portrait_image.alt | default: 'Person hiking in mountains' }}"
+          loading="lazy"
+        >
+      {% else %}
+        <!-- Placeholder for portrait image -->
+        <div class="t-row-span-12 t-h-full t-row-start-1 t-col-start-1 md:t-col-end-7 t-col-end-9 t-w-full t-h-full lg:t-mt-[50px] t-rounded-lg t-bg-gray-200 t-flex t-items-center t-justify-center">
+          <div class="t-text-center t-text-gray-500">
+            <svg class="t-w-16 t-h-16 t-mx-auto t-mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <p class="t-text-sm">Portrait Image</p>
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Text Content - Top Right (Desktop Only) -->
+      <div class="t-hidden md:t-block t-row-span-10 lg:t-row-span-6 t-row-start-1 t-col-start-7 t-col-end-13 xl:t-ms-[40px] t-relative t-h-full">
+        {% if section.settings.main_pretitle != blank %}
+          <p class="t-max-w-[335px] t-text-sm md:t-text-base t-font-light t-tracking-wider t-uppercase t-mb-4 t-text-gray-600 t-text-[18px] md:t-text-[20px] t-leading-relaxed">
+            {{ section.settings.main_pretitle | newline_to_br }}
+          </p>
+        {% else %}
+          <p class="t-max-w-[335px] t-text-sm md:t-text-base t-font-light t-tracking-wider t-uppercase t-mb-4 t-text-gray-600 t-text-[18px] md:t-text-[20px] t-leading-relaxed">
+            {{ section.settings.pretitle_line1 -}}
+            <br>
+            {{ section.settings.pretitle_line2 }}
+          </p>
+        {% endif %}
+
+        {% if section.settings.main_title != blank %}
+          <h1 class="lg:t-text-[50px] t-mt-0 t-mb-[15px] t-text-[36px] t-font-[600] t-leading-tight">
+            {{ section.settings.main_title }}
+          </h1>
+        {% else %}
+
+        {% endif %}
+
+        {% if section.settings.main_description != blank %}
+          <div class="t-leading-[1.4] t-space-y-4 t-text-gray-700">
+            {{ section.settings.main_description }}
+          </div>
+        {% else %}
+
+        {% endif %}
+      </div>
+
+      <!-- Landscape Image - Bottom Right, Overlapping -->
+      {% if section.settings.landscape_image != blank %}
+        <img
+          src="{{ section.settings.landscape_image | img_url: '600x' }}"
+          alt="{{ section.settings.landscape_image.alt | default: 'Mountain landscape' }}"
+          class="t-mt-[18px] t-w-full t-object-cover t-row-start-9 md:t-row-start-8 lg:t-row-start-8 xl:t-row-start-7 t-row-span-4 lg:t-row-span-5 xl:t-row-span-6 t-col-start-2 lg:t-col-start-5 t-col-end-13 t-mb-[0px] xl:t-mb-[80px] t-rounded-lg t-shadow-lg"
+          loading="lazy"
+        >
+      {% else %}
+        <!-- Placeholder for landscape image -->
+        <div class="t-mt-[18px] t-w-full t-row-start-9 md:t-row-start-8 lg:t-row-start-8 xl:t-row-start-7 t-row-span-4 lg:t-row-span-5 xl:t-row-span-6 t-col-start-2 lg:t-col-start-5 t-col-end-13 t-mb-[0px] xl:t-mb-[80px] t-rounded-lg t-shadow-lg t-bg-gray-200 t-flex t-items-center t-justify-center">
+          <div class="t-text-center t-text-gray-500">
+            <svg class="t-w-12 t-h-12 t-mx-auto t-mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <p class="t-text-sm">Landscape Image</p>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Two Column Overlap Layout",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "info": "Leave empty to hide the button"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "portrait_image",
+      "label": "Portrait Image",
+      "info": "Main tall image on the left side. Recommended: 800x1000px or similar portrait ratio"
+    },
+    {
+      "type": "image_picker",
+      "id": "landscape_image",
+      "label": "Landscape Image",
+      "info": "Overlapping image on bottom right. Recommended: 600x400px or similar landscape ratio"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "pretitle_line1",
+      "label": "Pre-title Line 1",
+      "info": "First line of the pre-title (leave empty to hide)"
+    },
+    {
+      "type": "text",
+      "id": "pretitle_line2",
+      "label": "Pre-title Line 2",
+      "info": "Second line of the pre-title (leave empty to hide)"
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Main Title",
+      "default": "THE bluesign® SYSTEM"
+    },
+    {
+      "type": "richtext",
+      "id": "main_description",
+      "label": "Description",
+      "default": "<p>With its holistic approach based on Input Stream Management, the bluesign SYSTEM reduces the impact on people and on the environment, ensures responsible use of resources and guarantees a high level of consumer safety.</p><p>It avoids harmful substances that pose a risk to people and the environment at each step of the supply chain. It also ensures approved chemical products and raw materials are used throughout the value chain.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two Column Overlap Layout",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

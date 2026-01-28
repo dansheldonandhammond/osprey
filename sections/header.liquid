@@ -95,6 +95,322 @@
   }
 {%- endstyle -%}
 
+<style>
+    {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
+      .scrolled-past-header .header__heading-logo-wrapper {
+        width: 75%;
+      }
+    {%- endif -%}
+
+    {%- if section.settings.menu_type_desktop != "drawer" -%}
+      @media screen and (min-width: 990px) {
+        header-drawer {
+          display: none;
+        }
+      }
+    {%- endif -%}
+
+    .menu-drawer-container {
+      display: flex;
+    }
+
+    .list-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .list-menu--inline {
+      display: inline-flex;
+      flex-wrap: wrap;
+    }
+
+    summary.list-menu__item {
+      padding-right: 2.7rem;
+    }
+
+    .list-menu__item {
+      display: flex;
+      align-items: center;
+      line-height: calc(1 + 0.3 / var(--font-body-scale));
+    }
+
+    .list-menu__item--link {
+      text-decoration: none;
+      padding-bottom: 1rem;
+      padding-top: 1rem;
+      line-height: calc(1 + 0.8 / var(--font-body-scale));
+    }
+
+    @media screen and (min-width: 750px) {
+      .list-menu__item--link {
+        padding-bottom: 0.5rem;
+        padding-top: 0.5rem;
+      }
+    }
+
+    /* Enhanced Menu Styles */
+    .sliding-menu-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out;
+      pointer-events: none;
+    }
+
+    .sliding-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      display: block;
+      z-index: -1;
+    }
+
+    .sliding-menu-container {
+      position: fixed;
+      {% comment %} height: calc(100vh - 122px); {% endcomment %}
+      left: 0;
+      z-index: 999;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    .sliding-menu-container.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .menu-panel {
+      position: absolute;
+      top: 0;
+      width: 365px;
+      height: 100%;
+      background: white;
+      {% comment %} box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); {% endcomment %}
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      pointer-events: auto;
+    }
+
+    .menu-panel.active {
+      transform: translateX(0);
+    }
+
+   .menu-panel.level-0 {
+      {% comment %} width: 990px !important; {% endcomment %}
+      left: 0;
+      z-index: -10;
+    }
+
+    .menu-panel.level-1 {
+      left: 625px;
+    }
+
+    .menu-panel.level-2 {
+      {% comment %} left: 990px; {% endcomment %}
+      z-index: 2;
+    }
+
+    /* Level 3 initially overlaps level 2 */
+    .menu-panel.level-3 {
+      {% comment %} left: 990px; {% endcomment %}
+      z-index: 3;
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+  .menu-panel.level-3.pushed {
+      {% comment %} left: 1355px; {% endcomment %}
+      }
+    }
+
+    .menu-panel.level-3 {
+      {% comment %} left: 1355px; {% endcomment %}
+    }
+
+
+
+    .menu-panel-content {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .menu-panel h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: #1f2937;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      text-decoration: none;
+      color: #000000;
+      font-size: 1.1rem;
+      font-weight: 500;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .menu-item:hover {
+      color: #0f766e !important
+    }
+
+    .menu-item.active {
+      color: #0d9488 !important;
+
+    }
+
+    .menu-item.active:hover {
+      color: #0f766e !important;;
+    }
+
+    .menu-item-chevron {
+      width: 3.25rem;
+      height: 3.25rem;
+      color: black;
+      transition: color 0.2s ease;
+    }
+
+    .menu-item.active .menu-item-chevron {
+      color: #0f766e;
+    }
+
+    .back-button {
+      display: none;
+      align-items: center;
+      color: #6b7280;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .back-button:hover {
+      color: #374151;
+    }
+
+    .back-button svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 0.5rem;
+    }
+
+    .image-panel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .image-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    {% comment %} .image-panel-overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+      padding: 2rem;
+      text-align: center;
+      height: 100% !important;
+
+    } {% endcomment %}
+
+    .shop-all-button {
+
+      position: absolute;
+      left: 50%;
+      bottom: 150px;
+      transform: translateX(-50%);
+    }
+
+    .shop-all-button:hover {
+      background: #f3f4f6;
+    }
+
+    .menu-panel.level-3.pushed {
+      height: 100vh;
+    }
+
+    /* Mobile Menu Styles */
+    @media (max-width: 1023px) {
+      .sliding-menu-container {
+        top: 0;
+        {% comment %} height: 100vh; {% endcomment %}
+      }
+
+      .menu-panel {
+        width: 100vw;
+        max-width: 365px;
+      }
+    }
+
+    /* Parent menu item active state - apply only to the 2nd child */
+    .parent-menu > li:nth-child(20) .parent-menu-item.menu-active {
+      color: #0d9488 !important;
+    }
+
+    .parent-menu > li:nth-child(20) .parent-menu-item.menu-active::after {
+      opacity: 1;
+      color: #0d9488 !important;
+    }
+
+    #level-1-content {
+      width: 600px;
+      max-width: 100%;
+    }
+</style>
+
+{%- style -%}
+  .header {
+    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
+  }
+
+  .section-header {
+    position: sticky;
+    margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-header {
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .header {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
@@ -107,7 +423,6 @@
 
 {% liquid
   assign header_tag = 'div'
-
   if section.settings.sticky_header_type != 'none'
     assign header_tag = 'sticky-header'
   endif
@@ -133,81 +448,681 @@
       assign localization_forms = true
     endif
   -%}
-  <header
-    class=" t-mx-auto t-justify-center t-flex t-items-center header header-colour header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} {% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}"
-  >
-    <div class="page-width t-w-full t-flex t-justify-between t-mx-auto t-items-center t-h-[77px] t-gap-[30px]">
-      <div class="t-hidden xl:t-flex t-h-full">
-        {%- liquid
-          if section.settings.menu != blank
-            render 'header-drawer-extend'
-          endif
-          if section.settings.logo_position == 'top-center' or section.settings.menu == blank
-            render 'header-search', input_id: 'Search-In-Modal-1'
-          endif
-        -%}
-      </div>
-      <div class="t-flex xl:t-hidden">
-        {%- liquid
-          if section.settings.menu != blank
-            render 'header-drawer'
-          endif
-          if section.settings.logo_position == 'top-center' or section.settings.menu == blank
-            render 'header-search', input_id: 'Search-In-Modal-1'
-          endif
-        -%}
-      </div>
-      {%- if section.settings.logo_position != 'middle-center' -%}
-        {%- if request.page_type == 'index' -%}
-          <h1 class="header__heading">
-        {%- endif -%}
-        <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
+
+  <header class="t-mx-auto t-w-full t-justify-center t-flex t-items-center header t-px-[5px]  lg:t-px-[30px] header-colour header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} {% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+    <div class="page-width t-max-w-[1290px] t-w-full t-flex t-justify-between t-mx-auto t-items-center t-h-[77px] lg:t-gap-[30px] t-p-0">
+      <!-- Mobile Menu Toggle -->
+      <div class="t-flex t-gap-[10px] lg:t-hidden ">
+        <button
+        id="mobile-menu-toggle"
+        class="lg:t-hidden t-inline-flex t-items-center t-justify-center t-w-[50px] t-h-[50px] t-text-white t-bg-transparent t-border-0 t-cursor-pointer"
+        aria-label="Toggle menu"
+      >
+        <svg class="t-w-10 t-h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <span class="lg:t-hidden t-flex">{% render 'header-search', input_id: 'Search-In-Modal-Mobile' %}</span>
+    </div>
+
+      <!-- Logo -->
+      <div class="t-flex t-flex-row t-items-center t-h-full">
+        <a
+          href="{{ routes.root_url }}"
+          class="t-h-full t-flex t-items-center lg:t-pe-[20px]"
+        >
           {%- if settings.logo != blank -%}
-            <div class="header__heading-logo-wrapper">
-              {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-              {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-              {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
-              {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-              {{
-                settings.logo
-                | image_url: width: 600
-                | image_tag:
-                  class: 'header__heading-logo motion-reduce',
-                  widths: widths,
-                  height: logo_height,
-                  width: settings.logo_width,
-                  alt: logo_alt,
-                  sizes: sizes,
-                  preload: true
-              }}
-            </div>
+            <img
+              src="https://www.osprey.com/gb/media/logo/websites/40/osprey_logo_1.svg"
+              alt="Logo"
+              class="c-header__logo parent-menu-item"
+            >
           {%- else -%}
             <span class="h2">{{ shop.name }}</span>
           {%- endif -%}
         </a>
-        {%- if request.page_type == 'index' -%}
-          </h1>
-        {%- endif -%}
-      {%- endif -%}
-      {%- liquid
-        if section.settings.menu != blank
-          if section.settings.menu_type_desktop == 'dropdown'
-            render 'header-dropdown-menu'
-          elsif section.settings.menu_type_desktop != 'drawer'
-            render 'header-mega-menu'
-          endif
-        endif
-      %}
-      {%- if section.settings.logo_position == 'middle-center' -%}
-        {%- if request.page_type == 'index' -%}
-          <h1 class="header__heading">
-        {%- endif -%}
 
-        {%- if request.page_type == 'index' -%}
-          </h1>
-        {%- endif -%}
-      {%- endif -%}
-      <div class="main-navigation t-h-full t-flex t-items-center {% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header__icons--localization header-localization{% endif %}">
+        <style>
+          .c-header__logo {
+            content: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI4OSIgaGVpZ2h0PSI2OSIgdmlld0JveD0iMCAwIDg5IDY5IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGcgdHJhbnNmb3JtPSJtYXRyaXgoMC40ODc1IDAgMCAwLjQ4NzUgNDQuNSAzNC41KSI+CjxnIGZpbGwtb3BhY2l0eT0iMSI+CgkJPGcgdHJhbnNmb3JtPSJtYXRyaXgoMSAwIDAgMSAyOC4yOSA1OS4xNDUpIj4KPHBhdGggc3R5bGU9InN0cm9rZTogbm9uZTsgc3Ryb2tlLXdpZHRoOiAxOyBzdHJva2UtZGFzaGFycmF5OiBub25lOyBzdHJva2UtbGluZWNhcDogYnV0dDsgc3Ryb2tlLWRhc2hvZmZzZXQ6IDA7IHN0cm9rZS1saW5lam9pbjogbWl0ZXI7IHN0cm9rZS1taXRlcmxpbWl0OiA0OyBpcy1jdXN0b20tZm9udDogbm9uZTsgZm9udC1maWxlLXVybDogbm9uZTsgZmlsbDogcmdiKDEsMSwxKTsgZmlsbC1ydWxlOiBub256ZXJvOyBvcGFjaXR5OiAxOyIgdHJhbnNmb3JtPSIgdHJhbnNsYXRlKC0xNzIuMjk1LCAtMjAzLjE0KSIgZD0iTSAxNzIuMzUgMTk5LjExIGggLTAuMDMgYyAtMi4zIDAgLTQuMTYgMS44MSAtNC4xNiA0LjAxIGMgMCAyLjI2IDEuODUgNC4wNSA0LjE2IDQuMDUgYyAyLjI5IDAgNC4xMSAtMS43OSA0LjExIC00LjA1IEMgMTc2LjQzIDIwMC45MiAxNzQuNjEgMTk5LjExIDE3Mi4zNSAxOTkuMTEgeiBNIDE3Mi4zMiAyMDYuMzYgYyAtMS43NiAwIC0zLjE3IC0xLjQgLTMuMTcgLTMuMjEgYyAwIC0xLjc5IDEuNDEgLTMuMjQgMy4xNSAtMy4yNCBoIDAuMDIgYyAxLjc1IDAgMy4xOCAxLjQ1IDMuMTggMy4yNCBDIDE3NS41IDIwNC45NiAxNzQuMDggMjA2LjM3IDE3Mi4zMiAyMDYuMzYgeiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjwvZz4KCQk8ZyB0cmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAxIDI4LjQyNSA1OS4xOCkiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOiBub25lOyBzdHJva2Utd2lkdGg6IDE7IHN0cm9rZS1kYXNoYXJyYXk6IG5vbmU7IHN0cm9rZS1saW5lY2FwOiBidXR0OyBzdHJva2UtZGFzaG9mZnNldDogMDsgc3Ryb2tlLWxpbmVqb2luOiBtaXRlcjsgc3Ryb2tlLW1pdGVybGltaXQ6IDQ7IGlzLWN1c3RvbS1mb250OiBub25lOyBmb250LWZpbGUtdXJsOiBub25lOyBmaWxsOiByZ2IoMSwxLDEpOyBmaWxsLXJ1bGU6IG5vbnplcm87IG9wYWNpdHk6IDE7IiB0cmFuc2Zvcm09IiB0cmFuc2xhdGUoLTE3Mi40MywgLTIwMy4xNzUpIiBkPSJNIDE3My4yIDIwMy4yNyB2IC0wLjA0IGMgMC40OSAtMC4xMiAwLjg4IC0wLjQ3IDAuODggLTEuMDEgYyAwIC0wLjQ4IC0wLjEzIC0wLjc3IC0wLjM4IC0wLjk5IGMgLTAuMzIgLTAuMjMgLTAuODIgLTAuMzUgLTEuNjEgLTAuMzUgYyAtMC43MSAwIC0xLjEyIDAuMDcgLTEuNDUgMC4xMiB2IDQuNDcgaCAwLjk3IHYgLTEuODUgaCAwLjQ0IGMgMC40OSAwIDAuOCAwLjIxIDAuODYgMC42OCBjIDAuMDggMC42MSAwLjE4IDEgMC4yOSAxLjE3IGggMS4wMiBjIC0wLjA5IC0wLjEzIC0wLjIgLTAuNDEgLTAuMjYgLTEuMTIgQyAxNzMuODYgMjAzLjcxIDE3My42IDIwMy4zNSAxNzMuMiAyMDMuMjcgeiBNIDE3Mi4wNyAyMDIuOSBoIC0wLjQ4IHYgLTEuMyBjIDAuMTUgLTAuMDEgMC4yOSAtMC4wMSAwLjUzIC0wLjAxIGMgMC42NiAwIDAuOTUgMC4yOCAwLjk1IDAuNjYgQyAxNzMuMDggMjAyLjczIDE3Mi42MiAyMDIuOSAxNzIuMDcgMjAyLjkgeiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjwvZz4KCQk8ZyB0cmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAxIC0xMS43MTUyIC00OS41MzM0KSI+CjxwYXRoIHN0eWxlPSJzdHJva2U6IG5vbmU7IHN0cm9rZS13aWR0aDogMTsgc3Ryb2tlLWRhc2hhcnJheTogbm9uZTsgc3Ryb2tlLWxpbmVjYXA6IGJ1dHQ7IHN0cm9rZS1kYXNob2Zmc2V0OiAwOyBzdHJva2UtbGluZWpvaW46IG1pdGVyOyBzdHJva2UtbWl0ZXJsaW1pdDogNDsgaXMtY3VzdG9tLWZvbnQ6IG5vbmU7IGZvbnQtZmlsZS11cmw6IG5vbmU7IGZpbGw6IHJnYigxLDEsMSk7IGZpbGwtcnVsZTogbm9uemVybzsgb3BhY2l0eTogMTsiIHRyYW5zZm9ybT0iIHRyYW5zbGF0ZSgtMTMyLjI4OTgsIC05NC40NjE3KSIgZD0iTSAxMjMuMzIgODIuNjEgYyAwLjQ4IC0wLjA0IDEuMDYgLTAuMDUgMS4zNCAwIGMgMS4xNCAwLjE1IDEuNDYgMC42OCAxLjYyIDEuODMgYyAwLjE1IDEuMDkgMC4yMyAyLjA0IDAuNjMgNy4yMyBsIDAuNDYgNi4wMSBjIDAuMjQgMy4xNCAwLjQ1IDUuODMgMC4zOSA3LjI4IGMgLTAuMDYgMSAtMC4xNyAxLjc2IC0wLjg0IDEuOTUgYyAtMC4zIDAuMDkgLTAuNzEgMC4xOSAtMS4yMiAwLjIzIGMgLTAuNDEgMC4wMyAtMC41NCAwLjE0IC0wLjUyIDAuMzIgYyAwLjAyIDAuMjQgMC4yNiAwLjMyIDAuNzEgMC4yOSBjIDEuMzYgLTAuMTEgMy41MSAtMC4zNyA0LjI5IC0wLjQ0IGMgMC44OSAtMC4wNyAzLjA0IC0wLjEzIDUuMyAtMC4zMSBjIDAuMzggLTAuMDMgMC42NCAtMC4xNSAwLjYyIC0wLjM5IGMgLTAuMDEgLTAuMTcgLTAuMTkgLTAuMjYgLTAuNTcgLTAuMjMgYyAtMC41MSAwLjA0IC0xLjI3IDAuMDMgLTEuNzUgMCBjIC0xLjAzIC0wLjA2IC0xLjMgLTAuNzkgLTEuNDcgLTEuNzQgYyAtMC4yOCAtMS40NSAtMC40OSAtNC4xNSAtMC43NCAtNy4yOSBsIC0wLjA2IC0wLjc3IGMgMS4zIC0wLjEgMi41NyAtMC4yIDIuNjYgLTAuMjEgYyA0Ljg3IC0wLjYgOC4wNCAtNC45MiA3LjY2IC05Ljc3IGMgLTAuMTQgLTEuODEgLTEuMjEgLTMuMjcgLTIuMDIgLTMuOTMgYyAtMC41OSAtMC40NyAtMi4yMyAtMS43OCAtNi41IC0xLjQ1IGMgLTEuNTcgMC4xMiAtMy41NCAwLjM4IC00Ljk0IDAuNDkgYyAtMC45NiAwLjA3IC0zLjExIDAuMTQgLTQuOTIgMC4yOCBjIC0wLjUxIDAuMDQgLTAuNzUgMC4xMyAtMC43MyAwLjM3IEMgMTIyLjczIDgyLjU4IDEyMi45NCA4Mi42NCAxMjMuMzIgODIuNjEgeiBNIDEzMC43MyA4My4wMyBjIDAuMyAtMC4xMyAwLjgxIC0wLjIgMS4zMiAtMC4yNCBjIDAuNzkgLTAuMDYgMi4yIDAuMDQgMy41MiAxLjA3IGMgMi4wNCAxLjU2IDIuMzIgMy44NCAyLjQxIDQuOTYgYyAwLjI3IDMuNDggLTEuODkgNS4zOCAtMy43OSA1LjY3IGMgLTAuNDEgMC4wNiAtMS42MSAwLjE2IC0yLjgzIDAuMjcgbCAtMC44NSAtMTEuMDUgQyAxMzAuNDggODMuMzIgMTMwLjU3IDgzLjExIDEzMC43MyA4My4wMyB6IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9nPgoJCTxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIDEgLTYxLjQyMTUgLTM5LjY4ODgpIj4KPHBhdGggc3R5bGU9InN0cm9rZTogbm9uZTsgc3Ryb2tlLXdpZHRoOiAxOyBzdHJva2UtZGFzaGFycmF5OiBub25lOyBzdHJva2UtbGluZWNhcDogYnV0dDsgc3Ryb2tlLWRhc2hvZmZzZXQ6IDA7IHN0cm9rZS1saW5lam9pbjogbWl0ZXI7IHN0cm9rZS1taXRlcmxpbWl0OiA0OyBpcy1jdXN0b20tZm9udDogbm9uZTsgZm9udC1maWxlLXVybDogbm9uZTsgZmlsbDogcmdiKDEsMSwxKTsgZmlsbC1ydWxlOiBub256ZXJvOyBvcGFjaXR5OiAxOyIgdHJhbnNmb3JtPSIgdHJhbnNsYXRlKC04Mi41ODM1LCAtMTA0LjMwNjIpIiBkPSJNIDg3Ljg5IDExNi43MiBjIDcuOTUgLTMuNTEgMTAuNDYgLTExLjM5IDcuMjkgLTE4LjU2IGMgLTMuMTcgLTcuMTcgLTEwLjAyIC05LjU3IC0xNy44MiAtNi4xMiBjIC05LjM5IDQuMTUgLTkuODcgMTIuNjMgLTcuNTEgMTcuOTggQyA3Mi4zIDExNS41NiA3OC45MSAxMjAuNjkgODcuODkgMTE2LjcyIHogTSA3Ny4xMiA5My45NCBjIDUuMTMgLTIuMjcgMTEuMSAwLjMgMTQuMTkgNy4zMSBjIDQgOS4wNSAtMC42MSAxMi4zNSAtMi44IDEzLjMyIGMgLTYuMDEgMi42NSAtMTEuODkgLTAuOTIgLTE0Ljc3IC03LjQzIEMgNzAuMzEgOTkuMzUgNzMuNTIgOTUuNTMgNzcuMTIgOTMuOTQgeiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjwvZz4KCQk8ZyB0cmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAxIC0zMy45OTcyIC00Ny41NjIxKSI+CjxwYXRoIHN0eWxlPSJzdHJva2U6IG5vbmU7IHN0cm9rZS13aWR0aDogMTsgc3Ryb2tlLWRhc2hhcnJheTogbm9uZTsgc3Ryb2tlLWxpbmVjYXA6IGJ1dHQ7IHN0cm9rZS1kYXNob2Zmc2V0OiAwOyBzdHJva2UtbGluZWpvaW46IG1pdGVyOyBzdHJva2UtbWl0ZXJsaW1pdDogNDsgaXMtY3VzdG9tLWZvbnQ6IG5vbmU7IGZvbnQtZmlsZS11cmw6IG5vbmU7IGZpbGw6IHJnYigxLDEsMSk7IGZpbGwtcnVsZTogbm9uemVybzsgb3BhY2l0eTogMTsiIHRyYW5zZm9ybT0iIHRyYW5zbGF0ZSgtMTEwLjAwNzgsIC05Ni40MzI5KSIgZD0iTSAxMDguNjIgOTcuODUgbCAxLjc4IDAuOSBjIDMuMjIgMS42MyA0LjAzIDMuMDcgNC4zNiA0LjcyIGMgMC4zNSAxLjc4IC0wLjcxIDQuMTIgLTMuNzQgNC43MiBjIC0yLjA4IDAuNDEgLTQuMjQgLTAuMSAtNS40OCAtMi40MyBjIC0wLjI4IC0wLjU0IC0wLjU2IC0xLjIyIC0wLjY0IC0xLjY1IGMgLTAuMDUgLTAuMjcgLTAuMTUgLTAuNTYgLTAuNDUgLTAuNSBjIC0wLjI3IDAuMDUgLTAuMyAwLjQ0IC0wLjIzIDAuOTUgYyAwLjA3IDAuNTQgMC4zNCAyLjU4IDAuNzEgNC40MyBjIDAuMTUgMC43NCAwLjI4IDAuODkgMC44NyAxLjAxIGMgMS41NyAwLjM1IDMuMTMgMC4yOCA1LjA3IC0wLjEgYyAxLjc4IC0wLjM1IDMuNiAtMS4wMyA1LjA2IC0yLjQ0IGMgMi4xIC0yLjA2IDIuMzggLTQuNTIgMS45OSAtNi40NyBjIC0wLjY0IC0zLjE5IC0yLjU0IC01LjIyIC03LjIxIC03LjQ2IEwgMTA5LjY0IDkzIGMgLTMuMjEgLTEuNTYgLTQuMjEgLTIuNTggLTQuNTIgLTQuMTMgYyAtMC40IC0yLjAxIDAuODIgLTMuNzYgMy4zMSAtNC4yNSBjIDIuMTggLTAuNDMgMy4zNiAwLjM4IDMuOTkgMC45MiBjIDAuODggMC43MyAxLjI1IDEuNzQgMS4zMSAyLjA0IGMgMC4wOCAwLjQgMC4yMiAwLjU4IDAuNDYgMC41NCBjIDAuMjcgLTAuMDUgMC4zMiAtMC4zNCAwLjE3IC0xLjA4IGMgLTAuNTIgLTIuNjIgLTAuNTggLTMuNjIgLTAuNjcgLTQuMDUgYyAtMC4wNSAtMC4yMyAtMC4yMyAtMC4zIC0wLjU1IC0wLjMxIGMgLTAuOTIgLTAuMDYgLTIuNCAtMC4xMiAtNC41OCAwLjMyIGMgLTQuNjcgMC45MyAtNy4yMiA0LjIgLTYuNDkgNy44OSBDIDEwMi42MSA5My42IDEwNC4zNSA5NS43IDEwOC42MiA5Ny44NSB6IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9nPgoJCTxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIDEgNjguMzA2IC0zOS4zODMxKSI+CjxwYXRoIHN0eWxlPSJzdHJva2U6IG5vbmU7IHN0cm9rZS13aWR0aDogMTsgc3Ryb2tlLWRhc2hhcnJheTogbm9uZTsgc3Ryb2tlLWxpbmVjYXA6IGJ1dHQ7IHN0cm9rZS1kYXNob2Zmc2V0OiAwOyBzdHJva2UtbGluZWpvaW46IG1pdGVyOyBzdHJva2UtbWl0ZXJsaW1pdDogNDsgaXMtY3VzdG9tLWZvbnQ6IG5vbmU7IGZvbnQtZmlsZS11cmw6IG5vbmU7IGZpbGw6IHJnYigxLDEsMSk7IGZpbGwtcnVsZTogbm9uemVybzsgb3BhY2l0eTogMTsiIHRyYW5zZm9ybT0iIHRyYW5zbGF0ZSgtMjEyLjMxMDksIC0xMDQuNjExOSkiIGQ9Ik0gMjI1LjU4IDEwMC4wNiBjIC0wLjU5IC0wLjI4IC0yLjY3IC0xLjE3IC0zLjM0IC0xLjUgYyAtMC44OSAtMC40MyAtMS44NCAtMSAtMi44NSAtMS40OSBjIC0wLjM3IC0wLjE4IC0wLjU1IC0wLjE5IC0wLjY2IDAuMDIgYyAtMC4wOSAwLjE4IDAuMTYgMC4zOCAwLjQxIDAuNTggYyAwLjQ2IDAuMzggMC40MiAwLjc3IDAuMjggMS4wOCBjIC0wLjE5IDAuNCAtMC41NyAwLjg3IC0xLjIxIDEuMzkgYyAtMC44OSAwLjc1IC04LjA1IDUuNjUgLTguNzEgNi4yNCBjIC0wLjA4IC0xLjEgLTAuODEgLTEwLjYxIC0wLjc5IC0xMS43NSBjIC0wLjAxIC0wLjU0IDAuMDIgLTAuOTggMC4xNCAtMS4yMyBjIDAuMTIgLTAuMjUgMC4zOSAtMC40MiAwLjcgLTAuMzUgYyAwLjUyIDAuMSAwLjc1IDAuMTcgMC44NCAtMC4wMSBjIDAuMDkgLTAuMTggLTAuMDIgLTAuMzUgLTAuMzMgLTAuNSBjIC0xLjM5IC0wLjY3IC0yLjcgLTEuMTkgLTMuMzQgLTEuNSBjIC0xLjAyIC0wLjQ5IC0zLjI4IC0xLjcgLTMuODQgLTEuOTcgYyAtMC4zNyAtMC4xOCAtMC42MyAtMC4xOSAtMC43MiAtMC4wMSBjIC0wLjEgMC4yMiAwLjA4IDAuMzggMC4zMyAwLjUgYyAwLjM3IDAuMTggMC44IDAuNjIgMS4xIDEuMDMgYyAwLjQyIDAuNjIgMC44MiAxLjc2IDEuMDQgMy4yOCBjIDAuMyAyLjEyIDEuMTYgMTAuOSAxLjE0IDExLjUgYyAtMC4wMyAxLjA5IC0wLjA1IDEuOTEgLTAuODUgMy41OCBsIC0xLjIyIDIuNTMgYyAtMC4yNCAwLjQ5IC0wLjg2IDEuNzkgLTEuNTggMy4wNCBjIC0wLjQ5IDAuODYgLTEuMSAxLjQxIC0xLjc3IDEuMjMgYyAtMC4zMSAtMC4wNyAtMC43MSAtMC4xOSAtMS4xNCAtMC40IGMgLTAuMzQgLTAuMTYgLTAuNTQgLTAuMTUgLTAuNjEgMC4wMSBjIC0wLjEyIDAuMjUgMC4xIDAuNDMgMC41MyAwLjY0IGMgMS4xNCAwLjU1IDMuMTMgMS40IDMuOSAxLjc3IGMgMC44MyAwLjQgMi43MyAxLjQzIDQuNjcgMi4zNyBjIDAuNCAwLjE5IDAuNjkgMC4yMiAwLjggMCBjIDAuMDcgLTAuMTUgLTAuMDMgLTAuMzIgLTAuMzcgLTAuNDggYyAtMC40MyAtMC4yMSAtMS4wOCAtMC42IC0xLjQ4IC0wLjg3IGMgLTAuODcgLTAuNTcgLTAuODIgLTEuMzggLTAuNDUgLTIuMzEgYyAwLjUzIC0xLjM0IDEuMTYgLTIuNjMgMS40IC0zLjEzIGwgMS4yMiAtMi41MyBjIDAuNDkgLTEuMDIgMC45NSAtMS45NyAxLjk1IC0yLjg2IGMgMS4xOSAtMS4wNiA5LjAxIC02LjIyIDEwLjYyIC02Ljk2IGMgMS4wOCAtMC41IDEuNiAtMC43MSAyLjM5IC0wLjcxIGMgMC41OCAtMC4wMiAxLjIzIDAuMTQgMS41MyAwLjI5IGMgMC4zNCAwLjE2IDAuNjMgMC4xOSAwLjczIC0wLjAzIEMgMjI2LjExIDEwMC4zOSAyMjUuOTIgMTAwLjIyIDIyNS41OCAxMDAuMDYgeiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjwvZz4KCQk8ZyB0cmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAxIDQxLjE1NjMgLTQ1Ljc5NjkpIj4KPHBhdGggc3R5bGU9InN0cm9rZTogbm9uZTsgc3Ryb2tlLXdpZHRoOiAxOyBzdHJva2UtZGFzaGFycmF5OiBub25lOyBzdHJva2UtbGluZWNhcDogYnV0dDsgc3Ryb2tlLWRhc2hvZmZzZXQ6IDA7IHN0cm9rZS1saW5lam9pbjogbWl0ZXI7IHN0cm9rZS1taXRlcmxpbWl0OiA0OyBpcy1jdXN0b20tZm9udDogbm9uZTsgZm9udC1maWxlLXVybDogbm9uZTsgZmlsbDogcmdiKDEsMSwxKTsgZmlsbC1ydWxlOiBub256ZXJvOyBvcGFjaXR5OiAxOyIgdHJhbnNmb3JtPSIgdHJhbnNsYXRlKC0xODUuMTYxMywgLTk4LjE5ODEpIiBkPSJNIDE3NS4zMyAxMDkuNCBjIDAuNjcgMC4xNCAxLjU1IDAuMjYgMi4zMyAwLjQyIGMgMC44MSAwLjE0IDEuNTUgMC4yOSAxLjkyIDAuMzcgYyAxLjAxIDAuMjEgMi4wNCAwLjQ2IDMuNDYgMC44MyBjIDEuNDMgMC4zNCAzLjI2IDAuNzkgNS43NyAxLjMyIGMgMS4yNyAwLjI3IDEuNTcgMC4zMyAxLjk5IC0wLjQ5IGMgMC4zMSAtMC42MyAxLjA2IC0yLjg2IDEuMjIgLTMuNjMgYyAwLjA3IC0wLjMzIDAuMTMgLTAuNiAtMC4xNCAtMC42NiBjIC0wLjIzIC0wLjA1IC0wLjMzIDAuMDcgLTAuNDcgMC40MiBjIC0wLjUyIDEuMzIgLTEuMDcgMS45NCAtMi4wMyAyLjE2IGMgLTAuOTYgMC4yMiAtMi4zNiAtMC4wOCAtMy4yMyAtMC4yNiBjIC0zLjQyIC0wLjcyIC0zLjg1IC0xLjM0IC0zLjQzIC0zLjY2IGMgMC4xNyAtMC45OCAwLjg1IC00LjA1IDEuMDkgLTUuMTkgbCAwLjAzIC0wLjE3IGwgMC41MiAtMi40OCBjIDAgLTAuMDIgMC4wMSAtMC4wMiAwLjAxIC0wLjA0IGwgMC4wMyAtMC4xNyBjIDAuMDQgLTAuMTggMC4xIC0wLjI5IDAuMjYgLTAuMjYgYyAwLjggMC4xNyA0LjExIDAuOSA0LjczIDEuMSBjIDEuMjEgMC40IDEuNTcgMSAxLjYgMS43IGMgMC4wMSAwLjQ2IC0wLjA4IDAuODkgLTAuMTIgMS4yMyBjIC0wLjA0IDAuMTcgMCAwLjMyIDAuMjQgMC4zNyBjIDAuMyAwLjA2IDAuMzggLTAuMyAwLjQ0IC0wLjU3IGMgMC4wNSAtMC4yMyAwLjQzIC0xLjU1IDAuNjEgLTIuMjIgYyAwLjQ5IC0xLjY4IDAuNzQgLTIuMTkgMC43OCAtMi4zOSBjIDAuMDQgLTAuMiAtMC4wNCAtMC4yOSAtMC4xOCAtMC4zMiBjIC0wLjE3IC0wLjA0IC0wLjM0IDAuMSAtMC42MyAwLjMyIGMgLTAuMzcgMC4yNyAtMC45IDAuMjcgLTEuNzEgMC4xNiBjIC0wLjc4IC0wLjEgLTQuNjQgLTAuOTEgLTUuMzcgLTEuMDYgYyAtMC4yIC0wLjA0IC0wLjIxIC0wLjE4IC0wLjE2IC0wLjQyIGwgMC4xNyAtMC44MiBsIDEuNTggLTcuNDkgYyAwLjA1IC0wLjIzIDAuMTQgLTAuMzIgMC4zIC0wLjI5IGMgMC42NyAwLjE0IDQuMTcgMC45NSA0LjczIDEuMTQgYyAxLjYzIDAuNTUgMS44OCAxLjAzIDEuOTkgMS42OCBjIDAuMDggMC40NCAwIDEuMDEgLTAuMDUgMS4yNSBjIC0wLjA2IDAuMyAtMC4wMyAwLjQ4IDAuMiAwLjUzIGMgMC4yMyAwLjA1IDAuMzQgLTAuMTQgMC40MSAtMC4zIGMgMC4xNSAtMC4zOSAwLjUzIC0xLjg1IDAuNjMgLTIuMTggYyAwLjQyIC0xLjUyIDAuNjggLTEuODkgMC43MyAtMi4xMiBjIDAuMDQgLTAuMTcgMC4wMyAtMC4zMSAtMC4xNCAtMC4zNCBzIC0wLjM5IDAuMDIgLTAuNTYgMC4wMiBjIC0wLjI4IDAuMDEgLTAuODMgLTAuMDQgLTEuNDggLTAuMSBjIC0wLjY0IC0wLjEgLTcuMzEgLTEuNSAtOC4zOCAtMS43MyBjIC0wLjQ3IC0wLjEgLTEuMjMgLTAuMjkgLTIuMSAtMC41MSBjIC0wLjg0IC0wLjE4IC0xLjggLTAuNDEgLTIuNzEgLTAuNjEgYyAtMC41IC0wLjExIC0wLjc1IC0wLjA5IC0wLjggMC4xNSBjIC0wLjA1IDAuMjMgMC4xNCAwLjM0IDAuNTEgMC40MiBjIDAuNDcgMC4xIDEuMDMgMC4yNSAxLjI5IDAuMzggYyAxLjA2IDAuNDcgMS4yMSAxLjA2IDEuMDQgMi4yMSBjIC0wLjE2IDEuMDkgLTAuMzYgMi4wMiAtMS40MyA3LjExIGwgLTEuMjQgNS44OSBjIC0wLjY1IDMuMDggLTEuMjEgNS43MyAtMS42NyA3LjEgYyAtMC4zNCAwLjk0IC0wLjY2IDEuNjQgLTEuMzYgMS42NCBjIC0wLjMyIDAgLTAuNzMgLTAuMDEgLTEuMjMgLTAuMTIgYyAtMC40IC0wLjA4IC0wLjU2IC0wLjAxIC0wLjU5IDAuMTYgQyAxNzQuNjggMTA5LjE2IDE3NC45IDEwOS4zMSAxNzUuMzMgMTA5LjQgeiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjwvZz4KCQk8ZyB0cmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAxIDE0Ljg1NCAtNDkuNDg1MSkiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOiBub25lOyBzdHJva2Utd2lkdGg6IDE7IHN0cm9rZS1kYXNoYXJyYXk6IG5vbmU7IHN0cm9rZS1saW5lY2FwOiBidXR0OyBzdHJva2UtZGFzaG9mZnNldDogMDsgc3Ryb2tlLWxpbmVqb2luOiBtaXRlcjsgc3Ryb2tlLW1pdGVybGltaXQ6IDQ7IGlzLWN1c3RvbS1mb250OiBub25lOyBmb250LWZpbGUtdXJsOiBub25lOyBmaWxsOiByZ2IoMSwxLDEpOyBmaWxsLXJ1bGU6IG5vbnplcm87IG9wYWNpdHk6IDE7IiB0cmFuc2Zvcm09IiB0cmFuc2xhdGUoLTE1OC44NTksIC05NC41MDk5KSIgZD0iTSAxNDcuNjQgMTA2LjY4IGMgMS4zNyAwLjA5IDMuNTIgMC4xNCA0LjE3IDAuMTggYyAwLjUxIDAuMDMgMy4wMyAwLjMxIDUuMDEgMC40NCBjIDAuNDQgMC4wMyAwLjY5IC0wLjA2IDAuNzEgLTAuMyBjIDAuMDEgLTAuMTcgLTAuMTIgLTAuMjggLTAuMzkgLTAuMyBjIC0wLjQxIC0wLjAzIC0xLjE2IC0wLjE1IC0xLjY2IC0wLjI1IGMgLTEuMDEgLTAuMjEgLTEuMTcgLTAuOTcgLTEuMiAtMS45NyBjIC0wLjA3IC0xLjQ1IDAuMTEgLTQuMTQgMC4zMyAtNy4zMiBsIDAuMDMgLTAuNDggbCAwLjAxIC0wLjIgbCAwIC0wLjAyIGMgMC41MSAwLjAzIDEgMC4wNyAxLjQxIDAuMSBsIDAuMDYgMC4wMSBjIDAuMjUgMC4wNSAwLjQ0IDAuMDcgMC42IDAuMjggYyAwLjQxIDAuNTQgMS44MiAyLjk3IDMuMDYgNC45NCBjIDEuNzMgMi43NiAyLjkyIDQuNDUgNC4zNCA1LjM0IGMgMC44NiAwLjU0IDEuNyAwLjc3IDMuNjEgMC45IGwgMi4zMiAwLjE2IGMgMC40MSAwLjAzIDAuNjUgLTAuMDIgMC42NyAtMC4zIGMgMC4wMSAtMC4xNyAtMC4xMiAtMC4yOCAtMC4zOSAtMC4zIGMgLTAuMjcgLTAuMDIgLTAuNTggLTAuMDcgLTAuOTUgLTAuMTcgYyAtMC41MSAtMC4xNCAtMC45NiAtMC40MSAtMi43NCAtMi41MiBjIC0xLjc5IC0yLjE1IC0zLjMyIC01LjE5IC01Ljg3IC04Ljk3IGMgMy4wMyAtMS4zIDUuMTIgLTQuMyA1LjM2IC03Ljg1IGMgMC4xMiAtMS44MSAtMC43MyAtMy40MSAtMS40MyAtNC4xOCBjIC0wLjUxIC0wLjU1IC0xLjk1IC0yLjA5IC02LjIyIC0yLjM4IGMgLTAuOTEgLTAuMDYgLTEuOTYgLTAuMSAtMi45NiAtMC4xNCBsIDAgMCBjIC0wLjczIC0wLjA1IC0xLjQ0IC0wLjEgLTEuODkgLTAuMTMgYyAtMC43MiAtMC4wNSAtMi44NiAtMC4zIC00LjY3IC0wLjQyIGMgLTAuNTEgLTAuMDMgLTAuNzYgMC4wMiAtMC43NyAwLjI2IGMgLTAuMDIgMC4yNCAwLjE4IDAuMzIgMC41NiAwLjM1IGMgMC40OCAwLjAzIDEuMDYgMC4xMSAxLjMyIDAuMTkgYyAxLjExIDAuMzIgMS4zNSAwLjg4IDEuMzQgMi4wNSBjIC0wLjAxIDEuMSAtMC4wNyAyLjA1IC0wLjQyIDcuMjQgbCAtMC40MSA2LjAxIGMgLTAuMjEgMy4xNCAtMC40IDUuODQgLTAuNjYgNy4yNiBjIC0wLjIgMC45OCAtMC40MyAxLjcyIC0xLjEyIDEuODEgYyAtMC4zMSAwLjA1IC0wLjczIDAuMDkgLTEuMjQgMC4wNSBjIC0wLjQxIC0wLjAzIC0wLjU1IDAuMDcgLTAuNTYgMC4yNCBDIDE0Ni45NyAxMDYuNTMgMTQ3LjIgMTA2LjY1IDE0Ny42NCAxMDYuNjggeiBNIDE1NC43OSA5NC43MiBjIDAgMCAwIC0wLjI5IDAuMDMgLTAuNjcgbCAwLjcxIC0xMC4zOCBjIDAuMDIgLTAuMjcgMC4yIC0wLjUzIDAuNDQgLTAuNTkgYyAwIDAgMC4wMSAtMC4wMiAwLjAyIC0wLjAzIGMgMC4yOSAtMC4wMyAwLjY1IC0wLjAyIDEuMDIgMCBjIDAuNzkgMC4wNSAyLjE3IDAuMzUgMy4zMiAxLjU2IGMgMS44IDEuODQgMS43NCA0LjEzIDEuNjcgNS4yNiBjIC0wLjI0IDMuNDggLTIuNjQgNS4wNSAtNC41NyA1LjA2IGMgLTAuMzkgMCAtMS40OCAtMC4wNyAtMi42NCAtMC4xMyBMIDE1NC43OSA5NC43MiB6IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9nPgoJCTxnIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIDEgLTAuNzA1IDIwLjY5MzUpIj4KPHBhdGggc3R5bGU9InN0cm9rZTogbm9uZTsgc3Ryb2tlLXdpZHRoOiAxOyBzdHJva2UtZGFzaGFycmF5OiBub25lOyBzdHJva2UtbGluZWNhcDogYnV0dDsgc3Ryb2tlLWRhc2hvZmZzZXQ6IDA7IHN0cm9rZS1saW5lam9pbjogbWl0ZXI7IHN0cm9rZS1taXRlcmxpbWl0OiA0OyBpcy1jdXN0b20tZm9udDogbm9uZTsgZm9udC1maWxlLXVybDogbm9uZTsgZmlsbDogcmdiKDEsMSwxKTsgZmlsbC1ydWxlOiBub256ZXJvOyBvcGFjaXR5OiAxOyIgdHJhbnNmb3JtPSIgdHJhbnNsYXRlKC0xNDMuMywgLTE2NC42ODg1KSIgZD0iTSAxNTEuNjkgMTY1LjkxIGMgLTAuMzEgLTAuNzQgMi4zMyAtMTMuNjggMi4zOSAtMTMuOTkgYyAwLjA2IC0wLjMxIDIuMjEgLTIuODIgMi41OCAtMi45NSBzIDIuMTUgMC45MiAyLjE1IDAuOTIgYyAtMi4zOSAtMy44IC01LjA5IC0zLjk5IC01LjA5IC0zLjk5IGMgLTAuMzcgMC4xOCAtMi4wOSAyLjA5IC0yLjA5IDIuMDkgbCAtOS44OCAyLjMzIGwgLTYuNzUgMTUuMSBjIC01My40NSAtOS44MiAtNzMuMDQgLTQxLjkzIC03My4wNCAtNDEuOTMgYyAyLjQxIDkuMTYgMTEuMDYgMTYuNzcgMTEuMDYgMTYuNzcgbCAtNy42MSAxLjc4IGMgMi4zMyAwLjggMTAuOCAwLjY3IDEwLjggMC42NyBsIDMuODcgMi42NCBjIC0wLjU1IDAuODYgLTguMjggNC4zIC04LjI4IDQuMyBjIDIuNyAwLjU1IDExLjM1IC0xLjkgMTEuMzUgLTEuOSBjIDEuNiAxLjA3IDUuMTUgMi44MiA1LjE1IDIuODIgYyAtMC42OCAwLjYxIC0xMi40NiA2LjUgLTEyLjQ2IDYuNSBjIDEuNjYgMC4xMiAxNi41NyAtNC4wMiAxNi41NyAtNC4wMiBsIDMuODcgMi4xMiBjIC01LjQgMy42OCAtMTMuNTYgMTAuNTUgLTEzLjU2IDEwLjU1IGMgMS43NiAwIDE2Ljk1IC04LjYxIDE2Ljk1IC04LjYxIGwgNC4zOSAxLjg2IGMgLTAuMjUgMC45MiAtMTEuNjcgMTMuOSAtMTEuNjcgMTMuOSBjIDIuNzYgMCAxNS4yMiAtMTIuMzYgMTUuMjIgLTEyLjM2IGwgMy40NyAxLjUgYyAtMC43MSAxLjc5IC03LjI3IDE4LjMyIC03LjI3IDE4LjMyIGMgMy4xMyAtMS41NiAxMS41MSAtMTYuOTcgMTEuNTEgLTE2Ljk3IGMgMi44OCAwLjk3IDMuMTMgMS4wOSAzLjEzIDEuMDkgYyAtMC43NCAzLjY1IC0zLjk2IDIwLjIgLTMuOTYgMjAuMiBjIDEuOTMgLTEuMSA3LjU1IC0xOC45NiA3LjU1IC0xOC45NiBjIDMuMDEgMC44NCA0LjIzIDEuMiA0LjIzIDEuMiBjIDAuMzcgNC45NCAxLjM4IDE4LjY4IDEuMzggMTguNjggYyAxLjEgLTAuOTIgMi41MiAtMTcuNDcgMi41MiAtMTcuNDcgbCAxLjA2IDAuMzEgYyAyLjAxIDQuMjggMTEuMjQgMjMuODUgMTEuMjQgMjMuODUgcyAtNy43OSA0LjI1IC05LjQ0IDQuODYgbCAtNC4xMSAtOC4wMyBjIDAgMCAtMy4xNCAyLjU1IC00IDUuNjcgYyAtMC4wOCAwLjMgMy42NyAtMi41IDMuNjcgLTIuNSBsIDEuMDggMi41IGwgLTIuMzMgMC4wOCBjIDAgMCAtMi41OCA0LjE3IC0yLjU4IDUuNzUgYyAwIDAuMjMgMy4wOCAtNCAzLjA4IC00IGwgMy40MiAwLjU4IGwgMy4zMyA3LjY3IGMgMCAwIC00Ljc3IDEuNTIgLTQuNjcgMS41OCBjIDEuNjMgMC45OCA3Ljc1IC0wLjI1IDcuNzUgLTAuMjUgbCAtMy4zOSAtNi42MiBsIDguODQgLTMuNTUgbCAtMy4zNCA5LjI3IGMgNi42MyAyLjA2IDEyLjQ5IC0xLjIgMTIuNDkgLTEuMiBjIC0xLjA0IC0wLjkyIC00Ljc2IC04Ljc0IC00Ljc2IC04Ljc0IGwgOS4wMyAzLjU1IGMgLTEuNTQgMy4xOCAtMi44OCA2LjIyIC0zLjEyIDcuNjMgYyAwIDAgNS4zMyAxLjEzIDcuMzIgMC4zOCBjIDAuMTMgLTAuMDUgLTEuMDkgLTEuMjIgLTEuMDkgLTEuMjIgTCAxNTYuMyAyMDUgbCAyLjQ2IC02LjYyIGwgMy41MiAtMS42NSBsIDIuMjIgMy44MiBjIDAuMjkgLTAuNzQgLTEuMjkgLTYuNiAtMS4yOSAtNi42IGwgLTMuMTUgMS42NCBsIDEuNzIgLTMuNjEgYyAwIDAgNC4yNSAyLjUyIDQuMjUgMi40IGMgMCAtMC44NiAtMy4xMyAtNS4xMSAtNC4zMyAtNS41OCBjIDAgMCAtMi4wOCAzLjgxIC00LjE2IDcuOTcgbCAtOS44NCAtNS4wNSBsIDcuODcgLTIyLjU1IGwgMS42OSAtMC40OCBjIDAgMCAwLjgzIDIuMDUgMi4xNSA3LjU1IGMgMS4yNyA1LjMxIDIuODggOS41NCAyLjg4IDkuNTQgYyAwLjU4IC0yLjE1IC0wLjc4IC0xOC4wOSAtMC43OCAtMTguMDkgYyAyLjkgLTAuNzQgNC44MiAtMS4yNyA0Ljg1IC0xLjI3IGMgMCAwIDAuMDQgMC4yOSAyLjc1IDcuODIgYyAyLjg4IDguMDQgNS41OCA5LjgyIDUuNTggOS44MiBsIC00Ljc5IC0xOC43MiBsIDMuNTYgLTEuMzUgYyA0LjU0IDcuMDYgMTAuNTIgMTUuNTkgMTAuNTIgMTUuNTkgYyAwLjA1IC0zLjY0IC03LjgyIC0xNi43NSAtNy44MiAtMTYuNzUgYyAzLjU3IC0xLjQyIDQuMyAtMS43MiA0LjMgLTEuNzIgYyA0LjA1IDMuMzggMTUuMzQgMTEuMTcgMTUuMzQgMTEuMTcgYyAtMC42MSAtMi4zMyAtMTAuOTIgLTEzLjE4IC0xMC45MiAtMTMuMTggbCAzLjM3IC0xLjczIGMgMC44NiAwLjM3IDE2LjY5IDcuMDMgMTYuNjkgNy4wMyBjIC0wLjQxIC0xLjM4IC0xMy4yMSAtOS4yIC0xMy4yMSAtOS4yIGMgMS4zNSAtMC43MSA1LjE3IC0yLjY4IDUuMTcgLTIuNjggbCAwLjI4IC0wLjE3IGMgMi41MyAwLjc3IDE0LjUgNC4zNiAxNS45OCA0LjI5IGMgMCAwIC0xMC4zOCAtNS41MiAtMTIuMDggLTYuNjYgYyAwLjg3IC0wLjUzIDIuNjUgLTEuNzcgNC4xMiAtMi44MSBjIDAuMzEgMC4wOCA4LjczIDIuMjkgMTEuMzcgMS43IGMgMCAwIC02LjkgLTIuOTMgLTguMTggLTMuOTggYyAxLjM4IC0wLjk4IDMuMjggLTIuMzMgNC4zMyAtMy4wNyBjIDEuMjkgLTAuMTQgOC40MyAtMC45MiAxMC40NSAtMS44OCBsIC03LjczIC0wLjg5IGMgNy40NSAtOC44OSA5LjIgLTE2LjgyIDkuMiAtMTYuODIgQyAyMDUuMDEgMTU4Ljc5IDE1MS42OSAxNjUuOTEgMTUxLjY5IDE2NS45MSB6IE0gMTUzLjc4IDE0Ny44OCBjIDAuNSAwIDAuOSAwLjQgMC45IDAuOSBzIC0wLjQgMC45IC0wLjkgMC45IHMgLTAuOSAtMC40IC0wLjkgLTAuOSBTIDE1My4yOCAxNDcuODggMTUzLjc4IDE0Ny44OCB6IE0gMTUyLjQ0IDE1MC4wOSBsIC0yLjk5IDE1LjkyIGwgLTIuNzkgMC4xNCBsIDMuMzMgLTE1LjU3IEwgMTUyLjQ0IDE1MC4wOSB6IE0gMTQ2LjMgMTU0LjQ3IGMgMC45NSAwIDEuNzIgMC43NyAxLjcyIDEuNzIgYyAwIDAuOTUgLTAuNzcgMS43MiAtMS43MiAxLjcyIHMgLTEuNzIgLTAuNzcgLTEuNzIgLTEuNzIgQyAxNDQuNTggMTU1LjI1IDE0NS4zNSAxNTQuNDcgMTQ2LjMgMTU0LjQ3IHogTSAxNDIuOSAxNTEuOTYgbCAxLjk5IC0wLjQgbCAtMy4yNyAxNC41OSBsIC0zLjg1IC0wLjI1IEwgMTQyLjkgMTUxLjk2IHogTSAxNDkuNiAyMDMuMDMgYyAwIDAgLTIuOTkgMS40NSAtNy40MSAwLjY2IGwgMy4xOCAtNy44NiBMIDE0OS42IDIwMy4wMyB6IE0gMTQ1IDE5MC44MSBsIC0xMC43MiAtMjEuNjIgYyAwIDAgOC4xOSAyLjEyIDE4LjEzIDAuNDYgTCAxNDUgMTkwLjgxIHoiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L2c+CjwvZz4KPC9nPgo8L3N2Zz4K');
+            max-width: 72px !important;
+            width: 110px !important;
+            height: auto !important;
+            position: relative;
+          }
+        </style>
+
+        <!-- Mobile Navigation Structure -->
+        <div class="mobile-menu-overlay lg:t-hidden t-flex t-w-full" id="mobile-menu-overlay"></div>
+
+        <div class="mobile-menu-container lg:t-hidden" id="mobile-menu-container">
+          <!-- Mobile Level 0: Main Menu -->
+          <button
+            class="mobile-menu-close t-right-[-50px] t-absolute t-text-white"
+            id="mobile-menu-close"
+            aria-label="Close menu"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+          <div class="mobile-menu-panel mobile-level-0" id="mobile-menu-level-0">
+            {% comment %}
+              <div class="mobile-menu-header">
+                <h2 class="mobile-menu-title">Menu</h2>
+              </div>
+            {% endcomment %}
+            <div class="mobile-menu-content t-mt-[30px]" id="mobile-menu-level-0-content">
+              <!-- Main menu items will be populated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Mobile Level 1: Subcategories -->
+          <div class="mobile-menu-panel mobile-level-1" id="mobile-menu-level-1" style="overflow-y:auto;">
+            <div class="t-relative" style="overflow-y:auto;">
+              <div class="mobile-menu-header mobile-menu-header-child">
+                <button
+                  class="mobile-back-button t-text-[18px] t-font-[700] t-justify-between t-w-full"
+                  id="mobile-back-level-1"
+                >
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                  <span class="t-mx-auto">Back</span>
+                </button>
+              </div>
+              <div class="mobile-menu-content" id="mobile-menu-level-1-content">
+                <!-- Level 1 content will be populated by JavaScript -->
+              </div>
+              <div class="mobile-menu-image" id="mobile-menu-level-1-image">
+                <!-- Image will be populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile Level 2: Sub-subcategories -->
+          <div class="mobile-menu-panel mobile-level-2" id="mobile-menu-level-2" style="overflow-y:auto;">
+            <div class="t-relative" style="overflow-y:auto;">
+              <div class="mobile-menu-header mobile-menu-header-child">
+                <button
+                  class="mobile-back-button t-text-[18px] t-font-[700] t-justify-between t-w-full"
+                  id="mobile-back-level-2"
+                >
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                  <span class="t-mx-auto">Back</span>
+                </button>
+              </div>
+              <div class="mobile-menu-content" id="mobile-menu-level-2-content">
+                <!-- Level 2 content will be populated by JavaScript -->
+              </div>
+              <div class="mobile-menu-image" id="mobile-menu-level-2-image">
+                <!-- Image will be populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <style>
+          /* Mobile Menu Styles */
+          .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+          }
+
+          .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+          }
+
+          .mobile-menu-container {
+            position: fixed;
+            top: 0;
+            left: 0; /* Changed from right: 0 to left: 0 */
+            width: 100vw;
+            max-width: 80%;
+            height: 100vh;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+          }
+
+          .mobile-menu-container.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+          }
+
+          .mobile-menu-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(-100%); /* Changed from translateX(100%) to translateX(-100%) */
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+          }
+
+          .mobile-menu-panel.active {
+            transform: translateX(0);
+          }
+
+          .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            background: white;
+            min-height: 64px;
+          }
+
+          .mobile-menu-header-child {
+            background: #d9c79e;
+          }
+
+          .mobile-menu-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 0;
+          }
+
+          .mobile-back-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            color: #374151;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 0;
+            transition: color 0.2s ease;
+          }
+
+          .mobile-back-button:hover {
+            color: #111827;
+          }
+
+          .mobile-menu-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            color: #374151;
+            transition: color 0.2s ease;
+          }
+
+          .mobile-menu-close:hover {
+            color: #111827;
+          }
+
+          .mobile-menu-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+          }
+
+          .mobile-menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            text-decoration: none;
+            color: #1f2937;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-bottom: 1px solid #f3f4f6;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+          }
+
+          .mobile-menu-item:hover {
+            background-color: #f9fafb;
+          }
+
+          .mobile-menu-item.has-children::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M9 5l7 7-7 7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+
+          .mobile-menu-image {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+          }
+
+          .mobile-menu-image img {
+            width: 80vw;
+            height: 100vh;
+            object-fit: cover;
+            min-height: 300px !important;
+            object-position: bottom;
+          }
+
+          .mobile-menu-image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            padding: 20px;
+            text-align: center;
+          }
+
+          .mobile-shop-all-button {
+            background: white;
+            color: #1f2937;
+            padding: 12px 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+          }
+
+          /* Z-index management */
+          .mobile-level-0 {
+            z-index: 1;
+          }
+
+          .mobile-level-1 {
+            z-index: 2;
+          }
+
+          .mobile-level-2 {
+            z-index: 3;
+          }
+        </style>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            // Get mobile menu elements
+            const mobileToggle = document.getElementById('mobile-menu-toggle');
+            const mobileOverlay = document.getElementById('mobile-menu-overlay');
+            const mobileContainer = document.getElementById('mobile-menu-container');
+            const mobileLevel0 = document.getElementById('mobile-menu-level-0');
+            const mobileLevel1 = document.getElementById('mobile-menu-level-1');
+            const mobileLevel2 = document.getElementById('mobile-menu-level-2');
+            const mobileLevel0Content = document.getElementById('mobile-menu-level-0-content');
+            const mobileLevel1Content = document.getElementById('mobile-menu-level-1-content');
+            const mobileLevel2Content = document.getElementById('mobile-menu-level-2-content');
+            const mobileLevel1Image = document.getElementById('mobile-menu-level-1-image');
+            const mobileLevel2Image = document.getElementById('mobile-menu-level-2-image');
+            const mobileBackLevel1 = document.getElementById('mobile-back-level-1');
+            const mobileBackLevel2 = document.getElementById('mobile-back-level-2');
+            const mobileCloseButtons = document.querySelectorAll('.mobile-menu-close');
+
+            let currentMobileMenu = null;
+            let currentMobileChild = null;
+
+            // Get menu data (reuse existing menu data)
+            const menuDataElement = document.getElementById('menu-data');
+            let menuData = {};
+
+            if (menuDataElement) {
+              try {
+                menuData = JSON.parse(menuDataElement.textContent);
+              } catch (e) {
+                console.error('Failed to parse menu data:', e);
+              }
+            }
+
+            // Open mobile menu
+            function openMobileMenu() {
+              console.log('Opening mobile menu');
+
+              // Populate main menu items
+              const menuItems = Object.values(menuData)
+                .map((menu) => {
+                  if (menu.linkOnly) {
+                    return `
+          <a href="${menu.shopAllUrl}" class="mobile-menu-item t-text-[18px] t-font-[700]">
+            <span>${menu.title}</span>
+          </a>
+        `;
+                  } else {
+                    return `
+          <button class="mobile-menu-item has-children t-text-[18px] t-font-[700]" data-menu-id="${menu.id}">
+            <span>${menu.title}</span>
+          </button>
+        `;
+                  }
+                })
+                .join('');
+
+              mobileLevel0Content.innerHTML = menuItems;
+
+              // Show overlay and container
+              mobileOverlay.classList.add('active');
+              mobileContainer.classList.add('active');
+              mobileLevel0.classList.add('active');
+              document.body.classList.add('body-locked');
+
+              // Add event listeners to menu items
+              addMobileLevel0Listeners();
+            }
+
+            // Close mobile menu
+            function closeMobileMenu() {
+              console.log('Closing mobile menu');
+              mobileOverlay.classList.remove('active');
+              mobileContainer.classList.remove('active');
+              mobileLevel0.classList.remove('active');
+              mobileLevel1.classList.remove('active');
+              mobileLevel2.classList.remove('active');
+              document.body.classList.remove('body-locked');
+
+              currentMobileMenu = null;
+              currentMobileChild = null;
+            }
+
+            // Add event listeners to level 0 items
+            function addMobileLevel0Listeners() {
+              const menuItems = mobileLevel0Content.querySelectorAll('.mobile-menu-item.has-children');
+
+              menuItems.forEach((item) => {
+                item.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  const menuId = item.dataset.menuId;
+                  const menu = menuData[menuId];
+
+                  if (menu) {
+                    openMobileLevel1(menu);
+                  }
+                });
+              });
+            }
+
+            // Open mobile level 1
+            function openMobileLevel1(menu) {
+              console.log('Opening mobile level 1:', menu.title);
+              currentMobileMenu = menu;
+
+              // Update level 1 title in back button
+              const backButton = mobileBackLevel1.querySelector('span');
+              if (backButton) {
+                backButton.textContent = menu.title;
+              }
+
+              // Populate level 1 content
+              const level1Items = menu.children
+                .map((child) => {
+                  if (child.hasChildren) {
+                    return `
+          <button class="mobile-menu-item has-children t-text-[18px] t-font-[700]" 
+                  data-child-handle="${child.handle}"
+                  data-child-url="${child.url}"
+                  data-child-collection-image="${child.collectionImage || ''}"
+                  data-has-children="${child.hasChildren}">
+            <span>${child.title}</span>
+          </button>
+        `;
+                  } else {
+                    return `
+          <a href="${child.url}" class="mobile-menu-item t-text-[18px] t-font-[700]">
+            <span>${child.title}</span>
+          </a>
+        `;
+                  }
+                })
+                .join('');
+
+              mobileLevel1Content.innerHTML = level1Items;
+
+              if (menu.image) {
+                mobileLevel1Image.style.display = 'block';
+                mobileLevel1Image.innerHTML = `
+                <img src="${menu.image}" alt="Collection Image" />
+                <div class="mobile-shop-all-container">
+                  <a href="${menu.shopAllUrl}" class="mobile-shop-all-button t-block t-text-center t-mx-auto">
+                    ${menu.shopAllText || 'Shop All'}
+                  </a>
+                </div>
+              `;
+              } else {
+                mobileLevel1Image.style.display = 'none';
+              }
+
+              mobileLevel1.classList.add('active');
+
+              // Add event listeners
+              addMobileLevel1Listeners();
+
+              // Update mobile image
+              function updateMobileImage(imageContainer, imageUrl) {
+                if (!imageUrl) {
+                  imageContainer.style.display = 'none';
+                  return;
+                }
+
+                imageContainer.style.display = 'block';
+                imageContainer.innerHTML = `
+              <img src="${imageUrl}" alt="Collection Image" />
+            `;
+              }
+
+              // Update image
+              updateMobileImage(mobileLevel1Image, menu.image, menu.shopAllUrl, menu.shopAllText);
+
+              // Show level 1
+              mobileLevel1.classList.add('active');
+
+              // Add event listeners
+              addMobileLevel1Listeners();
+            }
+
+            // Add event listeners to level 1 items
+            function addMobileLevel1Listeners() {
+              const menuItems = mobileLevel1Content.querySelectorAll('.mobile-menu-item.has-children');
+
+              menuItems.forEach((item) => {
+                item.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  const childHandle = item.dataset.childHandle;
+                  const childUrl = item.dataset.childUrl;
+                  const collectionImage = item.dataset.childCollectionImage;
+
+                  const childData = currentMobileMenu.children.find((child) => child.handle === childHandle);
+
+                  if (childData && childData.hasChildren) {
+                    openMobileLevel2(childData, collectionImage, childUrl);
+                  }
+                });
+              });
+            }
+
+            // Open mobile level 2
+            function openMobileLevel2(childData, collectionImage, childUrl) {
+              console.log('Opening mobile level 2:', childData.title);
+              currentMobileChild = childData;
+
+              // Update level 2 title in back button
+              const backButton = mobileBackLevel2.querySelector('span');
+              if (backButton) {
+                backButton.textContent = childData.title;
+              }
+
+              // Populate level 2 content
+              const ctaUrl = currentMobileMenu.shopAllUrl || childUrl;
+              const ctaText = currentMobileMenu.shopAllText || 'Shop All';
+
+              const level2Items = childData.children
+                .map((grandchild) => {
+                  return `
+        <a href="${grandchild.url}" class="mobile-menu-item t-text-[18px] t-font-[700]">
+          <span>${grandchild.title}</span>
+        </a>
+      `;
+                })
+                .join('');
+
+              mobileLevel2Content.innerHTML = level2Items;
+
+              // Update image - use collection image if available, otherwise fallback to menu image
+              const imageToUse = collectionImage || currentMobileMenu.image;
+
+              // Update mobile image and add shop all button below
+              if (imageToUse) {
+                mobileLevel2Image.style.display = 'block';
+                mobileLevel2Image.innerHTML = `
+      <img src="${imageToUse}" alt="Collection Image" />
+    `;
+
+                // Add shop all button below the image
+                const shopAllButton = document.createElement('div');
+                shopAllButton.className = 'mobile-shop-all-container';
+                shopAllButton.innerHTML = `
+      <a href="${ctaUrl}" class="t-font-[600] t-text-body-6 t-no-underline t-uppercase t-inline-block t-text-black t-bg-black t-text-white t-py-[12px] t-px-[35px] t-transition t-duration-300 t-tracking-[1px]">
+        ${ctaText}
+      </a>
+    `;
+                mobileLevel2Image.appendChild(shopAllButton);
+              } else {
+                mobileLevel2Image.style.display = 'none';
+              }
+
+              // Show level 2
+              mobileLevel2.classList.add('active');
+            }
+
+            // Back button handlers
+            mobileBackLevel1.addEventListener('click', () => {
+              mobileLevel1.classList.remove('active');
+              currentMobileMenu = null;
+            });
+
+            mobileBackLevel2.addEventListener('click', () => {
+              mobileLevel2.classList.remove('active');
+              currentMobileChild = null;
+            });
+
+            // Event listeners
+            mobileToggle.addEventListener('click', (e) => {
+              e.preventDefault();
+              openMobileMenu();
+            });
+
+            mobileOverlay.addEventListener('click', closeMobileMenu);
+
+            mobileCloseButtons.forEach((button) => {
+              button.addEventListener('click', closeMobileMenu);
+            });
+
+            // Close menu on ESC key
+            document.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape' && mobileOverlay.classList.contains('active')) {
+                closeMobileMenu();
+              }
+            });
+          });
+        </script>
+
+        <!-- Desktop Navigation (Block-based) -->
+        <nav class="t-hidden lg:t-flex main-navigation t-h-full">
+          <ul
+            class="t-ps-[16px] parent-menu t-flex t-gap-[3.2rem] t-items-center t-list-none t-uppercase t-h-full t-w-full t-justify-between"
+            style="margin-block-end:0;margin-block-start:0;"
+          >
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'menu' -%}
+                {%- assign menu = block.settings.menu -%}
+                {%- assign link_only = block.settings.link_only -%}
+                {%- assign menu_label = block.settings.menu_label | default: menu.title -%}
+                {%- assign link_url = block.settings.shop_all_url | default: menu.url -%}
+
+                {%- if link_only -%}
+                  {%- if menu_label and link_url -%}
+                    <li class="t-relative t-h-full t-flex t-items-center">
+                      <a
+                        class="t-text-white t-no-underline t-font-[700] t-h-full t-flex t-items-center t-text-body-6 t-bg-transparent t-border-0"
+                        href="{{ link_url }}"
+                      >
+                        {{ menu_label | escape }}
+                      </a>
+                    </li>
+                  {%- endif -%}
+                {%- elsif menu != blank -%}
+                  <li class="t-relative t-h-full t-flex t-items-center">
+                    <a
+                      class="t-text-white t-no-underline t-font-[700] t-h-full t-flex t-items-center t-text-body-6 t-cursor-pointer parent-menu-item t-bg-transparent t-border-0"
+                      data-menu-trigger="{{ block.id }}"
+                      {% if menu %}
+                        data-parent-handle="{{ menu.handle }}"
+                      {% endif %}
+                    >
+                      {{ menu_label | escape }}
+                    </a>
+                  </li>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </nav>
+      </div>
+      <style>
+        .main-navigation ul li,
+        .main-navigation .header__icon {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .main-navigation ul li::after,
+        .main-navigation .header__icon::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          height: 4px;
+          background-color: white;
+          opacity: 0;
+          transition: opacity 0.2s ease-in-out;
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .main-navigation ul li:hover::after,
+        .main-navigation ul li.active::after,
+        .main-navigation .header__icon:hover::after {
+          opacity: 1;
+        }
+      </style>
+
+      <!-- Header Icons (Search, Account, Cart) -->
+      <div class="main-navigation t-h-full t-flex t-items-center">
         <div class="desktop-localization-wrapper">
           {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
             <localization-form class="small-hide medium-hide" data-prevent-hide>
@@ -231,38 +1146,38 @@
           {%- endif -%}
         </div>
 
-        <div class="t-flex t-gap-[2.6rem] t-h-full t-w-[131px]">
-          {% comment %} Header Search {% endcomment %}
-          {% render 'header-search', input_id: 'Search-In-Modal' %}
+        <div class="t-flex t-gap-[30px] t-h-full t-w-[100px] lg:t-w-[131px]">
+          <span class="t-hidden lg:t-flex">{% render 'header-search', input_id: 'Search-In-Modal-Desktop' %}</span>
 
-          {% comment %} Customer {% endcomment %}
           {%- if shop.customer_accounts_enabled -%}
             <a
               href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-              class="t-h-full header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+              class="t-h-full header__icon header__icon--account link focus-inset t-flex t-items-center t-gap-2"
               rel="nofollow"
             >
-              {%- if section.settings.enable_customer_avatar -%}
-                <account-icon>
-                  {%- if customer and customer.has_avatar? -%}
-                    {{ customer | avatar }}
-                  {%- else -%}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="22"
-                      height="22"
-                      viewBox="0 0 823 782"
-                      fill="none"
-                      class="h-5.5 w-5.5 dr:w-6 dr:h-6"
-                      role="img"
-                    >
-                      <path d="M411.37 407.516C214.47 407.516 46.3899 547.177 8.66992 738.096L0 782H822.75L814.07 738.096C776.35 547.178 608.28 407.516 411.37 407.516ZM421.44 481.218C561.96 485.371 683.06 576.151 728.85 704.856L730.05 708.445H92.6699L93.8901 704.856C140.78 573.086 266.6 481.071 411.37 481.071L421.44 481.219V481.218ZM411.37 0.41868C300.36 0.41868 210.37 90.4097 210.37 201.422C210.37 312.434 300.36 402.424 411.37 402.424C522.38 402.424 612.38 312.434 612.38 201.422C612.38 90.4097 522.38 0.41868 411.37 0.41868ZM411.37 73.9716C481.76 73.9716 538.82 131.031 538.82 201.422C538.82 271.812 481.76 328.872 411.37 328.872C340.98 328.872 283.92 271.812 283.92 201.422C283.92 131.031 340.98 73.9716 411.37 73.9716Z" fill="currentColor"></path>
-                      <title>user</title>
-                    </svg>
-                  {%- endif -%}
-                </account-icon>
-              {%- else -%}
-                <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+              <span class="svg-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 823 782"
+                  fill="none"
+                  class="h-5.5 w-5.5 dr:w-6 dr:h-6"
+                  role="img"
+                >
+                  <path d="M411.37 407.516C214.47 407.516 46.3899 547.177 8.66992 738.096L0 782H822.75L814.07 738.096C776.35 547.178 608.28 407.516 411.37 407.516ZM421.44 481.218C561.96 485.371 683.06 576.151 728.85 704.856L730.05 708.445H92.6699L93.8901 704.856C140.78 573.086 266.6 481.071 411.37 481.071L421.44 481.219V481.218ZM411.37 0.41868C300.36 0.41868 210.37 90.4097 210.37 201.422C210.37 312.434 300.36 402.424 411.37 402.424C522.38 402.424 612.38 312.434 612.38 201.422C612.38 90.4097 522.38 0.41868 411.37 0.41868ZM411.37 73.9716C481.76 73.9716 538.82 131.031 538.82 201.422C538.82 271.812 481.76 328.872 411.37 328.872C340.98 328.872 283.92 271.812 283.92 201.422C283.92 131.031 340.98 73.9716 411.37 73.9716Z" fill="currentColor"></path>
+                </svg>
+              </span>
+              {%- if customer -%}
+                {% if customer.first_name != blank %}
+                  {% assign display_name = customer.first_name %}
+                {% else %}
+                  {% assign email_prefix = customer.email | split: '@' | first %}
+                  {% assign display_name = email_prefix | slice: 0, 5 | append: '...' %}
+                {% endif %}
+                <span class="t-text-sm t-font-[14px] t-underline-none t-hidden md:t-inline t-h-[40px]">
+                  Welcome {{ display_name }}
+                </span>
               {%- endif -%}
               <span class="visually-hidden">
                 {%- liquid
@@ -275,19 +1190,20 @@
               </span>
             </a>
           {%- endif -%}
-          {% comment %} Shopping Cart {% endcomment %}
+
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when '@app' -%}
                 {% render block %}
             {%- endcase -%}
           {%- endfor -%}
+
           <a
             href="{{ routes.cart_url }}"
             class="header__icon header__icon--cart link focus-inset t-h-full"
             id="cart-icon-bubble"
           >
-            {% if cart == empty %}
+            <span class="svg-wrapper">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -298,12 +1214,8 @@
                 role="img"
               >
                 <path d="M19.3603 1.95986C6.17067 5.92986 -0.0256311 15.56 7.96753e-05 32.06C0.0257905 50.76 7.36622 60.5598 23.6797 63.6498C27.7163 64.4098 48.4392 65.0399 69.7277 65.0399H108.422L111.983 78.4101C113.937 85.7701 140.882 189.59 171.877 309.13C202.858 428.66 229.199 529.19 230.407 532.5C231.629 535.82 234.765 540.92 237.388 543.83C246.489 553.89 230.472 553.29 477.758 552.88L699.141 552.52L704.964 549.41C714.233 544.46 718.038 537.4 718.745 523.79C719.439 510.58 717.794 504.3 711.893 497.56C703.717 488.27 716.11 488.76 489.431 488.76H285.017L278.448 463.05C274.848 448.9 271.917 436.88 271.943 436.33C271.969 435.78 356.686 435.16 460.197 434.96L648.4 434.6L653.89 431.64C660.78 427.92 664.817 423.63 667.542 417.1C673.276 403.4 767.274 112.8 767.955 106.72C769.022 97.0901 766.606 90.8001 759.407 84.4701C747.284 73.8101 768.2 74.5601 494.123 74.9701L249.369 75.33L243.88 78.2699C233.325 83.9299 229.186 91.9898 229.186 106.86C229.186 121.72 234.264 131.41 244.574 136.18C248.906 138.19 270.375 138.47 470.16 139.09L690.965 139.77L615.529 370.83H254.563L251.002 357.46C249.035 350.11 228.556 271.35 205.481 182.42C182.405 93.5198 162.351 18.4698 160.911 15.6498C157.594 9.15981 151.295 3.83969 144.765 2.02969C138.658 0.329688 24.9781 0.259864 19.3603 1.95986ZM306.447 584.91C289.054 587.81 271.609 597.62 257.751 612.31C246.297 624.43 240.409 634.73 236.256 649.85C232.104 664.99 232.914 689.34 238.018 703C248.006 729.72 269.963 751.03 295.995 759.27C303.979 761.8 308.697 762.31 324.097 762.27C340.771 762.23 343.638 761.86 352.893 758.49C379.221 748.91 401.924 724.96 409.701 698.56C413.327 686.27 413.944 669.35 411.27 656C401.525 607.55 356.017 576.69 306.447 584.91ZM603.149 585.53C571.474 592.52 544.619 618.47 535.813 650.58C531.969 664.6 532.586 686.61 537.201 700.91C549.131 737.79 583.982 763 623.037 763C662.078 763 696.917 737.8 708.872 700.91C713.461 686.74 714.04 664.75 710.209 650.58C702.2 620.95 678.765 596.48 649.776 587.49C637.023 583.54 616.159 582.66 603.149 585.53ZM336.824 651.92C344.833 657.41 348.098 663.56 348.098 673.19C348.098 680.08 347.417 682.65 344.332 687.32C337.724 697.3 323.93 701.38 312.72 696.7C307.45 694.49 299.814 686.19 298.592 681.33C296.805 674.19 298.759 663.35 302.796 658.05C310.651 647.76 326.566 644.88 336.824 651.92ZM637.756 652.85C645.186 658.86 648.105 664.57 648.105 673.12C648.105 698.94 614.411 708.58 601.452 686.46C590.898 668.45 604.024 646.86 624.721 648.18C631.007 648.57 633.629 649.53 637.756 652.85Z" fill="currentColor"></path>
-                <title>shopping-cart</title>
               </svg>
-            {% else %}
-              <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
-            {% endif %}
-            <span class="visually-hidden">{{ 'icon-cart.svg' | inline_asset_content }}</span>
+            </span>
             {%- if cart != empty -%}
               <div class="cart-count-bubble">
                 {%- if cart.item_count < 100 -%}
@@ -317,60 +1229,500 @@
       </div>
     </div>
   </header>
+
+  <!-- Enhanced Sliding Menu System -->
+  <div class="sliding-menu-overlay" id="menu-overlay"></div>
+
+  <div class="sliding-menu-container" id="sliding-menu-container">
+    <div class="menu-panel level-0 t-hidden lg:t-flex" id="menu-level-0">
+      <div class="menu-panel-content"></div>
+    </div>
+    <!-- Level 1: Main Categories -->
+    <div class="menu-panel level-1 t-hidden lg:t-flex" id="menu-level-1">
+      <div class="menu-panel-content">
+        <div
+          id="level-1-content"
+          class="lg:t-flex t-flex-col t-w-full t-max-w-[660px]  t-border-r t-border-gray-300 t-overflow-y-auto t-bg-white  t-justify-end t-pe-[24px] t-py-[38px]"
+        >
+          {% assign level-1-content = null %}
+          {% for linklevel1 in linklists[level-1-content].links %}
+            <div class="menu-item h-4.5 w-4.5 -mt-0.5 lg:h-5.5 lg:w-5.5 lg:mt-0 duration-100 ease-in transition-button">
+              <a
+                class="t-cursor-pointer  t-w-[341px] t-appearance-none t-bg-transparent t-border-0 t-outline-none t-text-left t-p-2 t-text-gray-800 t-text-body-4 t-font-[600] t-no-underline t-flex t-items-center t-justify-between"
+                href="{{ linklevel1.url }}"
+              >
+                {{- linklevel1.title -}}
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Level 2: Subcategories -->
+    <div
+      class="menu-panel level-2 t-bg-[#f7f8f9] t-border-l t-border-[black] xl:t-px-[50px] t-py-[38px] "
+      id="menu-level-2"
+      style="z-index:-2"
+    >
+      <div class="menu-panel-content">
+        <a class="back-button" id="back-level-2">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </a>
+        <div id="level-2-content">
+          {% assign level-2-content = null %}
+
+          {% for linklevel2 in level-1-content[level-2-content].links %}
+            <div class="menu-item">
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Level 3: Image & CTA -->
+    <div class="menu-panel level-3" id="menu-level-3">
+      <div id="level-3-content" class="image-panel">
+        <!-- Dynamic image and CTA will be inserted here -->
+      </div>
+    </div>
+  </div>
 </{{ header_tag }}>
 
-{%- if settings.cart_type == 'notification' -%}
-  {%- render 'cart-notification',
-    color_scheme: section.settings.color_scheme,
-    desktop_menu_type: section.settings.menu_type_desktop
-  -%}
-{%- endif -%}
-
-<script type="application/ld+json">
+<!-- Menu Data JSON (for JavaScript) - UPDATED SECTION -->
+<!-- Menu Data JSON (for JavaScript) - UPDATED SECTION -->
+<script type="application/json" id="menu-data">
   {
-    "@context": "http://schema.org",
-    "@type": "Organization",
-    "name": {{ shop.name | json }},
-    {% if settings.logo %}
-      "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
-    {% endif %}
-    "sameAs": [
-      {{ settings.social_twitter_link | json }},
-      {{ settings.social_facebook_link | json }},
-      {{ settings.social_pinterest_link | json }},
-      {{ settings.social_instagram_link | json }},
-      {{ settings.social_tiktok_link | json }},
-      {{ settings.social_tumblr_link | json }},
-      {{ settings.social_snapchat_link | json }},
-      {{ settings.social_youtube_link | json }},
-      {{ settings.social_vimeo_link | json }}
-    ],
-    "url": {{ request.origin | append: page.url | json }}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'menu' -%}
+        {%- assign menu = block.settings.menu -%}
+        {%- assign menu_label = block.settings.menu_label | default: menu.title -%}
+        {%- assign menu_image = block.settings.menu_image -%}
+        {%- assign shop_all_url = block.settings.shop_all_url -%}
+        {%- assign shop_all_text = block.settings.shop_all_text | default: 'Shop All' -%}
+        {%- assign link_only = block.settings.link_only | default: false -%}
+        {%- if menu != blank -%}
+          "{{ block.id }}": {
+            "id": "{{ block.id }}",
+            "handle": "{{ menu.handle }}",
+            "title": {{ menu_label | json }},
+            "linkOnly": {{ link_only | json }},
+            "image": {%- if menu_image -%}{{ menu_image | image_url: width: 1200 | json }}{%- else -%}null{%- endif -%},
+            "shopAllUrl": {%- if shop_all_url != blank -%}{{ shop_all_url | json }}{%- else -%}{{ menu.url | default: '/collections/all' | json }}{%- endif -%},
+            "shopAllText": {{ shop_all_text | json }},
+              "children": [
+              {%- for childlink in menu.links -%}
+                {%- liquid
+                assign final_collection_image = null
+
+                if childlink.type == 'collection_link' and childlink.object
+                  # Use custom.collection_menu_preview_image metafield if available, otherwise fallback to featured image
+                  if childlink.object.metafields.custom.collection_menu_preview_image != blank
+                  assign final_collection_image = childlink.object.metafields.custom.collection_menu_preview_image | image_url: width: 1200
+                  elsif childlink.object.featured_image != blank
+                  assign final_collection_image = childlink.object.featured_image | image_url: width: 1200
+                  endif
+                endif
+                -%}
+                {
+                "title": {{ childlink.title | json }},
+                "url": {{ childlink.url | json }},
+                "handle": "{{ childlink.handle }}",
+                "type": "{{ childlink.type }}",
+                "collectionImage": {%- if final_collection_image -%}{{ final_collection_image | json }}{%- else -%}null{%- endif -%},
+                "collectionHandle": {%- if childlink.type == 'collection_link' and childlink.object -%}"{{ childlink.object.handle }}"{%- else -%}null{%- endif -%},
+                "hasChildren": {% if childlink.links.size > 0 %}true{% else %}false{% endif %},
+                "children": [
+                  {%- for grandchildlink in childlink.links -%}
+                  {
+                    "title": {{ grandchildlink.title | json }},
+                    "url": {{ grandchildlink.url | json }},
+                    "handle": "{{ grandchildlink.handle }}"
+                  }{%- unless forloop.last -%},{%- endunless -%}
+                  {%- endfor -%}
+                ]
+                }{%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+              ]
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
   }
 </script>
 
-{%- if request.page_type == 'index' -%}
-  {% assign potential_action_target = request.origin | append: routes.search_url | append: '?q={search_term_string}' %}
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
-      "name": {{ shop.name | json }},
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {{ potential_action_target | json }},
-        "query-input": "required name=search_term_string"
-      },
-      "url": {{ request.origin | append: page.url | json }}
-    }
-  </script>
-{%- endif -%}
 
+{% comment %} Add poointer events none when the sticky header is scrolled up {% endcomment %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.getElementById('main-menu'); // your <sticky-header> wrapper
+  if (!root) return;
+
+  let lastY = window.pageYOffset || document.documentElement.scrollTop;
+  let ticking = false;
+  const THRESH = 6; // ignore tiny jitter
+
+  function applyPointerState(dir) {
+    const currentY = window.pageYOffset || document.documentElement.scrollTop;
+    // Always allow interactions when at the very top
+    if (currentY <= 0) {
+      root.classList.remove('header--pe-none');
+      return;
+    }
+    // dir > 0 => scrolling down (header moving up / hiding) => disable clicks
+    if (dir > 0) {
+      root.classList.add('header--pe-none');
+    } else if (dir < 0) {
+      root.classList.remove('header--pe-none');
+    }
+  }
+
+  function onScroll() {
+    const y = window.pageYOffset || document.documentElement.scrollTop;
+    const dir = y - lastY;
+    lastY = y;
+    if (Math.abs(dir) >= THRESH) applyPointerState(dir);
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(onScroll);
+    }
+  }, { passive: true });
+
+  // Safety: if anything inside the header gains focus (e.g., search),
+  // ensure interactions are allowed.
+  root.addEventListener('focusin', () => {
+    root.classList.remove('header--pe-none');
+  });
+});
+</script>
+
+
+
+<!-- Enhanced Sliding Menu JavaScript - UPDATED SECTION -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('Menu script loading...');
+
+    const menuDataElement = document.getElementById('menu-data');
+    if (!menuDataElement) {
+      console.error('Menu data element not found');
+      return;
+    }
+
+    let menuData;
+    try {
+      menuData = JSON.parse(menuDataElement.textContent);
+      console.log('Menu data loaded:', menuData);
+    } catch (e) {
+      console.error('Failed to parse menu data:', e);
+      return;
+    }
+
+    const triggers = document.querySelectorAll('[data-menu-trigger]');
+    const overlay = document.getElementById('menu-overlay');
+    const container = document.getElementById('sliding-menu-container');
+    const level0 = document.getElementById('menu-level-0');
+    const level1 = document.getElementById('menu-level-1');
+    const level2 = document.getElementById('menu-level-2');
+    const level3 = document.getElementById('menu-level-3');
+    const level0Content = document.getElementById('level-0-content');
+    const level1Content = document.getElementById('level-1-content');
+    const level2Content = document.getElementById('level-2-content');
+    const level3Content = document.getElementById('level-3-content');
+    const backBtn2 = document.getElementById('back-level-2');
+
+    console.log('Menu elements found:', {
+      triggers: triggers.length,
+      overlay,
+      container,
+      level0,
+      level1,
+      level2,
+      level3,
+    });
+
+    let currentMenu = null;
+    let currentChild = null;
+    let activeMenuItem = null;
+    let activeTrigger = null;
+
+    // Close menu function
+    function closeMenu() {
+      console.log('Closing menu');
+      overlay.classList.remove('active');
+      container.classList.remove('active');
+      document.body.classList.remove('body-locked');
+      level0.classList.remove('active');
+      level1.classList.remove('active');
+      level2.classList.remove('active');
+      level3.classList.remove('active');
+
+      if (activeTrigger) {
+        activeTrigger.classList.remove('menu-active');
+        activeTrigger.parentElement.classList.remove('active');
+      }
+
+      currentMenu = null;
+      currentChild = null;
+      activeMenuItem = null;
+      activeTrigger = null;
+
+      // Reset active states
+      document.querySelectorAll('.menu-item.active').forEach((item) => {
+        item.classList.remove('active');
+      });
+    }
+
+    function updateLevel3Content(imageUrl, ctaUrl, ctaText) {
+      if (!imageUrl) {
+        level3.classList.remove('active');
+        return;
+      }
+
+      level3Content.innerHTML = `
+    <img src="${imageUrl}" alt="Collection Image" />
+    <div class="image-panel-overlay">
+      <a href="${ctaUrl}" class="shop-all-button t-w-full t-max-w-[max-content] t-bg-black  t-py-[12px] t-px-[35px] t-text-white t-font-semibold t-no-underline t-uppercase t-inline-block t-transition t-duration-300 t-tracking-wider t-text-sm sm:t-text-base hover:t-bg-[#666] hover:t-text-white ">
+        ${ctaText || 'Shop All'}
+      </a>
+    </div>
+    `;
+
+      level3.classList.add('active');
+    }
+    // Open main menu
+    function openMenu(blockId, triggerElement) {
+      console.log('Opening menu for block:', blockId);
+      const menu = menuData[blockId];
+      if (!menu) {
+        console.error('Menu not found for block:', blockId);
+        return;
+      }
+
+      console.log('Menu data:', menu);
+
+      // Check if this is a link-only menu
+      if (menu.linkOnly) {
+        window.location.href = menu.shopAllUrl;
+        return;
+      }
+
+      // If same menu is clicked, close it
+      if (currentMenu && currentMenu.id === blockId) {
+        closeMenu();
+        return;
+      }
+
+      currentMenu = menu;
+      activeTrigger = triggerElement;
+
+      // Update trigger active state
+      document.querySelectorAll('.parent-menu-item').forEach((item) => {
+        item.classList.remove('menu-active');
+        item.parentElement.classList.remove('active');
+      });
+
+      triggerElement.classList.add('menu-active');
+      triggerElement.parentElement.classList.add('active');
+
+      // Reset level3 panel position
+      level3.classList.remove('pushed');
+
+      // Populate level 1 content
+      level1Content.innerHTML = `
+    ${menu.children
+      .map(
+        (child) => `
+      <a class="t-max-w-[90%] xl:t-max-w-[unset] t-cursor-pointer t-w-[341px] t-border-0 t-outline-none t-block t-text-left t-p-2 t-text-gray-800 t-text-body-4 t-font-[600] t-no-underline t-flex t-items-center t-justify-between menu-item ${
+        child.hasChildren ? 'has-children' : ''
+      }" 
+           data-child-handle="${child.handle}"
+           data-child-url="${child.url}"
+           data-child-collection-image="${child.collectionImage || ''}"
+           data-has-children="${child.hasChildren}">
+        <span>${child.title}</span>
+        ${
+          child.hasChildren
+            ? `
+         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 13 22" fill="none" class="h-4.5 w-4.5 -mt-0.5 lg:h-5.5 lg:w-5.5 lg:mt-0 duration-100 ease-in transition-button" role="img">
+                  <path d="M1 1L11 11L1 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                  <title>chevron-right-xl</title>
+                </svg>
+        `
+            : ''
+        }
+      </a>
+    `
+      )
+      .join('')}
+  `;
+
+      // Show menu image in level 3 immediately if available - THIS WAS THE MISSING PIECE
+      if (menu.image) {
+        updateLevel3Content(menu.image, menu.shopAllUrl, menu.shopAllText);
+      } else {
+        level3.classList.remove('active');
+      }
+
+      // Show overlay, container, and level 1
+      overlay.classList.add('active');
+      container.classList.add('active');
+      level1.classList.add('active');
+      level0.classList.add('active');
+
+      if (container.classList.contains('active')) {
+        document.body.classList.add('body-locked');
+      } else {
+        document.body.classList.remove('body-locked');
+      }
+
+      // Hide level 2 when opening new menu
+      level2.classList.remove('active');
+
+      // Add event listeners to level 1 items
+      addLevel1Listeners();
+    }
+
+    // Add event listeners to level 1 menu items
+    function addLevel1Listeners() {
+      const menuItems = level1Content.querySelectorAll('.menu-item');
+      menuItems.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const hasChildren = item.dataset.hasChildren === 'true';
+          const childHandle = item.dataset.childHandle;
+          const childUrl = item.dataset.childUrl;
+          const collectionImage = item.dataset.childCollectionImage;
+
+          // Remove active state from other items with a slight delay
+          menuItems.forEach((mi) => {
+            if (mi !== item && mi.classList.contains('active')) {
+              setTimeout(() => {
+                mi.classList.remove('active');
+              }, 120);
+            }
+          });
+
+          setTimeout(() => {
+            item.classList.add('active');
+            activeMenuItem = item;
+
+            if (hasChildren) {
+              const childData = currentMenu.children.find((child) => child.handle === childHandle);
+              if (childData) {
+                // Update level 3 image if collection image is available
+                const imageToUse = collectionImage || currentMenu.image;
+                const ctaUrl = currentMenu.shopAllUrl || childUrl;
+
+                if (imageToUse) {
+                  updateLevel3Content(imageToUse, ctaUrl, currentMenu.shopAllText);
+                }
+
+                openLevel2(childData);
+              }
+            } else {
+              window.location.href = childUrl;
+            }
+          }, 130);
+        });
+      });
+    }
+
+    // Open level 2 (subcategories)
+    function openLevel2(childData) {
+      currentChild = childData;
+      level2Content.innerHTML = `
+        ${childData.children
+          .map(
+            (grandchild) => `
+      <button class="menu-item t-p-2 t-text-gray-800 hover:t-bg-gray-100 t-font-[600] t-text-[1.8rem]" data-grandchild-url="${grandchild.url}">
+        <span>${grandchild.title}</span>
+      </button>
+    `
+          )
+          .join('')}
+  `;
+      level2.classList.add('active');
+      level3.classList.add('pushed');
+      addLevel2Listeners();
+    }
+
+    // Add event listeners to level 2 menu items
+    function addLevel2Listeners() {
+      const menuItems = level2Content.querySelectorAll('.menu-item');
+
+      menuItems.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const grandchildUrl = item.dataset.grandchildUrl;
+          window.location.href = grandchildUrl;
+        });
+      });
+    }
+
+    // Event listeners
+    triggers.forEach((trigger) => {
+      console.log('Adding click listener to trigger:', trigger.dataset.menuTrigger);
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        const blockId = trigger.dataset.menuTrigger;
+        console.log('Trigger clicked for block:', blockId);
+        openMenu(blockId, trigger);
+      });
+    });
+
+    // Close menu when clicking overlay
+    overlay.addEventListener('click', closeMenu);
+
+    // Back button for level 2
+    backBtn2.addEventListener('click', (e) => {
+      e.preventDefault();
+      level2.classList.remove('active');
+      level3.classList.remove('pushed');
+
+      // Restore the original menu image or collection image when going back
+      if (currentMenu && currentMenu.image) {
+        updateLevel3Content(currentMenu.image, currentMenu.shopAllUrl, currentMenu.shopAllText);
+      }
+
+      if (activeMenuItem) {
+        setTimeout(() => {
+          activeMenuItem.classList.remove('active');
+          activeMenuItem = null;
+        }, 120);
+      }
+      currentChild = null;
+    });
+
+    // Close menu on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+
+    // Handle mobile menu toggle (existing functionality)
+    const mobileToggle = document.getElementById('mobile-menu-toggle');
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', () => {
+        // Add your existing mobile menu logic here
+        console.log('Mobile menu clicked');
+      });
+    }
+  });
+</script>
 {% schema %}
 {
   "name": "t:sections.header.name",
   "class": "section-header",
-  "max_blocks": 3,
+  "max_blocks": 10,
   "settings": [
     {
       "type": "select",
@@ -464,6 +1816,22 @@
       "label": "t:sections.header.settings.sticky_header_type.label"
     },
     {
+      "type": "select",
+      "id": "header_position",
+      "options": [
+        {
+          "value": "over-content",
+          "label": "t:sections.header.settings.header_position.options__1.label"
+        },
+        {
+          "value": "normal",
+          "label": "t:sections.header.settings.header_position.options__2.label"
+        }
+      ],
+      "default": "normal",
+      "label": "t:sections.header.settings.header_position.label"
+    },
+    {
       "type": "checkbox",
       "id": "show_line_separator",
       "default": true,
@@ -551,16 +1919,55 @@
   ],
   "blocks": [
     {
+      "type": "menu",
+      "name": "Menu",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "link_only",
+          "label": "Link Only",
+          "info": "When enabled, clicking this menu item in the header will navigate directly to the Shop All URL instead of opening sliding panels.",
+          "default": false
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "main-menu",
+          "label": "Menu"
+        },
+        {
+          "type": "text",
+          "id": "menu_label",
+          "label": "Menu Label",
+          "info": "Override the menu title displayed in header. Leave blank to use menu name."
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_image",
+          "label": "Menu Image",
+          "info": "Image shown in the promotional panel when menu is expanded (recommended: 800x600px)"
+        },
+        {
+          "type": "url",
+          "id": "shop_all_url",
+          "label": "Shop All URL OR Link Only URL",
+          "info": "URL for the 'Shop All' button in the promotional panel. Otherwise use it as the link for the Link Only."
+        },
+        {
+          "type": "text",
+          "id": "shop_all_text",
+          "label": "Shop All Button Text",
+          "default": "Shop All"
+        }
+      ]
+    },
+    {
       "type": "@app"
     }
   ]
 }
 {% endschema %}
-<div
-  id="menu-drawer-overlay"
-  class="t-fixed t-inset-0 t-bg-black t-bg-opacity-60 t-z-[-1] t-transition-opacity t-duration-500 t-ease-in-out t-opacity-0 t-pointer-events-none"
-  style="display: none;"
-></div>
 
 {% javascript %}
   // StickyHeader custom element for Shopify header
@@ -613,55 +2020,83 @@
 
     onScroll() {
       const currentScrollY = window.scrollY;
+      const stickyType = this.dataset.stickyType;
+
+      if (stickyType === 'none') return;
+
       this.header.style.transition = 'transform 0.3s ease';
 
-      // At the very top: show header, remove blur
-      if (currentScrollY <= 0) {
-        // Show header and reset position
-        this.header.style.transform = 'translateY(0)';
-        this.header.style.backdropFilter = '';
-        this.header.style.filter = '';
-        this.style.position = '';
-        this.style.top = '0';
-        this.style.left = '0';
-        this.style.right = '0';
-        this.style.zIndex = '1000';
-      }
-      // Scrolling DOWN: hide header, add blur
-      else if (currentScrollY > this.lastScrollY && currentScrollY > 100) {
-        // Hide header and apply blur
-        this.header.style.transform = 'translateY(-100%)';
-        this.header.style.backdropFilter = 'blur(12px)';
-        this.header.style.background = 'transparent';
+      if (stickyType === 'always') {
         this.style.position = 'fixed';
         this.style.top = '0';
         this.style.left = '0';
         this.style.right = '0';
-        this.style.zIndex = '1000';
-      }
-      // Scrolling UP: show header, add blur
-      else if (currentScrollY < this.lastScrollY) {
-        // Show header and apply blur
+        this.style.zIndex = '1000'; // Ensure proper z-index for fixed header
         this.header.style.transform = 'translateY(0)';
-        this.header.style.backdropFilter = 'blur(12px)';
-        this.header.style.background = 'transparent';
+        this.style.pointerEvents = 'auto'; // Ensure header is clickable
+
+        if (currentScrollY > 0) {
+          this.header.style.backdropFilter = 'blur(12px)';
+          this.header.style.background = 'rgba(0, 0, 0, 0.8)';
+        } else {
+          this.header.style.backdropFilter = '';
+          this.header.style.background = '';
+        }
+      } else if (stickyType === 'on-scroll-up') {
+        // At the very top: show header, remove blur
+        if (currentScrollY <= 0) {
+          this.header.style.transform = 'translateY(0)';
+          this.header.style.backdropFilter = '';
+          this.header.style.background = '';
+          this.style.position = '';
+          this.style.zIndex = ''; // Reset to default
+          this.style.pointerEvents = 'auto';
+          // Ensure header--pe-none class is removed when at top
+          this.classList.remove('header--pe-none');
+          // Also ensure all child elements can receive pointer events
+          const headerButtons = this.querySelectorAll('button, a, [role="button"]');
+          headerButtons.forEach(btn => {
+            btn.style.pointerEvents = 'auto';
+          });
+        }
+        // Scrolling DOWN: hide header
+        else if (currentScrollY > this.lastScrollY && currentScrollY > 100) {
+          this.header.style.transform = 'translateY(-100%)';
+          this.style.position = 'fixed';
+          this.style.top = '0';
+          this.style.left = '0';
+          this.style.right = '0';
+          this.style.zIndex = '1000'; // Ensure proper z-index
+          this.style.pointerEvents = 'auto';
+        }
+        // Scrolling UP: show header with blur
+        else if (currentScrollY < this.lastScrollY) {
+          this.header.style.transform = 'translateY(0)';
+          this.header.style.backdropFilter = 'blur(12px)';
+          this.header.style.background = 'rgba(0, 0, 0, 0.8)';
+          this.style.position = 'fixed';
+          this.style.top = '0';
+          this.style.left = '0';
+          this.style.right = '0';
+          this.style.zIndex = '1000'; // Ensure proper z-index
+          this.style.pointerEvents = 'auto'; // Ensure header is clickable
+        }
+      } else if (stickyType === 'reduce-logo-size') {
         this.style.position = 'fixed';
         this.style.top = '0';
         this.style.left = '0';
         this.style.right = '0';
-        this.style.zIndex = '1000';
-      }
-      // Header hidden but not scrolling: show header, add blur
-      else if (this.header.style.transform === 'translateY(-100%)') {
-        // Show header and apply blur
-        this.header.style.transform = 'translateY(0)';
-        this.header.style.backdropFilter = 'blur(12px)';
-        this.header.style.background = 'transparent';
-        this.style.position = 'fixed';
-        this.style.top = '0';
-        this.style.left = '0';
-        this.style.right = '0';
-        this.style.zIndex = '1000';
+        this.style.zIndex = 'auto';
+
+        if (currentScrollY > 100) {
+          this.classList.add('scrolled-past-header');
+          this.header.style.backdropFilter = 'blur(12px)';
+          this.header.style.background = 'rgba(0, 0, 0, 0.8)';
+        } else {
+          this.classList.remove('scrolled-past-header');
+          this.header.style.backdropFilter = '';
+          this.header.style.background = '';
+        }
       }
 
       this.lastScrollY = currentScrollY;

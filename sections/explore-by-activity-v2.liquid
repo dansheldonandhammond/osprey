@@ -1,0 +1,257 @@
+<div class="t-pt-[65px] lg:t-pt-[75px] t-pb-[120px] t-bg-white page-width ">
+  <div class=" t-mx-auto t-px-4">
+    <!-- Header -->
+    <div class="t-flex t-justify-between t-items-center t-mb-8">
+      <h2 class="t-text-3xl t-font-bold t-text-black">{{ section.settings.heading }}</h2>
+    </div>
+
+    <!-- Swiper Container -->
+    <div class="activity-swiper swiper t-overflow-hidden t-w-full">
+      <div class="swiper-wrapper t-relative t-w-full">
+        {% for block in section.blocks %}
+          <div class="swiper-slide ">
+            <div class="t-group t-cursor-pointer">
+              <!-- Image Container -->
+              <div class="t-relative t-overflow-hidden t-rounded-lg t-mb-4">
+                <a href="{{ block.settings.main_link }}" class="t-block t-relative t-h-[400px]">
+                  <img
+                    src="{{ block.settings.image | img_url: '400x300' }}"
+                    alt="{{ block.settings.title }}"
+                    class="t-w-full t-h-auto t-aspect-[3/4] t-h-full t-object-cover t-object-center t-transition-transform t-duration-300"
+                    loading="lazy"
+                  >
+                  <!-- Overlay -->
+                  <div
+                    class="t-absolute t-block t-inset-0 t-bg-black t-bg-opacity-20 group-hover:t-bg-opacity-10 t-transition-all t-duration-300"
+                  ></div>
+
+                  <!-- Title Overlay -->
+                  <div class="t-absolute t-top-6 t-left-6">
+                    <h3 class="t-text-2xl t-font-bold t-text-white ">{{ block.settings.title }}</h3>
+                  </div>
+                </a>
+                <!-- Action Buttons -->
+                <div class="t-flex t-gap-3 t-absolute t-bottom-[15px] t-left-[50%] t-translate-x-[-50%] t-px-[5px] t-box-border">
+                  {% if block.settings.button_1_text != blank and block.settings.button_1_link != blank %}
+                    <a
+                      href="{{ block.settings.button_1_link }}"
+                      class="t-font-[600] t-text-[1.6rem] t-no-underline t-uppercase t-inline-block t-text-black t-bg-white hover:t-bg-grey t-py-[10px] lg:t-px-[20px] t-px-[5px] t-text-[14px] lg:t-text-[16px] t-transition t-duration-300 hover:t-text-white t-tracking-[1px]"
+                    >
+                      {{ block.settings.button_1_text }}
+                    </a>
+                  {% endif %}
+
+                  {% if block.settings.button_2_text != blank and block.settings.button_2_link != blank %}
+                    <a
+                      href="{{ block.settings.button_2_link }}"
+                      class="t-font-[600] t-text-[1.6rem] t-no-underline t-uppercase t-inline-block t-text-black t-bg-white hover:t-bg-grey t-py-[10px] lg:t-px-[20px] t-px-[5px] t-text-[14px] lg:t-text-[16px] t-transition t-duration-300 hover:t-text-white t-tracking-[1px]"
+                    >
+                      {{ block.settings.button_2_text }}
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Navigation Arrows -->
+      <div class="t-flex t-gap-2 t-absolute t-w-full t-justify-between t-top-[50%] t-translate-y-[-50%] t-z-10">
+        <button class="activity-swiper-prev swiper-button-prev t-text-black t-w-[40px] t-h-[8rem] t-border-0  t-flex t-items-center t-justify-center t-bg-white t-transition-colors disabled:t-opacity-50 disabled:t-cursor-not-allowed">
+        </button>
+        <button class="activity-swiper-next swiper-button-next t-text-black t-w-[40px] t-h-[8rem] t-border-0 t-flex t-items-center t-justify-center t-bg-white t-transition-colors">
+        </button>
+      </div>
+
+      <!-- Custom Pagination -->
+      <div class="swiper-pagination t-mt-[30px] t-bottom-0"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof Swiper !== 'undefined') {
+      new Swiper('.activity-swiper', {
+        slidesPerView: 4,
+        spaceBetween: 25,
+        loop: false,
+        navigation: {
+          nextEl: '.activity-swiper-next',
+          prevEl: '.activity-swiper-prev',
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'custom',
+          renderCustom: function (swiper, current, total) {
+            // Get the current slidesPerView (respects breakpoints)
+            let spv = swiper.params.slidesPerView;
+            if (typeof spv === 'string') spv = parseFloat(spv);
+            // Calculate the visible portion as a percentage of total slides
+            const visibleRatio = spv / total;
+            // Set a minimum and maximum width for the pill
+            const chunk = Math.min(Math.max(visibleRatio * 100, 10), 30);
+            // Use Swiper's progress for smooth positioning
+            const progress = swiper.progress;
+            // Calculate left position based on progress
+            let left = progress * (100 - chunk);
+            left = Math.max(0, Math.min(left, 100 - chunk));
+
+            return `
+              <div class="t-relative t-w-full t-h-2 t-bg-gray-200 t-rounded-full">
+                <span class="t-absolute t-top-0 t-h-2 t-bg-gray-800 t-rounded-full t-transition-all t-duration-300" style="left: ${left}%; width: ${chunk}%"></span>
+              </div>
+            `;
+          },
+        },
+        breakpoints: {
+          0: { slidesPerView: 1.25, spaceBetween: 16 },
+          640: { slidesPerView: 2, spaceBetween: 20 },
+          1024: { slidesPerView: 3, spaceBetween: 25 },
+          1280: { slidesPerView: 4, spaceBetween: 25 },
+        },
+        on: {
+          init: function() {
+            this.pagination.update();
+          },
+          resize: function() {
+            this.pagination.update();
+          },
+          slideChange: function() {
+            this.pagination.update();
+          }
+        }
+      });
+    } else {
+      console.warn('Swiper not available');
+    }
+  });
+</script>
+
+
+
+{% comment %}
+  <style>
+    .activity-swiper .swiper-slide {
+      height: auto;
+    }
+  </style>
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Explore by Activity",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Explore by Activity"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "activity",
+      "name": "Activity",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Activity Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Activity Title",
+          "default": "Activity"
+        },
+        {
+          "type": "url",
+          "id": "main_link",
+          "label": "Main Link"
+        },
+        {
+          "type": "text",
+          "id": "button_1_text",
+          "label": "First Button Text",
+          "default": "MEN'S"
+        },
+        {
+          "type": "url",
+          "id": "button_1_link",
+          "label": "First Button Link"
+        },
+        {
+          "type": "text",
+          "id": "button_2_text",
+          "label": "Second Button Text",
+          "default": "WOMEN'S"
+        },
+        {
+          "type": "url",
+          "id": "button_2_link",
+          "label": "Second Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Explore by Activity",
+      "blocks": [
+        {
+          "type": "activity",
+          "settings": {
+            "title": "Travel",
+            "button_1_text": "BACKPACKS",
+            "button_2_text": "DUFFELS"
+          }
+        },
+        {
+          "type": "activity",
+          "settings": {
+            "title": "Hiking",
+            "button_1_text": "MEN'S",
+            "button_2_text": "WOMEN'S"
+          }
+        },
+        {
+          "type": "activity",
+          "settings": {
+            "title": "Backpacking",
+            "button_1_text": "MEN'S",
+            "button_2_text": "WOMEN'S"
+          }
+        },
+        {
+          "type": "activity",
+          "settings": {
+            "title": "Biking",
+            "button_1_text": "MEN'S",
+            "button_2_text": "WOMEN'S"
+          }
+        },
+        {
+          "type": "activity",
+          "settings": {
+            "title": "Running",
+            "button_1_text": "MEN'S",
+            "button_2_text": "WOMEN'S"
+          }
+        },
+        {
+          "type": "activity",
+          "settings": {
+            "title": "Daypacks",
+            "button_1_text": "LIFESTYLE",
+            "button_2_text": "CAMPUS"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

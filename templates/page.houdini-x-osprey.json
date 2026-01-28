@@ -1,0 +1,241 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "header_override_wBUJXg": {
+      "type": "header-override",
+      "settings": {
+        "override_enabled": true,
+        "header_position": "absolute",
+        "header_background": "black-transparent",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "black"
+      }
+    },
+    "image_banner_houdini_eP6cF6": {
+      "type": "image_banner_houdini",
+      "name": "ALLT Series Hero",
+      "settings": {
+        "max_height": 800,
+        "background_image": "shopify://shop_images/HOOSUS-2459-top-banner-d.jpg",
+        "show_logo": true,
+        "logo": "shopify://shop_images/HOOSUS-2459-logo2.webp",
+        "logo_width_mobile": 270,
+        "logo_width_tablet": 210,
+        "logo_width_desktop": 340,
+        "logo_spacing": 36,
+        "title": "<p>ALLT SERIES</p>",
+        "title_size_mobile": 60,
+        "title_size_tablet": 64,
+        "title_size_desktop": 100,
+        "title_weight": "300",
+        "title_spacing": 0,
+        "title_line_height": 1,
+        "subtitle": "A CIRCULAR DESIGN COLLABORATION",
+        "subtitle_size_mobile": 16,
+        "subtitle_size_tablet": 18,
+        "subtitle_size_desktop": 18,
+        "subtitle_weight": "300"
+      }
+    },
+    "pages_content_q7ha3A": {
+      "type": "pages-content",
+      "blocks": {
+        "heading_PDxi74": {
+          "type": "heading",
+          "settings": {
+            "heading_block_heading_text": "Extremely Limited Release: December 2025",
+            "heading_text_alignment": "center",
+            "heading_block_heading_tag": "h2",
+            "heading_block_heading_size_default": "2.2rem",
+            "heading_block_heading_size_large": "2.2rem",
+            "heading_block_heading_size_extra_large": "3.2rem",
+            "heading_block_font_weight": "t-font-light",
+            "heading_block_heading_case": "t-normalcase",
+            "heading_block_heading_font": "font-secondary",
+            "heading_block_top_default_padding": 10,
+            "heading_block_bottom_default_padding": 10,
+            "heading_block_top_large_padding": 15,
+            "heading_block_bottom_large_padding": 0,
+            "heading_block_max_width": 900
+          }
+        },
+        "regular_richtext_6ExGqQ": {
+          "type": "regular_richtext",
+          "settings": {
+            "richtext_heading_text_alignment": "center",
+            "reg_rich_text": "<p>Experience a minimalist approach to design where less gear does more. Merging Houdini’s vision of circularity with Osprey’s proven performance engineering, <em>Allt’s</em> technical yet sustainable material story and versatile, four-season alpine function mean fewer possessions and fewer decisions.</p>",
+            "top_default_padding": 0,
+            "bottom_default_padding": 10,
+            "top_large_padding": 0,
+            "bottom_large_padding": 15,
+            "max_width": 1920,
+            "font_size_default": "1.9rem",
+            "font_size_above_lg": "1.9rem"
+          }
+        }
+      },
+      "block_order": [
+        "heading_PDxi74",
+        "regular_richtext_6ExGqQ"
+      ],
+      "disabled": true,
+      "name": "Page Blocks",
+      "settings": {
+        "top_default_padding": 50,
+        "bottom_default_padding": 50,
+        "top_large_padding": 75,
+        "bottom_large_padding": 0,
+        "section_max_width": 680
+      }
+    },
+    "17640502273abd0b47": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_ebfed86_F4eHmi": {
+          "type": "ai_gen_block_ebfed86",
+          "settings": {
+            "product_1": "osprey-x-houdini-allt-20",
+            "product_2": "osprey-x-houdini-allt-30",
+            "gap": 16,
+            "padding": 32,
+            "image_radius": 0,
+            "text_spacing": 12,
+            "title_size": 16,
+            "title_color": "#000000",
+            "price_size": 14,
+            "price_color": "#000000",
+            "button_text": "Shop now",
+            "button_spacing": 12,
+            "button_padding_vertical": 12,
+            "button_padding_horizontal": 24,
+            "button_text_size": 14,
+            "button_radius": 0,
+            "button_bg_color": "#121212",
+            "button_text_color": "#ffffff",
+            "button_hover_bg_color": "#000000",
+            "button_hover_text_color": "#ffffff"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_ebfed86_F4eHmi"
+      ],
+      "settings": {}
+    },
+    "custom_liquid_G37HAn": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "custom_css": [
+        ".mailchimp-signup-container h3 {text-align: center;}",
+        "@media (max-width: 800px) {input#marketing-consent-launch {height: 20px; width: 20px !important; }}"
+      ],
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "{%- comment -%}\n  Mailchimp Signup Form (Liquid Snippet)\n  Usage: Add this as a snippet (e.g., mailchimp-signup.liquid) and include it in your theme.\n{%- endcomment -%}\n\n<div class=\"mailchimp-signup-container\" style=\"font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; text-align: left;\">\n  <h3 style=\"font-size: 18px; font-weight: normal; margin-bottom: 20px; color: #000;\">\n    Sign up here to get the very first launch notification.\n  </h3>\n\n  <form\n    action=\"https://sheldonandhammond.us19.list-manage.com/subscribe/post?u=edc6e57443056e21d04674ef0&amp;id=ac018335f4&amp;f_id=00b7c2e2f0\"\n    method=\"post\"\n    id=\"mc-embedded-subscribe-form-launch\"\n    name=\"mc-embedded-subscribe-form-launch\"\n    class=\"mc-form-launch\"\n    target=\"_self\"\n    novalidate\n    style=\"display: flex; flex-direction: column; gap: 15px;\"\n  >\n    <input\n      type=\"email\"\n      name=\"EMAIL\"\n      id=\"mce-EMAIL-launch\"\n      class=\"mce-email-launch\"\n      placeholder=\"Your Email Here\"\n      required\n      style=\"padding: 12px; border: 1px solid #ccc; font-size: 16px; width: 100%; box-sizing: border-box;\"\n    >\n\n    <div style=\"display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #666; line-height: 1.4;\">\n      <input\n        type=\"checkbox\"\n        id=\"marketing-consent-launch\"\n        name=\"marketing-consent\"\n        required\n        style=\"margin-top: 2px;\"\n      >\n      <label for=\"marketing-consent-launch\" style=\"margin: 0;\">\n        By providing your email, you agree to receive marketing emails from Osprey Packs. You may unsubscribe at any time.\n      </label>\n    </div>\n\n    <p style=\"font-size: 11px; color: #888; line-height: 1.4; margin: 5px 0;\">\n         <a href=\"#\" style=\"color: #000; text-decoration: underline;\">Privacy Policy & Terms</a>.\n    </p>\n\n    <div style=\"position: absolute; left: -5000px;\" aria-hidden=\"true\">\n      <input type=\"text\" name=\"b_edc6e57443056e21d04674ef0_ac018335f4\" tabindex=\"-1\" value=\"\">\n    </div>\n\n    <input\n      type=\"submit\"\n      name=\"subscribe\"\n      id=\"mc-embedded-subscribe-launch\"\n      class=\"mc-submit-launch\"\n      value=\"SIGN-UP\"\n      style=\"background-color: #000; color: #fff; padding: 15px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; box-sizing: border-box; margin-top: 10px;\"\n    >\n\n    <div id=\"mce-responses-launch\" class=\"mce-responses-launch\" style=\"margin-top: 10px;\">\n      <div class=\"response\" id=\"mce-error-response-launch\" style=\"display: none; color: red; font-size: 14px;\"></div>\n      <div class=\"response\" id=\"mce-success-response-launch\" style=\"display: none; color: green; font-size: 14px;\"></div>\n    </div>\n  </form>\n</div>\n\n<script type=\"text/javascript\">\n  (function() {\n    'use strict';\n    \n    // Unique namespace for launch form\n    var LaunchMailchimp = {\n      initialized: false,\n      \n      init: function() {\n        if (this.initialized) return;\n        \n        var launchForm = document.getElementById('mc-embedded-subscribe-form-launch');\n        if (!launchForm) return;\n        \n        this.initialized = true;\n        this.bindFormSubmit(launchForm);\n      },\n      \n      bindFormSubmit: function(formElement) {\n        var self = this;\n        \n        formElement.addEventListener('submit', function(evt) {\n          evt.preventDefault();\n          evt.stopPropagation();\n          evt.stopImmediatePropagation();\n          \n          self.handleSubmit(formElement);\n          return false;\n        }, true);\n      },\n      \n      handleSubmit: function(formElement) {\n        var errorDiv = document.getElementById('mce-error-response-launch');\n        var successDiv = document.getElementById('mce-success-response-launch');\n        var submitBtn = document.getElementById('mc-embedded-subscribe-launch');\n        var emailInput = document.getElementById('mce-EMAIL-launch');\n        var consentBox = document.getElementById('marketing-consent-launch');\n        \n        // Hide previous messages\n        if (errorDiv) errorDiv.style.display = 'none';\n        if (successDiv) successDiv.style.display = 'none';\n        \n        // Disable button\n        if (submitBtn) {\n          submitBtn.disabled = true;\n          submitBtn.value = 'Submitting...';\n        }\n        \n        // Get email\n        var emailValue = emailInput ? emailInput.value.trim() : '';\n        \n        // Validate email\n        if (!emailValue || emailValue.indexOf('@') === -1) {\n          this.showError(errorDiv, 'Please enter a valid email address.');\n          this.resetButton(submitBtn);\n          return;\n        }\n        \n        // Check consent\n        if (consentBox && !consentBox.checked) {\n          this.showError(errorDiv, 'Please accept the marketing consent to continue.');\n          this.resetButton(submitBtn);\n          return;\n        }\n        \n        // Get honeypot\n        var honeypotField = formElement.querySelector('input[name=\"b_edc6e57443056e21d04674ef0_ac018335f4\"]');\n        var honeypotVal = honeypotField ? honeypotField.value : '';\n        \n        // Submit via JSONP\n        this.submitViaJsonp(emailValue, honeypotVal, formElement, errorDiv, successDiv, submitBtn);\n      },\n      \n      submitViaJsonp: function(email, honeypot, form, errorDiv, successDiv, button) {\n        var self = this;\n        var jsonpUrl = 'https://sheldonandhammond.us19.list-manage.com/subscribe/post-json';\n        var queryParams = '?u=edc6e57443056e21d04674ef0&id=ac018335f4&f_id=00b7c2e2f0' +\n                         '&EMAIL=' + encodeURIComponent(email) +\n                         '&b_edc6e57443056e21d04674ef0_ac018335f4=' + encodeURIComponent(honeypot);\n        \n        var callbackId = 'launchMcCallback' + Date.now() + '_' + Math.floor(Math.random() * 999999);\n        \n        window[callbackId] = function(responseData) {\n          if (responseData.result === 'success') {\n            self.showSuccess(successDiv, 'Thank you for subscribing!');\n            form.reset();\n          } else {\n            var errMsg = 'An error occurred. Please try again.';\n            if (responseData.msg) {\n              if (responseData.msg.toLowerCase().indexOf('already subscribed') !== -1) {\n                errMsg = 'This email is already subscribed.';\n              } else {\n                errMsg = responseData.msg.replace(/<[^>]*>/g, '').replace(/\\d+ - /, '');\n              }\n            }\n            self.showError(errorDiv, errMsg);\n          }\n          \n          self.resetButton(button);\n          self.cleanupJsonp(callbackId, scriptTag);\n        };\n        \n        var scriptTag = document.createElement('script');\n        scriptTag.src = jsonpUrl + queryParams + '&c=' + callbackId;\n        scriptTag.onerror = function() {\n          self.showError(errorDiv, 'Network error. Please try again.');\n          self.resetButton(button);\n          self.cleanupJsonp(callbackId, scriptTag);\n        };\n        \n        document.body.appendChild(scriptTag);\n      },\n      \n      showError: function(element, message) {\n        if (element) {\n          element.innerHTML = message;\n          element.style.display = 'block';\n        }\n      },\n      \n      showSuccess: function(element, message) {\n        if (element) {\n          element.innerHTML = message;\n          element.style.display = 'block';\n        }\n      },\n      \n      resetButton: function(button) {\n        if (button) {\n          button.disabled = false;\n          button.value = 'SIGN-UP';\n        }\n      },\n      \n      cleanupJsonp: function(callbackName, scriptElement) {\n        try {\n          delete window[callbackName];\n          if (scriptElement && scriptElement.parentNode) {\n            scriptElement.parentNode.removeChild(scriptElement);\n          }\n        } catch(err) {\n          // Silent fail\n        }\n      }\n    };\n    \n    // Initialize when DOM is ready\n    if (document.readyState === 'loading') {\n      document.addEventListener('DOMContentLoaded', function() {\n        LaunchMailchimp.init();\n      });\n    } else {\n      LaunchMailchimp.init();\n    }\n  })();\n</script>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "image_text_overlay_UVWG3d": {
+      "type": "Image-text-overlay",
+      "custom_css": [
+        "section.richtext-houdini .richtext-container-houdini {padding-top: 150px; padding-bottom: 140px;}",
+        "@media (max-width: 800px) {section.richtext-houdini {height: 250px; } section.richtext-houdini p {line-height: 2; }}"
+      ],
+      "name": "Image Text Overlay",
+      "settings": {
+        "paragraph": "<p>IN CONSIDERING DESIGN, MATERIALS, MULTIFUNCTIONAL PERFORMANCE, REPAIRABILITY AND END-OF-LIFE IMPACT, WE ARRIVED AT THE NAME ALLT—SWEDISH FOR<br/><strong>“EVERYTHING”</strong></p>",
+        "image": "shopify://shop_images/HOOSUS-2459-blockquote-teaser.webp"
+      }
+    },
+    "two_column_image_info_sections_j46HL3": {
+      "type": "two-column-image-info-sections",
+      "name": "Two Column Sections",
+      "settings": {
+        "image_1": "shopify://shop_images/HOOSUS-2459-teaser-img-2.webp",
+        "heading_1": "",
+        "icon_1": "",
+        "description_1": "",
+        "link_1": "",
+        "link_text_1": "",
+        "image_2": "shopify://shop_images/HOOSUS-2459-teaser-img-1.jpg",
+        "heading_2": "",
+        "icon_2": "",
+        "description_2": "",
+        "link_2": "",
+        "link_text_2": ""
+      }
+    },
+    "shopify_video_banner_GXdXBk": {
+      "type": "shopify-video-banner",
+      "name": "Video banner",
+      "settings": {
+        "video_url": "https://player.vimeo.com/video/1126997723?h=5b863fba65&muted=1&autoplay=1&controls=0&dnt=1&loop=1&background=1&app_id=122963",
+        "banner_height": 45,
+        "mobile_banner_height": 40,
+        "heading": "",
+        "text": "",
+        "button_text": "",
+        "button_url": "",
+        "mobile_heading": "",
+        "mobile_text": "",
+        "mobile_button_text": "",
+        "mobile_button_url": "",
+        "content_bg_color": "#ffffff",
+        "content_text_color": "#000000",
+        "content_padding": 32,
+        "content_border_radius": 8,
+        "heading_size": 28,
+        "text_size": 16,
+        "text_spacing": 16,
+        "button_spacing": 20,
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_hover_color": "#333333",
+        "button_padding_x": 24,
+        "button_padding_y": 12,
+        "button_border_radius": 6,
+        "button_text_size": 14,
+        "mobile_content_bg_color": "#ffffff",
+        "mobile_text_color": "#000000",
+        "mobile_content_padding": 24,
+        "mobile_heading_size": 22,
+        "mobile_text_size": 14,
+        "mobile_text_spacing": 12,
+        "mobile_button_spacing": 16,
+        "mobile_button_bg_color": "#000000",
+        "mobile_button_text_color": "#ffffff",
+        "mobile_button_hover_color": "#333333",
+        "mobile_button_padding_x": 20,
+        "mobile_button_padding_y": 10,
+        "mobile_button_border_radius": 6,
+        "mobile_button_text_size": 14
+      }
+    }
+  },
+  "order": [
+    "main",
+    "header_override_wBUJXg",
+    "image_banner_houdini_eP6cF6",
+    "pages_content_q7ha3A",
+    "17640502273abd0b47",
+    "custom_liquid_G37HAn",
+    "image_text_overlay_UVWG3d",
+    "two_column_image_info_sections_j46HL3",
+    "shopify_video_banner_GXdXBk"
+  ]
+}

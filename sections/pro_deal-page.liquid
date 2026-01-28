@@ -1,0 +1,239 @@
+{{ 'pro_deals-page-style.css' | asset_url | stylesheet_tag }}
+
+<div class="pd_page-container">
+  <div class="pd_page-inner">
+    <div class="eligible_container">
+      <div class="subheading_container">
+        {% if section.settings.subheading != blank %}
+          <h2>{{ section.settings.subheading }}</h2>
+        {% endif %}
+        {% if section.settings.sub_text != blank %}
+          <p>{{ section.settings.sub_text }}</p>
+        {% endif %}
+      </div>
+      <div class="accordion_container">
+        {% for block in section.blocks %}
+          {% if block.type == 'accordion' %}
+            <div class="accordion_item">
+              <div class="accordion_heading" aria-expanded="false">
+                <h3>{{ block.settings.accordion_heading }}</h3>
+                <div class="icon_container">
+                  <div class="icon_open">
+                    {{ 'icon-accordion-open.svg' | inline_asset_content }}
+                  </div>
+                  <div class="icon_close">
+                    {{ 'icon-accordion-close.svg' | inline_asset_content }}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion_content">
+                {{ block.settings.accordion_content }}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="faq_container">
+      <div class="inner_faq-container">
+        {% if section.settings.faq_img != blank %}
+          <style>
+            .faq_img-container {
+              display: block !important;
+              background-image: url('{{ section.settings.faq_img | image_url: width: large }}');
+            }
+          </style>
+          <div class="faq_img-container"></div>
+        {% endif %}
+        <div class="faq_accordion-container">
+          <div class="subheading_container">
+            {% if section.settings.faq_heading != blank %}
+              <h2>{{ section.settings.faq_heading }}</h2>
+            {% endif %}
+            {% if section.settings.faq_sub_text != blank %}
+              <p>{{ section.settings.faq_sub_text }}</p>
+            {% endif %}
+          </div>
+          {% for block in section.blocks %}
+            {% if block.type == 'faq-accordion' %}
+              <div class="accordion_item">
+                <div class="accordion_heading" aria-expanded="false">
+                  <h3>{{ block.settings.faq_accordion_heading }}</h3>
+                  <div class="icon_container">
+                    <div class="icon_open">
+                      {{ 'icon-accordion-open.svg' | inline_asset_content }}
+                    </div>
+                    <div class="icon_close">
+                      {{ 'icon-accordion-close.svg' | inline_asset_content }}
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion_content">
+                  {{ block.settings.faq_accordion_content }}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="guideline_cotnainer">
+      <div class="guideline_inner-container">
+        {% if section.settings.guide_heading != blank %}
+          <h2 class="guideline_heading">{{ section.settings.guide_heading }}</h2>
+        {% endif %}
+        <div class="guideline_content-wrapper">
+          {% if section.settings.guide_content_1 != blank %}
+            <div class="guideline-col">{{ section.settings.guide_content_1 }}</div>
+          {% endif %}
+          {% if section.settings.guide_content_2 != blank %}
+            <div class="guideline-col">{{ section.settings.guide_content_2 }}</div>
+          {% endif %}
+        </div>
+      </div>
+      {% if section.settings.guideline_img != blank %}
+        <div class="img_banner-container">
+          <style>
+            .img_banner-wrapper {
+              display: flex !important;
+              background-image: url('{{ section.settings.guideline_img | image_url: width: large }}');
+            }
+          </style>
+          <div class="img_banner-wrapper">
+            <div class="image_heading-container">
+              <h2>{{ section.settings.guide_img_text }}</h2>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'pro_deals-accordion.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Pro Deals Page",
+  "class": "pro_deal-page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Eligible Section"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Page Subheading",
+      "default": "Enter Subheading"
+    },
+    {
+      "type": "text",
+      "id": "sub_text",
+      "label": "Page subtext",
+      "default": "Enter text"
+    },
+    {
+      "type": "header",
+      "content": "FAQ Section"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "FAQ Heading",
+      "default": "Enter Heading"
+    },
+    {
+      "type": "text",
+      "id": "faq_sub_text",
+      "label": "FAQ subtext",
+      "default": "Enter text"
+    },
+    {
+      "type": "image_picker",
+      "id": "faq_img",
+      "label": "FAQ Image"
+    },
+    {
+      "type": "header",
+      "content": "Guidelines Section"
+    },
+    {
+      "type": "text",
+      "id": "guide_heading",
+      "label": "Guideline Heading",
+      "default": "Enter Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "guide_content_1",
+      "label": "Guideline Content Column 1",
+      "default": "<p>Enter Text</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "guide_content_2",
+      "label": "Guideline Content Column 2",
+      "default": "<p>Enter Text</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "guideline_img",
+      "label": "Image Banner"
+    },
+    {
+      "type": "text",
+      "id": "guide_img_text",
+      "label": "Image Heading",
+      "default": "Enter Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Accordion Content"
+        },
+        {
+          "type": "text",
+          "id": "accordion_heading",
+          "label": "Accordion Header",
+          "default": "Enter Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "accordion_content",
+          "label": "Accordion Content",
+          "default": "<p>Enter Content for accordion Here</p>"
+        }
+      ]
+    },
+    {
+      "type": "faq-accordion",
+      "name": "FAQ Accordion",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Accordion Content"
+        },
+        {
+          "type": "text",
+          "id": "faq_accordion_heading",
+          "label": "Accordion Header",
+          "default": "Enter Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "faq_accordion_content",
+          "label": "Accordion Content",
+          "default": "<p>Enter Content for accordion Here</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Pro Deal Page", "category": "Pro Deal" }]
+}
+{% endschema %}

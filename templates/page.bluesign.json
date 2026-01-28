@@ -1,0 +1,171 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header_override_qYhthB": {
+      "type": "header-override",
+      "name": "Header Override",
+      "settings": {
+        "override_enabled": true,
+        "header_position": "absolute",
+        "header_background": "black-transparent",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "transparent"
+      }
+    },
+    "blue_sign_page_AM6Cye": {
+      "type": "blue-sign-page",
+      "blocks": {
+        "progress_item_aqTCdy": {
+          "type": "progress_item",
+          "settings": {
+            "percentage": 0,
+            "season": "FALL 2023"
+          }
+        },
+        "progress_item_ffwA9P": {
+          "type": "progress_item",
+          "settings": {
+            "percentage": 47,
+            "season": "SPRING 2024"
+          }
+        },
+        "progress_item_EXzrY8": {
+          "type": "progress_item",
+          "settings": {
+            "percentage": 68,
+            "season": "FALL 2024"
+          }
+        },
+        "progress_item_mPNABB": {
+          "type": "progress_item",
+          "settings": {
+            "percentage": 83,
+            "season": "SPRING 2025"
+          }
+        },
+        "standard_item_MTEApw": {
+          "type": "standard_item",
+          "settings": {
+            "title": "THROUGH CHEMISTRY",
+            "image": "shopify://shop_images/F23_Holiday_High_Camp-27_1.jpg",
+            "point_1": "We use safer chemicals in our manufacturing process.",
+            "point_2": "bluesign® ensures restricted substances are not used.",
+            "point_3": "Continuous improvement for chemical management.",
+            "source_text": "bluesign.com",
+            "source_url": "https://www.bluesign.com"
+          }
+        },
+        "standard_item_3WVHAD": {
+          "type": "standard_item",
+          "settings": {
+            "title": "THROUGH SOCIAL RESPONSIBILITY",
+            "image": "shopify://shop_images/Bluesign_BG_2.jpg",
+            "point_1": "bluesign® SYSTEM PARTNERS are duty-bound to provide a safe workplace for employees.",
+            "point_2": "bluesign® SYSTEM PARTNERS confirm compliance with principles and rights at work from selected International Labour Organization conventions",
+            "point_3": "bluesign® SYSTEM PARTNERS must apply chemical change management, excellent process control and follow restrictions and bans for substances in chemical products to ensure a high level of consumer safety.",
+            "source_text": "bluesign® criteria for production sites",
+            "source_url": "https://www.bluesign.com/downloads/criteria-2020/bluesign_criteria_for_production-sites_v3.0_2020-03.pdf"
+          }
+        },
+        "designation_item_rUz7pW": {
+          "type": "designation_item",
+          "settings": {
+            "title": "bluesign® APPROVED MATERIALS",
+            "logo": "shopify://shop_images/bluesign_approved_RGB_4.jpg",
+            "point_1": "Textiles and components carrying the bluesign® APPROVED label meet the strict safety and environmental requirements of the bluesign® CRITERIA.",
+            "point_2": "Designed to keep harmful substances on the bluesign® SYSTEM SUBSTANCE LIST out of the manufacturing process at each step of the supply chain",
+            "point_3": "Ensures approved chemical products and raw materials are used throughout the value chain",
+            "point_4": "Guarantees a high level of consumer safety",
+            "point_5": "Promotes responsible use of resources",
+            "point_6": ""
+          }
+        },
+        "designation_item_NqdwzV": {
+          "type": "designation_item",
+          "settings": {
+            "title": "bluesign® PRODUCT",
+            "logo": "shopify://shop_images/bluesign_product_RGB_1.jpg",
+            "point_1": "Consumer products carrying the bluesign® PRODUCT label meet the strict safety and environmental requirements of the bluesign CRITERIA, as a whole.",
+            "point_2": "These products are made of bluesign® APPROVED fabric and components and are produced in a resource-conserving way to lower the impact on people and the environment.",
+            "point_3": "A minimum of 90% bluesign® APPROVED fabrics/yarns",
+            "point_4": "A minimum of 20% bluesign® APPROVED components",
+            "point_5": "Any remaining fabrics, materials or components must come from a qualified supplier",
+            "point_6": "Manufacturing adheres to selected International Labour Organization standard"
+          }
+        }
+      },
+      "block_order": [
+        "progress_item_aqTCdy",
+        "progress_item_ffwA9P",
+        "progress_item_EXzrY8",
+        "progress_item_mPNABB",
+        "standard_item_MTEApw",
+        "standard_item_3WVHAD",
+        "designation_item_rUz7pW",
+        "designation_item_NqdwzV"
+      ],
+      "name": "Bluesign Information",
+      "settings": {
+        "hero_bg_desktop": "shopify://shop_images/hero-bludesign-hoosus-673.jpg",
+        "hero_bg_mobile": "shopify://shop_images/HOOSE-1315-top-bg-mobile.jpg",
+        "hero_icon": "shopify://shop_images/bluesign-83-percent-2_92e42d9a-bae6-41ba-8b56-9dd5e453b49a.png",
+        "hero_text": "Of our Spring '25 full product line is made of bluesign® PRODUCTS.",
+        "main_pretitle": "What Is It and Why Does It Matter?",
+        "main_title": "THE bluesign® SYSTEM",
+        "main_description": "<p>The bluesign® system is the solution for a sustainable textile industry. It eliminates harmful substances right from the beginning of the manufacturing process and sets and controls standards for an environmentally friendly and safe production.</p><p>This not only ensures that the final textile product meets very stringent consumer safety requirements worldwide but also provides confidence to the consumer to acquire a sustainable product.</p>",
+        "portrait_image": "shopify://shop_images/HOOSE-1315-grid-1_47484e61-d45e-4a0e-a0f8-ee584ccee998.jpg",
+        "landscape_image": "shopify://shop_images/HOOSE-1315-grid-2_b04349c5-34ef-4b65-89eb-08c4d94610c0.jpg",
+        "partner_bg_desktop": "shopify://shop_images/brick-fixed-background-hoosus-673_9af33713-8f9a-47cc-88d7-96fae4211da6.jpg",
+        "partner_bg_mobile": "shopify://shop_images/HOOSE-1315-bluesign-bg-mobile.jpg",
+        "partner_logo": "shopify://shop_images/bluesign-83-percent-2_92e42d9a-bae6-41ba-8b56-9dd5e453b49a.png",
+        "partner_title": "bluesign® SYSTEM PARTNER Since 2021",
+        "partner_description": "<p>We are proud to be a bluesign® system partner since 2021, working together to reduce the environmental impact of the textile industry and promote safer, more sustainable products.</p>",
+        "video_url": "https://player.vimeo.com/video/1080133880",
+        "video_thumbnail": "shopify://shop_images/HOOSE-1315-video-bg.jpg",
+        "video_title": "Play video",
+        "video_alt_text": "Play video",
+        "video_bg_desktop": "shopify://shop_images/HOOSE-1315-video-bg.jpg",
+        "video_bg_mobile": "shopify://shop_images/HOOSE-1315-video-bg-mobile_2.jpg",
+        "discover_bg_desktop": "shopify://shop_images/HOOSE-1315-discover.jpg",
+        "discover_bg_mobile": "shopify://shop_images/HOOSE-1315-discover-mobile.jpg",
+        "discover_title": "DISCOVER OUR bluesign® APPROVED GEAR",
+        "discover_subtitle": "Made with safer chemicals, reduced water use, and lower emissions.",
+        "discover_button_text": "",
+        "discover_button_url": "",
+        "progress_bg_desktop": "shopify://shop_images/HOOSE-1315-progress-bg.jpg",
+        "progress_bg_mobile": "shopify://shop_images/HOOSE-1315-progress-bg-mobile.jpg",
+        "progress_title": "Our Seasonal Progress",
+        "progress_subtitle": "Percentage of bluesign® PRODUCTS in our full line.*",
+        "progress_note": "*Percentages are based on the number of styles offered for a particular season.",
+        "standards_title": "THE bluesign® SYSTEM HELPS US IDENTIFY AND UPHOLD STRINGENT STANDARDS...",
+        "designations_title": "bluesign DESIGNATIONS",
+        "designations_description": "<p>bluesign® designations help consumers identify products that meet the highest standards for environmental health and safety.</p>",
+        "designations_footer": "<p>Shifting main body panels and liners to bluesign® APPROVED fabric was a key first step toward lessening our impact. Today, a vast majority of our products use bluesign® APPROVED fabric, disclosed on our product pages and hangtags.</p>",
+        "cta_bg_desktop": "shopify://shop_images/Downburst_F23_Holz_WA--58_1_1.webp",
+        "cta_bg_mobile": "shopify://shop_images/Downburst_F23_Holz_WA--58_2_1.jpg",
+        "cta_title": "bluesign® IS A KEY PARTNER IN OUR COMMITMENT TO REDUCING ENVIRONMENTAL IMPACTS AND PRODUCING MORE SUSTAINABLY DESIGNED PRODUCTS.",
+        "cta_button_text": "SHOP bluesign® PRODUCTS",
+        "cta_button_url": "",
+        "footer_note": "<p>We are committed to transparency and continuous improvement in our sustainability journey. bluesign® is a registered trademark of bluesign technologies ag.</p>"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "header_override_qYhthB",
+    "blue_sign_page_AM6Cye",
+    "main"
+  ]
+}

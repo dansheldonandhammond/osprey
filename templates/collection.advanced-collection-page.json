@@ -1,0 +1,88 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header_override_YQY9jJ": {
+      "type": "header-override",
+      "settings": {
+        "override_enabled": true,
+        "header_position": "relative",
+        "header_background": "black",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "transparent"
+      }
+    },
+    "collection_2_columns_T7qAaJ": {
+      "type": "Collection_2_columns",
+      "name": "Banner Section",
+      "settings": {
+        "banner_layout": "one_column",
+        "banner_image_heading": "{{ collection.title }}",
+        "banner_image_url": "{{ collection.image }}",
+        "alt_text": "{{ collection.title }} Banner image",
+        "banner_image_x_axis": 50,
+        "banner_image_y_axis": 50,
+        "banner_text_center": true,
+        "control_banner_image_height": false,
+        "banner_image_height": 500,
+        "banner_border_bottom": false,
+        "banner_overlay": true,
+        "button_bg_colour": "white",
+        "button_text_colour": "black",
+        "banner_background_colour": "black",
+        "banner_text_colour": "white"
+      }
+    },
+    "breadcrumbs_wXfkMU": {
+      "type": "breadcrumbs",
+      "settings": {
+        "bg_color": "#ffffff",
+        "text_color": "#000000"
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "enable_load_more": true,
+        "products_per_page": 16,
+        "columns_desktop": 3,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "enable_filtering": true,
+        "filter_type": "vertical",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "header_override_YQY9jJ",
+    "collection_2_columns_T7qAaJ",
+    "breadcrumbs_wXfkMU",
+    "banner",
+    "product-grid"
+  ]
+}

@@ -1,0 +1,121 @@
+{% assign paragraph = section.settings.paragraph %}
+{% assign image = section.settings.image %}
+{% if paragraph != blank or image != blank %}
+  {% style %}
+
+
+    /* Target rich text elements inside .text_overlay */
+    .text_overlay .overlay_container p {
+      width: 90%;
+    }
+
+    .overlay_container {
+      line-height: 0 !important;
+    }
+
+    .text_overlay p {
+      margin: 0;
+      padding: 0;
+      line-height: inherit;
+      letter-spacing: inherit;
+      font-size: inherit;
+      font-weight: 300;
+      text-align: inherit;
+      color: inherit;
+      display: inline;
+    }
+
+    .text_overlay i {
+      margin: 0;
+      padding: 0;
+      line-height: inherit;
+      letter-spacing: inherit;
+      font-size: inherit;
+      font-weight: 100;
+      text-align: inherit;
+      color: inherit;
+      display: inline;
+    }
+
+    .text_overlay strong {
+      font-weight: 800;
+      color: inherit;
+      line-height: inherit;
+    }
+    .text_overlay br {
+      line-height: inherit;
+    }
+  {% endstyle %}
+  <section class="t-relative overlay_container richtext-houdini">
+    <img
+      class="
+        t-h-full t-w-full
+        t-max-h-[70vh] sm:t-max-h-[60vh] md:t-max-h-[50vh] lg:t-max-h-[600px]
+        t-object-cover
+      "
+      src="{{ image | img_url: 'master' }}"
+      alt="{{ image.alt | escape }}"
+    >
+    {% if paragraph != blank %}
+      <div
+        class="richtext-container-houdini
+          text_overlay
+          t-absolute t-left-[50%] t-top-[50%] t-translate-x-[-50%] t-translate-y-[-50%] t-w-full
+          t-text-white t-text-center t-font-[100]
+          t-text-[16px] sm:t-text-[18px] md:t-text-[20px] lg:t-text-[25px] xl:t-text-[30px]
+          t-leading-[140%] sm:t-leading-[150%] md:t-leading-[160%] lg:t-leading-[180%] xl:t-leading-[200%]
+          t-tracking-[0.5px] sm:t-tracking-[1px] md:t-tracking-[2px] lg:t-tracking-[3px] xl:t-tracking-[4px]
+          t-max-w-[90%] sm:t-max-w-[85%] md:t-max-w-[80%] lg:t-max-w-[75%] xl:t-max-w-[1000px]
+          t-px-[15px] sm:t-px-[20px] md:t-px-[25px] lg:t-px-[30px]
+          t-box-border
+        "
+      >
+        {{ paragraph }}
+      </div>
+    {% endif %}
+  </section>
+{% else %}
+  <section class="t-relative t-h-full t-w-full t-max-h-[70vh] sm:t-max-h-[60vh] md:t-max-h-[50vh]">
+    <img
+      class="t-h-full t-w-full t-object-cover"
+      src="https://via.placeholder.com/600x400/000000/FFFFFF?"
+      alt="Placeholder image"
+    >
+    {% if paragraph != blank %}
+      <p
+        class="
+          t-absolute t-left-[50%] t-top-[50%] t-translate-x-[-50%] t-translate-y-[-50%]
+          t-leading-[150%] t-max-w-[90%] t-text-black t-px-[15px]
+        "
+      >
+        No content yet.
+      </p>
+    {% endif %}
+  </section>
+{% endif %}
+{% schema %}
+{
+  "name": "Image Text Overlay",
+  "tag": "section",
+  "class": "text_overlay_section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "paragraph",
+      "label": "Paragraph",
+      "default": "<p>Enter your text here...</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Text Overlay",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

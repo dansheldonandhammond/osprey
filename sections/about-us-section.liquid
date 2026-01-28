@@ -1,0 +1,788 @@
+<style>
+  .section-padding {
+    padding-top: 27px;
+    padding-bottom: 27px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-padding {
+      padding-top: 36px;
+      padding-bottom: 36px;
+    }
+  }
+
+  .video-section {
+    isolation: isolate;
+  }
+
+  .video-section.page-width {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .title-wrapper {
+    margin-bottom: 2rem;
+  }
+
+  .title-wrapper--no-top-margin {
+    margin-top: 0;
+  }
+
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+    color: #121212;
+  }
+
+  .video-section__media {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .deferred-media {
+    display: block !important;
+    clear: both !important; /* ensures it starts below floated/grid items */
+    position: relative; /* already there, keeps aspect-ratio safe */
+    z-index: 0 !important ; /* don’t let it float above other blocks */
+  }
+
+  .video-section__poster {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .video-section__poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .deferred-media__poster-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .video-section__poster:hover .deferred-media__poster-button {
+    background: rgba(255, 255, 255, 1);
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .svg-wrapper {
+    width: 24px;
+    height: 24px;
+    margin-left: 4px;
+  }
+
+  .icon-play {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+
+  .color-scheme-1 {
+    background: #ffffff;
+  }
+
+  /* Modal Styles */
+  .video-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .video-modal.active {
+    display: flex;
+  }
+
+  .video-modal__container {
+    position: relative;
+    width: 100%;
+    max-width: 80vw;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+
+  .video-modal__iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .video-modal__close {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    line-height: 1;
+    z-index: 10000;
+  }
+
+  .video-modal__close:hover {
+    opacity: 0.7;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .video-modal__container {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .video-modal__close {
+      top: -40px;
+      font-size: 20px;
+    }
+  }
+
+  /* Body scroll lock when modal is open */
+  body.modal-open {
+    overflow: hidden;
+  }
+</style>
+{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'hero_header' %}
+      <div
+        class="t-h-[440px] t-w-full t-relative t-bg-cover t-bg-no-repeat t-mb-[50px]"
+        {% if block.settings.hero_background_image %}
+          style="background-image: url('{{ block.settings.hero_background_image | img_url: '1920x440' }}');"
+        {% endif %}
+      >
+        <div class="t-absolute t-top-1/2 t-left-1/2 t-translate-x-[-50%] t-translate-y-[-50%] t-mx-auto">
+          <div
+            class="t-block t-bg-black t-top-0 t-bottom-0 t-left-0 t-right-0 t-absolute"
+            style="opacity: {{ block.settings.overlay_opacity | default: 70 | divided_by: 100.0 }};"
+          ></div>
+          <h2 class="t-text-white t-text-[36px] lg:t-text-[60px] xl:t-text-[80px] lg:t-text-[80px] t-relative t-p-[20px] t-rounded-none t-font-[600] t-text-center t-my-0">
+            {{ block.settings.hero_title | default: 'Who Are We' }}
+          </h2>
+        </div>
+      </div>
+
+    {% when 'our_roots' %}
+      <div class="t-block md:t-hidden t-mx-[20px] t-pb-[10px]">
+        <h1 class="lg:t-text-[60px] t-mt-0 t-mb-[15px] t-text-[36px] t-font-[600]">
+          {{ block.settings.section_title | default: 'OUR ROOTS' }}
+        </h1>
+        {% if block.settings.content_paragraph_1 %}
+          <p class="t-leading-[1.4]">{{ block.settings.content_paragraph_1 }}</p>
+        {% endif %}
+        {% if block.settings.content_paragraph_2 %}
+          <p class="t-leading-[1.4]">{{ block.settings.content_paragraph_2 }}</p>
+        {% endif %}
+        {% if block.settings.content_paragraph_3 %}
+          <p class="t-leading-[1.4]">{{ block.settings.content_paragraph_3 }}</p>
+        {% endif %}
+      </div>
+      <div class="t-mx-auto t-relative lg:t-max-w-[1300px] t-mx-auto">
+        <div class="t-max-h-[500px] md:t-max-h-[800px] lg:t-max-h-[1023px] t-mx-[0] xl:t-mx-[62px] t-px-[20px] t-border-box t-grid t-grid-cols-12 t-grid-rows-12 t-gap-[20px] t-box-border">
+          {% if block.settings.portrait_image %}
+            <img
+              class="t-row-span-12 t-h-full t-row-start-1 t-col-start-1 md:t-col-end-7 t-col-end-9 t-object-cover t-object-top t-w-full t-h-full lg:t-mt-[50px]"
+              src="{{ block.settings.portrait_image | img_url: '640x900' }}"
+              alt="{{ block.settings.portrait_alt_text | default: '' }}"
+            >
+          {% endif %}
+
+          <div class="t-hidden md:t-block t-row-span-10 lg:t-row-span-4 t-row-start-1 t-col-start-7 t-col-end-13 xl:t-ms-[40px] t-relative t-h-full">
+            <h1 class="lg:t-text-[60px] t-mt-0 t-mb-[15px] t-text-[36px] t-font-[600]">
+              {{ block.settings.section_title | default: 'OUR ROOTS' }}
+            </h1>
+            {% if block.settings.content_paragraph_1 %}
+              <p class="t-leading-[1.4]">{{ block.settings.content_paragraph_1 }}</p>
+            {% endif %}
+            {% if block.settings.content_paragraph_2 %}
+              <p class="t-leading-[1.4]">{{ block.settings.content_paragraph_2 }}</p>
+            {% endif %}
+            {% if block.settings.content_paragraph_3 %}
+              <p class="t-leading-[1.4]">{{ block.settings.content_paragraph_3 }}</p>
+            {% endif %}
+          </div>
+
+          {% if block.settings.landscape_image %}
+            <img
+              src="{{ block.settings.landscape_image | img_url: '960x540' }}"
+              alt="{{ block.settings.landscape_alt_text | default: '' }}"
+              class="t-mt-[18px] t-w-full t-object-contain t-row-start-9 md:t-row-start-8 lg:t-row-start-8 xl:t-row-start-7 t-row-span-3 lg:t-row-span-12 xl:t-row-span-11 t-col-start-2 lg:t-col-start-5 t-col-end-13 t-mb-[0px] xl:t-mb-[80px]"
+            >
+          {% endif %}
+        </div>
+      </div>
+
+    {% when 'video_section' %}
+      {% assign video_url = block.settings.video_url %}
+      {% assign video_id = video_url %}
+      {% if video_url contains 'vimeo.com' %}
+        {% assign parts = video_url | split: '/' %}
+        {% for part in parts %}
+          {% if part contains 'vimeo.com' %}
+            {% continue %}
+          {% elsif part == '' %}
+            {% continue %}
+          {% else %}
+            {% assign video_id = part | split: '?' | first %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      <div
+        class=" deferred-media gradient lg:t-max-w-[1105px] xl:t-max-w-[1300px] t-mx-auto t-aspect-video t-py-0 t-leading-[0] t-mt-[90px] lg:t-mt-[0] "
+        style="margin-top: {{ block.settings.section_padding_top | default: 40 }}px; margin-bottom: {{ block.settings.section_padding_bottom | default: 40 }}px; padding-top: {{ block.settings.section_padding_top | default: 40 }}px; padding-bottom: {{ block.settings.section_padding_bottom | default: 40 }}px;"
+        data-media-id="{{ video_id }}"
+      >
+        <button
+          id="video-poster-{{ video_id }}"
+          class="video-section__poster t-leading-0"
+          type="button"
+          aria-label="{% if block.settings.video_title %}Load video: {{ block.settings.video_title }}{% else %}Play video{% endif %}"
+          onclick="openVideoModal(this)"
+        >
+          {% if block.settings.video_thumbnail %}
+            <img
+              src="{{ block.settings.video_thumbnail | img_url: '1280x720' }}"
+              alt="{{ block.settings.video_alt_text | default: 'Play video' }}"
+              loading="lazy"
+              width="1280"
+              height="720"
+            >
+          {% elsif video_id != blank %}
+            <img
+              src="https://i.vimeocdn.com/video/{{ video_id }}-d?mw=1280"
+              alt="{{ block.settings.video_alt_text | default: 'Play video' }}"
+              loading="lazy"
+              width="1280"
+              height="720"
+            >
+          {% else %}
+            <div style="width: 100%; height: 100%; background: #000; color: white; display: flex; align-items: center; justify-content: center;">
+              Video not available
+            </div>
+          {% endif %}
+          <span class="deferred-media__poster-button">
+            <span class="svg-wrapper">
+              <svg aria-hidden="true" focusable="false" class="icon-play" viewBox="0 0 18 18">
+                <path d="m4.5 1.5 9 7.5-9 7.5V1.5z" fill="currentColor"/>
+              </svg>
+            </span>
+          </span>
+        </button>
+      </div>
+
+    {% when 'two_column_content' %}
+      <div
+        class="t-mx-auto t-flex t-justify-center t-items-center t-flex-col {% if block.settings.layout == 'image_right' %}md:t-flex-row-reverse{% else %}md:t-flex-row{% endif %} t-gap-8 xl:t-max-w-[1300px] lg:t-max-w-[1105px] t-mx-auto t-px-[20px]"
+        style="margin-top: {{ block.settings.section_margin_top | default: 50 }}px; margin-bottom: {{ block.settings.section_margin_bottom | default: 50 }}px;"
+      >
+        {% if block.settings.section_image %}
+          <img
+            class="md:t-w-1/2 t-w-full"
+            src="{{ block.settings.section_image | img_url: '600x400' }}"
+            alt="{{ block.settings.image_alt_text | default: '' }}"
+          >
+        {% endif %}
+        <div class="md:t-w-1/2 t-w-full t-flex t-flex-col t-justify-center">
+          {% if block.settings.section_title %}
+            <h2 class="t-text-[32px] lg:t-text-[48px] t-font-bold t-mb-[10px] t-mt-0">
+              {{ block.settings.section_title }}
+            </h2>
+          {% endif %}
+          <div class="t-space-y-4">
+            {% if block.settings.content_paragraph_1 %}
+              <p class="t-text-lg">{{ block.settings.content_paragraph_1 }}</p>
+            {% endif %}
+            {% if block.settings.content_paragraph_2 %}
+              <p class="t-text-lg">{{ block.settings.content_paragraph_2 }}</p>
+            {% endif %}
+            {% if block.settings.show_highlight_text and block.settings.highlight_text %}
+              <p class="t-text-[28px] t-font-semibold t-text-gray-800 t-tracking-wide">
+                {{ block.settings.highlight_text }}
+              </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+    {% when 'mission_statement' %}
+      <div
+        class="t-w-full t-relative"
+        style="height: auto; margin-bottom: {{ block.settings.section_margin_bottom | default: 50 }}px;"
+      >
+        {% if block.settings.background_image %}
+          <img
+            src="{{ block.settings.background_image | img_url: '1920x600' }}"
+            class="t-w-full t-object-contain"
+            alt="Mission Statement Background"
+          >
+        {% endif %}
+        <div class="t-absolute t-top-1/2 t-left-1/2 t-translate-x-[-50%] t-translate-y-[-50%] t-mx-auto t-max-w-[80%] md:t-max-w-[60%] lg:t-max-w-[952px] t-w-full t-flex t-items-center t-justify-center t-box-border">
+          <div
+            class="t-block t-bg-black t-top-0 t-bottom-0 t-left-0 t-right-0 t-absolute t-box-border"
+            style="opacity: {{ block.settings.overlay_opacity | default: 70 | divided_by: 100.0 }};"
+          ></div>
+          <h2
+            class="t-w-full t-text-[23px] t-relative t-rounded-none t-font-[600] t-text-center t-px-[20px] t-box-border"
+            style="color: {{ block.settings.text_color | default: '#ffffff' }};"
+          >
+            {% if block.settings.mission_label %}
+              <span class="t-block">{{ block.settings.mission_label }}</span>
+            {% endif %}
+            {{
+              block.settings.mission_text
+              | default: 'WE RELENTLESSLY INNOVATE TO EASE YOUR JOURNEY AND INSPIRE ADVENTURE'
+            }}
+          </h2>
+        </div>
+      </div>
+  {% endcase %}
+{% endfor %}
+
+<!-- Video Modal -->
+<div id="video-modal" class="video-modal" onclick="closeModalOnOverlay(event)">
+  <div class="video-modal__container">
+    <button class="video-modal__close" onclick="closeVideoModal()" aria-label="Close video">✕</button>
+    <iframe
+      id="video-iframe"
+      class="video-modal__iframe"
+      src=""
+      allow="autoplay; fullscreen; encrypted-media"
+      allowfullscreen
+      title="Video Player"
+    ></iframe>
+  </div>
+</div>
+
+<script>
+  function openVideoModal(button) {
+    const modal = document.getElementById('video-modal');
+    const iframe = document.getElementById('video-iframe');
+    const deferredMedia = button.closest('.deferred-media');
+    const mediaId = deferredMedia.getAttribute('data-media-id');
+    if (!mediaId) {
+      console.error('No video ID found');
+      return;
+    }
+    // Use the correct Vimeo embed URL with autoplay and muted
+    iframe.src = `https://player.vimeo.com/video/${mediaId}?autoplay=1&muted=1`;
+    modal.classList.add('active');
+    document.body.classList.add('modal-open');
+  }
+
+  function closeVideoModal() {
+    const modal = document.getElementById('video-modal');
+    const iframe = document.getElementById('video-iframe');
+    // Hide modal
+    modal.classList.remove('active');
+    // Stop video by clearing src
+    iframe.src = '';
+    // Unlock body scroll
+    document.body.classList.remove('modal-open');
+  }
+
+  function closeModalOnOverlay(event) {
+    // Close modal only if clicking on the overlay (not the video container)
+    if (event.target === event.currentTarget) {
+      closeVideoModal();
+    }
+  }
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      const modal = document.getElementById('video-modal');
+      if (modal.classList.contains('active')) {
+        closeVideoModal();
+      }
+    }
+  });
+
+  // Optional: Improve Vimeo thumbnail quality on page load
+  async function getVimeoThumbnail(videoId) {
+    try {
+      const response = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${videoId}&width=1280`);
+      const data = await response.json();
+      return data.thumbnail_url;
+    } catch (error) {
+      console.error('Failed to fetch Vimeo thumbnail:', error);
+      return `https://i.vimeocdn.com/video/default-portrait_300x300.jpg`;
+    }
+  }
+
+  // Function to improve thumbnail quality on page load
+  document.addEventListener('DOMContentLoaded', function () {
+    const videoPosters = document.querySelectorAll('[data-media-id] img[src*="vimeocdn.com"]');
+    videoPosters.forEach(async (img) => {
+      const container = img.closest('[data-media-id]');
+      const videoId = container?.dataset.mediaId;
+      if (videoId) {
+        try {
+          const betterThumbnail = await getVimeoThumbnail(videoId);
+          if (betterThumbnail) {
+            img.src = betterThumbnail;
+          }
+        } catch (error) {
+          console.log('Using fallback thumbnail for video:', videoId);
+        }
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Who Are We",
+  "class": "who-are-we-page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Settings"
+    },
+    {
+      "type": "text",
+      "id": "page_title",
+      "label": "Page Title",
+      "default": "Who Are We"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hero_header",
+      "name": "Hero Header",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "hero_background_image",
+          "label": "Background Image",
+          "info": "Recommended size: 1920x440px"
+        },
+        {
+          "type": "text",
+          "id": "hero_title",
+          "label": "Hero Title",
+          "default": "Who Are We"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "Background Overlay Opacity",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "%",
+          "default": 70
+        }
+      ]
+    },
+    {
+      "type": "our_roots",
+      "name": "Our Roots Section",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "OUR ROOTS"
+        },
+        {
+          "type": "image_picker",
+          "id": "portrait_image",
+          "label": "Portrait Image",
+          "info": "Recommended size: 640x900px (portrait orientation)"
+        },
+        {
+          "type": "text",
+          "id": "portrait_alt_text",
+          "label": "Portrait Image Alt Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "landscape_image",
+          "label": "Landscape Image",
+          "info": "Recommended size: 960x540px (landscape orientation)"
+        },
+        {
+          "type": "text",
+          "id": "landscape_alt_text",
+          "label": "Landscape Image Alt Text"
+        },
+        {
+          "type": "richtext",
+          "id": "content_paragraph_1",
+          "label": "First Paragraph",
+          "default": "<p>Since Osprey was founded in 1974, every single product design has passed through the hands of owner and founder Mike Pfotenhauer, who created his first backpack at age 16.</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "content_paragraph_2",
+          "label": "Second Paragraph",
+          "default": "<p>In Santa Cruz, California, the young entrepreneur opened a retail shop in the front of his rental house where backpackers and travelers came for custom-fit, made-to-order packs constructed over several days by Mike himself. As the demand for the great-fitting packs increased, Osprey found itself relocating to its current home in Southwest Colorado.</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "content_paragraph_3",
+          "label": "Third Paragraph",
+          "default": "<p>Today, Osprey is a melting pot of diverse personalities, backgrounds and abilities. All share the common belief that adventure is open to everyone and found anywhere.</p>"
+        }
+      ]
+    },
+    {
+      "type": "video_section",
+      "name": "Video Section",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL",
+          "info": "Enter Vimeo video ID (e.g., 876062396) or full Vimeo URL"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_thumbnail",
+          "label": "Video Thumbnail Image",
+          "info": "Custom thumbnail image. If empty, will use Vimeo's default thumbnail"
+        },
+        {
+          "type": "text",
+          "id": "video_alt_text",
+          "label": "Video Thumbnail Alt Text",
+          "default": "Play video"
+        },
+        {
+          "type": "text",
+          "id": "video_title",
+          "label": "Video Title",
+          "info": "For accessibility - screen readers will announce this title"
+        },
+        {
+          "type": "range",
+          "id": "section_padding_top",
+          "label": "Section Padding Top",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "section_padding_bottom",
+          "label": "Section Padding Bottom",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "px",
+          "default": 40
+        }
+      ]
+    },
+    {
+      "type": "two_column_content",
+      "name": "Two Column Content",
+      "settings": [
+        {
+          "type": "select",
+          "id": "layout",
+          "label": "Layout",
+          "options": [
+            {
+              "value": "image_left",
+              "label": "Image Left, Text Right"
+            },
+            {
+              "value": "image_right",
+              "label": "Image Right, Text Left"
+            }
+          ],
+          "default": "image_left"
+        },
+        {
+          "type": "image_picker",
+          "id": "section_image",
+          "label": "Section Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt_text",
+          "label": "Image Alt Text"
+        },
+        {
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Our Values"
+        },
+        {
+          "type": "richtext",
+          "id": "content_paragraph_1",
+          "label": "First Paragraph"
+        },
+        {
+          "type": "richtext",
+          "id": "content_paragraph_2",
+          "label": "Second Paragraph (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "highlight_text",
+          "label": "Highlight Text",
+          "info": "Large emphasized text (optional)",
+          "default": "INNOVATION. INTEGRITY. QUALITY. RESPECT. STEWARDSHIP."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_highlight_text",
+          "label": "Show Highlight Text",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "section_margin_top",
+          "label": "Section Margin Top",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "px",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "label": "Section Margin Bottom",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "px",
+          "default": 50
+        }
+      ]
+    },
+    {
+      "type": "mission_statement",
+      "name": "Mission Statement",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image",
+          "info": "Full-width background image for mission statement"
+        },
+        {
+          "type": "text",
+          "id": "mission_label",
+          "label": "Mission Label",
+          "default": "OUR MISSION:"
+        },
+        {
+          "type": "textarea",
+          "id": "mission_text",
+          "label": "Mission Statement",
+          "default": "WE RELENTLESSLY INNOVATE TO EASE YOUR JOURNEY AND INSPIRE ADVENTURE"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "Background Overlay Opacity",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "%",
+          "default": 70
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "section_margin_bottom",
+          "label": "Section Bottom Margin",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "px",
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Who Are We Page",
+      "blocks": [
+        {
+          "type": "hero_header"
+        },
+        {
+          "type": "our_roots"
+        },
+        {
+          "type": "video_section"
+        },
+        {
+          "type": "two_column_content",
+          "settings": {
+            "section_title": "OUR VALUES",
+            "content_paragraph_1": "<p>Developed by Osprey employees, these guiding principles are our moral compass and an honest representation of our entire company.</p>",
+            "highlight_text": "INNOVATION. INTEGRITY. QUALITY. RESPECT. STEWARDSHIP.",
+            "layout": "image_left"
+          }
+        },
+        {
+          "type": "video_section"
+        },
+        {
+          "type": "two_column_content",
+          "settings": {
+            "section_title": "ALL MIGHTY GUARANTEE",
+            "content_paragraph_1": "<p>Osprey will repair any damage or defect for any reason free of charge-whether it was purchased in 1974 or yesterday.</p>",
+            "layout": "image_left",
+            "show_highlight_text": false
+          }
+        },
+        {
+          "type": "mission_statement"
+        }
+      ],
+      "category": "page-sections"
+    }
+  ]
+}
+{% endschema %}

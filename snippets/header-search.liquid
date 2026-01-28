@@ -20,41 +20,55 @@
           height="22"
           viewBox="0 0 819 823"
           fill="none"
-          class="t-h-full"
+          class="t-h-full search-icon"
           role="img"
         >
           <path d="M316.6 0.25C491.4 0.25 633.2 142 633.2 316.84C633.2 391.08 607.6 459.35 564.8 513.34L818.4 765.17L760.9 823L506.4 570.23C453.5 609.92 387.8 633.43 316.6 633.43C141.7 633.43 0 491.69 0 316.84C0 142 141.7 0.26 316.6 0.26V0.25ZM316.6 81.76C186.8 81.76 81.5 187.01 81.5 316.84C81.5 446.67 186.8 551.92 316.6 551.92C446.4 551.92 551.7 446.67 551.7 316.84C551.7 187.01 446.4 81.76 316.6 81.76Z" fill="currentColor" />
           <title>Search</title>
         </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          class="t-h-full close-icon t-hidden"
+          role="img"
+        >
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <title>Close</title>
+        </svg>
       </span>
     </summary>
 
     <div
-      class="search-modal modal__content t-bg-white t-text-black t-fill-black t-stroke-black t-border-b t-border-gray-400 t-h-[70vh]"
+      class="t-top-[77px] t-w-full t-absolute search-modal modal__content t-bg-white t-text-black t-fill-black t-stroke-black  t-mx-auto "
       role="dialog"
       aria-modal="true"
       aria-label="{{ 'general.search.search' | t }}"
     >
-      <div
-        class="search-modal__content{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} search-modal__content-top{% else %} search-modal__content-bottom{% endif %}"
-        tabindex="-1"
-      >
-        {% if settings.predictive_search_enabled %}
-          <predictive-search
-            class="search-modal__form t-absolute t-top-[126px]"
-            data-loading-text="{{ 'accessibility.loading' | t }}"
-          >
-        {% else %}
-          <search-form class="search-modal__form">
-        {% endif %}
+      {% if settings.predictive_search_enabled %}
+        <predictive-search
+          class="search-modal__form t-absolute t-top-0 t-w-[100vw] t-max-w-full t-left-0 t-right-0"
+          data-loading-text="{{ 'accessibility.loading' | t }}"
+        >
+      {% else %}
+        <search-form class="search-modal__form">
+      {% endif %}
 
-        <form action="{{ routes.search_url }}" method="get" role="search" class="search t-flex t-w-full">
-          <div class="field t-flex-grow t-relative">
+      <form
+        action="{{ routes.search_url }}"
+        method="get"
+        role="search"
+        class="search t-flex t-w-full t-absolute t-left-0 t-right-0"
+      >
+        <div class=" t-absolute t-left-0 t-right-0 t-w-full">
+          <div class="t-max-w-[1742px] t-w-[100vw] t-relative t-mx-auto">
             <input
               id="{{ input_id }}"
               name="q"
               type="search"
-              class="search__input field__input t-text-black t-text-[2.4rem] t-font-[700] t-pb-[30px] t-w-full"
+              class="t-px-[20px] t-absolute t-left-0 lg:t-top-[30px] t-right-0 search__input field__input t-text-black t-text-[2.4rem] t-font-[700] t-pb-[30px] t-w-full"
               style="border-bottom: 1px solid #000;"
               placeholder="I am searching for..."
               value="{{ search.terms | escape }}"
@@ -72,22 +86,22 @@
               {% endif %}
             >
             <input type="hidden" name="options[prefix]" value="last">
-
             <!-- Reset Button -->
             <button
               type="reset"
               class="reset__button field__button{% if search.terms == blank %} hidden{% endif %} t-absolute t-top-0 t-right-10"
               aria-label="{{ 'general.search.reset' | t }}"
             >
-              <span class="svg-wrapper">
-                {{ 'icon-reset.svg' | inline_asset_content }}
-              </span>
+              {% comment %}
+                <span class="svg-wrapper">
+                  {{ 'icon-reset.svg' | inline_asset_content }}
+                </span>
+              {% endcomment %}
             </button>
-
             <!-- Submit Button -->
             <button
               type="submit"
-              class="search__button field__button t-absolute t-top-0 t-right-0"
+              class="search__button field__button t-absolute t-top-0 t-right-0 t-top-[50%]"
               aria-label="{{ 'general.search.search' | t }}"
             >
               <span class="svg-wrapper">
@@ -95,36 +109,149 @@
               </span>
             </button>
           </div>
-
-          {% if settings.predictive_search_enabled %}
-            <div
-              class="predictive-search predictive-search--header t-max-h-[calc(100vh-245px)]"
-              tabindex="-1"
-              data-predictive-search
-            >
-              {% render 'loading-spinner', class: 'predictive-search__loading-state' %}
-            </div>
-            <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
-          {% endif %}
-
-          <!-- Close Button -->
-          <button
-            type="button"
-            class="search-modal__close-button modal__close-button link link--text focus-inset"
-            aria-label="{{ 'accessibility.close' | t }}"
+        </div>
+      </form>
+      {% if settings.predictive_search_enabled %}
+        <div class=" t-w-[100vw] t-mx-auto t-relative t-bg-red">
+          <div
+            class="predictive-search predictive-search--header t-max-h-[calc(100vh-245px)] t-w-[100vw] t-left-0 t-right-0 t-top-[120px] t-h-[100vh]"
+            tabindex="-1"
+            data-predictive-search
           >
-            <span class="svg-wrapper">
-              {{ 'icon-close.svg' | inline_asset_content }}
-            </span>
-          </button>
-        </form>
+            {% render 'loading-spinner', class: 'predictive-search__loading-state' %}
+          </div>
+        </div>
+        <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+      {% endif %}
 
-        {% if settings.predictive_search_enabled %}
-          </predictive-search>
-        {% else %}
-          </search-form>
-        {% endif %}
-      </div>
+      {% if settings.predictive_search_enabled %}
+        </predictive-search>
+      {% else %}
+        </search-form>
+      {% endif %}
     </div>
   </details>
 </details-modal>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Mobile
+  const mobileSearchModal = document.querySelector('#Search-In-Modal-Mobile').closest('details');
+  const mobileSearchIcons = mobileSearchModal.querySelectorAll('.search-icon');
+  const mobileCloseIcons = mobileSearchModal.querySelectorAll('.close-icon');
+
+  // Desktop
+  const desktopSearchModal = document.querySelector('#Search-In-Modal-Desktop').closest('details');
+  const desktopSearchIcons = desktopSearchModal.querySelectorAll('.search-icon');
+  const desktopCloseIcons = desktopSearchModal.querySelectorAll('.close-icon');
+
+  // Toggle for Mobile
+  mobileSearchModal.addEventListener('toggle', function () {
+    if (this.open) {
+      mobileSearchIcons.forEach(icon => icon.classList.add('t-hidden'));
+      mobileCloseIcons.forEach(icon => icon.classList.remove('t-hidden'));
+    } else {
+      mobileSearchIcons.forEach(icon => icon.classList.remove('t-hidden'));
+      mobileCloseIcons.forEach(icon => icon.classList.add('t-hidden'));
+    }
+  });
+
+  // Toggle for Desktop
+  desktopSearchModal.addEventListener('toggle', function () {
+    if (this.open) {
+      desktopSearchIcons.forEach(icon => icon.classList.add('t-hidden'));
+      desktopCloseIcons.forEach(icon => icon.classList.remove('t-hidden'));
+    } else {
+      desktopSearchIcons.forEach(icon => icon.classList.remove('t-hidden'));
+      desktopCloseIcons.forEach(icon => icon.classList.add('t-hidden'));
+    }
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const input   = document.getElementById('{{ input_id }}');
+  const results = document.querySelector('.predictive-search--header'); // scrollable results element
+  const panel   = document.querySelector('.predictive-search, [data-predictive-search], #predictive-search'); // dropdown container
+  if (!input || !results || !panel) return;
+
+  // Create (or re-use) a tiny hidden focus target to dismiss the keyboard
+  let sink = document.getElementById('ps-kb-sink');
+  if (!sink) {
+    sink = document.createElement('button');
+    sink.id = 'ps-kb-sink';
+    sink.type = 'button';
+    sink.tabIndex = -1;
+    sink.setAttribute('aria-hidden', 'true');
+    Object.assign(sink.style, {
+      position: 'fixed', top: '0', left: '0',
+      width: '1px', height: '1px', opacity: '0',
+      pointerEvents: 'none'
+    });
+    document.body.appendChild(sink);
+  }
+
+  // Keep the input looking active (purely visual)
+  input.addEventListener('focus', () => input.classList.add('is-active'));
+  input.addEventListener('blur',  () => input.classList.add('is-active'));
+
+  let locked = false;
+
+  // Start of user interaction with results: force open + drop keyboard (no mutation observers)
+  const beginInteraction = () => {
+    if (window.innerWidth >= 1024) return;
+    if (document.activeElement === input) {
+      locked = true;
+      panel.classList.add('ps-force-open');
+      panel.removeAttribute('hidden');           // in case theme toggled it
+      panel.setAttribute('aria-expanded', 'true');
+      sink.focus();                               // blurs input => hides keyboard
+    }
+  };
+
+  // Unlock when clicking/tapping outside panel+input, or pressing Escape
+  const maybeUnlock = (evt) => {
+    if (!locked) return;
+    const t = evt.target;
+    if (!panel.contains(t) && t !== input) {
+      locked = false;
+      panel.classList.remove('ps-force-open');
+      input.classList.remove('is-active');
+    }
+  };
+  const onKeydown = (e) => {
+    if (e.key === 'Escape' && locked) {
+      locked = false;
+      panel.classList.remove('ps-force-open');
+      input.classList.remove('is-active');
+    }
+  };
+
+  // Attach lightweight listeners
+  results.addEventListener('touchstart', beginInteraction, { passive: true });
+  results.addEventListener('scroll',     beginInteraction, { passive: true });
+  document.addEventListener('mousedown', maybeUnlock, true);
+  document.addEventListener('touchstart', maybeUnlock, { capture: true, passive: true });
+  document.addEventListener('keydown', onKeydown, true);
+});
+</script>
+
+<style>
+/* Keep dropdown visible while we’ve “locked” it open */
+.ps-force-open {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.ps-force-open[hidden] { display: block !important; }
+
+/* If your theme hides via aria, override common patterns */
+.ps-force-open[aria-expanded="false"] { display: block !important; }
+.ps-force-open[aria-hidden="true"]    { display: block !important; }
+
+/* Keep visual focus style on the input even when blurred */
+[id='{{ input_id }}'].is-active {
+  outline: 2px solid var(--color-accent, #9e3223);
+}
+</style>
+

@@ -5,6 +5,7 @@
   - value: {String} the option value label (e.g. "Black")
   - product: {Object} the product
   - shape: {String} optional, "square" for square shape
+  - visually_disabled: {Boolean} optional, adds strike-through styling
 {% endcomment %}
 
 {%- liquid
@@ -36,9 +37,9 @@
 
 <span
   {% if swatch_value %}
-    class="swatch{% if shape == 'square' %} swatch--square{% endif %}"
+    class="swatch{% if shape == 'square' %} swatch--square{% endif %}{% if visually_disabled %} swatch-strike{% endif %}"
     style="--swatch--background: {{ swatch_value }};"
   {% else %}
-    class="swatch swatch--unavailable{% if shape == 'square' %} swatch--square{% endif %}"
+    class="swatch swatch--unavailable{% if shape == 'square' %} swatch--square{% endif %}{% if visually_disabled %} swatch-strike{% endif %}"
   {% endif %}
 ></span>

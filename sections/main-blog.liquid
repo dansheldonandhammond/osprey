@@ -1,142 +1,1517 @@
-{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
-{{ 'component-card.css' | asset_url | stylesheet_tag }}
-{{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
+{%- assign ai_gen_id = section.id | replace: '_', '' | downcase -%}
+{%- assign blog_handle = section.settings.blog -%}
+{%- assign selected_blog = blogs[blog_handle] -%}
 
 {%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  .ai-blog-section-{{ ai_gen_id }} {
+    width: 100%;
+    background-color: #fff;
+    min-height: 100vh;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+  .ai-blog-header-{{ ai_gen_id }} {
+    background-color: #000;
+    color: #fff;
+    padding: 40px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-blog-header-content-{{ ai_gen_id }} {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .ai-blog-title-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0 0 30px;
+    letter-spacing: 0.5px;
+    color: #fff;
+  }
+
+  .ai-blog-nav-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .ai-blog-nav-button-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 0;
+    position: relative;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  /* Underline pseudo-element - appears on active and hover (for non-active items) */
+  .ai-blog-nav-button-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #fff;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Show underline on active items - using class selector */
+  .ai-blog-nav-button-{{ ai_gen_id }}.active {
+    opacity: 1;
+  }
+
+  .ai-blog-nav-button-{{ ai_gen_id }}.active::after {
+    opacity: 1;
+  }
+
+  /* Show underline on active items - using data-selected attribute (alternative selector) */
+  .ai-blog-nav-button-{{ ai_gen_id }}[data-selected="true"] {
+    opacity: 1;
+  }
+
+  .ai-blog-nav-button-{{ ai_gen_id }}[data-selected="true"]::after {
+    opacity: 1;
+  }
+
+  /* Show underline on hover for non-active items */
+  .ai-blog-nav-button-{{ ai_gen_id }}:hover:not(.active)::after {
+    opacity: 1;
+  }
+
+  .ai-blog-nav-button-{{ ai_gen_id }}:hover:not(.active) {
+    opacity: 1;
+  }
+
+  .ai-blog-container-{{ ai_gen_id }} {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    background-color: #fff;
+  }
+
+  .ai-blog-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 60px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-blog-grid-{{ ai_gen_id }}.loading {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .ai-blog-card-{{ ai_gen_id }} {
+    background-color: #fff;
+    border-radius: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .ai-blog-card-link-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .ai-blog-card-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 66.67%;
+    overflow: hidden;
+    background-color: #f0f0f0;
+  }
+
+  .ai-blog-card-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .ai-blog-card-{{ ai_gen_id }}:hover .ai-blog-card-image-{{ ai_gen_id }} {
+    transform: scale(1.05);
+  }
+
+  .ai-blog-card-content-{{ ai_gen_id }} {
+    padding: 20px 0;
+  }
+
+  .ai-blog-card-tag-{{ ai_gen_id }} {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #666;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .ai-blog-card-tags-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+    
+  }
+
+  .ai-blog-card-tag-item-{{ ai_gen_id }} {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #666;
+    line-height: 1.2;
+    background: #F2F2F2;
+    padding: 4px 8px;
+    border-radius: 4px; 
+  }
+
+  .ai-blog-card-title-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin: 0 0 8px;
+    line-height: 1.3;
+    color: #000;
+  }
+
+  .ai-blog-card-excerpt-{{ ai_gen_id }} {
+    display: none; /* Hide excerpt to match design */
+  }
+
+  .ai-blog-card-meta-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: 8px;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .ai-blog-card-reading-time-{{ ai_gen_id }} {
+    font-weight: 400;
+    color: #666;
+  }
+
+  .ai-blog-loader-{{ ai_gen_id }} {
+    display: none;
+    text-align: center;
+    padding: 40px;
+  }
+
+  .ai-blog-loader-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-blog-spinner-{{ ai_gen_id }} {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f0f0f0;
+    border-top-color: #000;
+    border-radius: 50%;
+    animation: ai-blog-spin-{{ ai_gen_id }} 0.8s linear infinite;
+  }
+
+  @keyframes ai-blog-spin-{{ ai_gen_id }} {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .ai-blog-load-more-{{ ai_gen_id }} {
+    text-align: center;
+    margin-top: 40px;
+    display: none; /* Hidden by default, shown only when > 6 items */
+  }
+
+  .ai-blog-load-more-button-{{ ai_gen_id }} {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 16px 48px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-blog-load-more-button-{{ ai_gen_id }}:hover {
+    background-color: #333;
+  }
+
+  .ai-blog-load-more-button-{{ ai_gen_id }}:focus {
+    outline: 2px solid #000;
+    outline-offset: 4px;
+  }
+
+  .ai-blog-load-more-button-{{ ai_gen_id }}:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .ai-blog-error-{{ ai_gen_id }} {
+    display: none;
+    text-align: center;
+    padding: 40px;
+    color: #d32f2f;
+    font-size: 14px;
+  }
+
+  .ai-blog-error-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-blog-empty-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 80px 20px;
+    color: #666;
+  }
+
+  .ai-blog-empty-{{ ai_gen_id }} h3 {
+    font-size: 24px;
+    margin: 0 0 12px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-blog-card-{{ ai_gen_id }},
+    .ai-blog-card-image-{{ ai_gen_id }},
+    .ai-blog-nav-button-{{ ai_gen_id }},
+    .ai-blog-card-tag-{{ ai_gen_id }},
+    .ai-blog-card-title-link-{{ ai_gen_id }},
+    .ai-blog-load-more-button-{{ ai_gen_id }} {
+      transition: none;
+    }
+    .ai-blog-spinner-{{ ai_gen_id }} {
+      animation: none;
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-blog-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+  }
+
+  /* Mobile/Tablet Dropdown Navigation Styles */
+  .ai-blog-nav-mobile-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-blog-nav-mobile-selected-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .ai-blog-nav-mobile-selected-text-{{ ai_gen_id }} {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .ai-blog-nav-mobile-chevron-{{ ai_gen_id }} {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    margin-left: 12px;
+  }
+
+  .ai-blog-nav-mobile-chevron-{{ ai_gen_id }}[aria-expanded="true"] {
+    transform: rotate(180deg);
+  }
+
+  .ai-blog-nav-mobile-dropdown-{{ ai_gen_id }} {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    border-radius: 8px;
+    margin-top: 8px;
+    padding: 8px 0;
+    z-index: 1000;
+    max-height: 400px;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .ai-blog-nav-mobile-dropdown-{{ ai_gen_id }}.open {
+    display: block;
+  }
+
+  .ai-blog-nav-mobile-item-{{ ai_gen_id }} {
+    display: block;
+    padding: 12px 20px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    opacity: 0.7;
+  }
+
+  .ai-blog-nav-mobile-item-{{ ai_gen_id }}:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+  }
+
+  .ai-blog-nav-mobile-item-{{ ai_gen_id }}.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 1023px) {
+    .ai-blog-nav-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-blog-nav-mobile-{{ ai_gen_id }} {
+      display: block;
+      position: relative;
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .ai-blog-header-{{ ai_gen_id }} {
+      padding: 24px 16px;
+    }
+
+    .ai-blog-title-{{ ai_gen_id }} {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .ai-blog-container-{{ ai_gen_id }} {
+      padding: 40px 16px;
+    }
+
+    .ai-blog-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .ai-blog-card-content-{{ ai_gen_id }} {
+      padding: 16px 0;
+    }
+
+    .ai-blog-card-title-{{ ai_gen_id }} {
+      font-size: 16px;
     }
   }
 {%- endstyle -%}
 
-{%- paginate blog.articles by 6 -%}
-  <div class="main-blog page-width section-{{ section.id }}-padding">
-    <h1 class="title--primary{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      {{ blog.title | escape }}
-    </h1>
-
-    <div class="blog-articles {% if section.settings.layout == 'collage' %}blog-articles--collage{% endif %}">
-      {%- for article in blog.articles -%}
-        <div
-          class="blog-articles__article article{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {% if settings.animations_reveal_on_scroll %}
-            data-cascade
-            style="--animation-order: {{ forloop.index }};"
-          {% endif %}
-        >
-          {%- render 'article-card',
-            article: article,
-            media_height: section.settings.image_height,
-            media_aspect_ratio: article.image.aspect_ratio,
-            show_image: section.settings.show_image,
-            show_date: section.settings.show_date,
-            show_author: section.settings.show_author,
-            show_excerpt: true
-          -%}
-        </div>
-      {%- endfor -%}
+{%- if selected_blog == blank -%}
+  <div class="ai-blog-section-{{ ai_gen_id }}">
+    <div class="ai-blog-container-{{ ai_gen_id }}">
+      <div class="ai-blog-empty-{{ ai_gen_id }}">
+        <h3>No blog selected</h3>
+        <p>Please select a blog in the theme editor settings.</p>
+      </div>
     </div>
-
-    {%- if paginate.pages > 1 -%}
-      {%- render 'pagination', paginate: paginate -%}
-    {%- endif -%}
   </div>
-{%- endpaginate -%}
+{%- else -%}
+  <blog-filter-{{ ai_gen_id }}
+    class="ai-blog-section-{{ ai_gen_id }}"
+    data-blog-handle="{{ selected_blog.handle }}"
+    data-posts-per-page="{{ section.settings.posts_per_page }}"
+    data-storefront-token="{{ section.settings.storefront_access_token | strip }}"
+  >
+    <header class="ai-blog-header-{{ ai_gen_id }}">
+      <div class="ai-blog-header-content-{{ ai_gen_id }}">
+        <h1 class="ai-blog-title-{{ ai_gen_id }}" id="blog-title-{{ ai_gen_id }}">Home</h1>
+
+        {%- comment -%}
+          Progressive enhancement:
+          - Real <a> links so it works without JS / for SEO & SR.
+          - JS will intercept clicks and fetch via Section Rendering API.
+        {%- endcomment -%}
+        <nav class="ai-blog-nav-{{ ai_gen_id }}" role="navigation" aria-label="Blog categories">
+          <a
+            class="ai-blog-nav-button-{{ ai_gen_id }}"
+            href="{{ selected_blog.url }}"
+            data-tag=""
+            data-tag-name=""
+            aria-label="Show all posts"
+            aria-pressed="false"
+          >
+            Home
+          </a>
+
+          {%- if selected_blog.all_tags.size > 0 -%}
+            {%- for tag in selected_blog.all_tags -%}
+              {%- if tag != blank -%}
+                <a
+                  class="ai-blog-nav-button-{{ ai_gen_id }}"
+                  href="{{ selected_blog.url }}/tagged/{{ tag | handleize }}"
+                  data-tag="{{ tag | handleize }}"
+                  data-tag-name="{{ tag | escape }}"
+                  aria-label="Filter by {{ tag | escape }}"
+                  aria-pressed="false"
+                >
+                  {{ tag }}
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </nav>
+
+        {%- comment -%} Mobile/Tablet Dropdown Navigation {%- endcomment -%}
+        <div class="ai-blog-nav-mobile-{{ ai_gen_id }}">
+          <div class="ai-blog-nav-mobile-selected-{{ ai_gen_id }}">
+            <span class="ai-blog-nav-mobile-selected-text-{{ ai_gen_id }}">Home</span>
+            <button 
+              class="ai-blog-nav-mobile-chevron-{{ ai_gen_id }}" 
+              aria-label="Toggle navigation menu"
+              aria-expanded="false"
+            >
+              <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="ai-blog-nav-mobile-dropdown-{{ ai_gen_id }}">
+            <a
+              class="ai-blog-nav-mobile-item-{{ ai_gen_id }}"
+              href="{{ selected_blog.url }}"
+              data-tag=""
+              data-tag-name=""
+              aria-label="Show all posts"
+            >
+              Home
+            </a>
+            {%- if selected_blog.all_tags.size > 0 -%}
+              {%- for tag in selected_blog.all_tags -%}
+                {%- if tag != blank -%}
+                  <a
+                    class="ai-blog-nav-mobile-item-{{ ai_gen_id }}"
+                    href="{{ selected_blog.url }}/tagged/{{ tag | handleize }}"
+                    data-tag="{{ tag | handleize }}"
+                    data-tag-name="{{ tag | escape }}"
+                    aria-label="Filter by {{ tag | escape }}"
+                  >
+                    {{ tag }}
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="ai-blog-container-{{ ai_gen_id }}">
+      {%- assign posts_per_page = section.settings.posts_per_page | default: 12 -%}
+      {%- comment -%} Check if we're on a tagged URL and filter articles accordingly {%- endcomment -%}
+      {%- assign current_tag_handle = '' -%}
+      {%- assign url_parts = request.path | split: '/' -%}
+      {%- for part in url_parts -%}
+        {%- if part == 'tagged' -%}
+          {%- assign tag_index = forloop.index0 | plus: 1 -%}
+          {%- if url_parts[tag_index] != blank -%}
+            {%- assign current_tag_handle = url_parts[tag_index] -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+      
+      {%- comment -%} Filter articles by tag if on a tagged URL {%- endcomment -%}
+      {%- assign article_count = 0 -%}
+      {%- if current_tag_handle != blank -%}
+        {%- for article in selected_blog.articles -%}
+          {%- if article_count >= posts_per_page -%}
+            {%- break -%}
+          {%- endif -%}
+          {%- assign article_has_tag = false -%}
+          {%- for tag in article.tags -%}
+            {%- assign tag_handle = tag | handleize -%}
+            {%- if tag_handle == current_tag_handle -%}
+              {%- assign article_has_tag = true -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if article_has_tag -%}
+            {%- assign article_count = article_count | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+      
+      {%- comment -%} Render ALL articles (no pagination limit) - ALL articles load, filtering happens client-side asynchronously {%- endcomment -%}
+      {%- assign has_articles = false -%}
+      
+      <div class="ai-blog-grid-{{ ai_gen_id }}" role="list">
+      {%- for article in selected_blog.articles -%}
+        {%- comment -%} Render ALL articles - no server-side filtering {%- endcomment -%}
+        {%- assign should_render = true -%}
+        
+        {%- if should_render -%}
+          {%- assign has_articles = true -%}
+            {%- assign word_count = article.content | strip_html | split: ' ' | size -%}
+            {%- assign read_time = word_count | divided_by: 200 | at_least: 1 -%}
+            {%- assign tag_count = article.tags.size -%}
+            <article
+              class="ai-blog-card-{{ ai_gen_id }}"
+              itemscope
+              itemtype="https://schema.org/BlogPosting"
+              role="listitem"
+              data-tags="{% for t in article.tags %}{{ t | handleize }}{% unless forloop.last %},{% endunless %}{% endfor %}"
+            >
+              <a href="{{ article.url }}" class="ai-blog-card-link-{{ ai_gen_id }}">
+                <div class="ai-blog-card-image-wrapper-{{ ai_gen_id }}">
+                  {%- if article.image -%}
+                    <img
+                      src="{{ article.image | image_url: width: 800 }}"
+                      srcset="{{ article.image | image_url: width: 400 }} 400w, {{ article.image | image_url: width: 800 }} 800w"
+                      sizes="(max-width: 767px) 100vw, (max-width: 989px) 50vw, 33vw"
+                      alt="{{ article.image.alt | default: article.title | escape }}"
+                      class="ai-blog-card-image-{{ ai_gen_id }}"
+                      loading="lazy"
+                      itemprop="image"
+                    >
+                  {%- else -%}
+                    <div class="ai-blog-card-image-{{ ai_gen_id }}" style="background-color: #e5e5e5;"></div>
+                  {%- endif -%}
+                </div>
+                <div class="ai-blog-card-content-{{ ai_gen_id }}">
+                  {%- if tag_count > 0 -%}
+                    {%- if tag_count > 1 -%}
+                      <div class="ai-blog-card-tags-{{ ai_gen_id }}">
+                        {%- for tag in article.tags -%}
+                          {%- if tag != blank -%}
+                            <span class="ai-blog-card-tag-item-{{ ai_gen_id }}">{{ tag | upcase }}</span>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </div>
+                    {%- else -%}
+                      {%- assign first_tag = article.tags | first -%}
+                      {%- if first_tag != blank -%}
+                        <div class="ai-blog-card-tag-{{ ai_gen_id }} ai-blog-card-tag-item-{{ ai_gen_id }}">{{ first_tag | upcase }}</div>
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                  <h2 class="ai-blog-card-title-{{ ai_gen_id }}" itemprop="headline">{{ article.title | upcase }}</h2>
+                  <div class="ai-blog-card-meta-{{ ai_gen_id }}">
+                    <span class="ai-blog-card-reading-time-{{ ai_gen_id }}">{{ read_time }} min</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+        {%- endif -%}
+      {%- endfor -%}
+      </div>
+      
+      {%- if has_articles == false -%}
+        <div class="ai-blog-empty-{{ ai_gen_id }}">
+          <h3>No blog posts found</h3>
+          <p>{%- if current_tag_handle != blank -%}No articles found with this tag.{%- else -%}There are no articles in this blog yet.{%- endif -%}</p>
+        </div>
+      {%- endif -%}
+
+      <div class="ai-blog-loader-{{ ai_gen_id }}" role="status" aria-live="polite">
+        <div class="ai-blog-spinner-{{ ai_gen_id }}"></div>
+        <p style="margin-top: 16px;">Loading posts...</p>
+      </div>
+
+      <div class="ai-blog-error-{{ ai_gen_id }}" role="alert" aria-live="assertive">
+        <p>Unable to load blog posts. Please try again later.</p>
+      </div>
+
+      <div class="ai-blog-load-more-{{ ai_gen_id }}">
+        <button class="ai-blog-load-more-button-{{ ai_gen_id }}" aria-label="Load more posts">
+          Load More
+        </button>
+      </div>
+    </div>
+  </blog-filter-{{ ai_gen_id }}>
+
+  <script>
+    // UNIVERSAL NAV ACTIVATION FUNCTION - Works everywhere (page load, clicks, navigation)
+    function activateNavButton() {
+      const buttons = document.querySelectorAll('nav a[data-tag]');
+      
+      const url = new URL(window.location.href);
+      const parts = url.pathname.split('/').filter(Boolean);
+      const taggedIndex = parts.indexOf('tagged');
+      const urlTag = (taggedIndex !== -1 && parts[taggedIndex + 1]) 
+        ? decodeURIComponent(parts[taggedIndex + 1]).toLowerCase().trim() 
+        : '';
+      
+      buttons.forEach(btn => {
+        const btnTag = (btn.dataset.tag || '').trim().toLowerCase();
+        if (btnTag === urlTag) {
+          btn.classList.add('active');
+          btn.setAttribute('data-selected', 'true');
+          btn.setAttribute('aria-pressed', 'true');
+          btn.setAttribute('aria-current', 'page');
+        } else {
+          btn.classList.remove('active');
+          btn.removeAttribute('data-selected');
+          btn.setAttribute('aria-pressed', 'false');
+          btn.removeAttribute('aria-current');
+        }
+      });
+    }
+    
+    // IMMEDIATE INITIALIZATION - Set active state as soon as DOM is ready
+    (function() {
+      const aiGenId = {{ ai_gen_id | json }};
+      const selector = '.ai-blog-nav-button-' + aiGenId;
+      
+      function setActiveNavItem() {
+        try {
+          let navButtons = document.querySelectorAll(selector);
+          
+          if (navButtons.length === 0) {
+            const allLinks = document.querySelectorAll('nav a[data-tag]');
+            navButtons = allLinks;
+          }
+          
+          if (navButtons.length === 0) {
+            return;
+          }
+          
+          const url = new URL(window.location.href);
+          const parts = url.pathname.split('/').filter(Boolean);
+          const taggedIndex = parts.indexOf('tagged');
+          const urlTag = (taggedIndex !== -1 && parts[taggedIndex + 1]) 
+            ? decodeURIComponent(parts[taggedIndex + 1]).toLowerCase().trim() 
+            : '';
+          
+          const tagToMatch = urlTag || '';
+          
+          navButtons.forEach((btn) => {
+            const btnTag = (btn.dataset.tag || '').trim().toLowerCase();
+            const shouldBeActive = btnTag === tagToMatch;
+            
+            if (shouldBeActive) {
+              btn.classList.add('active');
+              btn.setAttribute('data-selected', 'true');
+              btn.setAttribute('aria-pressed', 'true');
+              btn.setAttribute('aria-current', 'page');
+            } else {
+              btn.classList.remove('active');
+              btn.removeAttribute('data-selected');
+              btn.removeAttribute('aria-current');
+              btn.setAttribute('aria-pressed', 'false');
+            }
+          });
+        } catch (error) {
+          // Silent error handling
+        }
+      }
+      
+      const runWithDelay = (delay) => {
+        setTimeout(() => {
+          setActiveNavItem();
+        }, delay);
+      };
+      
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          runWithDelay(0);
+        });
+      } else {
+        runWithDelay(0);
+      }
+      
+      runWithDelay(50);
+      runWithDelay(100);
+      runWithDelay(200);
+      runWithDelay(500);
+      runWithDelay(1000);
+      runWithDelay(2000);
+      
+      let observer = null;
+      const startObserver = () => {
+        if (observer) return;
+        
+        observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              const target = mutation.target;
+              if (target.matches && target.matches('a[data-tag]')) {
+                const url = new URL(window.location.href);
+                const parts = url.pathname.split('/').filter(Boolean);
+                const taggedIndex = parts.indexOf('tagged');
+                const urlTag = (taggedIndex !== -1 && parts[taggedIndex + 1]) 
+                  ? decodeURIComponent(parts[taggedIndex + 1]).toLowerCase().trim() 
+                  : '';
+                const btnTag = (target.dataset.tag || '').trim().toLowerCase();
+                
+                if (btnTag === urlTag && !target.classList.contains('active')) {
+                  setTimeout(() => {
+                    target.classList.add('active');
+                    target.setAttribute('data-selected', 'true');
+                    target.setAttribute('aria-pressed', 'true');
+                    target.setAttribute('aria-current', 'page');
+                  }, 10);
+                }
+              }
+            }
+          });
+        });
+        
+        const navButtons = document.querySelectorAll('nav a[data-tag]');
+        if (navButtons.length > 0) {
+          navButtons.forEach(btn => {
+            observer.observe(btn, {
+              attributes: true,
+              attributeFilter: ['class', 'data-selected']
+            });
+          });
+        }
+      };
+      
+      setTimeout(startObserver, 500);
+      setTimeout(startObserver, 1500);
+      setTimeout(startObserver, 3000);
+    })();
+    
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const aiGenId = {{ ai_gen_id | json }};
+        const selector = '.ai-blog-nav-button-' + aiGenId;
+        let navButtons = document.querySelectorAll(selector);
+        if (navButtons.length === 0) {
+          navButtons = document.querySelectorAll('nav a[data-tag]');
+        }
+        
+        if (navButtons.length > 0) {
+          const url = new URL(window.location.href);
+          const parts = url.pathname.split('/').filter(Boolean);
+          const taggedIndex = parts.indexOf('tagged');
+          const urlTag = (taggedIndex !== -1 && parts[taggedIndex + 1]) 
+            ? decodeURIComponent(parts[taggedIndex + 1]).toLowerCase().trim() 
+            : '';
+          
+          navButtons.forEach(btn => {
+            const btnTag = (btn.dataset.tag || '').trim().toLowerCase();
+            if (btnTag === urlTag) {
+              btn.classList.add('active');
+              btn.setAttribute('data-selected', 'true');
+              btn.setAttribute('aria-pressed', 'true');
+              btn.setAttribute('aria-current', 'page');
+            }
+          });
+        }
+      }, 2000);
+    });
+    
+    (function() {
+      // Create a valid class name by using a computed property name to avoid syntax errors
+      const aiGenId = {{ ai_gen_id | json }};
+      // Use a fixed class name and store it in a variable to avoid Liquid template issues in class declaration
+      const BlogFilterClass = class extends HTMLElement {
+        constructor() {
+          super();
+          this.blogHandle = this.dataset.blogHandle;
+          this.postsPerPage = parseInt(this.dataset.postsPerPage) || 12;
+
+          this.currentTag = '';
+          this.page = 1;
+          this.isLoading = false;
+          this.hasMore = true;
+          this.scrollPosition = 0;
+        }
+
+        get sectionId() {
+          return '{{ section.id }}';
+        }
+
+        connectedCallback() {
+          // Use aiGenId variable to avoid syntax errors with '--' in the ID
+          const aiGenId = {{ ai_gen_id | json }};
+          
+          this.grid = this.querySelector('.ai-blog-grid-' + aiGenId);
+          this.loader = this.querySelector('.ai-blog-loader-' + aiGenId);
+          this.errorMessage = this.querySelector('.ai-blog-error-' + aiGenId);
+          this.loadMoreContainer = this.querySelector('.ai-blog-load-more-' + aiGenId);
+          this.loadMoreButton = this.querySelector('.ai-blog-load-more-button-' + aiGenId);
+          this.navButtons = this.querySelectorAll('.ai-blog-nav-button-' + aiGenId);
+          this.blogTitle = this.querySelector('#blog-title-' + aiGenId);
+          
+          // Mobile dropdown elements
+          this.mobileNav = this.querySelector('.ai-blog-nav-mobile-' + aiGenId);
+          this.mobileSelectedText = this.querySelector('.ai-blog-nav-mobile-selected-text-' + aiGenId);
+          this.mobileChevron = this.querySelector('.ai-blog-nav-mobile-chevron-' + aiGenId);
+          this.mobileDropdown = this.querySelector('.ai-blog-nav-mobile-dropdown-' + aiGenId);
+          this.mobileNavItems = this.querySelectorAll('.ai-blog-nav-mobile-item-' + aiGenId);
+
+          if (!this.grid) {
+            return;
+          }
+
+          // Store all article cards for client-side filtering
+          this.allCards = Array.from(this.grid.querySelectorAll('.ai-blog-card-' + aiGenId));
+
+          // Hide load more button initially
+          if (this.loadMoreContainer) {
+            this.loadMoreContainer.style.display = 'none';
+          }
+
+          // Initialize title state
+          this.updateTitle('');
+
+          const { tag: urlTag } = this.readUrlState();
+          this.currentTag = urlTag || '';
+          
+          setTimeout(() => {
+            const alreadyActive = Array.from(this.navButtons).find(btn => btn.classList.contains('active'));
+            if (alreadyActive) {
+              const activeBtnTag = (alreadyActive.dataset.tag || '').trim().toLowerCase();
+              const shouldBeActive = activeBtnTag === this.currentTag;
+              
+              if (shouldBeActive) {
+                if (!alreadyActive.getAttribute('data-selected')) {
+                  alreadyActive.setAttribute('data-selected', 'true');
+                  alreadyActive.setAttribute('aria-pressed', 'true');
+                  alreadyActive.setAttribute('aria-current', 'page');
+                }
+              } else {
+                this.setActiveStateFromTag(this.currentTag);
+              }
+            } else {
+              this.setActiveStateFromTag(this.currentTag);
+            }
+          }, 300);
+
+          this.setupEventListeners();
+          this.setupMobileDropdown();
+          
+          setTimeout(() => {
+            if (this.currentTag) {
+              this.filterArticles(this.currentTag);
+            } else {
+              this.filterArticles('');
+            }
+            this.checkLoadMore();
+            this.updateMobileSelectedText();
+          }, 200);
+        }
+
+        setupEventListeners() {
+          // Navigation is handled by page reload - no need to prevent default
+          // The activateNavButton function will handle setting active state on page load
+          // Articles are filtered asynchronously based on URL tag
+
+          if (this.loadMoreButton) {
+            this.loadMoreButton.addEventListener('click', () => this.loadMore());
+          }
+
+          // Back/forward support - sync with URL
+          window.addEventListener('popstate', () => {
+            const { tag } = this.readUrlState();
+            this.currentTag = tag || '';
+            
+            // Set active state with delay
+            setTimeout(() => {
+              this.setActiveStateFromTag(this.currentTag);
+              this.updateMobileSelectedText();
+            }, 0);
+            
+            // Also run the manual code as fallback (same as click handler)
+            setTimeout(() => {
+              const buttons = document.querySelectorAll('nav a[data-tag]');
+              const urlTag = this.currentTag || '';
+              buttons.forEach(btn => {
+                const btnTag = (btn.dataset.tag || '').trim().toLowerCase();
+                if (btnTag === urlTag) {
+                  btn.classList.add('active');
+                  btn.setAttribute('data-selected', 'true');
+                  btn.setAttribute('aria-pressed', 'true');
+                  btn.setAttribute('aria-current', 'page');
+                } else {
+                  btn.classList.remove('active');
+                  btn.removeAttribute('data-selected');
+                  btn.setAttribute('aria-pressed', 'false');
+                  btn.removeAttribute('aria-current');
+                }
+              });
+            }, 10);
+            
+            this.filterArticles(this.currentTag);
+            this.updateMobileSelectedText();
+          });
+        }
+
+        setupMobileDropdown() {
+          if (!this.mobileNav || !this.mobileChevron || !this.mobileDropdown) return;
+
+          const aiGenId = {{ ai_gen_id | json }};
+          const toggleDropdown = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const isOpen = this.mobileDropdown.classList.contains('open');
+            
+            if (isOpen) {
+              this.mobileDropdown.classList.remove('open');
+              this.mobileChevron.setAttribute('aria-expanded', 'false');
+            } else {
+              this.mobileDropdown.classList.add('open');
+              this.mobileChevron.setAttribute('aria-expanded', 'true');
+            }
+          };
+
+          this.mobileChevron.addEventListener('click', toggleDropdown);
+          const mobileSelected = this.querySelector('.ai-blog-nav-mobile-selected-' + aiGenId);
+          if (mobileSelected) {
+            mobileSelected.addEventListener('click', toggleDropdown);
+          }
+
+          document.addEventListener('click', (e) => {
+            if (this.mobileNav && !this.mobileNav.contains(e.target)) {
+              this.mobileDropdown.classList.remove('open');
+              this.mobileChevron.setAttribute('aria-expanded', 'false');
+            }
+          });
+
+          this.mobileNavItems.forEach(item => {
+            item.addEventListener('click', () => {
+              setTimeout(() => {
+                this.mobileDropdown.classList.remove('open');
+                this.mobileChevron.setAttribute('aria-expanded', 'false');
+              }, 100);
+            });
+          });
+        }
+
+        updateMobileSelectedText() {
+          if (!this.mobileSelectedText) return;
+          
+          const activeButton = Array.from(this.navButtons).find(btn => 
+            btn.classList.contains('active') || btn.getAttribute('data-selected') === 'true'
+          );
+          
+          if (activeButton) {
+            const tagName = activeButton.getAttribute('data-tag-name') || activeButton.textContent.trim();
+            this.mobileSelectedText.textContent = tagName || 'Home';
+            
+            this.mobileNavItems.forEach(item => {
+              const itemTag = (item.getAttribute('data-tag') || '').trim().toLowerCase();
+              const activeTag = (activeButton.getAttribute('data-tag') || '').trim().toLowerCase();
+              
+              if (itemTag === activeTag) {
+                item.classList.add('active');
+              } else {
+                item.classList.remove('active');
+              }
+            });
+          } else {
+            this.mobileSelectedText.textContent = 'Home';
+          }
+        }
+
+        // Build Section Rendering API URL for a given tag/page
+        buildTaggedUrl(tag, page, includeSectionParam) {
+          const taggedPath = tag
+            ? `/blogs/${this.blogHandle}/tagged/${encodeURIComponent(tag)}`
+            : `/blogs/${this.blogHandle}`;
+          const params = new URLSearchParams();
+          if (includeSectionParam) params.set('sections', this.sectionId);
+          if (page && page > 1) params.set('page', String(page));
+          return `${taggedPath}?${params.toString()}`;
+        }
+
+        /**
+         * STEP 1: VALIDATE - Extract the active tag from the current URL
+         * 
+         * This method parses the URL to determine which tag is currently active.
+         * 
+         * URL Examples:
+         * - /blogs/news                    → tag = '' (Home - no tag)
+         * - /blogs/news/tagged/community    → tag = 'community'
+         * - /blogs/news/tagged/tech-news    → tag = 'tech-news'
+         * 
+         * @returns {Object} { tag: string, page: number }
+         *   - tag: The handleized tag from URL (empty string for Home)
+         *   - page: The current page number
+         */
+        readUrlState() {
+          const u = new URL(window.location.href);
+          const parts = u.pathname.split('/').filter(Boolean);
+          let tag = '';
+          
+          // Look for '/tagged/TAG_NAME' pattern in URL path
+          const i = parts.indexOf('tagged');
+          if (i !== -1 && parts[i + 1]) {
+            // Extract and decode the tag (handles URL encoding)
+            tag = decodeURIComponent(parts[i + 1]).toLowerCase().trim();
+          }
+          // If no 'tagged' segment found, tag remains '' (Home)
+          
+          const page = parseInt(u.searchParams.get('page') || '1', 10);
+          
+          return { tag, page };
+        }
+
+        /**
+         * STEP 2: ATTACH - Match the tag to a nav button and apply active class
+         * 
+         * This method:
+         * 1. Normalizes the tag from URL (empty = Home, otherwise lowercase)
+         * 2. Finds the nav button with matching data-tag attribute
+         * 3. Removes 'active' from all buttons
+         * 4. Adds 'active' class to the matching button
+         * 
+         * Nav Button Structure (from HTML):
+         * - Home:     data-tag=""           data-tag-name=""
+         * - Community: data-tag="community" data-tag-name="Community"
+         * - Tech:      data-tag="tech"      data-tag-name="Tech"
+         * 
+         * Matching Logic:
+         * - URL tag '' (empty) → matches Home button (data-tag="")
+         * - URL tag 'community' → matches Community button (data-tag="community")
+         * 
+         * @param {string} tag - The tag from URL (empty string for Home)
+         */
+        setActiveStateFromTag(tag) {
+          const aiGenId = {{ ai_gen_id | json }};
+          const allNavButtons = this.querySelectorAll('.ai-blog-nav-button-' + aiGenId);
+          this.navButtons = allNavButtons;
+          
+          if (allNavButtons.length === 0) {
+            return;
+          }
+          
+          const tagToMatch = tag ? (tag + '').trim().toLowerCase() : '';
+          
+          let activeTagName = '';
+          let activeButton = null;
+          
+          allNavButtons.forEach((btn) => {
+            const btnTag = (btn.dataset.tag || '').trim().toLowerCase();
+            const btnName = (btn.dataset.tagName || '').trim();
+            const isActive = btnTag === tagToMatch;
+            
+            if (isActive) {
+              btn.classList.add('active');
+              btn.setAttribute('data-selected', 'true');
+              btn.setAttribute('aria-pressed', 'true');
+              btn.setAttribute('aria-current', 'page');
+              
+              requestAnimationFrame(() => {
+                btn.classList.add('active');
+                btn.setAttribute('data-selected', 'true');
+                btn.setAttribute('aria-pressed', 'true');
+                btn.setAttribute('aria-current', 'page');
+              });
+              
+              activeTagName = btnName;
+              activeButton = btn;
+            } else {
+              btn.classList.remove('active');
+              btn.setAttribute('aria-pressed', 'false');
+              btn.removeAttribute('aria-current');
+              btn.removeAttribute('data-active');
+              btn.removeAttribute('data-selected');
+            }
+          });
+          
+          if (!activeButton && tagToMatch === '') {
+            const homeButton = Array.from(allNavButtons).find(btn => {
+              const btnTag = (btn.dataset.tag || '').trim().toLowerCase();
+              return btnTag === '';
+            });
+            if (homeButton) {
+              homeButton.classList.add('active');
+              homeButton.setAttribute('data-selected', 'true');
+              homeButton.setAttribute('aria-pressed', 'true');
+              homeButton.setAttribute('aria-current', 'page');
+              activeButton = homeButton;
+              activeTagName = '';
+            }
+          }
+          
+          this.updateTitle(activeTagName);
+          this.updateMobileSelectedText();
+        }
+
+        syncActiveStateFromUrl() {
+          const { tag: urlTag } = this.readUrlState();
+          this.currentTag = urlTag || '';
+          this.setActiveStateFromTag(this.currentTag);
+        }
+
+        // Highlight active nav item after popstate (deprecated - use syncActiveStateFromUrl)
+        syncActiveTagFromState() {
+          this.syncActiveStateFromUrl();
+        }
+
+        // Update title display
+        updateTitle(tagName) {
+          if (!this.blogTitle) return;
+          if (tagName && tagName !== '') {
+            this.blogTitle.textContent = tagName;
+          } else {
+            this.blogTitle.textContent = 'Home';
+          }
+        }
+
+        // Filter articles client-side based on tag
+        filterArticles(tagHandle) {
+          if (!this.grid || !this.allCards) return;
+
+          const isEmpty = tagHandle === '' || tagHandle === null || tagHandle === undefined;
+          let visibleCount = 0;
+          const aiGenId = {{ ai_gen_id | json }};
+          const emptyState = this.querySelector('.ai-blog-empty-' + aiGenId);
+
+          this.allCards.forEach(card => {
+            if (isEmpty) {
+              // Show all articles
+              card.style.display = '';
+              card.style.opacity = '1';
+              visibleCount++;
+            } else {
+              // Check if article has the selected tag
+              const articleTags = (card.dataset.tags || '').split(',').map(t => t.trim());
+              const hasTag = articleTags.includes(tagHandle);
+              
+              if (hasTag) {
+                card.style.display = '';
+                // Fade in animation
+                card.style.opacity = '0';
+                card.style.transition = 'opacity 0.3s ease-in-out';
+                setTimeout(() => {
+                  card.style.opacity = '1';
+                }, 10);
+                visibleCount++;
+              } else {
+                // Fade out and hide
+                card.style.transition = 'opacity 0.3s ease-in-out';
+                card.style.opacity = '0';
+                setTimeout(() => {
+                  card.style.display = 'none';
+                }, 300);
+              }
+            }
+          });
+
+          // Show/hide empty state
+          if (visibleCount === 0) {
+            if (!emptyState) {
+              const container = this.querySelector('.ai-blog-container-' + aiGenId);
+              if (container) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'ai-blog-empty-' + aiGenId;
+                emptyDiv.innerHTML = `
+                  <h3>No blog posts found</h3>
+                  <p>No articles found with this tag.</p>
+                `;
+                container.appendChild(emptyDiv);
+              }
+            } else {
+              emptyState.style.display = 'block';
+            }
+            if (this.grid) this.grid.style.display = 'none';
+          } else {
+            if (emptyState) emptyState.style.display = 'none';
+            if (this.grid) this.grid.style.display = '';
+          }
+
+          // Update load more button visibility after a short delay to ensure DOM is updated
+          setTimeout(() => {
+            this.updateLoadMoreButton();
+          }, 100);
+        }
+
+        async loadSection(url, { pushUrl }) {
+          if (this.isLoading) return;
+          this.isLoading = true;
+          this.showLoader();
+          this.hideError();
+
+          try {
+            const res = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
+            if (!res.ok) throw new Error('Network error');
+
+            const json = await res.json();
+            const html = json[this.sectionId];
+            if (!html) throw new Error('Section HTML missing');
+
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+
+            // Get the container
+            const aiGenId = {{ ai_gen_id | json }};
+            const container = this.querySelector('.ai-blog-container-' + aiGenId);
+            if (!container) throw new Error('Container not found');
+
+            // Check for grid or empty state in the response
+            const newGrid = tmp.querySelector('.ai-blog-grid-' + aiGenId);
+            const newEmptyState = tmp.querySelector('.ai-blog-empty-' + aiGenId);
+            
+            // Remove existing grid and empty state
+            const existingGrid = container.querySelector('.ai-blog-grid-' + aiGenId);
+            const existingEmpty = container.querySelector('.ai-blog-empty-' + aiGenId);
+            
+            if (existingGrid) existingGrid.remove();
+            if (existingEmpty) existingEmpty.remove();
+            
+            // Add new content
+            if (newGrid) {
+              container.appendChild(newGrid);
+              this.grid = newGrid;
+            } else if (newEmptyState) {
+              container.appendChild(newEmptyState);
+              this.grid = null;
+            } else {
+              throw new Error('Neither grid nor empty state found in section HTML');
+            }
+
+            // Heuristic: if fewer than per-page items came back, we're at the end
+            const cards = this.grid.querySelectorAll('.ai-blog-card-' + aiGenId);
+            this.hasMore = cards.length >= this.postsPerPage;
+            this.updateLoadMoreButton();
+
+            // Update browser URL to human-friendly route
+            if (pushUrl) {
+              const u = new URL(pushUrl, window.location.origin);
+              if (this.page <= 1) u.searchParams.delete('page');
+              history.pushState({}, '', u.toString());
+            }
+
+            this.restoreScrollPosition();
+          } catch (err) {
+            this.showError();
+          } finally {
+            this.isLoading = false;
+            this.hideLoader();
+          }
+        }
+
+        async loadMore() {
+          if (this.isLoading || !this.hasMore) return;
+          this.isLoading = true;
+          this.loadMoreButton.disabled = true;
+          this.loadMoreButton.textContent = 'Loading...';
+
+          try {
+            const nextPage = this.page + 1;
+            const url = this.buildTaggedUrl(this.currentTag, nextPage, true);
+            const res = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
+            if (!res.ok) throw new Error('Network error');
+
+            const json = await res.json();
+            const html = json[this.sectionId];
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            const aiGenId = {{ ai_gen_id | json }};
+            const moreGrid = tmp.querySelector('.ai-blog-grid-' + aiGenId);
+
+            const newCards = moreGrid ? moreGrid.querySelectorAll('.ai-blog-card-' + aiGenId) : [];
+            newCards.forEach(card => this.grid.appendChild(card));
+
+            this.hasMore = newCards.length >= this.postsPerPage;
+            this.page = nextPage;
+
+            const displayUrl = this.buildTaggedUrl(this.currentTag, this.page, false);
+            history.pushState({}, '', displayUrl);
+
+            this.updateLoadMoreButton();
+          } catch (err) {
+          } finally {
+            this.isLoading = false;
+            this.loadMoreButton.disabled = false;
+            this.loadMoreButton.textContent = 'Load More';
+          }
+        }
+
+        showLoader() {
+          this.loader.classList.add('active');
+          if (this.grid) this.grid.classList.add('loading');
+        }
+
+        hideLoader() {
+          this.loader.classList.remove('active');
+          if (this.grid) this.grid.classList.remove('loading');
+        }
+
+        showError() {
+          this.errorMessage.classList.add('active');
+        }
+
+        hideError() {
+          this.errorMessage.classList.remove('active');
+        }
+
+        restoreScrollPosition() {
+          if (this.scrollPosition > 0) {
+            setTimeout(() => window.scrollTo(0, this.scrollPosition), 80);
+          }
+        }
+
+        updateLoadMoreButton() {
+          if (!this.loadMoreContainer) {
+            return;
+          }
+
+          // Ensure allCards is available
+          if (!this.allCards || this.allCards.length === 0) {
+            this.loadMoreContainer.style.display = 'none';
+            return;
+          }
+
+          // Count visible items using allCards
+          const visibleCards = this.allCards.filter(card => {
+            if (!card) return false;
+            const display = window.getComputedStyle(card).display;
+            const opacity = window.getComputedStyle(card).opacity;
+            return display !== 'none' && opacity !== '0';
+          });
+
+          const visibleCount = visibleCards.length;
+
+          // Show button only if there are more than 6 items
+          if (visibleCount > 6) {
+            this.loadMoreContainer.style.display = 'block';
+          } else {
+            this.loadMoreContainer.style.display = 'none';
+          }
+        }
+
+        checkLoadMore() {
+          // Update on initial load and when window resizes
+          this.updateLoadMoreButton();
+          
+          // Also update on window resize to handle responsive changes
+          if (!this.resizeHandler) {
+            this.resizeHandler = () => this.updateLoadMoreButton();
+            window.addEventListener('resize', this.resizeHandler);
+          }
+        }
+      }
+
+      // Define the custom element (BlogFilterClass is defined in this IIFE scope)
+      // aiGenId is already declared at the top of this IIFE, reuse it
+      const customElementName = 'blog-filter-' + aiGenId;
+      
+      if (!customElements.get(customElementName)) {
+        customElements.define(customElementName, BlogFilterClass);
+      }
+      
+      // Ensure initialization runs even if element is already in DOM
+      document.addEventListener('DOMContentLoaded', () => {
+        const blogFilter = document.querySelector(customElementName);
+        if (blogFilter && blogFilter.connectedCallback) {
+          // If element is already connected but not initialized, manually trigger
+          if (!blogFilter.grid) {
+            blogFilter.connectedCallback();
+          } else {
+            // Element is initialized, but ensure active state is set
+            const { tag: urlTag } = blogFilter.readUrlState();
+            blogFilter.setActiveStateFromTag(urlTag || '');
+          }
+        }
+      });
+      
+      // Also run immediately if DOM is already loaded
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          const blogFilter = document.querySelector(customElementName);
+          if (blogFilter) {
+            const { tag: urlTag } = blogFilter.readUrlState();
+            blogFilter.setActiveStateFromTag(urlTag || '');
+          }
+        });
+      } else {
+        // DOM is already loaded, run immediately
+        setTimeout(() => {
+          const blogFilter = document.querySelector(customElementName);
+          if (blogFilter) {
+            const { tag: urlTag } = blogFilter.readUrlState();
+            blogFilter.setActiveStateFromTag(urlTag || '');
+          }
+        }, 100);
+      }
+    })();
+  </script>
+{%- endif -%}
 
 {% schema %}
 {
-  "name": "t:sections.main-blog.name",
+  "name": "Blog with AJAX filtering",
   "tag": "section",
-  "class": "section",
   "settings": [
     {
-      "type": "select",
-      "id": "layout",
-      "options": [
-        {
-          "value": "grid",
-          "label": "t:sections.main-blog.settings.layout.options__1.label"
-        },
-        {
-          "value": "collage",
-          "label": "t:sections.main-blog.settings.layout.options__2.label"
-        }
-      ],
-      "default": "collage",
-      "label": "t:sections.main-blog.settings.layout.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_image",
-      "default": true,
-      "label": "t:sections.main-blog.settings.show_image.label"
-    },
-    {
-      "type": "select",
-      "id": "image_height",
-      "options": [
-        {
-          "value": "adapt",
-          "label": "t:sections.main-blog.settings.image_height.options__1.label"
-        },
-        {
-          "value": "small",
-          "label": "t:sections.main-blog.settings.image_height.options__2.label"
-        },
-        {
-          "value": "medium",
-          "label": "t:sections.main-blog.settings.image_height.options__3.label"
-        },
-        {
-          "value": "large",
-          "label": "t:sections.main-blog.settings.image_height.options__4.label"
-        }
-      ],
-      "default": "medium",
-      "label": "t:sections.main-blog.settings.image_height.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_date",
-      "default": true,
-      "label": "t:sections.main-blog.settings.show_date.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_author",
-      "default": false,
-      "label": "t:sections.main-blog.settings.show_author.label"
-    },
-    {
       "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "content": "Blog settings"
+    },
+    {
+      "type": "text",
+      "id": "page_title",
+      "label": "Page title",
+      "default": "Blog"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog",
+      "info": "Select the blog to display posts from"
     },
     {
       "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 36
+      "id": "posts_per_page",
+      "min": 6,
+      "max": 24,
+      "step": 3,
+      "label": "Posts per page",
+      "default": 12
     },
     {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
+      "type": "text",
+      "id": "storefront_access_token",
+      "label": "Storefront API access token (public)",
+      "info": "Not used by this version; kept for compatibility."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog with AJAX filtering"
     }
   ]
 }

@@ -1,6 +1,6 @@
 .customer:not(.account):not(.order) {
   margin: 0 auto;
-  max-width: 33.4rem;
+  max-width: 1080px;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   text-align: center;
@@ -8,7 +8,10 @@
 
 @media screen and (min-width: 750px) {
   .customer:not(.account):not(.order) {
-    max-width: 47.8rem;
+    max-width: 1080px;
+  }
+  .customer.alliance-pro-wrapper {
+  padding: 30px 0px !important;
   }
 }
 
@@ -753,3 +756,38 @@ li[data-address] > h2 {
 .addresses form > div:nth-of-type(7) + div[id] {
   margin-top: 1.5rem;
 }
+
+
+/* Pro Deals Accounts Page */
+.customer.alliance-pro-wrapper {
+  padding: 75px 15px !important;
+}
+
+.customer.alliance-pro-wrapper h1{
+  font-weight: 700;
+  margin-bottom: 32px;
+  text-transform: capitalize;
+}
+
+.ap-membership-card .button{
+  text-transform: capitalize;
+}
+
+.ap-membership-card a{
+  transition: all 0.3s ease;
+}
+.ap-membership-card a:hover{
+  opacity: 0.7;
+}
+.alliance-pro-wrapper .select{
+  align-items: center;
+}
+.alliance-pro-wrapper .select svg{
+  height: 10px;
+  width: 30px;
+}
+
+.alliance-pro-wrapper .field textarea {
+  min-height: 200px;
+}
+

@@ -193,6 +193,10 @@ product-info {
   margin-bottom: 1rem;
 }
 
+.gw-button-widget-container {
+  margin-bottom: 0px;
+}
+
 .product-form__submit[aria-disabled='true'] + .shopify-payment-button .shopify-payment-button__button[disabled],
 .product-form__submit[disabled] + .shopify-payment-button .shopify-payment-button__button[disabled] {
   cursor: not-allowed;
@@ -218,7 +222,7 @@ product-info {
 /* Product info */
 
 .product__info-container > * + * {
-  margin: 1.5rem 0;
+  /* margin: 1.5rem 0; */
 }
 
 .product__info-container iframe {

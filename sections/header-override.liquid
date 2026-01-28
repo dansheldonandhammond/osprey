@@ -1,4 +1,6 @@
 {% if section.settings.override_enabled %}
+  <div data-header-override="true" style="display: none;"></div>
+
   <style>
       {% comment %} Header Color {% endcomment %}
       .header-colour {
@@ -47,6 +49,10 @@
       img.c-header__logo.parent-menu-item {
         filter: invert(1);
       }
+
+      #mobile-menu-toggle {
+        color: #fff !important;
+      }
     </style>
   {% elsif section.settings.navigation_text_colour == 'black' %}
     <style>
@@ -58,6 +64,9 @@
       .main-navigation ul li::after,
       .main-navigation .header__icon::after {
         background-color: black;
+      }
+      #mobile-menu-toggle {
+        color: #000 !important;
       }
     </style>
   {% endif %}

@@ -1,3 +1,25 @@
+// Fallback for CartPerformance if not defined elsewhere
+if (typeof CartPerformance === 'undefined') {
+  window.CartPerformance = {
+    measure: function(name, callback) {
+      // If callback is provided, execute it immediately
+      if (typeof callback === 'function') {
+        return callback();
+      }
+    },
+    measureFromEvent: function(name, event) {
+      // No-op for performance measurement
+    },
+    createStartingMarker: function(name) {
+      // Return a simple marker object with timestamp
+      return { name: name, timestamp: Date.now() };
+    },
+    measureFromMarker: function(name, marker) {
+      // No-op for performance measurement
+    }
+  };
+}
+
 class CartRemoveButton extends HTMLElement {
   constructor() {
     super();
@@ -216,10 +238,13 @@ class CartItems extends HTMLElement {
 
         publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-items', cartData: parsedState, variantId: variantId });
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error('Cart update error:', error);
         this.querySelectorAll('.loading__spinner').forEach((overlay) => overlay.classList.add('hidden'));
         const errors = document.getElementById('cart-errors') || document.getElementById('CartDrawer-CartErrors');
-        errors.textContent = window.cartStrings.error;
+        if (errors) {
+          errors.textContent = window.cartStrings.error;
+        }
       })
       .finally(() => {
         this.disableLoading(line);

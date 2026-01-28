@@ -36,26 +36,26 @@
 }
 {% endschema %}
 
-<div class="t-flex  t-flex-row t-gap-[20px] t-justify-center t-items-center">
-  <h2 class="t-hidden lg:t-block t-text-center t-font-bold t-text-header-2 t-mt-[80px] t-mb-[35px] t-leading-[1]">
+<div class="t-relative t-max-w-[1308px] t-mx-auto  t-h-[full] t-flex t-flex-col t-items-center t-justify-center t-mb-[40px]  lg:t-mb-[60px] t-mt-[40px] lg:t-mt-[60px]">
+      <h2 class="t-text-center t-font-bold t-text-header-3 t-uppercase t-leading-[1.2] t-text-[#333]  t-mt-0 t-mb-0">
     {{ section.settings.new_arrivals_title }}
   </h2>
 
-  <h2 class="lg:t-hidden t-block t-text-[32px] t-text-center t-font-bold t-mt-[80px] t-mb-[35px] t-leading-[1]">
-    {{ section.settings.new_arrivals_title_mobile }}
-  </h2>
-
-  <div class="t-relative t-h-[full]">
-    <div class="t-absolute t-top-[5px] t-right-[-240px] t-z-[1] t-flex t-gap-2 t-p-4 t-w-[100px] t-justify-center t-items-center">
-      <div
-        class="swiper-button-prev t-w-[40px] t-h-[40px] t-text-black t-flex t-items-center t-justify-center transition"
-      ></div>
-      <div
-        class="swiper-button-next t-w-[40px] t-h-[40px] t-text-black t-flex t-items-center t-justify-center transition"
-      ></div>
+      <!-- Arrows -->
+      <div class="arrows t-flex t-gap-[80px] t-items-center t-absolute t-right-[10%] t-top-1/2 t-translate-y-[-50%] t-hidden lg:t-flex">
+        <div
+          class="swiper-button-prev new-arrivals-prev  t-text-black t-flex t-items-center t-justify-center transition t-text-[30px] "
+        ></div>
+        <div
+          class="swiper-button-next new-arrivals-next  t-text-black t-flex t-items-center t-justify-center transition t-text-[30px]"
+        ></div>
+      </div>
     </div>
-  </div>
-</div>
+
+
+
+  <div class="t-flex  t-flex-row t-gap-[20px] t-justify-center t-items-center t-px-[0px] md:t-px-[0px] lg:t-px-[30px]">
+
 
 <!-- Tablet & Mobile Grid Layout -->
 <div class="t-grid t-grid-cols-2 md:t-grid-cols-3 t-gap-[16px] md:t-gap-[25px] t-px-[24px] lg:t-hidden">
@@ -84,8 +84,13 @@
   <div class=" swiper-wrapper t-mx-auto">
     {% for block in section.blocks %}
       {% if block.type == 'new_arrival_slide' %}
-        <div class="swiper-slide t-relative t-text-white">
-          <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="t-w-full">
+        <div class="swiper-slide t-relative t-text-white t-cursor-pointer">
+          <img 
+            src="{{ block.settings.image | image_url }}" 
+            alt="{{ block.settings.title }}" 
+            class="t-w-full t-h-auto t-object-cover"
+            loading="lazy"
+          >
           <div class="t-absolute t-bottom-0 t-p-[20px]">
             <h3 class="t-text-header-4 t-font-bold t-text-white">{{ block.settings.title }}</h3>
             <a
@@ -118,8 +123,15 @@
     /* Position arrows top right */
     .new-arrivals-swiper {
       position: relative;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
     }
-    .swiper-button-prev,
+    .new-arrivals-swiper.swiper-initialized {
+      opacity: 1;
+      visibility: visible;
+    }
+    {% comment %} .swiper-button-prev,
     .swiper-button-next {
       top: 0 !important;
       bottom: auto !important;
@@ -131,10 +143,10 @@
       left: auto !important;
     }
     .swiper-button-next {
-      right: 10px;
+      right: 90px;
       left: auto !important;
-    }
-    @media (max-width: 1023px) {
+    } {% endcomment %}
+    {% comment %} @media (max-width: 1023px) {
       .swiper-button-prev,
       .swiper-button-next {
         display: none !important;
@@ -142,7 +154,7 @@
       .swiper-pagination {
         margin-top: 16px;
       }
-    }
+    } {% endcomment %}
     .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
       background: #d9d9d9;
       border-radius: 100px;
@@ -168,9 +180,10 @@
       transition: left 1s cubic-bezier(0.16, 1, 0.3, 1), width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .swiper-button-next::after,
+     .swiper-button-next::after,
     .swiper-button-prev::after {
-      font-size: 40px;
-    }
+      font-size: 35px;
+    } 
   </style>
+</div>
 </div>

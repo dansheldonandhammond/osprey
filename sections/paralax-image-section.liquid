@@ -1,0 +1,88 @@
+<section
+  id="cta-hero"
+  class=" t-py-20 md:t-py-32 t-bg-cover t-bg-center t-text-center t-text-white t-relative t-h-[660px] t-flex t-items-center"
+>
+  <style>
+    /* Mobile background (no parallax, most mobile browsers ignore fixed anyway) */
+    #cta-hero {
+      {% if section.settings.cta_bg_mobile %}
+        background-image: url('{{ section.settings.cta_bg_mobile | img_url: '800x' }}');
+      {% endif %}
+      background-attachment: scroll;  /* fallback */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* Desktop background with parallax */
+    @media (min-width: 768px) {
+      #cta-hero {
+        {% if section.settings.cta_bg_desktop %}
+          background-image: url('{{ section.settings.cta_bg_desktop | img_url: '1600x' }}');
+        {% endif %}
+        background-attachment: fixed;  /* key for parallax */
+        background-position: center;
+        background-size: cover;
+      }
+    }
+  </style>
+
+  <div class="page-width t-mx-auto t-px-4 t-relative">
+    {% if section.settings.cta_title %}
+      <h3 class="t-text-white t-text-[26px] md:t-text-[36px] t-font-bold t-mb-12 t-tracking-wider t-max-w-[1300px] t-mx-auto t-px-4">
+        {{ section.settings.cta_title }}
+      </h3>
+    {% else %}
+
+    {% endif %}
+    {% if section.settings.cta_button_text and section.settings.cta_button_url %}
+      <a
+        href="{{ section.settings.cta_button_url }}"
+        class="t-inline-block t-bg-white t-text-black t-px-8 t-py-4 t-font-bold t-tracking-widest hover:t-bg-gray-600 hover:t-text-white t-transition-colors t-duration-300 t-no-underline"
+      >
+        {{ section.settings.cta_button_text }}
+      </a>
+    {% else %}
+
+    {% endif %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Parallax Image Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "cta_bg_mobile",
+      "label": "Mobile Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_bg_desktop",
+      "label": "Desktop Background Image"
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "Section Title",
+      "default": "this is the title"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_url",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Parallax Image Section",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}

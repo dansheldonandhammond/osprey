@@ -2,12 +2,14 @@
   <style>
     .hero-banner {
       height: {{ section.settings.hero_banner_height_mobile_tablet | default: 667 }}px;
+      {% comment %} min-height: 500px; {% endcomment %}
     }
 
     /* >= 1024px (lg) */
     @media (min-width: 1024px) {
       .hero-banner {
         height: {{ section.settings.hero_banner_height_laptop | default: 800 }}px;
+        {% comment %} min-height: 600px; {% endcomment %}
       }
     }
 
@@ -15,6 +17,7 @@
     @media (min-width: 1280px) {
       .hero-banner {
         height: {{ section.settings.hero_banner_height_large_laptop | default: 780 }}px;
+        {% comment %} min-height: 700px; {% endcomment %}
       }
     }
 
@@ -24,97 +27,213 @@
         height: {{ section.settings.hero_banner_height_desktop | default: 800 }}px;
       }
     }
+
+    .hero-text-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      {% comment %} align-items: flex-end; {% endcomment %}
+      padding: 20px;
+      {% comment %} background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.6) 100%); {% endcomment %}
+    }
+
+    @media (min-width: 768px) {
+      .hero-text-overlay {
+        align-items: center;
+        padding: 40px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-text-overlay {
+        padding: 60px 40px;
+      }
+    }
+
+    .hero-content {
+      width: 100%;
+      max-width: 1308px;
+      margin: 0 auto;
+    }
   </style>
-  <div class="t-relative t-h-full t-flex t-flex-col t-items-center ">
+
+  <!-- Background Media Container -->
+  <div class="t-relative t-h-full t-w-full t-overflow-hidden">
     <!-- Video Block -->
     {% if section.settings.video_url != blank %}
-      <div class="t-w-full t-block">
-        <video
-          id="dynamic_video"
-          class="t-w-full  t-object-cover t-object-center "
-          preload="auto"
-          loop
-          muted
-          playsinline
-          autoplay
-          src="{{ section.settings.video_url }}"
-        ></video>
+      <div class="t-w-full t-h-full t-absolute t-inset-0">
+        {% if section.settings.video_url contains '.mp4' or section.settings.video_url contains '.webm' %}
+          <video
+            id="dynamic_video"
+            class="t-w-full t-h-full t-object-cover t-object-center"
+            preload="auto"
+            autoplay
+            muted
+            loop
+            playsinline
+          >
+            <source
+              src="{{ section.settings.video_url }}"
+              type="video/{{ section.settings.video_url | split: '.' | last }}"
+            >
+            Your browser does not support the video tag.
+          </video>
+        {% elsif section.settings.video_embed_url != blank %}
+          <div class="t-relative t-w-full t-h-full">
+            <iframe
+              src="{{ section.settings.video_embed_url }}"
+              class="t-absolute t-top-0 t-left-0 t-w-full t-h-full"
+              frameborder="0"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+            ></iframe>
+          </div>
+        {% endif %}
       </div>
-    {% else %}
+    {% endif %}
+
+    <!-- Fallback Image (when no video or as video fallback) -->
+    {% if section.settings.fallback_image != blank and section.settings.video_url == blank %}
+      <div class="t-w-full t-h-full t-absolute t-inset-0 {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        {{
+          section.settings.fallback_image
+          | image_url: width: 3840
+          | image_tag: class: 't-w-full t-h-full t-object-cover t-object-center'
+        }}
+      </div>
+    {% endif %}
+
+    <!-- Responsive Images Block -->
+    {% if section.settings.video_url == blank and section.settings.fallback_image == blank %}
       {%- if section.settings.mobile != blank
         and section.settings.laptop != blank
         and section.settings.desktop != blank
       -%}
         <!-- All three images are provided -->
-        <div class="t-w-full t-h-full t-block md:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        {% assign mobile_style = 'object-position: '
+          | append: section.settings.mobile_image_horizontal_axis
+          | append: '% '
+          | append: section.settings.mobile_image_vertical_axis
+          | append: '%;'
+        %}
+        {% assign desktop_style = 'object-position: '
+          | append: section.settings.desktop_image_horizontal_axis
+          | append: '% '
+          | append: section.settings.desktop_image_vertical_axis
+          | append: '%;'
+        %}
+
+        <div class="t-w-full t-h-full t-absolute t-inset-0 t-block md:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
           {{
             section.settings.mobile
             | image_url: width: 3840
-            | image_tag: width: section.settings.mobile.width, class: 't-w-full t-h-full t-object-cover t-object-center'
+            | image_tag:
+              width: section.settings.mobile.width,
+              class: 't-w-full t-h-full t-object-cover',
+              style: mobile_style
           }}
         </div>
-        <div class="t-w-full t-h-full t-hidden md:t-block lg:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        <div class="t-w-full t-h-full t-absolute t-inset-0 t-hidden md:t-block lg:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
           {{
             section.settings.laptop
             | image_url: width: 3840
             | image_tag: width: section.settings.laptop.width, class: 't-w-full t-h-full t-object-cover t-object-center'
           }}
         </div>
-        <div class="t-w-full t-h-full t-hidden lg:t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        <div class="t-w-full t-h-full t-absolute t-inset-0 t-hidden lg:t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
           {{
             section.settings.desktop
             | image_url: width: 3840
             | image_tag:
               width: section.settings.desktop.width,
-              class: 't-w-full t-h-full t-object-cover t-object-center '
+              class: 't-w-full t-h-full t-object-cover',
+              style: desktop_style
           }}
         </div>
       {%- elsif section.settings.laptop != blank and section.settings.desktop != blank -%}
         <!-- Only desktop and laptop images are provided -->
-        <div class="t-w-full t-h-full t-block lg:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        {% assign desktop_style = 'object-position: '
+          | append: section.settings.desktop_image_horizontal_axis
+          | append: '% '
+          | append: section.settings.desktop_image_vertical_axis
+          | append: '%;'
+        %}
+
+        <div class="t-w-full t-h-full t-absolute t-inset-0 t-block lg:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
           {{
             section.settings.laptop
             | image_url: width: 3840
             | image_tag: width: section.settings.laptop.width, class: 't-w-full t-h-full t-object-cover t-object-center'
           }}
         </div>
-        <div class="t-w-full t-h-full t-hidden lg:t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        <div class="t-w-full t-h-full t-absolute t-inset-0 t-hidden lg:t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
           {{
             section.settings.desktop
             | image_url: width: 3840
             | image_tag:
               width: section.settings.desktop.width,
-              class: 't-w-full t-h-full t-object-cover t-object-center '
+              class: 't-w-full t-h-full t-object-cover',
+              style: desktop_style
           }}
         </div>
       {%- elsif section.settings.mobile != blank and section.settings.desktop != blank -%}
         <!-- Only desktop and mobile images are provided -->
-        <div class="t-w-full t-h-full t-block lg:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        {% assign mobile_style = 'object-position: '
+          | append: section.settings.mobile_image_horizontal_axis
+          | append: '% '
+          | append: section.settings.mobile_image_vertical_axis
+          | append: '%;'
+        %}
+        {% assign desktop_style = 'object-position: '
+          | append: section.settings.desktop_image_horizontal_axis
+          | append: '% '
+          | append: section.settings.desktop_image_vertical_axis
+          | append: '%;'
+        %}
+
+        <div class="t-w-full t-h-full t-absolute t-inset-0 t-block lg:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
           {{
             section.settings.mobile
             | image_url: width: 3840
-            | image_tag: width: section.settings.mobile.width, class: 't-w-full t-h-full t-object-cover t-object-center'
+            | image_tag:
+              width: section.settings.mobile.width,
+              class: 't-w-full t-h-full t-object-cover',
+              style: mobile_style
           }}
         </div>
-        <div class="t-w-full t-h-full t-hidden lg:t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        <div class="t-w-full t-h-full t-absolute t-inset-0 t-hidden lg:t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
           {{
             section.settings.desktop
             | image_url: width: 3840
             | image_tag:
               width: section.settings.desktop.width,
-              class: 't-w-full t-h-full t-object-cover t-object-center'
+              class: 't-w-full t-h-full t-object-cover',
+              style: desktop_style
           }}
         </div>
       {%- elsif section.settings.mobile != blank and section.settings.laptop != blank -%}
         <!-- Only laptop and mobile images are provided -->
-        <div class="t-w-full t-h-full t-block md:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        {% assign mobile_style = 'object-position: '
+          | append: section.settings.mobile_image_horizontal_axis
+          | append: '% '
+          | append: section.settings.mobile_image_vertical_axis
+          | append: '%;'
+        %}
+
+        <div class="t-w-full t-h-full t-absolute t-inset-0 t-block md:t-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
           {{
             section.settings.mobile
             | image_url: width: 3840
-            | image_tag: width: section.settings.mobile.width, class: 't-w-full t-h-full t-object-cover t-object-center'
+            | image_tag:
+              width: section.settings.mobile.width,
+              class: 't-w-full t-h-full t-object-cover',
+              style: mobile_style
           }}
         </div>
-        <div class="t-w-full t-h-full t-hidden md:t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        <div class="t-w-full t-h-full t-absolute t-inset-0 t-hidden md:t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
           {{
             section.settings.laptop
             | image_url: width: 3840
@@ -123,16 +242,26 @@
         </div>
       {%- elsif section.settings.mobile != blank -%}
         <!-- Only mobile image is provided -->
-        <div class="t-w-full t-h-full t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        {% assign mobile_style = 'object-position: '
+          | append: section.settings.mobile_image_horizontal_axis
+          | append: '% '
+          | append: section.settings.mobile_image_vertical_axis
+          | append: '%;'
+        %}
+
+        <div class="t-w-full t-h-full t-absolute t-inset-0 {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
           {{
             section.settings.mobile
             | image_url: width: 3840
-            | image_tag: width: section.settings.mobile.width, class: 't-w-full t-h-full t-object-cover t-object-center'
+            | image_tag:
+              width: section.settings.mobile.width,
+              class: 't-w-full t-h-full t-object-cover',
+              style: mobile_style
           }}
         </div>
       {%- elsif section.settings.laptop != blank -%}
         <!-- Only laptop image is provided -->
-        <div class="t-w-full t-h-full t-block {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        <div class="t-w-full t-h-full t-absolute t-inset-0 {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
           {{
             section.settings.laptop
             | image_url: width: 3840
@@ -141,92 +270,156 @@
         </div>
       {%- elsif section.settings.desktop != blank -%}
         <!-- Only desktop image is provided -->
-        {% assign image_style = 'object-position: '
+        {% assign desktop_style = 'object-position: '
           | append: section.settings.desktop_image_horizontal_axis
           | append: '% '
           | append: section.settings.desktop_image_vertical_axis
-          | append: '%; scale: '
-          | append: section.settings.image_scale
           | append: '%;'
         %}
 
-        <div class="t-w-full t-h-full t-block t-overflow-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+        <div class="t-w-full t-h-full t-absolute t-inset-0 t-overflow-hidden {% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
           {{
             section.settings.desktop
             | image_url: width: 3840
             | image_tag:
               width: section.settings.desktop.width,
               class: 't-w-full t-h-full t-object-cover',
-              style: image_style
+              style: desktop_style
           }}
         </div>
       {%- endif -%}
-    {%- endif -%}
-  </div>
-
-  <div class="t-inset-0 t-absolute">
-    {% comment %}
-      <a
-        href="#bottom"
-        class="t-hidden lg:t-flex t-group t-left-1/2 t-absolute t-bottom-10 t-group t-flex t-justify-center t-items-center t-rounded-full t-text-[var(--primary-text-hover-colour)] t-bg-[var(--primary-bg-colour)] hover:t-bg-[var(--secondary-bg-colour)] t-ease-in-out t-duration-500 t-transition t-w-[5rem] t-h-[5rem] "
-        onclick="event.preventDefault(); document.querySelector('#bottom').scrollIntoView({ behavior: 'smooth' });"
-      >
-        <span
-          class="inline-block align-text-bottom object-contain icon-size-x-small"
-          style="--icon-color: var(--color-white); --icon-hover-color: var(--color-black);"
-        >
-          <svg
-            class="t-transition t-stroke "
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="15"
-            height="15"
-          >
-            <g>
-              <polyline class="group-hover:t-stroke-white t-ease-in-out t-duration-500" fill="none" stroke="currentColor" stroke-linecap="square" stroke-width="1" points="3.5,14.5 12,23 20.5,14.5"></polyline>
-              <line class="group-hover:t-stroke-white  t-ease-in-out t-duration-500" fill="none" stroke="currentColor" stroke-linecap="square" stroke-width="1" x1="12" y1="22.4" x2="12" y2="1"></line>
-            </g>
-          </svg>
-        </span>
-      </a>
-    {% endcomment %}
-    {% if section.blocks != empty %}
-      <div class="t-top-[195px] t-w-full t-relative t-max-w-[1308px] t-right-[-15px] t-mx-auto t-text-left t-text-white t-flex t-justify-center t-items-start t-flex-col">
-        <div class="t-h-full t-absolute t-bottom-0 t-w-full">
-          {%- for block in section.blocks -%}
-            <div>
-              {% if block.settings.subheading_text %}
-                <p class="t-text-lg t-font-medium t-mb-4 t-text-header-8 t-tracking-[7px] ">
-                  {{- block.settings.subheading_text -}}
-                </p>
-              {% endif %}
-
-              {% if block.settings.heading_block_heading_text %}
-                <h2 class="t-text-white t-text-[clamp(0.75rem, 0.2717rem + 2.0408vw, 1.25rem)] md:t-text-4xl t-font-bold t-text-header-1 t-max-w-[400px] t-mt-[9px] t-mb-[35px] t-leading-[1] t-tracking-[0px]">
-                  {{ block.settings.heading_block_heading_text }}
-                </h2>
-              {% endif %}
-              {% if block.settings.text_block_text %}
-                <p class="t-text-[1.6rem] t-text-base t-mb-[20px] t-max-w-[469px] t-leading-[1.5] t-tracking-[0.1px]">
-                  {{ block.settings.text_block_text }}
-                </p>
-              {% endif %}
-
-              {% if block.settings.button_label_1 %}
-                <a
-                  href="{{ block.settings.button_link_1 }}"
-                  class="t-font-[600] t-text-body-6 t-no-underline t-uppercase t-inline-block t-text-black t-bg-white hover:t-bg-grey t-py-[12px] t-px-[35px] t-transition t-duration-300 hover:t-text-white t-tracking-[1px]"
-                >
-                  {{- block.settings.button_label_1 }}
-                </a>
-              {% endif %}
-            </div>
-          {%- endfor -%}
-        </div>
-      </div>
-      </div>
     {% endif %}
   </div>
+
+  <!-- Text Overlay -->
+  {% if section.blocks != empty %}
+    <div class="hero-text-overlay">
+      <div class="hero-content t-text-center lg:t-text-start t-mx-auto t-flex t-justify-center t-flex-col t-items-center lg:t-block t-mt-[50px]">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'subheading' -%}
+              {% if block.settings.subheading_text != blank %}
+                <div
+                  class="t-uppercase t-tracking-widest t-text-white t-font-medium t-mb-4"
+                  style="font-size: 0.875rem; letter-spacing: 2px;"
+                >
+                  {{ block.settings.subheading_text }}
+                </div>
+              {% endif %}
+
+            {%- when 'heading' -%}
+              {% if block.settings.heading_block_heading_text != blank %}
+                {% assign heading_color_class = '' %}
+                {% case block.settings.heading_block_text_color %}
+                  {% when 'primary' %}
+                    {% assign heading_color_class = 't-text-primary' %}
+                  {% when 'secondary' %}
+                    {% assign heading_color_class = 't-text-secondary' %}
+                  {% when 'white' %}
+                    {% assign heading_color_class = 't-text-white' %}
+                  {% when 'black' %}
+                    {% assign heading_color_class = 't-text-black' %}
+                {% endcase %}
+
+                <{{ block.settings.heading_block_heading_tag | default: 'h2' }}
+                  class=" t-text-[37px] t-my-0 {{ heading_color_class }} {{ block.settings.heading_block_font_weight | default: 't-font-semibold' }} {{ block.settings.heading_block_heading_case | default: 't-uppercase' }} {{ block.settings.heading_block_heading_font | default: 'font-secondary' }}"
+                  style="
+                    font-size: {{ block.settings.heading_block_heading_size_default | default: '1.9rem' }};
+                    padding-top: {{ block.settings.heading_block_top_default_padding | default: 10 }}px;
+                    padding-bottom: {{ block.settings.heading_block_bottom_default_padding | default: 10 }}px;
+                    max-width: {{ block.settings.heading_block_max_width | default: 1920 }}px;
+                    line-height: 1.1;
+                  "
+                >
+                  {{ block.settings.heading_block_heading_text }}
+                </{{ block.settings.heading_block_heading_tag | default: 'h2' }}>
+
+                <style>
+                  @media (min-width: 1024px) {
+                    .hero-content {{ block.settings.heading_block_heading_tag | default: 'h2' }} {
+                      font-size: {{ block.settings.heading_block_heading_size_large | default: '3.2rem' }} !important;
+                      padding-top: {{ block.settings.heading_block_top_large_padding | default: 15 }}px !important;
+                      padding-bottom: {{ block.settings.heading_block_bottom_large_padding | default: 15 }}px !important;
+                    }
+                  }
+
+                  @media (min-width: 1920px) {
+                    .hero-content {{ block.settings.heading_block_heading_tag | default: 'h2' }} {
+                      font-size: {{ block.settings.heading_block_heading_size_extra_large | default: '3.2rem' }} !important;
+                    }
+                  }
+                </style>
+              {% endif %}
+
+            {%- when 'text' -%}
+              {% if block.settings.text_block_text != blank %}
+                {% assign text_color_class = '' %}
+                {% case block.settings.text_block_text_color %}
+                  {% when 'primary' %}
+                    {% assign text_color_class = 't-text-primary' %}
+                  {% when 'secondary' %}
+                    {% assign text_color_class = 't-text-secondary' %}
+                  {% when 'white' %}
+                    {% assign text_color_class = 't-text-white' %}
+                  {% when 'black' %}
+                    {% assign text_color_class = 't-text-black' %}
+                {% endcase %}
+
+                <p
+                  class="{{ text_color_class }} {{ block.settings.text_block_font_weight | default: 't-font-semibold' }} {{ block.settings.text_block_text_case | default: 't-uppercase' }} {{ block.settings.text_block_text_font | default: 'font-secondary' }}"
+                  style="
+                    font-size: {{ block.settings.text_block_text_size_default | default: '1.9rem' }};
+                    padding-top: {{ block.settings.text_block_top_default_padding | default: 10 }}px;
+                    padding-bottom: {{ block.settings.text_block_bottom_default_padding | default: 10 }}px;
+                    max-width: {{ block.settings.text_block_max_width | default: 1920 }}px;
+                    line-height: 1.5;
+                  "
+                >
+                  {{ block.settings.text_block_text }}
+                </p>
+
+                <style>
+                  @media (min-width: 1024px) {
+                    .hero-content p {
+                      font-size: {{ block.settings.text_block_text_size_large | default: '3.2rem' }} !important;
+                      padding-top: {{ block.settings.text_block_top_large_padding | default: 15 }}px !important;
+                      padding-bottom: {{ block.settings.text_block_bottom_large_padding | default: 15 }}px !important;
+                    }
+                  }
+
+                  @media (min-width: 1920px) {
+                    .hero-content p {
+                      font-size: {{ block.settings.text_block_text_size_extra_large | default: '3.2rem' }} !important;
+                    }
+                  }
+                </style>
+              {% endif %}
+
+            {%- when 'buttons' -%}
+              <div class="t-flex t-flex-wrap t-gap-4 t-mt-6">
+                {% if block.settings.button_label_1 != blank %}
+                  <a
+                    href="{{ block.settings.button_link_1 | default: '#' }}"
+                    class="{% if block.settings.button_style_secondary_1 %} t-max-w-[max-content] t-bg-transparent t-bg-white t-border-2 t-border-white t-text-white  hover:t-text-black{% else %} t-py-[12px] t-px-[35px]  t-bg-white t-text-black  hover:t-bg-[#666] hover:t-text-white {% endif %} t-font-semibold t-no-underline t-uppercase t-inline-block t-transition t-duration-300 t-tracking-wider t-text-sm sm:t-text-base"
+                  >
+                    {{ block.settings.button_label_1 }}
+                  </a>
+                {% endif %}
+
+                {% if block.settings.button_label_2 != blank %}
+                  <a
+                    href="{{ block.settings.button_link_2 | default: '#' }}"
+                    class="{% if block.settings.button_style_secondary_2 %}t-bg-transparent t-border-2 t-border-white t-text-white hover:t-bg-white hover:t-text-black{% else %}t-bg-white t-text-black hover:t-bg-gray-200{% endif %} t-font-semibold t-no-underline t-uppercase t-inline-block t-py-3 t-px-6 sm:t-py-3 sm:t-px-8 lg:t-py-3 lg:t-px-9 t-transition t-duration-300 t-tracking-wider t-text-sm sm:t-text-base"
+                  >
+                    {{ block.settings.button_label_2 }}
+                  </a>
+                {% endif %}
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {% endif %}
 </div>
 
 {% schema %}
@@ -241,7 +434,17 @@
     {
       "type": "url",
       "id": "video_url",
-      "label": "Video URL"
+      "label": "Direct video file URL (.mp4 or .webm)"
+    },
+    {
+      "type": "url",
+      "id": "video_embed_url",
+      "label": "Embed video URL (e.g., Vimeo or YouTube iframe URL)"
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image",
+      "label": "fallback Image"
     },
     {
       "type": "image_picker",

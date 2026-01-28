@@ -35,6 +35,34 @@
               {{- option.selected_value -}}
             </span>
           </legend>
+          {% comment %}
+            <div class="swatches">
+              {% for value in option.values %}
+                {% if value.variant.metafields.custom.hide_variant != true %}
+                  <input
+                    type="radio"
+                    id="template--{{ section.id }}__main-{{ forloop.index0 }}"
+                    name="{{ option.name }}"
+                    value="{{ value }}"
+                    form="{{ product_form_id }}"
+                    class="swatch-input__input"
+                    {% if forloop.first %}
+                      checked
+                    {% endif %}
+                  >
+                  <label
+                    for="template--{{ section.id }}__main-{{ forloop.index0 }}"
+                    title="{{ value }}"
+                    class="swatch-input__label"
+                  >
+                    <span class="swatch swatch--unavailable" data-swatch-value="{{ value }}"></span>
+                    <span class="visually-hidden">{{ value }}</span>
+                  </label>
+                  {% comment %} <span class="variant-color-info" id="color-info-{{ forloop.index0 }}"></span> {% endcomment %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endcomment %}
           {% render 'product-variant-options',
             product: product,
             option: option,
@@ -43,13 +71,15 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill t-rounded-none t-mt-[20px] t-gap-[5px]">
-          <legend class="form__label t-rounded-none t-text-[16px] t-text-black">
-            {{ option.name }}:
-            <span class="t-font-[800]" data-selected-value>
-              {{- option.selected_value -}}
-            </span>
-          </legend>
+        <fieldset class="js product-form__input product-form__input--pill t-rounded-none t-mt-[20px] t-gap-[5px] product-sizings t-items-center">
+          {% comment %}
+            <legend class="form__label t-rounded-none t-text-[16px] t-text-black">
+              {{ option.name }}:
+              <span class="t-font-[800]" data-selected-value>
+                {{- option.selected_value -}}
+              </span>
+            </legend>
+          {% endcomment %}
 
           {% render 'product-variant-options',
             product: product,
@@ -103,4 +133,110 @@
       {{ product.variants | json }}
     </script>
   </variant-selects>
+
+  
+
+  <div class="sizing-modal-overlay" id="sizingModal">
+    <div class="sizing-modal">
+      <!-- Modal Header -->
+      {% comment %}
+        <div class="modal-header">
+          <h2 class="modal-title">SIZING</h2>
+          <button class="modal-close" type="button">&times;</button>
+        </div>
+      {% endcomment %}
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <!-- Desktop Tab Navigation -->
+        <div class="tab-navigation" id="tabNavigation">
+          <button class="tab-button active" data-tab="gender-sizing">{{ product.title }} Sizing</button>
+          <button class="tab-button" data-tab="pack-sizing">MEN'S PACK SIZING</button>
+          <button class="tab-button" data-tab="overview">OVERVIEW</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <!-- Gender Pack Sizing Tab (Desktop) -->
+          <div class="tab-panel" id="gender-sizing">
+            <div class="sizing-content">
+              <div class="demo-content t-prose "></div>
+            </div>
+          </div>
+
+          <!-- Pack Sizing Tab (Desktop) -->
+          <div class="tab-panel" id="pack-sizing">
+            <div class="sizing-content">
+              <h3>MEN'S PACK SIZING</h3>
+              <div class="demo-content">
+                {{ product.metafields.custom.gender_pack_sizing_description | raw }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Overview Tab (Desktop) -->
+          <div class="tab-panel" id="overview">
+            <div class="sizing-content">
+              <div class="demo-content t-prose t-mt-0">
+                {{ product.metafields.custom.product_sizing_overview | raw }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile Collapsible Sections -->
+          <div class="collapsible-section expanded">
+            <button class="collapsible-header" type="button">
+              <span>ATMOS AG 65 SIZING</span>
+              <span class="collapsible-chevron">▼</span>
+            </button>
+            <div class="collapsible-content">
+              <div class="collapsible-inner">
+                <div class="sizing-content">
+                  <div class="demo-content">
+                    <p>Add your content here. When you paste HTML from metafields, remove this demo content.</p>
+                    <p>Example content: This section would contain your sizing charts and information.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="collapsible-section">
+            <button class="collapsible-header" type="button">
+              <span>MEN'S PACK SIZING</span>
+              <span class="collapsible-chevron">▼</span>
+            </button>
+            <div class="collapsible-content">
+              <div class="collapsible-inner">
+                <div class="sizing-content">
+                  <div class="demo-content">
+                    {{ product.metafields.custom.gender_pack_sizing_description | raw }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="collapsible-section">
+            <button class="collapsible-header" type="button">
+              <span>OVERVIEW</span>
+              <span class="collapsible-chevron">▼</span>
+            </button>
+            <div class="collapsible-content">
+              <div class="collapsible-inner">
+                <div class="sizing-content">
+                  <div class="demo-content t-prose">
+                    {{ product.metafields.custom.product_sizing_overview | raw }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 {%- endunless -%}

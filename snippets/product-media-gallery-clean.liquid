@@ -1,0 +1,517 @@
+{% comment %}
+  <div class="t-flex t-gap-[20px]">
+    <div
+      class="t-relative t-h-[600px]"
+      x-data="
+        {
+          showScrollUp: false,
+          showScrollDown: false,
+          currentIndex: 0,
+          thumbnailHeight: 118,
+
+          getVisibleThumbs() {
+            return Array.from(this.$refs.gallery.querySelectorAll('.variant-thumbnail'))
+              .filter(thumb => thumb.style.display !== 'none');
+          },
+
+          scrollThumbsUp() {
+            const visibleThumbs = this.getVisibleThumbs();
+            if (this.currentIndex > 0) {
+              this.currentIndex--;
+              this.scrollToThumb(visibleThumbs[this.currentIndex]);
+            }
+          },
+
+          scrollThumbsDown() {
+            const visibleThumbs = this.getVisibleThumbs();
+            if (this.currentIndex < visibleThumbs.length - 1) {
+              this.currentIndex++;
+              this.scrollToThumb(visibleThumbs[this.currentIndex]);
+            }
+          },
+
+          scrollToThumb(thumb) {
+            if (thumb) {
+              thumb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            this.handleScroll();
+          },
+
+          handleScroll() {
+            const el = this.$refs.gallery;
+            if (!el) return;
+            this.showScrollUp = el.scrollTop > 0;
+            this.showScrollDown = el.scrollTop + el.clientHeight < el.scrollHeight - 1;
+          },
+
+          initCurrentIndex() {
+            const visibleThumbs = this.getVisibleThumbs();
+            this.currentIndex = 0;
+            this.handleScroll();
+
+            const el = this.$refs.gallery;
+            if (el && el.scrollHeight > el.clientHeight) {
+              this.showScrollDown = true;
+            }
+          }
+        }
+      "
+      x-init="
+        $nextTick(() => {
+          setTimeout(() => {
+            if (typeof this.handleScroll === 'function') this.handleScroll();
+            if (typeof this.initCurrentIndex === 'function') this.initCurrentIndex();
+          }, 100);
+        })
+      "
+    >
+      <!-- Scroll Up Button -->
+      <div class="scroll-btn t-hidden lg:t-flex lg:t-justify-around lg:t-absolute -t-top-[52px] lg:t-w-full">
+        <button
+          type="button"
+          @click="scrollThumbsUp"
+          x-show="showScrollUp"
+          x-transition
+          class="t-w-full t-bg-transparent t-border-none t-cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            class="t-w-[35px] t-h-[35px] mx-auto"
+            style="transform: rotate(180deg);"
+            role="img"
+          >
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.29289 10.2929C8.68342 9.90237 9.31658 9.90237 9.70711 10.2929L12 12.5858L14.2929 10.2929C14.6834 9.90237 15.3166 9.90237 15.7071 10.2929C16.0976 10.6834 16.0976 11.3166 15.7071 11.7071L12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L8.29289 11.7071C7.90237 11.3166 7.90237 10.6834 8.29289 10.2929Z" fill="currentColor"></path>
+            <title>chevron-up</title>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Thumbnail Gallery -->
+      <div
+        id="GalleryThumbnails"
+        x-ref="gallery"
+        @scroll="handleScroll"
+        class="t-flex t-flex-col t-gap-[20px] t-overflow-y-scroll t-h-[600px]"
+        style="-ms-overflow-style: none; scrollbar-width: none;"
+      >
+        <style>
+          #GalleryThumbnails::-webkit-scrollbar {
+            display: none;
+          }
+        </style>
+
+        <!-- Single variant fallback -->
+        {% if product.variants.size == 1 %}
+          {% assign images = product.media %}
+          {% for image in images %}
+            <img
+              src="{{ image | image_url }}"
+              alt="{{ image.alt | escape }}"
+              thumbnail-sku="{{ product.variants.first.sku }}"
+              data-index="{{ forloop.index0 }}"
+              class="variant-thumbnail t-w-[106px] t-h-[106px] t-object-cover t-cursor-pointer t-border-[4px] t-border-black t-rounded"
+              style="display: block;"
+            >
+          {% endfor %}
+        {% endif %}
+
+        <!-- Variant gallery data -->
+        <script type="application/json" id="variant-gallery-data">
+          {
+            {% for variant in product.variants %}
+              "{{ variant.id }}": {
+                "sku": "{{ variant.sku }}",
+                "gallery": [
+                  {% assign gallery = variant.metafields.prod_variant.image_gallery.value %}
+                  {% if gallery %}
+                    {% for image in gallery %}
+                      "{{ image | image_url }}"{% unless forloop.last %},{% endunless %}
+                    {% endfor %}
+                  {% else %}
+                    {% for image in product.media %}
+                      "{{ image | image_url }}"{% unless forloop.last %},{% endunless %}
+                    {% endfor %}
+                  {% endif %}
+                ]
+              }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+          }
+        </script>
+
+        <!-- Multi-variant thumbnails -->
+        {% for variant in product.variants %}
+          {% assign gallery = variant.metafields.prod_variant.image_gallery.value %}
+          {% if gallery %}
+            {% for image in gallery %}
+              <img
+                src="{{ image | image_url }}"
+                alt="{{ image.alt | escape }}"
+                thumbnail-sku="{{ variant.sku }}"
+                data-index="{{ forloop.index0 }}"
+                class="variant-thumbnail t-w-[106px] t-h-[106px] t-object-cover t-cursor-pointer t-border-[4px] t-border-black t-rounded"
+                style="display: none;"
+              >
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <!-- Scroll Down Button -->
+      <div class="scroll-btn t-hidden lg:t-flex lg:t-justify-around lg:t-absolute -t-bottom-[52px] lg:t-w-full">
+        <button
+          type="button"
+          @click="scrollThumbsDown"
+          x-show="showScrollDown"
+          x-transition
+          class="t-w-full t-bg-transparent t-border-none t-cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="t-w-[35px] t-h-[35px] t-mx-auto t-cursor-pointer"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.29289 10.2929C8.68342 9.90237 9.31658 9.90237 9.70711 10.2929L12 12.5858L14.2929 10.2929C14.6834 9.90237 15.3166 9.90237 15.7071 10.2929C16.0976 10.6834 16.0976 11.3166 15.7071 11.7071L12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L8.29289 11.7071C7.90237 11.3166 7.90237 10.6834 8.29289 10.2929Z" fill="currentColor" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Featured Image Container -->
+    <div class="variant-gallery t-mb-4 t-flex t-flex-row-reverse t-max-w-[612px] t-max-h-[612px] t-relative">
+      <img
+        id="FeaturedImage"
+        src="{% if product.variants.size == 1 %}{{ product.selected_or_first_available_variant.featured_image | image_url: width: 600, height: 600 }}{% endif %}"
+        alt="Featured variant image"
+        class="t-object-contain t-rounded t-border t-h-[612px] t-w-[612px]"
+      >
+
+      <!-- Product Badges -->
+      {% assign badges = product.metafields.custom.badge %}
+      {% if badges %}
+        <div class="badge-container t-absolute t-top-2 t-left-2 t-z-[2] t-flex t-flex-wrap t-gap-1">
+          {% for badge in badges.value %}
+            {% assign label = badge.label.value %}
+            {% assign expiry = badge.expiry_date.value | default: '' %}
+            {% assign color = badge.color.value | default: '#000000' %}
+            {% assign has_expired = false %}
+
+            {% if expiry != blank and expiry <= now %}
+              {% assign has_expired = true %}
+            {% endif %}
+
+            {% if label and has_expired == false %}
+              <div
+                class="badge t-text-[10px] t-sm:text-xs t-font-semibold t-text-white t-bg-opacity-90 t-px-2 t-py-[2px] t-rounded t-shadow-sm t-uppercase t-whitespace-nowrap"
+                style="background-color: {{ color }}; min-width: fit-content; text-align: center;"
+              >
+                <span class="t-px-[5px] t-py-[2px] t-text-[14px] t-my-0" style="min-width: fit-content;">
+                  {{ label }}
+                </span>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <!-- Product Tag Badges (Sale and Past Season) -->
+      {% assign has_sale_tag = false %}
+      {% assign has_past_season_tag = false %}
+      
+      {% if product.tags contains 'Sale' %}
+        {% assign has_sale_tag = true %}
+      {% endif %}
+      
+      {% if product.tags contains 'Past Season' %}
+        {% assign has_past_season_tag = true %}
+      {% endif %}
+
+      {% if has_sale_tag or has_past_season_tag %}
+        <div class="product-tag-badges t-absolute t-top-0 t-left-0 t-z-[9999] t-flex t-flex-col t-gap-1" style="position: absolute !important; top: 0 !important; left: 0 !important; z-index: 9999 !important;">
+          {% if has_sale_tag %}
+            <span
+              class="badge price__badge-sale"
+              style="display: inline-flex !important; background-color: #9E3223 !important; color: white !important; justify-content: center; align-items: center; padding: 10px 15px; border-radius: 0px; font-size: 12px; font-weight: 600; text-transform: uppercase; white-space: nowrap;"
+            >
+              SALE
+            </span>
+          {% endif %}
+          {% if has_past_season_tag %}
+            <span
+              class="badge price__badge-sale"
+              style="display: inline-flex !important; background-color: #9E3223 !important; color: white !important; justify-content: center; align-items: center; padding: 10px 15px; border-radius: 0px; font-size: 12px; font-weight: 600; text-transform: uppercase; white-space: nowrap;"
+            >
+              PAST SEASON
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <!-- Product Variants Data -->
+      <script>
+        window.productVariants = [
+          {% for variant in product.variants %}
+            {
+              id: {{ variant.id }},
+              sku: "{{ variant.sku }}",
+              option1: {{ variant.option1 | json }},
+              option2: {{ variant.option2 | json }},
+              option3: {{ variant.option3 | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ];
+      </script>
+
+      <script>
+        // Gallery Management System
+        class GalleryManager {
+          constructor() {
+            this.isClickingThumbnail = false;
+            this.featuredImageObserver = null;
+            this.syncInterval = null;
+            this.init();
+          }
+
+          init() {
+            this.setupEventListeners();
+            this.setupFeaturedImageObserver();
+            this.initializeGallery();
+          }
+
+          // Helper Functions
+          checkImageMatch(thumbSrc, featuredSrc) {
+            if (!thumbSrc || !featuredSrc) return false;
+
+            // Exact match first
+            if (thumbSrc === featuredSrc) return true;
+
+            // Handle Shopify URL variations (different sizes, etc.)
+            const cleanThumb = thumbSrc.replace(/(_\d+x\d*|_master|_grande|_large|_medium|_small|_compact|_thumb)\.(jpg|png|gif|webp)/i, '.$2');
+            const cleanFeatured = featuredSrc.replace(/(_\d+x\d*|_master|_grande|_large|_medium|_small|_compact|_thumb)\.(jpg|png|gif|webp)/i, '.$2');
+
+            // Compare without query parameters
+            const thumbBase = cleanThumb.split('?')[0];
+            const featuredBase = cleanFeatured.split('?')[0];
+
+            return thumbBase === featuredBase;
+          }
+
+          getCurrentVariantId() {
+            // Check URL parameter first
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlVariant = urlParams.get('variant');
+            if (urlVariant) return urlVariant;
+
+            // Fallback to selected variant
+            const selectedVariant = window.productVariants.find(v =>
+              v.id === {{ product.selected_or_first_available_variant.id }}
+            );
+            return selectedVariant ? selectedVariant.id.toString() : window.productVariants[0]?.id.toString();
+          }
+
+          getVisibleThumbs() {
+            return Array.from(document.querySelectorAll('.variant-thumbnail'))
+              .filter(thumb => thumb.style.display !== 'none');
+          }
+
+          clearBorders() {
+            document.querySelectorAll('.variant-thumbnail').forEach(thumb => {
+              thumb.classList.remove('t-ring-2', 't-ring-primary');
+            });
+          }
+
+          applyBorder(thumb) {
+            this.clearBorders();
+            thumb.classList.add('t-ring-2', 't-ring-primary');
+          }
+
+          scrollToThumb(thumb) {
+            if (thumb) {
+              thumb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            // Update Alpine scroll state
+            const galleryElement = document.querySelector('#GalleryThumbnails');
+            if (galleryElement && galleryElement.__x_$data) {
+              galleryElement.__x_$data.handleScroll();
+            }
+          }
+
+          // Core Gallery Functions
+          updateGallery(variantId) {
+            console.log(`🔄 updateGallery called with variantId: ${variantId}`);
+
+            const data = JSON.parse(document.getElementById('variant-gallery-data').textContent);
+            const variant = data[variantId];
+            const featuredImage = document.getElementById('FeaturedImage');
+            const allThumbs = document.querySelectorAll('.variant-thumbnail');
+
+            // Hide all thumbnails first
+            allThumbs.forEach(img => {
+              img.style.display = 'none';
+            });
+            this.clearBorders();
+
+            if (!variant || !variant.gallery || variant.gallery.length === 0) {
+              console.warn(`⚠️ No gallery found for variant ID: ${variantId}`);
+              return;
+            }
+
+            // Set featured image to first image in gallery
+            featuredImage.src = variant.gallery[0];
+            featuredImage.style.display = 'block';
+
+            // Show thumbnails for this variant
+            const selector = `[thumbnail-sku="${variant.sku}"]`;
+            const matchingThumbs = document.querySelectorAll(selector);
+
+            matchingThumbs.forEach((thumb, i) => {
+              thumb.style.display = 'block';
+
+              // Add click handler
+              thumb.onclick = (e) => this.handleThumbnailClick(e, thumb);
+
+              // Highlight and scroll to first thumbnail
+              if (i === 0) {
+                this.applyBorder(thumb);
+                featuredImage.src = thumb.src;
+                setTimeout(() => this.scrollToThumb(thumb), 100);
+              }
+            });
+
+            // Update Alpine scroll state
+            setTimeout(() => {
+              const galleryElement = document.querySelector('#GalleryThumbnails');
+              if (galleryElement && galleryElement.__x_$data) {
+                galleryElement.__x_$data.initCurrentIndex();
+              }
+            }, 150);
+
+            console.log(`✅ Gallery updated for variant ${variantId}`);
+          }
+
+          handleThumbnailClick(event, thumb) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            this.isClickingThumbnail = true;
+
+            // Update featured image and border
+            const featuredImage = document.getElementById('FeaturedImage');
+            this.applyBorder(thumb);
+            featuredImage.src = thumb.src;
+
+            console.log('🖱️ Thumbnail clicked:', thumb.src);
+
+            // Clear click guard after short delay
+            setTimeout(() => {
+              this.isClickingThumbnail = false;
+            }, 200);
+          }
+
+          syncBorderWithFeaturedImage() {
+            if (this.isClickingThumbnail) return;
+
+            const featuredImage = document.getElementById('FeaturedImage');
+            if (!featuredImage || !featuredImage.src) return;
+
+            const visibleThumbs = this.getVisibleThumbs();
+            const matchingThumb = visibleThumbs.find(thumb =>
+              this.checkImageMatch(thumb.src, featuredImage.src)
+            );
+
+            if (matchingThumb) {
+              const currentlySelected = document.querySelector('.variant-thumbnail.t-ring-2.t-ring-primary');
+              if (currentlySelected !== matchingThumb) {
+                this.applyBorder(matchingThumb);
+                console.log('🎯 Synced border with featured image');
+              }
+            } else {
+              console.warn('⚠️ No matching thumbnail found for featured image:', featuredImage.src);
+            }
+          }
+
+          // Event Listeners
+          setupEventListeners() {
+            // Variant change events
+            document.addEventListener('variant:change', (event) => {
+              if (event.detail && event.detail.variant && event.detail.variant.id) {
+                this.updateGallery(event.detail.variant.id.toString());
+              }
+            });
+
+            // Form control changes
+            document.addEventListener('change', (event) => {
+              const target = event.target;
+              if (target.name && (target.name.includes('option') || target.name === 'id')) {
+                // Find variant based on selected options
+                setTimeout(() => {
+                  const currentVariantId = this.getCurrentVariantId();
+                  this.updateGallery(currentVariantId);
+                }, 50);
+              }
+            });
+
+            // URL parameter changes
+            window.addEventListener('popstate', () => {
+              const currentVariantId = this.getCurrentVariantId();
+              this.updateGallery(currentVariantId);
+            });
+          }
+
+          setupFeaturedImageObserver() {
+            const featuredImage = document.getElementById('FeaturedImage');
+            if (!featuredImage) return;
+
+            if (this.featuredImageObserver) {
+              this.featuredImageObserver.disconnect();
+            }
+
+            this.featuredImageObserver = new MutationObserver((mutations) => {
+              mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'src') {
+                  setTimeout(() => this.syncBorderWithFeaturedImage(), 100);
+                }
+              });
+            });
+
+            this.featuredImageObserver.observe(featuredImage, {
+              attributes: true,
+              attributeFilter: ['src']
+            });
+
+            // Periodic sync check
+            if (this.syncInterval) clearInterval(this.syncInterval);
+            this.syncInterval = setInterval(() => {
+              this.syncBorderWithFeaturedImage();
+            }, 2000);
+          }
+
+          initializeGallery() {
+            const currentVariantId = this.getCurrentVariantId();
+            this.updateGallery(currentVariantId);
+          }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+          window.galleryManager = new GalleryManager();
+        });
+
+        // Legacy support for existing updateGallery calls
+        window.updateGallery = function(variantId) {
+          if (window.galleryManager) {
+            window.galleryManager.updateGallery(variantId);
+          }
+        };
+      </script>
+    </div>
+  </div>
+
+  <script id="variant-data" type="application/json">
+    {{ product.variants | json }}
+  </script>
+{% endcomment %}

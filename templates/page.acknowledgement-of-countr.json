@@ -1,0 +1,60 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "header_override_wBUJXg": {
+      "type": "header-override",
+      "settings": {
+        "override_enabled": true,
+        "header_position": "absolute",
+        "header_background": "black",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "black"
+      }
+    },
+    "collection_banner_c8Nrpz": {
+      "type": "collection-banner",
+      "settings": {
+        "content_alignment": "center",
+        "overlay_opacity": 0,
+        "video_url": "",
+        "mobile_image_horizontal_axis": 50,
+        "mobile_image_vertical_axis": 50,
+        "laptop": "shopify://shop_images/country-of-acknowledgement.jpg",
+        "desktop": "{{ page.metafields.custom.featured_banner_image.value }}",
+        "desktop_image_horizontal_axis": 50,
+        "desktop_image_vertical_axis": 49,
+        "hero_banner_height_mobile_tablet": 200,
+        "hero_banner_height_laptop": 400,
+        "hero_banner_height_large_laptop": 400,
+        "hero_banner_height_desktop": 400,
+        "image_behavior": "none"
+      }
+    },
+    "custodiants_section_kgU8kd": {
+      "type": "custodiants-section",
+      "name": "Custodiants Section",
+      "settings": {
+        "heading": "Acknowledgement of Country",
+        "text": "Osprey Australia acknowledges the Traditional Custodians of Country throughout Australia, recognising their deep and enduring connection to land, sea, and community. In the spirit of reconciliation, we pay our respects to Elders past and present, and extend that respect to all Aboriginal and Torres Strait Islander peoples. We honour the wisdom, resilience, and custodianship of First Nations peoples and commit to walking together toward a more inclusive and respectful future."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "header_override_wBUJXg",
+    "collection_banner_c8Nrpz",
+    "custodiants_section_kgU8kd"
+  ]
+}

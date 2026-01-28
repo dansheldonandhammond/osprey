@@ -1,0 +1,337 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header_override_YQY9jJ": {
+      "type": "header-override",
+      "settings": {
+        "override_enabled": true,
+        "header_position": "relative",
+        "header_background": "black",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "transparent"
+      }
+    },
+    "collection_2_columns_T7qAaJ": {
+      "type": "Collection_2_columns",
+      "name": "Banner Section",
+      "settings": {
+        "banner_layout": "one_column",
+        "banner_image_heading": "",
+        "banner_image_url": "{{ collection.image }}",
+        "alt_text": "{{ collection.title }} Banner image",
+        "banner_image_x_axis": 50,
+        "banner_image_y_axis": 100,
+        "banner_text_center": true,
+        "control_banner_image_height": false,
+        "banner_image_height": 500,
+        "banner_border_bottom": false,
+        "banner_overlay": true,
+        "button_bg_colour": "white",
+        "button_text_colour": "black",
+        "banner_background_colour": "black",
+        "banner_text_colour": "white"
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "collection_page_blocks_ncMBtE": {
+      "type": "collection-page-blocks",
+      "blocks": {
+        "two_column_overlap_Nxn3Xh": {
+          "type": "two_column_overlap",
+          "settings": {
+            "portrait_image": "shopify://shop_images/portrait_hoosus-2041_f5f4ec9d-a997-4f2b-81fe-6c30ca6223be.webp",
+            "landscape_image": "shopify://shop_images/landscape_hoosus-2041.jpg",
+            "pretitle_line1": "",
+            "pretitle_line2": "",
+            "main_pretitle": "",
+            "main_title": "OSPREY BACKPACKING",
+            "main_description": "<p>Few experiences compare to sleeping under the stars after a day on the trail, if only for a single night but hopefully more. From bucket list thru-hikes to brief weekends spent in the wilderness, our packs are designed to move with you, offering the perfect balance of comfort, ventilation and functionality. Hike your own hike with the most comfortable and well-functioning backpacking solutions ever made.</p>",
+            "button_text": "",
+            "button_url": ""
+          }
+        },
+        "top_picks_WfFkRi": {
+          "type": "top_picks",
+          "settings": {
+            "title": "BEST-SELLING BACKPACKING PACKS",
+            "items_per_view_desktop": 4,
+            "max_items": 12,
+            "use_collection": true,
+            "collection": "best-sellers"
+          }
+        },
+        "modal_video_begTDi": {
+          "type": "modal_video",
+          "settings": {
+            "video_title": "Watch Our Video",
+            "video_url": "https://player.vimeo.com/video/1036482323?h=9ded392a85&badge=0&autopause=1&player_id=0&app_id=58479&dnt=true",
+            "video_thumbnail": "shopify://shop_images/video-placeholder-mobile_hoosus-2041.webp",
+            "video_alt_text": "Play video",
+            "watch_button_text": "WATCH",
+            "section_padding_top": 40,
+            "section_padding_bottom": 40
+          }
+        },
+        "technology_header_wpgUqh": {
+          "type": "technology_header",
+          "settings": {
+            "tech_subtitle": "Comfort. Stability. Ventilation",
+            "tech_main_title": "Osprey Backpanel Technology",
+            "header_text_color": "#000000"
+          }
+        },
+        "technology_cards_kQLTNj": {
+          "type": "technology_cards",
+          "settings": {
+            "tech_background_image": "shopify://shop_images/threeblocks_hoosus-2041.webp",
+            "tech_section_bg_color": "#ffffff"
+          }
+        },
+        "technology_card_k8nLEG": {
+          "type": "technology_card",
+          "settings": {
+            "tech_name_part1": "Air",
+            "tech_name_part2": "Scape",
+            "tech_name_sup": "TM",
+            "svg_code": "<svg class=\"cmsb3971-inline-block\" width=\"250\" height=\"250\" viewBox=\"0 0 250 250\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n    <circle cx=\"125\" cy=\"125\" r=\"124.5\" stroke=\"white\"></circle>\n    <path d=\"M166.23 73.1406H83.4242C80.4727 73.1406 78.0801 75.5333 78.0801 78.4848V88.5747C78.0801 91.5262 80.4727 93.9188 83.4242 93.9188H166.23C169.181 93.9188 171.574 91.5262 171.574 88.5747V78.4848C171.574 75.5333 169.181 73.1406 166.23 73.1406Z\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M166.237 114.697H83.432C80.4806 114.697 78.0879 117.089 78.0879 120.041V130.131C78.0879 133.082 80.4806 135.475 83.432 135.475H166.237C169.189 135.475 171.582 133.082 171.582 130.131V120.041C171.582 117.089 169.189 114.697 166.237 114.697Z\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M166.237 156.254H83.432C80.4806 156.254 78.0879 158.646 78.0879 161.598V171.688C78.0879 174.639 80.4806 177.032 83.432 177.032H166.237C169.189 177.032 171.582 174.639 171.582 171.688V161.598C171.582 158.646 169.189 156.254 166.237 156.254Z\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M197.555 93.9185L207.944 104.308L197.555 114.697\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M207.943 104.308H140.414\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M197.555 135.475L207.944 145.864L197.555 156.253\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M207.943 145.864H140.414\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M213.139 114.697L223.528 125.086L213.139 135.475\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M223.526 125.086H176.775\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M52 94.3958L42 104.396L52 114.396\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M42 104.396H109\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M52 135.396L42 145.896L52 156.396\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M42 146.396H109\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M37 114.396L26 124.896L37 135.396\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M26 124.396H72\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M93.6641 41.9728L104.053 31.5837L114.442 41.9728\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M104.053 31.5837V67.9456\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M135.221 41.9728L145.61 31.5837L155.999 41.9728\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M145.61 31.5837V67.9455\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M114.441 26.3891L124.831 16L135.22 26.3891\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M124.832 16V62.751\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M155.999 208.198L145.61 218.588L135.221 208.198\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M145.61 218.588V182.226\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M114.442 208.198L104.053 218.588L93.6641 208.198\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M104.053 218.588V182.226\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M135.22 223.782L124.831 234.171L114.441 223.782\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M124.832 234.172V187.421\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    </svg>",
+            "tech_description": "Built for those who value stability and dynamic movement, AirScape keeps the pack close to the body for a balanced, secure fit",
+            "card_bg_color": "#313133",
+            "card_text_color": "#ffffff",
+            "card_accent_color": "#ffffff"
+          }
+        },
+        "technology_card_4C9qBN": {
+          "type": "technology_card",
+          "settings": {
+            "tech_name_part1": "Air",
+            "tech_name_part2": "Speed",
+            "tech_name_sup": "TM",
+            "svg_code": "<svg class=\"cmsb3971-inline-block\" width=\"252\" height=\"252\" viewBox=\"0 0 252 252\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n    <path d=\"M125.792 250.584C194.713 250.584 250.584 194.713 250.584 125.792C250.584 56.8713 194.713 1 125.792 1C56.8713 1 1 56.8713 1 125.792C1 194.713 56.8713 250.584 125.792 250.584Z\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M94.7978 66.4691V186.074M105.197 67.8002V184.547M115.597 68.5448V183.724M125.996 68.8942V183.491M136.395 68.6987V183.528M146.795 67.9167V184.547M157.194 66.4691V185.957M167.593 64.3934V187.992M73.475 110.5H178.475M72.6223 100.101H179.573M71.1248 89.7012H180.904M68.9492 79.3019H182.855M66.5449 68.9025H185.443M69.1281 172.896H182.822M71.0083 162.497H180.942M72.5724 152.097H179.473M73.5499 141.698H178.413M74.02 131.299H177.943M74.0324 120.899H177.889M66.5824 183.295H185.226M73.9992 61.6521V190.612M84.3985 64.3143V188.108M177.993 61.8102V190.496\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M188.392 193.79C174.398 188.99 152.797 183.391 125.996 183.391C111.199 183.391 88.9532 185.096 63.5996 193.79C68.8908 177.06 74.7144 151.868 73.9989 120.995C73.3999 95.1713 68.4207 73.8235 63.5996 58.5989C77.593 63.3992 99.1945 68.9982 125.996 68.9982C152.797 68.9982 174.398 63.3992 188.392 58.5989C183.1 75.3293 177.277 100.521 177.992 131.394C178.591 157.218 183.57 178.566 188.392 193.79Z\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M203.991 170.392V178.191H196.191\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M203.989 178.191L125.994 100.196\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M203.991 139.194V146.993H196.191\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M203.989 146.993L125.994 68.9983\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M203.991 201.59V209.389H196.191\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M203.989 209.389L125.994 131.394\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M48 81.9975V74.198H55.7995\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M48 74.198L125.995 152.193\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M48 113.195V105.396H55.7995\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M48 105.396L125.995 183.391\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M48 50.7995V43H55.7995\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M48 43L125.995 120.995\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    </svg>",
+            "tech_description": "Designed for warm-weather adventures, AirSpeed features a suspended trampoline mesh backpanel that maximizes airflow to keep you cool.",
+            "card_bg_color": "#454341",
+            "card_text_color": "#ffffff",
+            "card_accent_color": "#ffffff"
+          }
+        },
+        "technology_card_JdpPtA": {
+          "type": "technology_card",
+          "settings": {
+            "tech_name_part1": "Anti",
+            "tech_name_part2": "Gravity",
+            "tech_name_sup": "TM",
+            "svg_code": "<svg class=\"cmsb3971-inline-block\" width=\"250\" height=\"250\" viewBox=\"0 0 250 250\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n    <circle cx=\"125\" cy=\"125\" r=\"124.5\" stroke=\"white\"></circle>\n    <path d=\"M32.7695 118.912V156.102\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M218.012 132.858V170.049\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M42.0312 116.335V181.853\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M208.75 116.546V181.853\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M51.2969 110.726V180.767\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M199.488 110.771V180.6\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M97.6074 71.4458V178.379\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M106.869 72.6358V177.014\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M116.131 73.3015V176.282\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M125.393 73.6176V176.073\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M134.654 73.4429V176.107\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M143.916 72.7437V177.014\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M153.178 71.4458V178.275\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M162.439 69.5935V180.097\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M79.084 67.1428V182.441\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M88.3457 69.5229V180.202\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M171.703 67.2803V182.336\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M180.965 185.282C168.502 180.99 149.263 175.984 125.394 175.984C112.216 175.984 92.4028 177.509 69.8223 185.282V64.4131C82.2851 68.7049 101.524 73.7107 125.394 73.7107C149.263 73.7107 168.502 68.7049 180.965 64.4131V185.282Z\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8223 73.7107H180.965\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8223 83.0081H180.965\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M66.0098 92.3059H184.699\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M60.289 101.604H190.226\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M51.0859 110.901H199.488\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8223 120.199H180.965\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8223 129.496H180.965\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8223 138.794H180.965\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8223 148.092H180.965\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8223 157.389H180.965\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8223 166.687H180.965\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8223 175.984H180.965\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M218.012 185.282C214.923 183.627 208.336 180.633 199.489 180.633C195.988 180.633 188.771 181.102 180.965 185.282V83.0081C182.45 88.1738 186.93 101.057 199.489 110.901C206.413 116.327 213.341 118.908 218.012 120.198V185.282Z\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M180.965 166.687H218.012\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M180.965 175.984H218.012\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M180.965 148.092H218.012\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M180.965 157.389H218.012\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M180.965 129.496H218.012\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M180.965 138.794H218.012\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M180.965 120.199H218.012\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M180.965 120.199V157.389\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M190.227 101.6V181.883\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M32.7734 185.215C35.8632 183.56 42.4503 180.566 51.2973 180.566C54.7983 180.566 62.0151 181.035 69.8211 185.215C69.8211 151.122 69.8211 117.034 69.8211 82.9412C68.3355 88.1069 63.8564 100.99 51.2973 110.834C44.373 116.26 37.4451 118.841 32.7734 120.132C32.7734 141.825 32.7734 163.522 32.7734 185.215Z\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8211 166.62H32.7734\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8211 175.917H32.7734\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8211 148.024H32.7734\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8211 157.322H32.7734\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8211 129.429H32.7734\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8211 138.727H32.7734\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M69.8211 120.132H32.7734\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M60.5586 101.536V181.816\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M180.963 199.229C168.501 194.937 149.262 189.931 125.392 189.931C101.522 189.931 82.2833 194.937 69.8205 199.229\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M172.547 202.211L181.49 199.786L179.075 190.812\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M74.0226 191.307L69.4064 199.366L77.4383 204\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M70.1367 50.7122C82.4365 54.9444 101.42 59.887 124.978 59.887C148.537 59.887 167.516 54.9444 179.82 50.7122\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M78.4419 47.7665L69.6172 50.1579L71.9994 59.0166\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M175.67 58.5295L180.223 50.5744L172.299 46\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M190.959 71.0738C193.786 76.8755 198.706 85.2731 206.949 93.548C215.192 101.823 223.557 106.762 229.337 109.599\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M220.252 112.21L229.529 109.696L227.024 100.387\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M199.999 74.2462L190.944 71.0181L187.729 80.1074\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M59.571 71.0736C56.7443 76.8753 51.8243 85.2729 43.5812 93.5478C35.3381 101.823 26.9728 106.762 21.1934 109.599\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M30.2767 112.21L21 109.696L23.5044 100.387\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    <path d=\"M50.5352 74.2461L59.5859 71.018L62.8016 80.1073\" stroke=\"white\" stroke-miterlimit=\"10\"></path>\n    </svg>",
+            "tech_description": "AntiGravity takes AirSpeed to the next level, offering a continuous backpanel of lightweight mesh that contours to your body for superior comfort.",
+            "card_bg_color": "#4d4433",
+            "card_text_color": "#ffffff",
+            "card_accent_color": "#ffffff"
+          }
+        },
+        "hero_row_7Mtz3k": {
+          "type": "hero_row",
+          "name": "Atmos | Aura",
+          "settings": {
+            "row_reverse": false,
+            "hero_image": "shopify://shop_images/collection-block-2-hoosus-1112_1.webp",
+            "hero_subtitle": "Ultra-Premium Comfort",
+            "hero_title_part1": "Atmos",
+            "hero_title_sup1": "TM",
+            "hero_title_part2": "Aura",
+            "hero_title_sup2": "TM",
+            "hero_description": "Experience a seamless, wraparound fit with AntiGravityTM suspension and enhanced pocketing for all-day comfort on the trail.",
+            "hero_button_text": "SHOP ATMOS | AURA",
+            "hero_button_url": "shopify://collections/atmos-ag-aura-ag",
+            "hero_bg_color": "#000000",
+            "hero_text_color": "#ffffff",
+            "hero_button_bg_color": "#ffffff",
+            "hero_button_text_color": "#000000"
+          }
+        },
+        "hero_row_rA6JK8": {
+          "type": "hero_row",
+          "name": "Aether | Ariel",
+          "settings": {
+            "row_reverse": true,
+            "hero_image": "shopify://shop_images/grid-info2_hoosus-2041.jpg",
+            "hero_subtitle": "Perfect-Fitting",
+            "hero_title_part1": "Aether",
+            "hero_title_sup1": "TM",
+            "hero_title_part2": "Ariel",
+            "hero_title_sup2": "",
+            "hero_description": "Enjoy a comfortable, close-to-body fit under heavier loads, even when the terrain gets tough.",
+            "hero_button_text": "SHOP AETHER | ARIEL",
+            "hero_button_url": "shopify://collections/aether-ariel",
+            "hero_bg_color": "#f5f5f4",
+            "hero_text_color": "#000000",
+            "hero_button_bg_color": "#000000",
+            "hero_button_text_color": "#ffffff"
+          }
+        },
+        "hero_row_xFTXNV": {
+          "type": "hero_row",
+          "name": "Exos | Eja",
+          "settings": {
+            "row_reverse": false,
+            "hero_image": "shopify://shop_images/grid-info3_hoosus-2041.jpg",
+            "hero_subtitle": "Ultralight",
+            "hero_title_part1": "Exos",
+            "hero_title_sup1": "",
+            "hero_title_part2": "Eja",
+            "hero_title_sup2": "",
+            "hero_description": "Preferred by thru-hikers for its ultralightweight category-leading comfort and ventilation, plus advanced strippability for a customizable carry.",
+            "hero_button_text": "SHOP EXOS | EJA",
+            "hero_button_url": "shopify://collections/exos",
+            "hero_bg_color": "#f5f5f4",
+            "hero_text_color": "#000000",
+            "hero_button_bg_color": "#000000",
+            "hero_button_text_color": "#ffffff"
+          }
+        },
+        "hero_row_zLFhgc": {
+          "type": "hero_row",
+          "name": "Kestrel | Kyte",
+          "settings": {
+            "row_reverse": true,
+            "hero_image": "shopify://shop_images/grid-info4_hoosus-2041.jpg",
+            "hero_subtitle": "rugged",
+            "hero_title_part1": "Kestrel",
+            "hero_title_sup1": "TM",
+            "hero_title_part2": "Kyte",
+            "hero_title_sup2": "TM",
+            "hero_description": "Workhorses during heavy-duty excursions—through sandstone canyons, bushwhacks in the bramble and rocky peak scrambles.",
+            "hero_button_text": "SHOP ATMOS | AURA",
+            "hero_button_url": "shopify://collections/kestrel-kyte",
+            "hero_bg_color": "#f5f5f4",
+            "hero_text_color": "#000000",
+            "hero_button_bg_color": "#000000",
+            "hero_button_text_color": "#ffffff"
+          }
+        },
+        "hero_row_kAELhc": {
+          "type": "hero_row",
+          "name": "Rook | Renn",
+          "settings": {
+            "row_reverse": false,
+            "hero_image": "shopify://shop_images/grid-info5_hoosus-2041.jpg",
+            "hero_subtitle": "capable",
+            "hero_title_part1": "Rook",
+            "hero_title_sup1": "",
+            "hero_title_part2": "Renn",
+            "hero_title_sup2": "TM",
+            "hero_description": "Ventilated, lightweight and accessible, with streamlined features for every experience level.",
+            "hero_button_text": "SHOP ROOK | RENN",
+            "hero_button_url": "shopify://collections/rook-renn",
+            "hero_bg_color": "#f5f5f4",
+            "hero_text_color": "#000000",
+            "hero_button_bg_color": "#000000",
+            "hero_button_text_color": "#ffffff"
+          }
+        },
+        "two_column_info_yWanrT": {
+          "type": "two_column_info",
+          "settings": {
+            "image_1": "shopify://shop_images/twocols1_hoosus-2041.webp",
+            "heading_1": "Women's Fit",
+            "icon_1": "<svg class=\"cmsb3971-inline-block cmsb3971-mb-[20px]\" width=\"21\" height=\"37\" viewBox=\"0 0 21 37\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<circle cx=\"10.6078\" cy=\"9.60784\" r=\"8.10784\" stroke=\"white\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></circle>\n<path d=\"M18.1574 25.3923H2.37305M10.6083 17.8433V35.0001\" stroke=\"white\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n</svg>",
+            "description_1": "For 30 years, we’ve refined our women’s-specific design with a shorter torso length; a narrower, curved harness to better fit the neck, shoulders and chest; and a hipbelt that naturally contours to the hips for enhanced support and stability.",
+            "link_1": "shopify://collections/womens-backpacking-packs",
+            "link_text_1": "Shop Women’s Packs",
+            "image_2": "shopify://shop_images/twocols2_hoosus-2041.webp",
+            "heading_2": "Extended Fit",
+            "icon_2": "<svg class=\"cmsb3971-inline-block cmsb3971-mb-[20px]\" width=\"35\" height=\"35\" viewBox=\"0 0 35 35\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<mask id=\"mask0_5_556\" style=\"mask-type:luminance\" maskUnits=\"userSpaceOnUse\" x=\"19\" y=\"0\" width=\"16\" height=\"16\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M19.082 0H34.997V15.9155H19.082V0Z\" fill=\"white\"></path>\n</mask>\n<g mask=\"url(#mask0_5_556)\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M29.5008 3.21854C29.4678 3.20751 29.4531 3.19649 29.4384 3.19649C29.3759 3.19649 29.3135 3.19649 29.251 3.19649C26.951 3.19649 24.6547 3.19649 22.3547 3.19649C22.1673 3.19649 21.9799 3.18547 21.8035 3.12668C21.19 2.92461 20.8189 2.50576 20.6866 1.87381C20.5286 1.09856 21.0503 0.16901 22.0056 0.0257189C22.1158 0.00734826 22.2297 0 22.34 0C23.1152 0 23.8904 0 24.6694 0C27.5389 0 30.4083 0 33.2778 0C33.4726 0 33.6636 0.00734826 33.8473 0.0734826C34.4719 0.286582 34.854 0.712781 34.9679 1.36678C34.99 1.47333 34.9973 1.58722 34.9973 1.69745C34.9973 5.34953 34.9973 9.00529 34.9973 12.6574C34.9973 13.0615 34.8981 13.4326 34.6373 13.7449C34.2111 14.2446 33.6673 14.4393 33.0317 14.2887C32.4034 14.1417 32.0139 13.7265 31.8486 13.1019C31.8082 12.955 31.8008 12.797 31.8008 12.6427C31.8045 10.3316 31.8045 8.02062 31.8045 5.7096C31.8045 5.64346 31.8119 5.57733 31.7898 5.4965C31.72 5.52956 31.6833 5.581 31.6429 5.62142C30.7868 6.47381 29.9344 7.32621 29.0857 8.17861C26.6938 10.5668 24.3019 12.955 21.9138 15.3468C21.855 15.4019 21.7999 15.4607 21.7374 15.5122C20.8225 16.3168 19.386 15.8575 19.1251 14.6671C19.0038 14.1234 19.1398 13.6347 19.5182 13.2195C19.566 13.1644 19.6211 13.113 19.6725 13.0615C22.8984 9.83564 26.1206 6.60976 29.3428 3.38387C29.3943 3.33243 29.442 3.281 29.5008 3.21854Z\" fill=\"white\"></path>\n</g>\n<mask id=\"mask1_5_556\" style=\"mask-type:luminance\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"19\" width=\"16\" height=\"16\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M0 19.0952H15.8972V34.9998H0V19.0952Z\" fill=\"white\"></path>\n</mask>\n<g mask=\"url(#mask1_5_556)\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M3.19649 29.5077C3.22221 29.4967 3.24426 29.493 3.25528 29.482C3.29937 29.4416 3.34346 29.3975 3.38755 29.3534C6.59874 26.1422 9.80993 22.931 13.0211 19.7235C13.0909 19.6537 13.1571 19.5765 13.2342 19.5141C13.6972 19.1099 14.2299 18.9923 14.8141 19.1871C15.3983 19.3818 15.7547 19.8043 15.8686 20.4069C15.9641 20.9139 15.8281 21.3805 15.4791 21.77C15.4203 21.8361 15.3579 21.8949 15.2954 21.9574C12.0769 25.1759 8.85833 28.3944 5.63979 31.613C5.58835 31.6644 5.53324 31.7122 5.4818 31.7893C5.52222 31.8004 5.54059 31.8077 5.56263 31.8077C5.62509 31.8114 5.68755 31.8114 5.75001 31.8114H12.5692C12.7639 31.8114 12.955 31.8151 13.1424 31.8665C13.8809 32.0686 14.3107 32.7409 14.3181 33.3913C14.3254 34.082 13.8441 34.8536 12.9329 34.9858C12.8227 35.0042 12.7125 35.0005 12.5986 35.0005C10.3317 35.0005 8.06471 35.0005 5.79778 35.0005C4.42733 35.0005 3.0532 35.0005 1.68275 35.0005C1.54313 35.0005 1.41087 34.9969 1.27492 34.9675C0.61358 34.8315 0.10655 34.2988 0.0110224 33.6337C0.00734826 33.597 0.00367413 33.5603 0.00367413 33.5235C0.00367413 33.45 0 33.3729 0 33.2994V22.3799C0 22.2182 0.00367413 22.0602 0.0404154 21.8986C0.198403 21.2152 0.826679 20.7082 1.52844 20.6788C2.28163 20.6494 2.98707 21.1638 3.14873 21.9427C3.17445 22.0713 3.17812 22.2035 3.1818 22.3321C3.18547 22.6224 3.1818 22.9163 3.1818 23.2066C3.1818 25.231 3.1818 27.2555 3.18547 29.2836C3.18547 29.3534 3.17445 29.4269 3.19649 29.5077Z\" fill=\"white\"></path>\n</g>\n</svg>",
+            "description_2": "Made alongside a diverse group of in-field product testers, these refined designs feature an extended hipbelt that fits up to 70-inch hips, extended shoulder straps, easy-to-reach repositioned pockets and a longer sternum strap to optimize performance for bigger bodies.",
+            "link_2": "shopify://collections/extended-fit-ef-packs",
+            "link_text_2": "Shop EF Packs"
+          }
+        },
+        "bluesign_section_MyDKUy": {
+          "type": "bluesign_section",
+          "settings": {
+            "bluesign_logo": "shopify://shop_images/bluesign_product_RGB_1.jpg",
+            "bluesign_bg_image": "shopify://shop_images/hero-bludesign-hoosus-673.jpg",
+            "bluesign_description": "Consumer products carrying the bluesign® PRODUCT label meet the strict safety and environmental requirements of the bluesign® CRITERIA, as a whole. These products are made of bluesign® APPROVED fabric and components and are produced in a resource-conserving way to lower the impact on people and the environment.",
+            "bluesign_button_text": "LEARN MORE ABOUT bluesign® PRODUCTS",
+            "bluesign_button_url": "shopify://pages/bluesign®",
+            "bluesign_section_bg_color": "#000000",
+            "bluesign_text_color": "#ffffff",
+            "bluesign_button_text_color": "#ffffff",
+            "bluesign_button_border_color": "#ffffff"
+          }
+        },
+        "parallax_image_t99DVg": {
+          "type": "parallax_image",
+          "settings": {
+            "cta_bg_mobile": "shopify://shop_images/parallax_hoosus-2041.webp",
+            "cta_bg_desktop": "shopify://shop_images/parallax_hoosus-2041.webp",
+            "cta_title": "HIKE YOUR OWN HIKE WITH INDUSTRY-LEADING FIT, COMFORT AND VENTILATION.",
+            "cta_button_text": "",
+            "cta_button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "two_column_overlap_Nxn3Xh",
+        "top_picks_WfFkRi",
+        "modal_video_begTDi",
+        "technology_header_wpgUqh",
+        "technology_cards_kQLTNj",
+        "technology_card_k8nLEG",
+        "technology_card_4C9qBN",
+        "technology_card_JdpPtA",
+        "hero_row_7Mtz3k",
+        "hero_row_rA6JK8",
+        "hero_row_xFTXNV",
+        "hero_row_zLFhgc",
+        "hero_row_kAELhc",
+        "two_column_info_yWanrT",
+        "bluesign_section_MyDKUy",
+        "parallax_image_t99DVg"
+      ],
+      "name": "Osprey Collection Page",
+      "settings": {}
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "enable_load_more": true,
+        "products_per_page": 16,
+        "columns_desktop": 3,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "enable_filtering": true,
+        "filter_type": "vertical",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "header_override_YQY9jJ",
+    "collection_2_columns_T7qAaJ",
+    "banner",
+    "collection_page_blocks_ncMBtE",
+    "product-grid"
+  ]
+}

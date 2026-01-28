@@ -12,9 +12,21 @@
     "main": {
       "type": "main-404",
       "settings": {}
+    },
+    "header_override_YrkrKM": {
+      "type": "header-override",
+      "name": "Header Override",
+      "settings": {
+        "override_enabled": true,
+        "header_position": "relative",
+        "header_background": "black",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "transparent"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "header_override_YrkrKM"
   ]
 }

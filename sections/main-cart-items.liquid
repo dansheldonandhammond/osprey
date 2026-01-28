@@ -104,7 +104,38 @@
 
                       <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
 
-                      {%- if item.original_price != item.final_price -%}
+                      {%- comment -%} Check for custom sale price metafield {%- endcomment -%}
+                      {% assign custom_sale_price = item.product.metafields.custom.sale_price %}
+                      {% assign custom_sale_price_value = 0 %}
+                      {% assign formatted_custom_sale_price = '' %}
+                      {% if custom_sale_price %}
+                        {% assign custom_sale_price_raw = custom_sale_price.value | default: custom_sale_price %}
+                        {% if custom_sale_price_raw != blank %}
+                          {% assign custom_sale_price_string = custom_sale_price_raw | remove: '$' | remove: ',' | strip %}
+                          {% assign custom_sale_price_numeric = custom_sale_price_string | plus: 0.0 %}
+                          {% if custom_sale_price_numeric > 0 %}
+                            {% assign custom_sale_price_value = custom_sale_price_numeric | times: 100 | round %}
+                            {% assign formatted_custom_sale_price = '$' | append: custom_sale_price_string %}
+                          {% endif %}
+                        {% endif %}
+                      {% endif %}
+
+                      {%- if custom_sale_price and custom_sale_price_value > 0 and custom_sale_price_value > item.final_price -%}
+                        <div class="cart-item__discounted-prices">
+                          <span class="visually-hidden">
+                            {{ 'products.product.price.regular_price' | t }}
+                          </span>
+                          <s class="cart-item__old-price product-option">
+                            {{ formatted_custom_sale_price }}
+                          </s>
+                          <span class="visually-hidden">
+                            {{ 'products.product.price.sale_price' | t }}
+                          </span>
+                          <strong class="cart-item__final-price product-option" style="color: #9e3223 !important;">
+                            {{ item.final_price | money }}
+                          </strong>
+                        </div>
+                      {%- elsif item.original_price != item.final_price -%}
                         <div class="cart-item__discounted-prices">
                           <span class="visually-hidden">
                             {{ 'products.product.price.regular_price' | t }}

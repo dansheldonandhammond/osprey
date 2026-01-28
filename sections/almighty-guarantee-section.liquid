@@ -13,7 +13,7 @@
   }
 </style>
 <div
-  class="section-margin t-gap-[20px] t-flex t-flex-col t-justify-center t-items-center t-h-[630px] t-w-full"
+  class="section-margin t-gap-[20px] t-flex t-flex-col t-justify-center t-items-center t-h-[530px] t-w-full"
 
   style="
     background-image: url('{{ section.settings.background_image | img_url: 'master' }}'); background-repeat: no-repeat; background-size: cover; background-position: center;
@@ -30,7 +30,7 @@
     alt=""
     class="lg:t-w-[275px] t-w-[150px]"
   >
-  <p class="lg:t-text-[2.9rem] t-text-white t-max-w-[325px] lg:t-max-w-[100%]">
+  <p class="t-text-[2.3rem] lg:t-text-[2.9rem] t-text-white t-max-w-[525px] lg:t-max-w-[100%] t-px-[20px] t-text-center">
     {{ section.settings.headline }}
   </p>
   <a
@@ -117,7 +117,8 @@
 
   "presets": [
     {
-      "name": "Almighty Guarantee Section"
+      "name": "Almighty Guarantee Section",
+      "category": "page-sections"
     }
   ]
 }

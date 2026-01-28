@@ -1,15 +1,4 @@
-{% comment %}
-  Renders product buy-buttons.
-  Accepts:
-  - product: {Object} product object.
-  - block: {Object} passing the block information.
-  - product_form_id: {String} product form id.
-  - section_id: {String} id of section to which this snippet belongs.
-  - show_pickup_availability: {Boolean} for the pickup availability. If true the pickup availability is rendered, false - not rendered (optional).
-
-  Usage:
-  {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
-{% endcomment %}
+{% comment %} Renders product buy-buttons. {% endcomment %}
 <div {{ block.shopify_attributes }}>
   {%- if product != blank -%}
     {%- liquid
@@ -24,35 +13,17 @@
       endif
     -%}
 
-    <product-form
-      class="product-form"
-      data-hide-errors="{{ gift_card_recipient_feature_active }}"
-      data-section-id="{{ section.id }}"
-    >
+    <product-form class="product-form" data-hide-errors="{{ gift_card_recipient_feature_active }}" data-section-id="{{ section.id }}">
       <div class="product-form__error-message-wrapper" role="alert" hidden>
-        <span class="svg-wrapper">
-          {{- 'icon-error.svg' | inline_asset_content -}}
-        </span>
+        <span class="svg-wrapper">{{- 'icon-error.svg' | inline_asset_content -}}</span>
         <span class="product-form__error-message"></span>
       </div>
 
-      {%- form 'product',
-        product,
-        id: product_form_id,
-        class: 'form',
-        novalidate: 'novalidate',
-        data-type: 'add-to-cart-form'
-      -%}
+      {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
         <input
           type="hidden"
           name="id"
           value="{{ product.selected_or_first_available_variant.id }}"
-          {% if product.selected_or_first_available_variant.available == false
-            or quantity_rule_soldout
-            or product.selected_or_first_available_variant == null
-          %}
-            disabled
-          {% endif %}
           class="product-variant-id"
         >
 
@@ -60,94 +31,49 @@
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
 
-        <div class="product-form__buttons t-w-[350px] t-h-[60px] t-font-[800] t-uppercase">
-          {%- liquid
-            assign check_against_inventory = true
-            if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
-              assign check_against_inventory = false
-            endif
-            if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
-              assign quantity_rule_soldout = true
-            endif
-          -%}
+        <div class="product-form__buttons t-w-full t-h-[60px] t-font-[800] t-uppercase t-max-w-[auto] lg:t-max-w-[350px]">
           <button
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
-            class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
-            {% if product.selected_or_first_available_variant.available == false
-              or quantity_rule_soldout
-              or product.selected_or_first_available_variant == null
-            %}
-              disabled
-            {% endif %}
+            data-atc-controlled="1"
+            class="product-form__submit button button--full-width product-add-to-cart-btn {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
           >
-            <span>
-              {%- if product.selected_or_first_available_variant == null -%}
-                {{ 'products.product.unavailable' | t }}
-              {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
-                {{ 'products.product.sold_out' | t }}
-              {%- else -%}
-                {{ 'products.product.add_to_cart' | t }}
-              {%- endif -%}
-            </span>
+            <span>{{ 'products.product.add_to_cart' | t }}</span>
             {%- render 'loading-spinner' -%}
           </button>
+
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
+
+          <!-- Single Growave container (main form). Add another inside sticky form if you have one. -->
+          <div
+            id="gw-bis-container-main"
+            class="gw-button-widget-container t-block"
+            data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+            style="background:black; display:none;"
+          ></div>
         </div>
       {%- endform -%}
     </product-form>
   {%- else -%}
     <div class="product-form">
       <div class="product-form__buttons form">
-        <button
-          type="submit"
-          name="add"
-          class="product-form__submit button button--full-width button--primary "
-          disabled
-        >
+        <button type="submit" name="add" class="product-form__submit button button--full-width button--primary" disabled>
           {{ 'products.product.sold_out' | t }}
         </button>
       </div>
+      <div id="gw-bis-container-main" class="gw-button-widget-container t-block" style="background:black"></div>
     </div>
   {%- endif -%}
-  {% comment %}
-    <div
-      @click="show('almightyintl', $event)"
-      class="t-md:items-center  t-cursor-pointer t-items-center t-flex t-flex-col t-w-full t-flex-col"
-    >
-      <div class="t-product-icon-grid__icon t-flex t-justify-start t-items-center t-md:block t-w-full t-min-h-12.5 t-md:w-unset t-md:min-h-unset">
-
-        <img
-          src="https://www.osprey.com/gb/static/version1747292182/frontend/MagebitHoT/osprey/en_GB/images/product_icons/all-mighty-guarantee.svg"
-          alt="All Mighty Guarantee International"
-          width="60"
-          class="t-inline-block t-md:block"
-          height="auto"
-        >
-        <p class="t-ps-[10px] t-product-icon-grid__icon-title t-text-xs t-font-bold t-uppercase t-leading-[1.25] t-md:pl-2 t-m-0">
-          All Mighty Guarantee
-        </p>
-        {% if metafield.custom.bluesign %}
-          {{ metafield.custom.blue_sign | asset_url }}
-        {% endif %}
-    </div>
-  {% endcomment %}
 
   {%- if show_pickup_availability -%}
     {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
-
-    {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities
-      | where: 'pick_up_enabled', true
-    -%}
-
+    {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities | where: 'pick_up_enabled', true -%}
     <pickup-availability
       class="product__pickup-availabilities quick-add-hidden"
-      {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
-        available
-      {% endif %}
+      {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}available{% endif %}
       data-root-url="{{ routes.root_url }}"
       data-variant-id="{{ product.selected_or_first_available_variant.id }}"
       data-has-only-default-variant="{{ product.has_only_default_variant }}"
@@ -155,9 +81,7 @@
     >
       <template>
         <pickup-availability-preview class="pickup-availability-preview">
-          <span class="svg-wrapper">
-            {{- 'icon-unavailable.svg' | inline_asset_content -}}
-          </span>
+          <span class="svg-wrapper">{{- 'icon-unavailable.svg' | inline_asset_content -}}</span>
           <div class="pickup-availability-info">
             <p class="caption-large">{{ 'products.product.pickup_availability.unavailable' | t }}</p>
             <button class="pickup-availability-button link link--text underlined-link">
@@ -167,7 +91,114 @@
         </pickup-availability-preview>
       </template>
     </pickup-availability>
-
     <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
+
+  <style>
+    .gw-button-widget[gw-stock-fulfilled] { margin-top: 15px; }
+    .gw-button-widget-container { width: 100%; max-width: 350px; }
+    @media (max-width: 1023px) { .gw-button-widget-container { max-width: auto; } }
+  </style>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof initVar !== 'undefined') initVar.addStockFulfilledButtonV2Enabled = true;
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const submitButtons = document.querySelectorAll('.product-add-to-cart-btn[data-atc-controlled="1"]');
+    const variantIdInputs = document.querySelectorAll('.product-variant-id');
+
+    // For fallback-only initial read
+    window.buyButtonsProductVariants = [
+      {% for variant in product.variants %}
+        {
+          id: {{ variant.id }},
+          available: {{ variant.available | json }},
+          inventory_quantity: {{ variant.inventory_quantity | json }},
+          inventory_management: {{ variant.inventory_management | json }},
+          inventory_policy: {{ variant.inventory_policy | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+
+    let lastVariantId = null;
+    let lastIsOOS = null;
+
+    function confidentlyOOS(v) {
+      if (!v) return false;
+      if (v.available === false) return true;
+      if (v.inventory_management === 'shopify' && v.inventory_policy !== 'continue') {
+        if (typeof v.inventory_quantity === 'number' && v.inventory_quantity <= 0) return true;
+      }
+      return false;
+    }
+
+    function applyState(variant, isOutOfStock) {
+      if (!variant) return;
+
+      // de-dupe identical state to prevent flicker
+      if (lastVariantId === variant.id && lastIsOOS === isOutOfStock) return;
+      lastVariantId = variant.id;
+      lastIsOOS = isOutOfStock;
+
+      // ATC visibility
+      submitButtons.forEach((btn) => {
+        if (isOutOfStock) {
+          btn.style.display = 'none';
+          btn.setAttribute('aria-disabled', 'true');
+          btn.disabled = true;
+        } else {
+          btn.style.display = 'block';
+          btn.removeAttribute('aria-disabled');
+          btn.disabled = false;
+          const span = btn.querySelector('span');
+          if (span) span.textContent = '{{ "products.product.add_to_cart" | t }}';
+          btn.classList.add('button--primary');
+          btn.classList.remove('button--secondary');
+        }
+      });
+
+      // form id
+      variantIdInputs.forEach((input) => {
+        input.value = variant.id;
+        input.disabled = isOutOfStock;
+      });
+
+      // Growave containers (main + any sticky)
+      document.querySelectorAll('.gw-button-widget-container').forEach((c) => {
+        c.setAttribute('data-variant-id', variant.id);
+        c.style.display = isOutOfStock ? 'block' : 'none';
+      });
+
+      // re-init Growave after DOM update
+      setTimeout(() => {
+        if (typeof GW !== 'undefined') {
+          if (GW.bis && typeof GW.bis.init === 'function') GW.bis.init();
+          if (typeof GW.initWidgets === 'function') GW.initWidgets();
+        }
+        document.dispatchEvent(new CustomEvent('growave:scan', {
+          detail: { variantId: variant.id, productId: {{ product.id | default: 'null' }} }
+        }));
+      }, 120);
+    }
+
+    // Authoritative variant change coming from your VariantSelects (must dispatch on load + change)
+    document.addEventListener('variant:change', function(event) {
+      const v = event.detail && event.detail.variant;
+      if (!v) return;
+      const isOut = (typeof event.detail.isOutOfStock === 'boolean') ? event.detail.isOutOfStock : confidentlyOOS(v);
+      applyState(v, isOut);
+    }, { passive: true });
+
+    // Fallback once if VariantSelects didn't fire on load
+    setTimeout(() => {
+      if (lastVariantId !== null) return;
+      const id = document.querySelector('input.product-variant-id[name="id"]')?.value;
+      if (!id) return;
+      const v = (window.buyButtonsProductVariants || []).find(x => String(x.id) === String(id));
+      if (v) applyState(v, confidentlyOOS(v));
+    }, 250);
+  });
+  </script>
 </div>

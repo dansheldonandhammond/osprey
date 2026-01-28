@@ -4,20 +4,31 @@ class DetailsModal extends HTMLElement {
     this.detailsContainer = this.querySelector('details');
     this.summaryToggle = this.querySelector('summary');
 
+    if (!this.detailsContainer || !this.summaryToggle) {
+      console.warn('DetailsModal: Required elements not found');
+      return;
+    }
+
     this.detailsContainer.addEventListener('keyup', (event) => event.code.toUpperCase() === 'ESCAPE' && this.close());
     this.summaryToggle.addEventListener('click', this.onSummaryClick.bind(this));
-    this.querySelector('button[type="button"]').addEventListener('click', this.close.bind(this));
+    
+    const closeButton = this.querySelector('button[type="button"]');
+    if (closeButton) {
+      closeButton.addEventListener('click', this.close.bind(this));
+    }
 
     this.summaryToggle.setAttribute('role', 'button');
   }
 
   isOpen() {
-    return this.detailsContainer.hasAttribute('open');
+    return this.detailsContainer && this.detailsContainer.hasAttribute('open');
   }
 
   onSummaryClick(event) {
     event.preventDefault();
-    event.target.closest('details').hasAttribute('open') ? this.close() : this.open(event);
+    if (this.detailsContainer) {
+      event.target.closest('details').hasAttribute('open') ? this.close() : this.open(event);
+    }
   }
 
   onBodyClick(event) {

@@ -13,6 +13,12 @@
       "id": "social_proof_subtitle",
       "label": "Social Proof Subtitle",
       "default": "Share your adventures with @ospreyAustralia"
+    },
+    {
+      "type": "liquid",
+      "id": "social_proof_iframe",
+      "label": "Social Proof Iframe",
+      "default": "<iframe src=\"https://cdn.lightwidget.com/widgets/lightwidget.js\"></iframe>"
     }
   ],
   "presets": [
@@ -23,19 +29,12 @@
   ]
 }
 {% endschema %}
+<script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
 <div class="t-bg-[#F4F3F1]">
-  <div class="t-max-w-[1300px] t-mx-auto t-pb-[96px] t-pt-[72px]">
-    <h5 class="t-font-[600] t-text-[36px] t-mb-[10px] t-mt-0">{{ section.settings.social_proof_title }}</h5>
+  <div class="t-max-w-[1300px] t-mx-auto t-pb-[86px] t-pt-[72px] ">
+    <h5 class="t-font-[600] t-text-[36px] t-mb-[10px] t-mt-0 t-px-[20px] lg:t-px-[0px]">{{ section.settings.social_proof_title }}</h5>
 
-    <p class="t-text-[28px] t-mt-0 t-mb-[30px]">{{ section.settings.social_proof_subtitle }}</p>
-    <!-- LightWidget WIDGET -->
-    <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
-    <iframe
-      src="https://cdn.lightwidget.com/widgets/3c4314205c815e96b0ff6b9f02ea234f.html"
-      scrolling="no"
-      allowtransparency="true"
-      class="lightwidget-widget"
-      style="width:100%;border:0;overflow:hidden;"
-    ></iframe>
+    <p class="t-text-[28px] t-mt-0 t-mb-[30px] t-px-[20px] lg:t-px-[0px]">{{ section.settings.social_proof_subtitle }}</p>
+    {{ section.settings.social_proof_iframe }}
   </div>
 </div>

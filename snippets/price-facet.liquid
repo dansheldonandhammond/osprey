@@ -1,45 +1,526 @@
-<span class="field-currency">{{ cart.currency.symbol }}</span>
+{% comment %} <span class="field-currency">{{ cart.currency.symbol }}</span> {% endcomment %}
 
-<div class="field">
-  <input
-    class="field__input"
-    name="{{ filter.min_value.param_name }}"
-    id="{{ id_prefix }}{{ filter.label | escape }}-GTE"
-    {%- if filter.min_value.value -%}
-      value="{{ filter.min_value.value | money_without_currency }}"
-    {%- endif -%}
-    type="text"
-    inputmode="decimal"
-    placeholder="0"
-    data-pattern="\d| |,|\."
-    data-min="0"
-    data-max="{{ filter.range_max | money_without_currency }}"
-  >
-  <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-GTE">
-    {{- 'products.facets.from' | t -}}
-  </label>
+<div
+  class="price-slider t-w-full t-my-0 t-py-0"
+  data-currency="{{ cart.currency.iso_code }}"
+>
+  <div class="price-slider__labels">
+    <div class="value start active t-block t-text-[16px] t-font-[400]" id="price-min-label">
+      {{ filter.min_value.value | default: 0 | money }}
+    </div>
+    <div class="value end active t-block t-text-[16px] t-font-[400]" id="price-max-label">
+      {{ filter.max_value.value | default: filter.range_max | money }}
+    </div>
+  </div>
+  <div class="price-slider__track">
+    <div class="rheostat-background t-block"></div>
+
+    <!-- Hidden inputs for form submission -->
+    <input
+      type="hidden"
+      id="price-min"
+      name="{{ filter.min_value.param_name }}"
+      value="{{ filter.min_value.value | default: 0 | money_without_currency }}"
+      form="FacetFiltersForm"
+    >
+    <input
+      type="hidden"
+      id="price-max"
+      name="{{ filter.max_value.param_name }}"
+      value="{{ filter.max_value.value | default: filter.range_max | money_without_currency }}"
+      form="FacetFiltersForm"
+    >
+
+    <!-- Custom draggable thumbs -->
+    <div
+      class="custom-thumb custom-thumb-min t-block t-flex t-justify-center t-items-center"
+      id="thumb-min"
+      data-type="min"
+    >
+      <div class="thumb-handle t-block"></div>
+    </div>
+    <div
+      class="custom-thumb custom-thumb-max t-block t-flex t-justify-center t-items-center"
+      id="thumb-max"
+      data-type="max"
+    >
+      <div class="thumb-handle t-block"></div>
+    </div>
+
+    <div class="rheostat-progress t-block" id="slider-progress"></div>
+    <div class="rheostat-tooltip rheostat-tooltip-lower t-block" id="tooltip-min">
+      {{ filter.min_value.value | default: 0 | money }}
+    </div>
+    <div class="rheostat-tooltip rheostat-tooltip-upper t-block" id="tooltip-max">
+      {{ filter.max_value.value | default: filter.range_max | money }}
+    </div>
+  </div>
 </div>
+<style>
+  .price-slider {
+    max-width: 480px;
+    margin: 1.5rem auto;
+    --slider-color: #333333;
+    --slider-bg: #e0e0e0;
+    --slider-progress: #000;
+    --tooltip-bg: #333;
+    --tooltip-text: #fff;
+    padding: 10px;
+    /* Add smooth transition for loading states */
+    transition: opacity 0.3s ease, pointer-events 0.3s ease;
+  }
 
-{%- if filter_type != 'vertical' -%}
-  <span class="field-currency">{{ cart.currency.symbol }}</span>
-{%- endif -%}
+  .price-slider__labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
 
-<div class="field">
-  <input
-    class="field__input"
-    name="{{ filter.max_value.param_name }}"
-    id="{{ id_prefix }}{{ filter.label | escape }}-LTE"
-    {%- if filter.max_value.value -%}
-      value="{{ filter.max_value.value | money_without_currency }}"
-    {%- endif -%}
-    type="text"
-    inputmode="decimal"
-    placeholder="{{ filter.range_max | money_without_currency }}"
-    data-pattern="\d| |,|\."
-    data-min="0"
-    data-max="{{ filter.range_max | money_without_currency }}"
-  >
-  <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-LTE">
-    {{- 'products.facets.to' | t -}}
-  </label>
-</div>
+  .value {
+    font-weight: 400;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  .value.active {
+    font-weight: 600;
+  }
+
+  .price-slider__track {
+    position: relative;
+    height: 50px;
+
+    width: 100% !important;
+    cursor: pointer;
+  }
+
+  .rheostat-background {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--slider-bg);
+    border-radius: 3px;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 100% !important;
+  }
+
+  .rheostat-progress {
+    position: absolute;
+    top: 50%;
+    height: 6px;
+    background: var(--slider-progress);
+    border-radius: 3px;
+    transform: translateY(-50%);
+    z-index: 2;
+    transition: all 0.2s ease;
+  }
+
+  /* Custom thumb styles */
+  .custom-thumb {
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    cursor: grab;
+    user-select: none;
+  }
+
+  .custom-thumb:active {
+    cursor: grabbing;
+  }
+
+  .thumb-handle {
+    width: 16px;
+    height: 16px;
+    background: var(--slider-color);
+    border: 2px solid #000;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    margin: 2px;
+  }
+
+  .custom-thumb:hover .thumb-handle,
+  .custom-thumb:focus .thumb-handle {
+    transform: scale(1.1);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .custom-thumb:active .thumb-handle {
+    transform: scale(1.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .rheostat-tooltip {
+    position: absolute;
+    bottom: 30px;
+    transform: translateX(-50%);
+    background: var(--tooltip-bg);
+    color: var(--tooltip-text);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 5;
+  }
+
+  .rheostat-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: var(--tooltip-bg);
+  }
+</style>
+<script>
+  function updatePriceSlider() {
+    const minInput = document.getElementById('price-min');
+    const maxInput = document.getElementById('price-max');
+    const minLabel = document.getElementById('price-min-label');
+    const maxLabel = document.getElementById('price-max-label');
+    const tooltipMin = document.getElementById('tooltip-min');
+    const tooltipMax = document.getElementById('tooltip-max');
+    const progress = document.getElementById('slider-progress');
+    const thumbMin = document.getElementById('thumb-min');
+    const thumbMax = document.getElementById('thumb-max');
+    const track = document.querySelector('.price-slider__track');
+
+    if (!minInput || !maxInput || !track) {
+      console.log('Price slider elements not found:', { minInput, maxInput, track });
+      return;
+    }
+
+    const min = 0;
+    const max = {{ filter.range_max | money_without_currency }};
+    const minVal = parseInt(minInput.value) || 0;
+    const maxVal = parseInt(maxInput.value) || max;
+
+    console.log('Updating price slider:', { minVal, maxVal, min, max });
+
+    // Calculate positions as percentages
+    const minPercent = ((minVal - min) / (max - min)) * 100;
+    const maxPercent = ((maxVal - min) / (max - min)) * 100;
+
+    // Update thumb positions
+    if (thumbMin) thumbMin.style.left = minPercent + '%';
+    if (thumbMax) thumbMax.style.left = maxPercent + '%';
+
+    // Update progress bar
+    if (progress) {
+      progress.style.left = minPercent + '%';
+      progress.style.width = (maxPercent - minPercent) + '%';
+    }
+
+    // Update tooltip positions and content
+    const formatter = new Intl.NumberFormat(document.documentElement.lang || 'en', {
+      style: 'currency',
+      currency: '{{ cart.currency.iso_code }}',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+    const formattedMin = formatter.format(minVal);
+    const formattedMax = formatter.format(maxVal);
+
+    if (minLabel) minLabel.textContent = formattedMin;
+    if (maxLabel) maxLabel.textContent = formattedMax;
+    if (tooltipMin) {
+      tooltipMin.textContent = formattedMin;
+      tooltipMin.style.left = minPercent + '%';
+    }
+    if (tooltipMax) {
+      tooltipMax.textContent = formattedMax;
+      tooltipMax.style.left = maxPercent + '%';
+    }
+  }
+
+  function setupPriceSlider() {
+    console.log('Setting up price slider...');
+    
+    const minInput = document.getElementById('price-min');
+    const maxInput = document.getElementById('price-max');
+    const thumbMin = document.getElementById('thumb-min');
+    const thumbMax = document.getElementById('thumb-max');
+    const tooltipMin = document.getElementById('tooltip-min');
+    const tooltipMax = document.getElementById('tooltip-max');
+    const track = document.querySelector('.price-slider__track');
+
+    console.log('Price slider elements:', { minInput, maxInput, thumbMin, thumbMax, track });
+
+    if (!minInput || !maxInput || !thumbMin || !thumbMax || !track) {
+      console.log('Price slider setup failed - missing elements');
+      return false;
+    }
+
+    // Clean up existing listeners if this is a re-initialization
+    if (thumbMin._priceSliderInitialized || thumbMax._priceSliderInitialized) {
+      console.log('Price slider already initialized, skipping...');
+      return false; // Already initialized
+    }
+
+    console.log('Initializing price slider events...');
+
+    const min = 0;
+    const max = {{ filter.range_max | money_without_currency }};
+    let isDragging = false;
+    let currentThumb = null;
+    let debounceTimer;
+
+    // Mark as initialized to prevent duplicate listeners
+    thumbMin._priceSliderInitialized = true;
+    thumbMax._priceSliderInitialized = true;
+
+    // Function to submit the form with AJAX (no page reload)
+    function submitForm() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        console.log('Submitting price slider form...');
+        
+        // Get the facets form
+        const facetsForm = document.getElementById('FacetFiltersForm');
+        if (!facetsForm) {
+          console.log('FacetFiltersForm not found');
+          return;
+        }
+
+        // Get the facet-filters-form custom element
+        const facetFiltersFormElement = facetsForm.closest('facet-filters-form');
+        if (!facetFiltersFormElement) {
+          console.log('No facet-filters-form element found, using direct form submission');
+          
+          // Add visual feedback
+          const priceSlider = document.querySelector('.price-slider');
+          if (priceSlider) {
+            priceSlider.style.opacity = '0.7';
+            priceSlider.style.pointerEvents = 'none';
+          }
+          
+          // Directly submit the form
+          facetsForm.submit();
+          return;
+        }
+
+        console.log('Found facet-filters-form element, triggering AJAX');
+
+        // Add visual feedback - disable slider during request
+        const priceSlider = document.querySelector('.price-slider');
+        if (priceSlider) {
+          priceSlider.style.opacity = '0.7';
+          priceSlider.style.pointerEvents = 'none';
+        }
+
+        // Create and dispatch an input event directly on the form
+        const inputEvent = new Event('input', { 
+          bubbles: true, 
+          cancelable: true 
+        });
+        
+        // Dispatch on the form itself to trigger the facets system
+        facetsForm.dispatchEvent(inputEvent);
+        
+        console.log('Price slider: Form input event dispatched');
+        
+        // Re-enable slider after a delay
+        setTimeout(() => {
+          if (priceSlider) {
+            priceSlider.style.opacity = '1';
+            priceSlider.style.pointerEvents = 'auto';
+          }
+        }, 1000);
+      }, 300);
+    }
+    
+    // Convert mouse/touch position to value
+    function getValueFromPosition(clientX) {
+      const rect = track.getBoundingClientRect();
+      const percent = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+      return Math.round((percent / 100) * (max - min) + min);
+    }
+
+    // Handle dragging
+    function handleDrag(e) {
+      if (!isDragging || !currentThumb) return;
+
+      e.preventDefault();
+      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      const newValue = getValueFromPosition(clientX);
+
+      console.log('Dragging:', { newValue, currentThumb: currentThumb.id });
+
+      if (currentThumb === thumbMin) {
+        const maxVal = parseInt(maxInput.value);
+        const clampedValue = Math.min(newValue, maxVal);
+        minInput.value = clampedValue;
+        console.log('Updated min value:', clampedValue);
+      } else {
+        const minVal = parseInt(minInput.value);
+        const clampedValue = Math.max(newValue, minVal);
+        maxInput.value = clampedValue;
+        console.log('Updated max value:', clampedValue);
+      }
+
+      updatePriceSlider();
+    }
+
+    // Start dragging
+    function startDrag(thumb, e) {
+      console.log('Start dragging:', thumb.id);
+      isDragging = true;
+      currentThumb = thumb;
+      e.preventDefault();
+
+      // Show tooltip
+      const tooltip = thumb === thumbMin ? tooltipMin : tooltipMax;
+      if (tooltip) tooltip.style.opacity = '1';
+    }
+
+    // Stop dragging
+    function stopDrag() {
+      if (isDragging) {
+        console.log('Stop dragging, submitting form...');
+        isDragging = false;
+        currentThumb = null;
+
+        // Hide tooltips
+        if (tooltipMin) tooltipMin.style.opacity = '0';
+        if (tooltipMax) tooltipMax.style.opacity = '0';
+
+        // Submit form
+        submitForm();
+      }
+    }
+
+    // Mouse events
+    thumbMin.addEventListener('mousedown', (e) => startDrag(thumbMin, e));
+    thumbMax.addEventListener('mousedown', (e) => startDrag(thumbMax, e));
+
+    // Touch events
+    thumbMin.addEventListener('touchstart', (e) => startDrag(thumbMin, e));
+    thumbMax.addEventListener('touchstart', (e) => startDrag(thumbMax, e));
+
+    // Global drag events
+    document.addEventListener('mousemove', handleDrag);
+    document.addEventListener('touchmove', handleDrag);
+    document.addEventListener('mouseup', stopDrag);
+    document.addEventListener('touchend', stopDrag);
+
+    // Click on track to move nearest thumb
+    track.addEventListener('click', (e) => {
+      if (isDragging) return;
+
+      const newValue = getValueFromPosition(e.clientX);
+      const minVal = parseInt(minInput.value);
+      const maxVal = parseInt(maxInput.value);
+
+      // Determine which thumb is closer
+      const distToMin = Math.abs(newValue - minVal);
+      const distToMax = Math.abs(newValue - maxVal);
+
+      if (distToMin <= distToMax) {
+        minInput.value = Math.min(newValue, maxVal);
+      } else {
+        maxInput.value = Math.max(newValue, minVal);
+      }
+
+      updatePriceSlider();
+      submitForm();
+    });
+
+    // Hover effects for tooltips
+    thumbMin.addEventListener('mouseenter', () => tooltipMin.style.opacity = '1');
+    thumbMin.addEventListener('mouseleave', () => {
+      if (!isDragging) tooltipMin.style.opacity = '0';
+    });
+
+    thumbMax.addEventListener('mouseenter', () => tooltipMax.style.opacity = '1');
+    thumbMax.addEventListener('mouseleave', () => {
+      if (!isDragging) tooltipMax.style.opacity = '0';
+    });
+
+    // Initial update
+    updatePriceSlider();
+    console.log('Price slider initialized successfully!');
+    return true; // Successfully initialized
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', setupPriceSlider);
+
+  // Re-initialize after AJAX facets updates
+  function observeForPriceSlider() {
+    const observer = new MutationObserver((mutations) => {
+      let shouldReinitialize = false;
+      mutations.forEach((mutation) => {
+        // Check if any added nodes contain our price slider or if the product grid was updated
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === 1) { // Element node
+            if (node.querySelector && (
+              node.querySelector('#price-min') ||
+              node.querySelector('#thumb-min') ||
+              node.id === 'price-min' ||
+              node.id === 'thumb-min' ||
+              node.querySelector('.price-slider') ||
+              node.id === 'ProductGridContainer' ||
+              node.classList.contains('facets-container')
+            )) {
+              shouldReinitialize = true;
+            }
+          }
+        });
+
+        // Also check if existing nodes were modified (like class changes)
+        if (mutation.type === 'attributes' && mutation.target.id === 'ProductGridContainer') {
+          // Product grid finished loading
+          if (!mutation.target.classList.contains('loading')) {
+            shouldReinitialize = true;
+          }
+        }
+      });
+
+      if (shouldReinitialize) {
+        // Small delay to ensure DOM is fully updated after AJAX
+        setTimeout(() => {
+          console.log('Re-initializing price slider after AJAX update');
+          setupPriceSlider();
+        }, 200);
+      }
+    });
+
+    // Observe the document for changes with more comprehensive options
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class'] // Watch for class changes (like loading states)
+    });
+  }
+
+  // Start observing after initial load
+  document.addEventListener('DOMContentLoaded', observeForPriceSlider);
+
+  // Also listen for custom facets events
+  document.addEventListener('facets:updated', () => {
+    setTimeout(setupPriceSlider, 100);
+  });
+
+  // Listen for when AJAX requests complete (if the theme dispatches such events)
+  document.addEventListener('facets:rendered', () => {
+    setTimeout(setupPriceSlider, 100);
+  });
+
+  // Fallback for any other dynamic content changes
+  window.addEventListener('load', () => {
+    setTimeout(setupPriceSlider, 500);
+  });
+</script>

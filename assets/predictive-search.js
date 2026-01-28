@@ -34,7 +34,10 @@ class PredictiveSearch extends SearchForm {
     }
 
     // Update the term asap, don't wait for the predictive search query to finish loading
-    this.updateSearchForTerm(this.searchTerm, newSearchTerm);
+    // Only call updateSearchForTerm if we have a valid previous term
+    if (this.searchTerm && this.searchTerm.length > 0) {
+      this.updateSearchForTerm(this.searchTerm, newSearchTerm);
+    }
 
     this.searchTerm = newSearchTerm;
 
@@ -108,13 +111,18 @@ class PredictiveSearch extends SearchForm {
   updateSearchForTerm(previousTerm, newTerm) {
     const searchForTextElement = this.querySelector('[data-predictive-search-search-for-text]');
     const currentButtonText = searchForTextElement?.innerText;
-    if (currentButtonText) {
-      if (currentButtonText.match(new RegExp(previousTerm, 'g')).length > 1) {
-        // The new term matches part of the button text and not just the search term, do not replace to avoid mistakes
-        return;
+    if (currentButtonText && previousTerm && previousTerm.length > 0) {
+      try {
+        const matches = currentButtonText.match(new RegExp(previousTerm, 'g'));
+        if (matches && matches.length > 1) {
+          // The new term matches part of the button text and not just the search term, do not replace to avoid mistakes
+          return;
+        }
+        const newButtonText = currentButtonText.replace(previousTerm, newTerm);
+        searchForTextElement.innerText = newButtonText;
+      } catch (error) {
+        console.warn('Error updating search term:', error);
       }
-      const newButtonText = currentButtonText.replace(previousTerm, newTerm);
-      searchForTextElement.innerText = newButtonText;
     }
   }
 

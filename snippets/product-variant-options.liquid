@@ -5,8 +5,7 @@
   - product: {Object} product object.
   - option: {Object} current product_option object.
   - block: {Object} block object.
-  - picker_type: {String} type of picker to dispay
-
+  - picker_type: {String} type of picker to display
 
   Usage:
   {% render 'product-variant-options',
@@ -42,31 +41,30 @@
     -%}
 
     {%- capture input_id -%}
-    {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
-  {%- endcapture -%}
+      {{ section.id }}-{{ option.position }}-{{ forloop.index0 }}
+    {%- endcapture -%}
 
     {%- capture input_name -%}
-    {{ option.name }}-{{ option.position }}
-  {%- endcapture -%}
+      {{ option.name }}-{{ option.position }}
+    {%- endcapture -%}
 
     {%- capture input_dataset -%}
-    data-product-url="{{ value.product_url }}"
-    data-option-value-id="{{ value.id }}"
-  {%- endcapture -%}
+      data-product-url="{{ value.product_url }}"
+      data-option-value-id="{{ value.id }}"
+    {%- endcapture -%}
 
     {%- capture label_unavailable -%}
-    <span class="visually-hidden label-unavailable">
-      {{- 'products.product.variant_sold_out_or_unavailable' | t -}}
-    </span>
-  {%- endcapture -%}
+      <span class="visually-hidden label-unavailable">
+        {{- 'products.product.variant_sold_out_or_unavailable' | t -}}
+      </span>
+    {%- endcapture -%}
 
     {%- if picker_type == 'swatch' -%}
       {%- capture help_text -%}
-      <span class="visually-hidden  ">{{ value | escape }}</span>
-      {{ label_unavailable }}
-    {%- endcapture -%}
-      {%
-        render 'swatch-input',
+        <span class="visually-hidden">{{ value | escape }}</span>
+        {{ label_unavailable }}
+      {%- endcapture -%}
+      {% render 'swatch-input',
         id: input_id,
         name: input_name,
         value: value | escape,
@@ -85,13 +83,10 @@
         name="{{ input_name | escape }}"
         value="{{ value | escape }}"
         form="{{ product_form_id }}"
-        {% if value.selected %}
-          checked
-        {% endif %}
-        {% if option_disabled %}
-          class="disabled"
-        {% endif %}
+        {% if value.selected %}checked{% endif %}
+        {% if option_disabled %}class="disabled"{% endif %}
         {{ input_dataset }}
+        style="position: absolute; opacity: 0; pointer-events: none;"
       >
       {% if option.name == 'Colour' or option.name == 'Color' %}
         {% assign color_option_index = null %}
@@ -112,7 +107,7 @@
 
           {% if matched_variant and matched_variant.featured_image %}
             <label
-              class="t-mt-[10px] t-font-[100] t-aspect-square t-border-none t-p-0 t-m-0 t-w-[36px] t-h-[36px]  t-ms-[4px]"
+              class="matched-variant t-block t-mt-[10px] t-font-[100] t-w-fit t-h-fit t-aspect-square t-border t-border-gray-300 t-p-0 t-m-0 t-rounded t-cursor-pointer{% if option_disabled %} swatch swatch-strike{% endif %}"
               for="{{ input_id }}"
             >
               <img
@@ -120,29 +115,36 @@
                 alt="{{ value }}"
                 width="34"
                 height="34"
-                style="width: 34px; height: auto;"
+                style="width: 34px; height: auto; display: block;"
                 loading="lazy"
               >
             </label>
           {% else %}
-            <label class="t-font-[100]" for="{{ input_id }}">
+            <label
+              class="t-block t-w-full t-h-[36px] t-p-[10px] t-flex t-items-center t-justify-center t-whitespace-nowrap t-text-ellipsis t-cursor-pointer{% if option_disabled %} size-option-disabled{% endif %}"
+              for="{{ input_id }}"
+            >
               {{ value }}
             </label>
           {% endif %}
         {% endif %}
       {% else %}
-        <label class="t-font-[100]" for="{{ input_id }}">
-          {{ value -}}
+        <label
+          class="t-block t-w-full t-h-[36px] t-p-[10px] t-flex t-items-center t-justify-center t-whitespace-nowrap t-cursor-pointer{% if option_disabled %} size-option-disabled{% endif %}"
+          for="{{ input_id }}"
+        >
+          {{ value }}
           {{ label_unavailable }}
         </label>
-      {% endif %}
+
+          {% comment %} Add size-and-fit class back in when ready to update sizing  {% endcomment %}
+        {% endif %}
+       
     {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
       <option
         id="{{ input_id }}"
         value="{{ value | escape }}"
-        {% if value.selected %}
-          selected="selected"
-        {% endif %}
+        {% if value.selected %}selected="selected"{% endif %}
         {% if swatch_value and picker_type == 'swatch_dropdown' %}
           data-option-swatch-value="{{ swatch_value }}"
           {% if swatch_focal_point %}
@@ -160,3 +162,15 @@
     {%- endif -%}
   {% endif %}
 {%- endfor -%}
+
+
+{% assign _opt = option.name | downcase %}
+{% if _opt contains 'size' and picker_type == 'button' %}
+  <a
+    href="/pages/sizing-guide"
+    class="t-p-0 t-m-0 t-text-[#9e3223] t-text-[16px] t-cursor-pointer t-bg-white t-min-w-[max-content]"
+    title="View Sizing Guide"
+  >
+    Size & Fit
+  </a>
+{% endif %}

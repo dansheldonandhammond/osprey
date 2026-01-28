@@ -13,20 +13,133 @@
       "type": "main-page",
       "settings": {}
     },
-    "contact_form_jHjn9D": {
-      "type": "contact-form",
-      "name": "t:sections.contact-form.presets.name",
+    "header_override_FC7KKM": {
+      "type": "header-override",
+      "name": "Header Override",
       "settings": {
-        "heading": "Contact form",
-        "heading_size": "h1",
+        "override_enabled": true,
+        "header_position": "relative",
+        "header_background": "black",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "transparent"
+      }
+    },
+    "pages_content_fpK6kM": {
+      "type": "pages-content",
+      "blocks": {
+        "heading_3FT7jx": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading_block_heading_text": "Contact Us",
+            "heading_text_alignment": "center",
+            "heading_block_heading_tag": "h2",
+            "heading_block_heading_size_default": "3.2rem",
+            "heading_block_heading_size_large": "3.2rem",
+            "heading_block_heading_size_extra_large": "5.4rem",
+            "heading_block_font_weight": "t-font-semibold",
+            "heading_block_heading_case": "t-normalcase",
+            "heading_block_heading_font": "font-secondary",
+            "heading_block_top_default_padding": 0,
+            "heading_block_bottom_default_padding": 0,
+            "heading_block_top_large_padding": 0,
+            "heading_block_bottom_large_padding": 0,
+            "heading_block_max_width": 1920
+          }
+        },
+        "regular_richtext_mixDeF": {
+          "type": "regular_richtext",
+          "settings": {
+            "richtext_heading_text_alignment": "left",
+            "reg_rich_text": "<h2><strong>CONTACT INFORMATION</strong></h2><h3><strong><br/>Email Support</strong></h3><p>Fill out our <a href=\"https://support.ospreyaustralia.com.au/contact/osprey-contact-form-SyduMPUWx\"><span style=\"text-decoration:underline\"><strong>contact form</strong></span></a> and our customer service team will be in touch shortly. We're here to help with any questions about our products and services.</p><p><strong>Note:</strong> This support covers Australian enquiries only.<br/></p>",
+            "top_default_padding": 10,
+            "bottom_default_padding": 10,
+            "top_large_padding": 15,
+            "bottom_large_padding": 15,
+            "max_width": 1920,
+            "font_size_default": "1.9rem",
+            "font_size_above_lg": "1.9rem"
+          }
+        },
+        "button_XCLFBP": {
+          "type": "button",
+          "settings": {
+            "button_label_1": "Contact Form",
+            "button_link_1": "https://support.ospreyaustralia.com.au/contact/osprey-contact-form-SyduMPUWx",
+            "button_style_secondary_1": false
+          }
+        },
+        "regular_richtext_Qk4jwc": {
+          "type": "regular_richtext",
+          "settings": {
+            "richtext_heading_text_alignment": "left",
+            "reg_rich_text": "<h3><strong>Help Center Support<br/></strong></h3><p>Explore our <a href=\"https://support.ospreyaustralia.com.au/\" title=\"https://support.ospreyaustralia.com.au/\"><span style=\"text-decoration:underline\"><strong>Help Center</strong></span></a>  for step-by-step guides, FAQs, and more.</p>",
+            "top_default_padding": 50,
+            "bottom_default_padding": 10,
+            "top_large_padding": 50,
+            "bottom_large_padding": 15,
+            "max_width": 1920,
+            "font_size_default": "1.9rem",
+            "font_size_above_lg": "1.9rem"
+          }
+        },
+        "button_aqaB4B": {
+          "type": "button",
+          "settings": {
+            "button_label_1": "Help Center",
+            "button_link_1": "https://support.ospreyaustralia.com.au/",
+            "button_style_secondary_1": false
+          }
+        },
+        "regular_richtext_9DrjzF": {
+          "type": "regular_richtext",
+          "disabled": true,
+          "settings": {
+            "richtext_heading_text_alignment": "center",
+            "reg_rich_text": "<p>Get in touch and we'll get back to you as quick as possible.</p>",
+            "top_default_padding": 0,
+            "bottom_default_padding": 0,
+            "top_large_padding": 0,
+            "bottom_large_padding": 0,
+            "max_width": 1920,
+            "font_size_default": "1.9rem",
+            "font_size_above_lg": "1.9rem"
+          }
+        }
+      },
+      "block_order": [
+        "heading_3FT7jx",
+        "regular_richtext_mixDeF",
+        "button_XCLFBP",
+        "regular_richtext_Qk4jwc",
+        "button_aqaB4B",
+        "regular_richtext_9DrjzF"
+      ],
+      "name": "Page Blocks",
+      "settings": {
+        "top_default_padding": 0,
+        "bottom_default_padding": 50,
+        "top_large_padding": 0,
+        "bottom_large_padding": 50,
+        "section_max_width": 1300
+      }
+    },
+    "custom_liquid_PWENLU": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<script type=\"text/javascript\" src=\"https://form.jotform.com/jsform/252377036336862\"></script>",
         "color_scheme": "",
-        "padding_top": 60,
-        "padding_bottom": 64
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
   "order": [
     "main",
-    "contact_form_jHjn9D"
+    "header_override_FC7KKM",
+    "pages_content_fpK6kM",
+    "custom_liquid_PWENLU"
   ]
 }

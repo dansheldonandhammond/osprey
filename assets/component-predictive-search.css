@@ -7,7 +7,7 @@
   border-style: solid;
   border-color: rgba(var(--color-foreground), var(--popup-border-opacity));
   background-color: rgb(var(--color-background));
-  z-index: 3;
+  z-index: 150;
   border-bottom-right-radius: var(--popup-corner-radius);
   border-bottom-left-radius: var(--popup-corner-radius);
   box-shadow: var(--popup-shadow-horizontal-offset) var(--popup-shadow-vertical-offset) var(--popup-shadow-blur-radius)
@@ -69,9 +69,9 @@ predictive-search[loading] .predictive-search {
   gap: 2rem;
 }
 
-.predictive-search__result-group:first-child .predictive-search__pages-wrapper {
+/* .predictive-search__result-group:first-child .predictive-search__pages-wrapper {
   display: none;
-}
+} */
 
 /* @media screen and (min-width: 750px) {
   .predictive-search__results-groups-wrapper--no-products .predictive-search__result-group:nth-child(2),

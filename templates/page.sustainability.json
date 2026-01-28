@@ -31,46 +31,65 @@
         "bottom_border_colour": "transparent"
       }
     },
-    "about_us_section_KT6rFy": {
-      "type": "about-us-section",
+    "2_col_img_overlap_dkrWbR": {
+      "type": "2-col-img-overlap",
+      "name": "Two Column Overlap Layout",
+      "settings": {
+        "button_text": "",
+        "button_url": "",
+        "portrait_image": "shopify://shop_images/HOOSE-1315-sustain-grid-1_1.jpg",
+        "landscape_image": "shopify://shop_images/HOOSE-1315-sustain-grid-2.jpg",
+        "pretitle_line1": "",
+        "pretitle_line2": "",
+        "main_title": "COMMITTED TO SUSTAINABILITY",
+        "main_description": "<p>We truly cherish our planet and the opportunities it provides us—striving to be not only innovators of high-quality products, but responsible citizens who aim to tread lightly as we cherish the world we live, work and play in. Since becoming a bluesign® SYSTEM PARTNER, eliminating PFAS-based DWR in 100% of our textile products and increasing our investment in recycled fabrics, we continue to reduce environmental impacts and produce more sustainably designed products.</p>"
+      }
+    },
+    "collection_page_blocks_nD4hgH": {
+      "type": "collection-page-blocks",
       "blocks": {
-        "hero_header_XLNrf4": {
-          "type": "hero_header",
-          "disabled": true,
+        "hero_row_88PHyh": {
+          "type": "hero_row",
           "settings": {
-            "hero_background_image": "shopify://shop_images/who_are_we_desktop.webp",
-            "hero_title": "Who Are We",
-            "overlay_opacity": 70
+            "row_reverse": true,
+            "hero_image": "shopify://shop_images/HOOSE-2129-bsgi_d.webp",
+            "hero_subtitle": "",
+            "hero_title_part1": "Using bluesign® APPROVED Fabrics",
+            "hero_title_sup1": "",
+            "hero_title_part2": "",
+            "hero_title_sup2": "",
+            "hero_description": "Since becoming a bluesign SYSTEM PARTNER in 2021, the bluesign SYSTEM has provided us the necessary tools for the promotion, adoption and implementation of safe chemicals usage and responsible practices throughout our supply chain, focused on resources, people and the environment.",
+            "hero_button_text": "Shop Atmos | Aura",
+            "hero_button_url": "",
+            "hero_bg_color": "#f5f5f4",
+            "hero_text_color": "#000000",
+            "hero_button_bg_color": "#000000",
+            "hero_button_text_color": "#ffffff"
           }
         },
-        "our_roots_BdEp7w": {
-          "type": "our_roots",
+        "parallax_image_mTLXwJ": {
+          "type": "parallax_image",
           "settings": {
-            "section_title": "COMMITTED TO SUSTAINABILITY",
-            "portrait_image": "shopify://shop_images/HOOSE-1315-sustain-grid-1_1.jpg",
-            "portrait_alt_text": "Osprey original",
-            "landscape_image": "shopify://shop_images/HOOSE-1315-sustain-grid-2.jpg",
-            "landscape_alt_text": "Osprey Landscape",
-            "content_paragraph_1": "<p>We truly cherish our planet and the opportunities it provides us—striving to be not only innovators of high-quality products, but responsible citizens who aim to tread lightly as we cherish the world we live, work and play in. Since becoming a bluesign® SYSTEM PARTNER, eliminating PFAS-based DWR in 100% of our textile products and increasing our investment in recycled fabrics, we continue to reduce environmental impacts and produce more sustainably designed products.</p>",
-            "content_paragraph_2": "",
-            "content_paragraph_3": ""
+            "cta_bg_desktop": "shopify://shop_images/parallax-HOOSUS-674.webp",
+            "cta_title": "WE ARE CONTINUALLY EVOLVING OUR PROCESS AND FINDING WAYS TO KEEP OUR HIGH-QUALITY PRODUCTS IN USE FOR AS LONG AS POSSIBLE.",
+            "cta_button_text": "",
+            "cta_button_url": ""
           }
         }
       },
       "block_order": [
-        "hero_header_XLNrf4",
-        "our_roots_BdEp7w"
+        "hero_row_88PHyh",
+        "parallax_image_mTLXwJ"
       ],
-      "name": "Who Are We Page",
-      "settings": {
-        "page_title": "Who Are We"
-      }
+      "name": "Osprey Collection Page",
+      "settings": {}
     }
   },
   "order": [
     "main",
     "breadcrumbs_tUWc7P",
     "header_override_wBUJXg",
-    "about_us_section_KT6rFy"
+    "2_col_img_overlap_dkrWbR",
+    "collection_page_blocks_nD4hgH"
   ]
 }

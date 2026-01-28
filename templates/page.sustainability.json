@@ -1,0 +1,140 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "breadcrumbs_tUWc7P": {
+      "type": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "settings": {}
+    },
+    "header_override_wBUJXg": {
+      "type": "header-override",
+      "settings": {
+        "override_enabled": true,
+        "header_position": "relative",
+        "header_background": "black-transparent",
+        "navigation_text_colour": "white",
+        "bottom_border_colour": "transparent"
+      }
+    },
+    "about_us_section_KT6rFy": {
+      "type": "about-us-section",
+      "blocks": {
+        "hero_header_XLNrf4": {
+          "type": "hero_header",
+          "settings": {
+            "hero_background_image": "shopify://shop_images/who_are_we_desktop.webp",
+            "hero_title": "Who Are We",
+            "overlay_opacity": 70
+          }
+        },
+        "our_roots_BdEp7w": {
+          "type": "our_roots",
+          "settings": {
+            "section_title": "OUR ROOTS",
+            "portrait_image": "shopify://shop_images/19_EB_About_Us_Collage_Brick_Portrait_640x900_83c84d34-277e-4d82-9754-a76c370ece07.jpg",
+            "portrait_alt_text": "Osprey original",
+            "landscape_image": "shopify://shop_images/19_EB_About_Us_Collage_Brick_Landscape_960x540_75c3bcc9-a220-4341-8904-98aa8c01ec6c.webp",
+            "landscape_alt_text": "Osprey Landscape",
+            "content_paragraph_1": "<p>Since Osprey was founded in 1974, every single product design has passed through the hands of owner and founder Mike Pfotenhauer, who created his first backpack at age 16.</p>",
+            "content_paragraph_2": "<p>In Santa Cruz, California, the young entrepreneur opened a retail shop in the front of his rental house where backpackers and travelers came for custom-fit, made-to-order packs constructed over several days by Mike himself. As the demand for the great-fitting packs increased, Osprey found itself relocating to its current home in Southwest Colorado.</p>",
+            "content_paragraph_3": "<p>Today, Osprey is a melting pot of diverse personalities, backgrounds and abilities. All share the common belief that adventure is open to everyone and found anywhere.</p>"
+          }
+        },
+        "video_section_xJtMCH": {
+          "type": "video_section",
+          "settings": {
+            "video_url": "876062396",
+            "video_thumbnail": "shopify://shop_images/1-f33727e6.jpg",
+            "video_alt_text": "Play video",
+            "video_title": "Osprey",
+            "section_padding_top": 40,
+            "section_padding_bottom": 40
+          }
+        },
+        "two_column_content_6zNhD8": {
+          "type": "two_column_content",
+          "settings": {
+            "layout": "image_left",
+            "section_image": "shopify://shop_images/19_EB_Values_AMGValues.jpg",
+            "image_alt_text": "",
+            "section_title": "OUR VALUES",
+            "content_paragraph_1": "<p>Developed by Osprey employees, these guiding principles are our moral compass and an honest representation of our entire company.</p>",
+            "content_paragraph_2": "",
+            "highlight_text": "INNOVATION. INTEGRITY. QUALITY. RESPECT. STEWARDSHIP.",
+            "show_highlight_text": true,
+            "section_margin_top": 50,
+            "section_margin_bottom": 50
+          }
+        },
+        "video_section_dJ4RcX": {
+          "type": "video_section",
+          "settings": {
+            "video_url": "876062442",
+            "video_thumbnail": "shopify://shop_images/1-025a5b41.jpg",
+            "video_alt_text": "Play video",
+            "video_title": "",
+            "section_padding_top": 40,
+            "section_padding_bottom": 40
+          }
+        },
+        "two_column_content_3ALTaE": {
+          "type": "two_column_content",
+          "settings": {
+            "layout": "image_left",
+            "section_image": "shopify://shop_images/19_EB_Values_AMGAMG.webp",
+            "image_alt_text": "",
+            "section_title": "ALL MIGHTY GUARANTEE",
+            "content_paragraph_1": "<p>Since 1974, Osprey has been dedicated to designing and manufacturing high-quality products. If you discover any defect in material and workmanship under normal use and maintenance, we will repair or replace it free of charge.</p><p>For further details please see our <a href=\"https://ospreyaustralia.com.au/pages/all-mighty-guarantee-policy\" target=\"_blank\" title=\"https://ospreyaustralia.com.au/pages/all-mighty-guarantee-policy\">All Mighty Guarantee Policy </a>.Since 1974, Osprey has been dedicated to designing and manufacturing high-quality products. If you discover any defect in material and workmanship under normal use and maintenance, we will repair or replace it free of charge.</p><p>For further details please see our <a href=\"https://ospreyaustralia.com.au/pages/all-mighty-guarantee-policy\" target=\"_blank\" title=\"https://ospreyaustralia.com.au/pages/all-mighty-guarantee-policy\">All Mighty Guarantee Policy </a>.</p>",
+            "content_paragraph_2": "",
+            "highlight_text": "INNOVATION. INTEGRITY. QUALITY. RESPECT. STEWARDSHIP.",
+            "show_highlight_text": false,
+            "section_margin_top": 50,
+            "section_margin_bottom": 50
+          }
+        },
+        "mission_statement_UhgJtq": {
+          "type": "mission_statement",
+          "settings": {
+            "background_image": "shopify://shop_images/19_EB_About_Us_Parallax.webp",
+            "mission_label": "OUR MISSION:",
+            "mission_text": "WE RELENTLESSLY INNOVATE TO EASE YOUR JOURNEY AND INSPIRE ADVENTURE",
+            "overlay_opacity": 70,
+            "text_color": "#ffffff",
+            "section_margin_bottom": 50
+          }
+        }
+      },
+      "block_order": [
+        "hero_header_XLNrf4",
+        "our_roots_BdEp7w",
+        "video_section_xJtMCH",
+        "two_column_content_6zNhD8",
+        "video_section_dJ4RcX",
+        "two_column_content_3ALTaE",
+        "mission_statement_UhgJtq"
+      ],
+      "name": "Who Are We Page",
+      "settings": {
+        "page_title": "Who Are We"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "breadcrumbs_tUWc7P",
+    "header_override_wBUJXg",
+    "about_us_section_KT6rFy"
+  ]
+}

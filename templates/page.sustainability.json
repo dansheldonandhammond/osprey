@@ -55,67 +55,11 @@
             "content_paragraph_2": "",
             "content_paragraph_3": ""
           }
-        },
-        "two_column_content_6zNhD8": {
-          "type": "two_column_content",
-          "settings": {
-            "layout": "image_left",
-            "section_image": "shopify://shop_images/19_EB_Values_AMGValues.jpg",
-            "image_alt_text": "",
-            "section_title": "OUR VALUES",
-            "content_paragraph_1": "<p>Developed by Osprey employees, these guiding principles are our moral compass and an honest representation of our entire company.</p>",
-            "content_paragraph_2": "",
-            "highlight_text": "INNOVATION. INTEGRITY. QUALITY. RESPECT. STEWARDSHIP.",
-            "show_highlight_text": true,
-            "section_margin_top": 50,
-            "section_margin_bottom": 50
-          }
-        },
-        "video_section_dJ4RcX": {
-          "type": "video_section",
-          "settings": {
-            "video_url": "876062442",
-            "video_thumbnail": "shopify://shop_images/1-025a5b41.jpg",
-            "video_alt_text": "Play video",
-            "video_title": "",
-            "section_padding_top": 40,
-            "section_padding_bottom": 40
-          }
-        },
-        "two_column_content_3ALTaE": {
-          "type": "two_column_content",
-          "settings": {
-            "layout": "image_left",
-            "section_image": "shopify://shop_images/19_EB_Values_AMGAMG.webp",
-            "image_alt_text": "",
-            "section_title": "ALL MIGHTY GUARANTEE",
-            "content_paragraph_1": "<p>Since 1974, Osprey has been dedicated to designing and manufacturing high-quality products. If you discover any defect in material and workmanship under normal use and maintenance, we will repair or replace it free of charge.</p><p>For further details please see our <a href=\"https://ospreyaustralia.com.au/pages/all-mighty-guarantee-policy\" target=\"_blank\" title=\"https://ospreyaustralia.com.au/pages/all-mighty-guarantee-policy\">All Mighty Guarantee Policy </a>.Since 1974, Osprey has been dedicated to designing and manufacturing high-quality products. If you discover any defect in material and workmanship under normal use and maintenance, we will repair or replace it free of charge.</p><p>For further details please see our <a href=\"https://ospreyaustralia.com.au/pages/all-mighty-guarantee-policy\" target=\"_blank\" title=\"https://ospreyaustralia.com.au/pages/all-mighty-guarantee-policy\">All Mighty Guarantee Policy </a>.</p>",
-            "content_paragraph_2": "",
-            "highlight_text": "INNOVATION. INTEGRITY. QUALITY. RESPECT. STEWARDSHIP.",
-            "show_highlight_text": false,
-            "section_margin_top": 50,
-            "section_margin_bottom": 50
-          }
-        },
-        "mission_statement_UhgJtq": {
-          "type": "mission_statement",
-          "settings": {
-            "background_image": "shopify://shop_images/19_EB_About_Us_Parallax.webp",
-            "mission_label": "OUR MISSION:",
-            "mission_text": "WE RELENTLESSLY INNOVATE TO EASE YOUR JOURNEY AND INSPIRE ADVENTURE",
-            "overlay_opacity": 70,
-            "text_color": "#ffffff",
-            "section_margin_bottom": 50
-          }
         }
       },
       "block_order": [
         "hero_header_XLNrf4",
-        "our_roots_BdEp7w",
-        "two_column_content_6zNhD8",
-        "video_section_dJ4RcX",
-        "two_column_content_3ALTaE",
-        "mission_statement_UhgJtq"
+        "our_roots_BdEp7w"
       ],
       "name": "Who Are We Page",
       "settings": {

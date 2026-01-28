@@ -67,25 +67,6 @@
             "hero_button_text_color": "#ffffff"
           }
         },
-        "hero_row_jGCEBE": {
-          "type": "hero_row",
-          "settings": {
-            "row_reverse": false,
-            "hero_image": "shopify://shop_images/HOOSE-1315-sustain-grid-4.jpg",
-            "hero_subtitle": "",
-            "hero_title_part1": "",
-            "hero_title_sup1": "",
-            "hero_title_part2": "OSPREY X EOCA CONSERVATION",
-            "hero_title_sup2": "",
-            "hero_description": "We want to give back to the areas we love to explore. To this, we have partnered with European Outdoor Conservation Association, or EOCA for short, for over 10 years supporting numerous projects ranging from habitat restoration for Brown bears in Italy to rewilding of meadows in Yorkshire (UK).",
-            "hero_button_text": "",
-            "hero_button_url": "",
-            "hero_bg_color": "#ffffff",
-            "hero_text_color": "#000000",
-            "hero_button_bg_color": "#000000",
-            "hero_button_text_color": "#ffffff"
-          }
-        },
         "hero_row_kp8mUV": {
           "type": "hero_row",
           "settings": {
@@ -97,6 +78,25 @@
             "hero_title_part2": "A LIFETIME OF ADVENTURE",
             "hero_title_sup2": "",
             "hero_description": "Our All Mighty Guarantee Program gives repairable packs a second wind, extending their useful life for years to come and ensuring the original resources invested are put to their greatest use.",
+            "hero_button_text": "",
+            "hero_button_url": "",
+            "hero_bg_color": "#ffffff",
+            "hero_text_color": "#000000",
+            "hero_button_bg_color": "#000000",
+            "hero_button_text_color": "#ffffff"
+          }
+        },
+        "hero_row_jGCEBE": {
+          "type": "hero_row",
+          "settings": {
+            "row_reverse": true,
+            "hero_image": "shopify://shop_images/HOOSE-1315-sustain-grid-4.jpg",
+            "hero_subtitle": "",
+            "hero_title_part1": "",
+            "hero_title_sup1": "",
+            "hero_title_part2": "OSPREY X EOCA CONSERVATION",
+            "hero_title_sup2": "",
+            "hero_description": "We want to give back to the areas we love to explore. To this, we have partnered with European Outdoor Conservation Association, or EOCA for short, for over 10 years supporting numerous projects ranging from habitat restoration for Brown bears in Italy to rewilding of meadows in Yorkshire (UK).",
             "hero_button_text": "",
             "hero_button_url": "",
             "hero_bg_color": "#ffffff",
@@ -117,8 +117,8 @@
       },
       "block_order": [
         "hero_row_88PHyh",
-        "hero_row_jGCEBE",
         "hero_row_kp8mUV",
+        "hero_row_jGCEBE",
         "parallax_image_mTLXwJ"
       ],
       "name": "Osprey Collection Page",

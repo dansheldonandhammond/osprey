@@ -67,6 +67,42 @@
             "hero_button_text_color": "#ffffff"
           }
         },
+        "hero_row_jGCEBE": {
+          "type": "hero_row",
+          "settings": {
+            "row_reverse": false,
+            "hero_subtitle": "Ultra-Premium Comfort",
+            "hero_title_part1": "Atmos",
+            "hero_title_sup1": "TM",
+            "hero_title_part2": "Aura",
+            "hero_title_sup2": "TM",
+            "hero_description": "Experience a seamless, wraparound fit with AntiGravityTM suspension and enhanced pocketing for all-day comfort on the trail.",
+            "hero_button_text": "Shop Atmos | Aura",
+            "hero_button_url": "",
+            "hero_bg_color": "#f5f5f4",
+            "hero_text_color": "#000000",
+            "hero_button_bg_color": "#000000",
+            "hero_button_text_color": "#ffffff"
+          }
+        },
+        "hero_row_kp8mUV": {
+          "type": "hero_row",
+          "settings": {
+            "row_reverse": false,
+            "hero_subtitle": "Ultra-Premium Comfort",
+            "hero_title_part1": "Atmos",
+            "hero_title_sup1": "TM",
+            "hero_title_part2": "Aura",
+            "hero_title_sup2": "TM",
+            "hero_description": "Experience a seamless, wraparound fit with AntiGravityTM suspension and enhanced pocketing for all-day comfort on the trail.",
+            "hero_button_text": "Shop Atmos | Aura",
+            "hero_button_url": "",
+            "hero_bg_color": "#f5f5f4",
+            "hero_text_color": "#000000",
+            "hero_button_bg_color": "#000000",
+            "hero_button_text_color": "#ffffff"
+          }
+        },
         "parallax_image_mTLXwJ": {
           "type": "parallax_image",
           "settings": {
@@ -79,6 +115,8 @@
       },
       "block_order": [
         "hero_row_88PHyh",
+        "hero_row_jGCEBE",
+        "hero_row_kp8mUV",
         "parallax_image_mTLXwJ"
       ],
       "name": "Osprey Collection Page",

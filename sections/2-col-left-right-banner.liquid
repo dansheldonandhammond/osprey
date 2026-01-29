@@ -5,6 +5,10 @@
   - Supports reverse layout option
 {% endcomment %}
 
+    <style>
+      .align-text { text-align: var(--align-text, 20px) }
+    </style>
+
 {% if section.settings.image_1 != blank %}
   {% assign has_image = true %}
 {% else %}
@@ -20,7 +24,9 @@
       class="t-relative t-flex t-flex-col t-justify-center t-items-center t-text-center t-mx-auto t-w-full t-overflow-hidden"
       style="background-image: url('{{ section.settings.image_1 | image_url: width: 2000 }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 400px; padding: 20px;"
     >
-      <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4 t-text-[19px] t-leading-[4.2px]">
+
+      <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4 t-text-[19px] t-leading-[4.2px] align-text"  style="--align-text: {{ section.settings.align-text }}">
+      
         {% comment %} Pre-text Icon {% endcomment %}
         {% if section.settings['pre-text-1'] != empty %}
           <p class="t-text-white">{{ section.settings['pre-text-1'] }}</p>
@@ -137,6 +143,11 @@
       "type": "text",
       "id": "pre-text-1",
       "label": "Pre-text/Icon"
+    },
+    {
+      "type": "text",
+      "id": "align-text",
+      "label": "Text Align"
     },
     {
       "type": "text",

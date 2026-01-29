@@ -81,7 +81,6 @@
     "string-width-cjs": "^5.1.1",
     "sucrase": "^3.35.0",
     "supports-preserve-symlinks-flag": "^1.0.0",
-    "tailwind": "^2.3.1",
     "tailwindcss-base-font-size": "^1.0.1",
     "thenify": "^3.3.1",
     "thenify-all": "^1.6.0",
@@ -92,7 +91,7 @@
     "yaml": "^2.4.1"
   },
   "scripts": {
-    "shopify": "shopify theme dev --store rxxx00-jb.myshopify.com",
+    "shopify": "shopify theme dev --store rxxx00-jb.myshopify.com --poll",
     "push": "shopify theme push --store rxxx00-jb.myshopify.com",
     "pull": "shopify theme pull --store rxxx00-jb.myshopify.com",
     "tailwind:watch": "npx tailwindcss -i ./style.css -o ./assets/tailwind.css --watch"
@@ -104,9 +103,7 @@
   "devDependencies": {
     "@shopify/prettier-plugin-liquid": "^1.8.3",
     "@tailwindcss/typography": "^0.5.16",
-    "chokidar": "^5.0.0",
-    "prettier": "prettier",
-    "prettier-plugin-liquid": "^0.0.1-security",
-    "tailwindcss": "^3.4.3"
+    "tailwindcss": "^3.4.3",
+    "chokidar": "^5.0.0"
   }
 }

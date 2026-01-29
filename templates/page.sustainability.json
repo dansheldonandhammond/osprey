@@ -45,6 +45,53 @@
         "main_description": "<p>We truly cherish our planet and the opportunities it provides us—striving to be not only innovators of high-quality products, but responsible citizens who aim to tread lightly as we cherish the world we live, work and play in. Since becoming a bluesign® SYSTEM PARTNER, eliminating PFAS-based DWR in 100% of our textile products and increasing our investment in recycled fabrics, we continue to reduce environmental impacts and produce more sustainably designed products.</p>"
       }
     },
+    "our_guiding_pillars_kUWEJE": {
+      "type": "our-guiding-pillars",
+      "blocks": {
+        "pillar_c8AqmB": {
+          "type": "pillar",
+          "settings": {
+            "pillarImage": "shopify://shop_images/HOOSUS-674-3.webp",
+            "pillarHeading": "Applying Durable Water Repellant (DWR) Treatment Made Without PFAS",
+            "pillarColour": "#195e56"
+          }
+        },
+        "pillar_YjaiDN": {
+          "type": "pillar",
+          "settings": {
+            "pillarImage": "shopify://shop_images/HOOSUS-674-1.webp",
+            "pillarHeading": "Sourcing Recycled Materials",
+            "pillarColour": "#195e56"
+          }
+        },
+        "pillar_nTt7xn": {
+          "type": "pillar",
+          "settings": {
+            "pillarImage": "shopify://shop_images/HOOSUS-674-4.webp",
+            "pillarHeading": "Establishing Build Quality For A Lifetime Of Use",
+            "pillarColour": "#195e56"
+          }
+        },
+        "pillar_Ntx9k7": {
+          "type": "pillar",
+          "settings": {
+            "pillarImage": "shopify://shop_images/HOOSUS-674-2.webp",
+            "pillarHeading": "Improving our community, company and planet",
+            "pillarColour": "#195e56"
+          }
+        }
+      },
+      "block_order": [
+        "pillar_c8AqmB",
+        "pillar_YjaiDN",
+        "pillar_nTt7xn",
+        "pillar_Ntx9k7"
+      ],
+      "name": "Guiding Pillars",
+      "settings": {
+        "mainheading": "OUR GUIDING PILLARS"
+      }
+    },
     "collection_page_blocks_nD4hgH": {
       "type": "collection-page-blocks",
       "blocks": {
@@ -130,6 +177,7 @@
     "breadcrumbs_tUWc7P",
     "header_override_wBUJXg",
     "2_col_img_overlap_dkrWbR",
+    "our_guiding_pillars_kUWEJE",
     "collection_page_blocks_nD4hgH"
   ]
 }

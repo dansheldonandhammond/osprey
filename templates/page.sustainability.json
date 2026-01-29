@@ -155,6 +155,7 @@
         "parallax_image_mTLXwJ": {
           "type": "parallax_image",
           "settings": {
+            "cta_bg_mobile": "shopify://shop_images/parallax-HOOSUS-674.webp",
             "cta_bg_desktop": "shopify://shop_images/parallax-HOOSUS-674.webp",
             "cta_title": "WE ARE CONTINUALLY EVOLVING OUR PROCESS AND FINDING WAYS TO KEEP OUR HIGH-QUALITY PRODUCTS IN USE FOR AS LONG AS POSSIBLE.",
             "cta_button_text": "",

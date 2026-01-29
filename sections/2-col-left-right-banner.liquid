@@ -25,7 +25,7 @@
       style="background-image: url('{{ section.settings.image_1 | image_url: width: 2000 }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 400px; padding: 20px;"
     >
 
-      <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4 t-text-[19px] t-leading-[4.2px] align-text"  style="--align-text: {{ section.settings.align-text }}">
+      <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4 t-text-[19px] t-leading-[4.2px]">
       
         {% comment %} Pre-text Icon {% endcomment %}
         {% if section.settings['pre-text-1'] != empty %}
@@ -66,7 +66,7 @@
 
       <div class="t-relative t-z-[1] t-flex t-flex-col t-items-center t-gap-3 t-px-4">
         <h2 class="t-text-[32px] md:t-text-[48px] t-leading-tight t-text-white">Left Column Heading</h2>
-        <p class="t-text-white t-max-w-[52ch]">
+        <p class="t-text-white t-max-w-[52ch] align-text"  style="--align-text: {{ section.settings.align-text }}">
           Placeholder description for the left column. This block can be updated with your own text in the editor.
         </p>
         <a

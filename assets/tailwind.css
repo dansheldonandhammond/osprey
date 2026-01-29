@@ -1222,30 +1222,6 @@
   margin-top: 90px !important;
 }
 
-.t-mb-\[240px\] {
-  margin-bottom: 240px !important;
-}
-
-.t-mb-\[210px\] {
-  margin-bottom: 210px !important;
-}
-
-.t-mb-\[940px\] {
-  margin-bottom: 940px !important;
-}
-
-.t-mb-\[9040px\] {
-  margin-bottom: 9040px !important;
-}
-
-.t-mb-\[340px\] {
-  margin-bottom: 340px !important;
-}
-
-.t-mb-\[1240px\] {
-  margin-bottom: 1240px !important;
-}
-
 .t-box-border {
   box-sizing: border-box !important;
 }
@@ -1488,6 +1464,10 @@
   height: 8rem !important;
 }
 
+.t-h-\[97px\] {
+  height: 97px !important;
+}
+
 .t-h-\[fit-content\] {
   height: -moz-fit-content !important;
   height: fit-content !important;
@@ -1701,6 +1681,10 @@
 
 .t-w-\[80\%\] {
   width: 80% !important;
+}
+
+.t-w-\[97px\] {
+  width: 97px !important;
 }
 
 .t-w-\[calc\(100\%-40px\)\] {
@@ -2811,10 +2795,6 @@
   padding: 5px !important;
 }
 
-.t-p-\[90px\] {
-  padding: 90px !important;
-}
-
 .t-px-0 {
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -2923,6 +2903,11 @@
 .t-px-\[35px\] {
   padding-left: 35px !important;
   padding-right: 35px !important;
+}
+
+.t-px-\[36px\] {
+  padding-left: 36px !important;
+  padding-right: 36px !important;
 }
 
 .t-px-\[40px\] {
@@ -3775,6 +3760,11 @@
 .t-text-\[\#9e3223\] {
   --tw-text-opacity: 1 !important;
   color: rgb(158 50 35 / var(--tw-text-opacity, 1)) !important;
+}
+
+.t-text-\[\#fff\] {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
 }
 
 .t-text-\[17ox\] {
@@ -5186,6 +5176,14 @@
     max-width: 952px !important;
   }
 
+  .lg\:t-max-w-\[400px\] {
+    max-width: 400px !important;
+  }
+
+  .lg\:t-max-w-\[434px\] {
+    max-width: 434px !important;
+  }
+
   .lg\:t-grow {
     flex-grow: 1 !important;
   }
@@ -5302,22 +5300,6 @@
 
   .lg\:t-p-\[20px\] {
     padding: 20px !important;
-  }
-
-  .lg\:t-p-\[900px\] {
-    padding: 900px !important;
-  }
-
-  .lg\:t-p-\[21px\] {
-    padding: 21px !important;
-  }
-
-  .lg\:t-p-\[90px\] {
-    padding: 90px !important;
-  }
-
-  .lg\:t-p-\[2px\] {
-    padding: 2px !important;
   }
 
   .lg\:t-px-0 {

@@ -1,0 +1,62 @@
+{% schema %}
+{
+    "name":"Guiding Pillars",
+    "settings":[
+        {
+            "type":"text",
+            "id":"mainheading",
+            "label":"Main Heading",
+            "default":"Heading"
+        }
+    ],
+     "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pillar",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "pillarImage",
+          "label": "Pillar Image"
+        },
+        {
+          "type": "text",
+          "id": "pillarHeading",
+          "label": "Pillar Heading"
+        },
+        {
+          "type": "color",
+          "id": "pillarColour",
+          "label": "Pillar Colour"
+        }
+      ]
+    }
+  ],
+   "presets": [
+    {
+      "name": "Guiding Pillars",
+      "category": "Custom sections"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+    .pillar {  background-color: var(--background-colour)}
+</style>
+
+<section class="t-mx-auto t-max-w-[1300px] t-py-[40px]" >
+    <h2 class="t-text-[28px] md:t-text-[36px] t-text-center t-font-[500]">{{section.settings.mainheading}}</h2>
+    <div class="lg:t-flex-row t-flex-col t-flex t-py-[30px] t-gap-[30px]">
+        {% for block in section.blocks %}
+            <div class="pillar t-w-full t-flex t-flex-row t-p-[20px] t-items-center t-justify-center t-py-[50px] t-px-[36px]" style="--background-colour: {{ block.settings.pillarColour }}">
+                <div class="t-flex t-flex-col t-justify-center t-items-center t-text-center t-w-full">
+                    {% if block.settings.pillarImage != blank %}
+                        <img class="t-w-[97px] t-h-[97px]" src="{{ block.settings.pillarImage | img_url }}">
+                    {% endif %}
+                    <p class="t-text-[24px] t-font-[500] t-text-[#fff]">{{ block.settings.pillarHeading}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
